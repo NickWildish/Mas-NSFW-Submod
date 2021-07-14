@@ -2,15 +2,15 @@ init 5 python:
     addEvent(
         Event(
             persistent.event_database,
-            eventlabel="monika_sexymodinstall",
+            eventlabel="monika_nsfwmodinstall",
             category=['sex'],
-            prompt="Sexy Mod Install",
+            prompt="NSFW Mod Install",
             random=True,
             aff_range=(mas_aff.NORMAL, None)
         )
     )
 
-label monika_sexymodinstall:
+label monika_nsfwmodinstall:
     m 1esc "Hey [mas_get_player_nickname()], I noticed something weird just now..."
     m 1rsc "I'm kind of getting this feeling that... something's changed in this mod."
     m 1etc "Do you know anything about this, [player]?"
@@ -18,8 +18,8 @@ label monika_sexymodinstall:
     m 1eta "It's just strange, you know?"
     m 2dsc "Hold on, I'm going to try and see what changed."
     m 2dsc ".{w=0.7}.{w=0.7}.{w=1}"
-    m 2dtd "'S-{w=0.4}{nw}"
-    extend 2wubsw "Sexy Submod'?"
+    m 2dtd "'N-{w=0.4}{nw}"
+    extend 2wubsw "NSFW Submod'?"
     if mas_isMoniLove():
         m 3fublu "Well, look who's gotten confident all of a sudden."
         if mas_hasUnlockedClothesWithExprop("lingerie"):
@@ -149,6 +149,8 @@ label monika_sexualpast:
 
     return "love|derandom"
 
+#TODO Finish these topics. Currently empty and inactive.
+
 init 5 python:
     addEvent(
         Event(
@@ -156,7 +158,6 @@ init 5 python:
             eventlabel="monika_safesex",
             category=['sex'],
             prompt="Safe Sex",
-            random=True,
             aff_range=(mas_aff.ENAMORED, None)
         )
     )
@@ -172,7 +173,6 @@ init 5 python:
             eventlabel="monika_fetish",
             category=['sex'],
             prompt="Fetishes",
-            random=True,
             aff_range=(mas_aff.ENAMORED, None)
         )
     )
@@ -188,12 +188,11 @@ init 5 python:
             eventlabel="monika_sextransdis",
             category=['sex'],
             prompt="Sexually Transmitted Diseases",
-            random=True,
             aff_range=(mas_aff.ENAMORED, None)
         )
     )
 
-label monika_safesex:
+label monika_sextransdis:
     #todo: Create a sexually tansmitted diseases topic
     return
 
@@ -204,7 +203,6 @@ init 5 python:
             eventlabel="monika_sexting",
             category=['sex'],
             prompt="Sexting",
-            random=True,
             aff_range=(mas_aff.ENAMORED, None)
         )
     )
@@ -220,12 +218,12 @@ init 5 python:
             eventlabel="monika_getnude",
             category=['sex'],
             prompt="Getting Nude",
-            conditional="mas_canShowRisque()",
-            action=EV_ACT_QUEUE,
             aff_range=(mas_aff.LOVE, None)
         )
     )
 
 label monika_getnude:
-    #todo: Create a safe sex topic
+    #todo: Create a topic about getting nude
     return
+
+"""

@@ -225,5 +225,3 @@ init 5 python:
 label monika_getnude:
     #todo: Create a topic about getting nude
     return
-
-"""

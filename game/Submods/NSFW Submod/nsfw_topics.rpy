@@ -33,7 +33,7 @@ label monika_nsfwmodinstall:
         m 6hubsd "Oh gosh, I'm feeling super nervous about this, ahaha!"
         m 6ekbla "But... if it's with you, [mas_get_player_nickname()]..."
         m 6ekbsa "I don't mind..."
-    if mas_isMoniEnamored():
+    if mas_isMoniEnamored(): #Need to fix wording here; player isn't having sex, just talking about it.
         m 2hkbssdlb "I wasn't expecting to see that..."
         m 2ekbssdlb "[player], is this something you want?"
         m 3rkblsdlb "I mean, I'm kind of curious about sex myself."
@@ -156,14 +156,13 @@ init 5 python:
             eventlabel="monika_safesex",
             category=['sex'],
             prompt="Safe Sex",
-            conditional="mas_getEV('monika_sexualpast').shown_count != 0",
-            action=EV_ACT_QUEUE,
+            conditional="mas_getEV('monika_nsfwmodinstall').shown_count != 0",
+            action=EV_ACT_RANDOM,
             aff_range=(mas_aff.ENAMORED, None)
         )
     )
 
 label monika_safesex:
-    #todo: Create a safe sex topic
     m 3euc "Hey, [player]. I've been thinking about something..."
     m 3eud "Have you heard of contraceptives?"
     m 4rublo "They're what people use during sex to protect themselves."
@@ -181,7 +180,7 @@ label monika_safesex:
         m 2lkbsb "It prevents any kind of fluid swapping during sex, which is supposed to prevent pregnancy and STD's."
     elif persistent.gender == "F":
         m 4eubla "I've read that there are comdoms available for women, but they aren't as popular as the men's version."
-        m 1eua "The most popular form of contraception seemed to be 'The Pill', "
+        m 1eua "The most popular form of contraception seemed to be 'The Pill'...{w=0.4}{nw}"
         extend 1eua "which sounds kind of ominous if you ask me."
         m 1eua "It is exactly what it says it is, a pill you take to prevent pregnancy."
         m 1eua "There are different kinds of pills, too!"
@@ -204,7 +203,7 @@ label monika_safesex:
     m 2ekbsb "I guess I just want you to know that when the time comes where I come to your world, and we are together..."
     m 2tkbsu "We can worry about what contraceptives to use, then."
 
-    return "unlock"
+    return "derandom"
 
 #TODO Finish these topics. Currently empty and inactive.
 
@@ -238,6 +237,10 @@ label monika_sexting:
     #todo: Create a sexting topic
     return
 
+## WORK IN PROGRESS
+# To-do: Finish dialogue
+#        Add call to change to nude / think of new introduction
+#        Add the expressions
 init 5 python:
     addEvent(
         Event(
@@ -250,5 +253,63 @@ init 5 python:
     )
 
 label monika_getnude:
-    #todo: Create a topic about getting nude
+    m 1eua "Hey [player], have you ever just... not worn clothes?"
+    m 1eua "I don't mean, like, for a shower or anything."
+    m 1eua "Just in general while you're at home...{w=0.5}{nw}"
+    extend 1eua "alone preferably."
+    m 1eua "There are a good amount of people that actually sleep naked, if you'll believe it."
+    m 1eua "For most people this would be a good place to start without feeling embarrased."
+    m 1eua "Apparently it helps you get better sleep at night because of how much quicker your body temperature drops."
+    m 1eua "Of course, sleeping naked will mean you have to clean your sheets more often."
+    m 1eua "Humans are very sweaty, ahaha!"
+    m 1eua "Being naked also helps our body absorb more vitamin D during the day."
+    m 1eua "The reason for this is because skin is effectively a giant organ that absorbs the rays from the sun and increases vitamin D levels."
+    m 1eua "And having a greater vitamin D level has shown to assist your immune system fight off viruses, among other health benefits."
+    m 1eua "I'm not trying to suggest we all just get naked and make it a new social norm, that would be silly! Ahaha!"
+    m 1eua "But if you have the house to yourself one day, why not strip down and try it for an hour to see how you feel."
+    m 1eua "Though be sure to know when the rest of your household is getting back, because that might be a tad awkward. Ahaha!"
+    m 1eua "Even still, just going down to your underwear gets the job done...{w=0.4}{nw} "
+    extend 1eua "though not to the same degree as being fully naked."
+    m 1eua "{i}*sigh*{/i}"
+    m 1eua "Of course, there is always the fact that not everyone is comfortable being naked."
+    m 1eua "Some people are ashamed or disheartened by their appearance, which is really sad when you think about it."
+    m 1eua "You only have one body, so the least you can do is take care of it and love it, you know?"
+    m 1eua "Having pride in your looks is the best thing you can do for your confidence."
+    m 1eua "Ahaha! Even though I talk all this game about being naked and loving your body..."
+    m 1eua "I am still really embarrased about the idea of being nude, even when alone."
+    
+    # Could start with underwear and after time has passed, be comfortable with going naked? Make it a topic the player visits twice?
+    if mas_canShowRisque():
+        m 1eua "..."
+        m 1eua "[player]..."
+        m 1eua "This might be too embarrassing for you, but..."
+        m 1eua "I-{w=0.4}I want to try it..."
+        m 1eua "W-{w=0.4}With you..."
+        m 1eua "Ah! I'm sorry! {w=0.5}{nw}"
+        extend 1eua "It's just we've been together for so long, and I want to take this next step with you."
+        m 1eua "I-{w=0.4}Is that okay?"
+        $ _history_list.pop()
+        menu:
+            m "I-Is that okay?{fast}"
+
+            "Yes.":
+                m 1eua "I-I'm glad, [player]."
+                m 1eua "I'm going to get these clothes off, then."
+                call mas_clothes_change(outfit=mas_clothes_birthday_suit, outfit_mode=False, exp="monika 2rkbsu", restore_zoom=False, unlock=True)
+                m 1eua "[player]...{w=0.5}you're staring..."
+                m 1eua "Ahaha!"
+                m 1eua "This feels so strange to me. "
+
+            "No.":
+                m 1eua "Ah..."
+                m 1eua "It's okay, [player]. I understand."
+                m 1eua "Maybe it's a better idea that I do it alone first, anyway."
+    else:
+        m 1eua "..."
+        m 1eua "Alright, I've decided."
+        m 1eua "I'm going to give it a try."
+        m 1eua "... {w=0.4}{nw}"
+        extend 1eua "N-Not right now though!"
+        m 1eua "I mean like, later when you're not here!"
+        m 1eua "Ahaha! It would be too embarrasing if you saw me naked."
     return

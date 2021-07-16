@@ -253,6 +253,8 @@ init 5 python:
     )
 
 label monika_getnude:
+    $ import mas_nsfw
+
     m 1eua "Hey [player], have you ever just... not worn clothes?"
     m 1eua "I don't mean, like, for a shower or anything."
     m 1eua "Just in general while you're at home...{w=0.5}{nw}"
@@ -265,51 +267,84 @@ label monika_getnude:
     m 1eua "Being naked also helps our body absorb more vitamin D during the day."
     m 1eua "The reason for this is because skin is effectively a giant organ that absorbs the rays from the sun and increases vitamin D levels."
     m 1eua "And having a greater vitamin D level has shown to assist your immune system fight off viruses, among other health benefits."
-    m 1eua "I'm not trying to suggest we all just get naked and make it a new social norm, that would be silly! Ahaha!"
+    m 1eua "I'm not trying to say we all need to get naked and make it a new social norm, that would be silly! Ahaha!"
     m 1eua "But if you have the house to yourself one day, why not strip down and try it for an hour to see how you feel."
-    m 1eua "Though be sure to know when the rest of your household is getting back, because that might be a tad awkward. Ahaha!"
-    m 1eua "Even still, just going down to your underwear gets the job done...{w=0.4}{nw} "
+    m 1eua "Though be sure you know when the rest of your household is getting back, because that might be a tad awkward. Ahaha!"
+    m 1eua "If that's too much, even just going down to your underwear gets the job done...{w=0.4}{nw} "
     extend 1eua "though not to the same degree as being fully naked."
     m 1eua "{i}*sigh*{/i}"
     m 1eua "Of course, there is always the fact that not everyone is comfortable being naked."
     m 1eua "Some people are ashamed or disheartened by their appearance, which is really sad when you think about it."
     m 1eua "You only have one body, so the least you can do is take care of it and love it, you know?"
-    m 1eua "Having pride in your looks is the best thing you can do for your confidence."
-    m 1eua "Ahaha! Even though I talk all this game about being naked and loving your body..."
-    m 1eua "I am still really embarrased about the idea of being nude, even when alone."
-    
-    # Could start with underwear and after time has passed, be comfortable with going naked? Make it a topic the player visits twice?
-    if mas_canShowRisque():
+    m 1eua "Having pride in what you look like is the best thing you can do for your confidence!"
+
+    if mas_getEVL_shown_count("monika_getnude") > 2:
+        m 1eua "You're already familar with how I've been doing this while you've been away."
+        m 1eua "And I've got to say, it's been great!"
+        m 1eua "It's not for everyone though, so don't feel like I'm pressuring you..."
+        m 1eua "I love you, [mas_get_player_nickname()]. Both with clothes, and without."
         m 1eua "..."
-        m 1eua "[player]..."
-        m 1eua "This might be too embarrassing for you, but..."
-        m 1eua "I-{w=0.4}I want to try it..."
-        m 1eua "W-{w=0.4}With you..."
-        m 1eua "Ah! I'm sorry! {w=0.5}{nw}"
-        extend 1eua "It's just we've been together for so long, and I want to take this next step with you."
-        m 1eua "I-{w=0.4}Is that okay?"
+        m 1eua "Ah!{w=0.4}{nw} "
+        extend 1eua "Sorry, my mind was starting to wander..."
+        m 1eua "Gosh, don't mind me."
+    elif mas_nsfw.canShow_birthdaySuit():
+        m 1eua "..."
+        m 1eua "Hey, [player]..."
+        m 1eua "Do you remember last time when I asked you if it was okay to be undressed around you?"
+        m 1eua "Well, I recently tried taking off... everything..."
+        m 1eua "And I really liked it."
+        m 1eua "I don't know if you've ever tried it before, [player]. But I thought the feeling was amazing."
+        m 1eua "Ahaha! Maybe that feeling wouldn't be so great if someone saw you though..."
+        m 1eua "But I wanted to bring this up again because..."
+        m 1eua "I was wondering if you wouldn't mind..."
+        m 1eua "Can I be n-{w=0.2}naked while you're here?"
         $ _history_list.pop()
         menu:
-            m "I-Is that okay?{fast}"
-
+            m "Can I be n-naked while you're here?{fast}"
+            
             "Yes.":
-                m 1eua "I-I'm glad, [player]."
-                m 1eua "I'm going to get these clothes off, then."
-                call mas_clothes_change(outfit=mas_clothes_birthday_suit, outfit_mode=False, exp="monika 2rkbsu", restore_zoom=False, unlock=True)
-                m 1eua "[player]...{w=0.5}you're staring..."
-                m 1eua "Ahaha!"
-                m 1eua "This feels so strange to me. "
-
+                m 1eua "I'm glad!" #temp
             "No.":
-                m 1eua "Ah..."
-                m 1eua "It's okay, [player]. I understand."
-                m 1eua "Maybe it's a better idea that I do it alone first, anyway."
+                m 1eua "I'm not so glad..." #temp
+
+    elif mas_nsfw.canShow_underwear():
+        m 1eua "..."
+        m 1eua "Speaking of, [player]..."
+        m 1eua "I've recently tried walking around in my underwear by myself while you were gone, and I thought it felt really liberating."
+        m 1eua "But in saying that I don't want you to feel uncomfortable, so..."
+        m 1eua "..."
+        m 1eua "I guess what I'm trying to ask is..."
+        menu:
+            m "Do you mind if I do it while you're around?"
+
+            "Go for it.":
+                m 1eua "Ahaha! I'm glad you don't mind."
+                m 1eua "I don't want you to feel like I'm pressuring you with guilt or anything."
+                m 1eua "Now, let me go get changed."
+                m 1eua "No peeking! Ehehe!"
+                # This is where the underwear outfit gets called
+                m 1eua "..."
+                m 1eua "So, [player]..."
+                m 1eua "What do you think?"
+                m 1eua "I'm... not used to this..."
+                if mas_hasUnlockedClothesWithExprop("lingerie"):
+                    m 1eua "I know you've seen me in lingerie before, which is arguably more... sexual."
+                    m 1eua "But this feels way different."
+                m 1eua "Ahaha! It might take me a while to get used to you seeing me like this..."
+                m 1eua "But I'm still glad you don't mind me dressed this way."
+                m 1eua "Being able to dress freely around you makes me feel really happy."
+                m 1eua "I love you, [mas_get_player_nickname()]."
+
+            "I'd rather you didn't...":
+                m 1eua "That's too bad." #temp
     else:
+        m 1eua "Ahaha! Even though I talk all this game about being naked and loving your body..."
+        m 1eua "I am still really embarrased about the idea of being nude, even when alone."
         m 1eua "..."
         m 1eua "Alright, I've decided."
         m 1eua "I'm going to give it a try."
         m 1eua "... {w=0.4}{nw}"
-        extend 1eua "N-Not right now though!"
+        extend 1eua "N-{w=0.2}Not right now though!"
         m 1eua "I mean like, later when you're not here!"
-        m 1eua "Ahaha! It would be too embarrasing if you saw me naked."
+        m 1eua "Ahaha! It would be too embarrasing if you saw me in my underwear, let alone when I'm naked."
     return

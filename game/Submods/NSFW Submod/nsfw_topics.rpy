@@ -98,7 +98,7 @@ label monika_sexualpast:
         "I don't want to answer.":
             m 1ekbsa "I understand, [mas_get_player_nickname()]. It can be a difficult thing to talk about."
 
-    m 1rkbsb "But the reason why I'm asking, is because I want to know..."
+    m 1rkbsb "Anyway, the reason why I'm asking is because I want to know..."
     m 3ekbsa "Would you...{w=0.5}{nw}"
     extend 3rkbsa " do it with me?{nw}"
     $ _history_list.pop()
@@ -118,34 +118,15 @@ label monika_sexualpast:
                 extend 2hkbfsdlb "and I'm so nervous just thinking about it, ahaha!"
                 m 5ekbfu "But I want my first time to be with you."
                 m 5ekbfb "I love you, and I trust you."
-                m 5ekbfb "Now... let me get changed for you..."
-                #call mas_clothes_change(outfit=mas_clothes_birthday_suit, outfit_mode=False, exp="monika 2rkbsu", restore_zoom=False, unlock=True)
-                #m 2tfbsu "[player]...{w=0.5}you're staring{w=0.3}...again."
-                #m 2hubsb "Ahaha!" ## TESTING BIRTHDAY OUTFIT
+
             else:
                 m 1wkbsw "Of course, I did say that we should maybe wait until we're ready..."
                 m 1rkbsa "But knowing we can be closer than ever before..."
                 m 5ekbsa "It is really exciting."
                 m 5ekbfb "I love you, [mas_get_player_nickname()]."
 
-        "Yes again.":
-            m 1ekbsa "I'm so relieved!"
-            m 1lkbsb "I was so nervous you wouldn't want to."
-            m 1hkbssdlb "Although in retrospect it kind of wouldn't make sense if you didn't want to."
-            m 1hkblu "After all...{w=0.3} you installed this mod."
-            if mas_isMoniLove():
-                m 1rsblu "And I'm sure you know this already..."
-                m 1efblu "But...{w=0.5}{nw}"
-                extend 2lkbfw " I want to have sex with you, too."
-                m 2hkbfc "I-{w=0.4}I don't know what it feels like,{nw} "
-                extend 2hkbfsdlb "and I'm so nervous just thinking about it, ahaha!"
-                m 5ekbfu "But I want my first time to be with you."
-                m 5ekbfb "I love you, and I trust you."
-            else:
-                m 1wkbsw "Of course, I did say that we should maybe wait until we're ready..."
-                m 1rkbsa "But knowing we can be closer than ever before..."
-                m 5ekbsa "It is really exciting."
-                m 5ekbfb "I love you, [mas_get_player_nickname()]."
+        "No.": # Why does this have to exist? Like, why?
+            m 1ekbsa "Oh." # TEMP
 
     return "love|derandom"
 
@@ -161,7 +142,8 @@ init 5 python:
             aff_range=(mas_aff.ENAMORED, None)
         )
     )
-
+    
+# Thankyou for the fixes Proxilvia
 label monika_safesex:
     m 3euc "Hey, [player]. I've been thinking about something..."
     m 3eud "Have you heard of contraceptives?"
@@ -180,7 +162,7 @@ label monika_safesex:
         m 2lkbsb "It prevents any kind of fluid swapping during sex, which is supposed to prevent pregnancy and STDs."
     elif persistent.gender == "F":
         m 4eubla "I've read that there are condoms available for women, but they aren't as popular as the men's version."
-        m 1eua "The most popular form of contraception seemed to be 'The Pill'...{w=0.4}{nw}"
+        m 1eua "The most popular form of contraception seemed to be 'The Pill'...{w=0.4}{nw}" #TODO - Add poses
         extend 1eua "which sounds kind of ominous if you ask me."
         m 1eua "It is exactly what it says it is, a pill you take to prevent pregnancy."
         m 1eua "There are different kinds of pills, too!"
@@ -285,9 +267,10 @@ label monika_getnude:
         m 1eua "It's not for everyone though, so don't feel like I'm pressuring you..."
         m 1eua "I love you, [mas_get_player_nickname()]. Both with clothes, and without."
         m 1eua "..."
-        m 1eua "Ah!{w=0.4}{nw} "
+        m 1eua "Ah!{w=0.4}{nw}"
         extend 1eua "Sorry, my mind was starting to wander..."
         m 1eua "Gosh, don't mind me."
+
     elif mas_nsfw.canShow_birthdaySuit():
         m 1eua "..."
         m 1eua "Hey, [player]..."
@@ -323,7 +306,7 @@ label monika_getnude:
                 m 1eua "I don't want you to feel like I'm pressuring you with guilt or anything."
                 m 1eua "Now, let me go get changed."
                 m 1eua "No peeking! Ehehe!"
-                # This is where the underwear outfit gets called
+                # mas_nsfw.wear_underwear("1eua")
                 m 1eua "..."
                 m 1eua "So, [player]..."
                 m 1eua "What do you think?"

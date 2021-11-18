@@ -61,3 +61,23 @@ init python in mas_nsfw:
     #    - True if the player has seen 'monika_getnude' topic twice & risque is allowed
     #    - False if the player has not seen 'monika_getnude' topic twice & risque is not allowed
         return mas_getEV("monika_getnude").shown_count >= 2 and mas_canShowRisque()
+
+    def wear_birthdaysuit(new_exp):
+        call mas_clothes_change(
+            outfit=mas_clothes_birthday_suit, 
+            outfit_mode=False, 
+            exp=new_exp, 
+            restore_zoom=False, 
+            unlock=True
+        )
+
+    """ NOT TO BE USED YET - REQUIRES UNDERWEAR SPRITE
+    def wear_underwear(new_exp):
+        call mas_clothes_change(
+            outfit=mas_clothes_underwear,
+            outfit_mode=false,
+            exp=new_exp,
+            restore_zoom=False,
+            unlock=True
+        )
+    """

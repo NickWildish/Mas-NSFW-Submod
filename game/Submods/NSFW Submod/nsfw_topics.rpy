@@ -231,6 +231,7 @@ init 5 python:
             eventlabel="monika_getnude",
             category=['sex'],
             prompt="Getting Nude",
+            random=True,
             aff_range=(mas_aff.LOVE, None)
         )
     )
@@ -287,7 +288,11 @@ label monika_getnude:
             m "Can I be n-naked while you're here?{fast}"
             
             "Yes.":
-                m 1eua "I'm glad!" #temp
+                m 1eua "I'm gonna strip then, gotta let you test this dialogue." #temp
+                m 1eua "Give me one second, [player]!" #temp
+                call mas_clothes_change(outfit=mas_clothes_birthday_suit, outfit_mode=False, exp="1eua", restore_zoom=False, unlock=True)
+                m 1eua "I'm naked!"
+                
             "No.":
                 m 1eua "I'm not so glad..." #temp
 
@@ -306,7 +311,7 @@ label monika_getnude:
                 m 1eua "I don't want you to feel like I'm pressuring you with guilt or anything."
                 m 1eua "Now, let me go get changed."
                 m 1eua "No peeking! Ehehe!"
-                # mas_nsfw.wear_underwear("1eua")
+                #call mas_clothes_change(outfit=mas_clothes_underwear, outfit_mode=False, exp="1eua", restore_zoom=False, unlock=True)
                 m 1eua "..."
                 m 1eua "So, [player]..."
                 m 1eua "What do you think?"
@@ -331,4 +336,4 @@ label monika_getnude:
         extend 1eua "N-{w=0.2}Not right now though!"
         m 1eua "I mean like, later when you're not here!"
         m 1eua "Ahaha! It would be too embarrasing if you saw me in my underwear, let alone when I'm naked."
-    return
+    return "derandom"

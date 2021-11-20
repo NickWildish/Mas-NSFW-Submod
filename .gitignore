@@ -5071,3 +5071,6 @@ update/log.txt
 update/Mod.zsync.part
 update/updates.json
 var_dump.log
+game/Submods/NSFW Submod/nsfw_birthday_suit.rpyc
+game/Submods/NSFW Submod/nsfw_main.rpyc
+game/Submods/NSFW Submod/nsfw_topics.rpyc

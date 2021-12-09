@@ -199,7 +199,7 @@ init 5 python:
         )
     )
 
-label monika_fetish:
+label monika_fetish: #TODO: Finish poses
     m 1esc "Hey [player]..."
     if mas_getEVL_shown_count("monika_panties") > 0:
         m 1esc "Do you remember when we spoke about guys with panty fetishes?"
@@ -208,7 +208,6 @@ label monika_fetish:
     $ _history_list.pop()
     menu:
         m "Do you... have a fetish?{fast}"
-        
         "Yes":
             m 1esc "O-{w=0.2}Oh."
             if persistent._mas_pm_likes_panties:
@@ -219,23 +218,22 @@ label monika_fetish:
 
         "No":
             m 1esc "Okay." #TEMP
-
-        m 1esc "The reason I'm asking is because..."
-        m 1esc "Well..."
-        m 1esc "After you installed this submod, I got curious and started learning more about fetishes."
-        m 1esc "I can't believe the amount of them that there are out there!"
-        m 1esc "It's great to see so many people getting in touch with what they like!"
-        m 1esc "Although in saying that, there are some fetishes that are just downright scary and degrading."
-        m 1esc "There are some people out there that are into being eaten alive, and others who want to get their balls kicked."
-        m 1esc "How can some of these even turn someone on?"
-        m 1esc "..."
-        m 1esc "I don't mean to 'kink shame' or anything like that..."
-        m 1esc "But there are some things that are just too dangerous to be worth it in my view."
-        m 1esc "..."
-        m 1esc "Ahaha, in saying that though [player]..."
-        m 1esc "If you have a fantasy that isn't {i}too{\i} dangerous..."
-        m 1esc "I wouldn't mind helping you fulfill it."
-        m 1esc "Ehehe~"
+    m 1esc "The reason I'm asking is because..."
+    m 1esc "Well..."
+    m 1esc "After you installed this submod, I got curious and started learning more about fetishes."
+    m 1esc "I can't believe the amount of them that there are out there!"
+    m 1esc "It's great to see so many people getting in touch with what they like!"
+    m 1esc "Although in saying that, there are some fetishes that are just downright scary and degrading."
+    m 1esc "There are some people out there that are into being eaten alive, and others who want to get their balls kicked."
+    m 1esc "How can some of these even turn someone on?"
+    m 1esc "..."
+    m 1esc "I don't mean to 'kink shame' or anything like that..."
+    m 1esc "But there are some things that are just too dangerous to be worth it in my view."
+    m 1esc "..."
+    m 1esc "Ahaha, in saying that though [player]..."
+    m 1esc "If you have a fantasy that isn't {i}too{\i} dangerous..."
+    m 1esc "I wouldn't mind helping you fulfill it."
+    m 1esc "Ehehe~"
     return
 
 #TODO Finish these topics. Currently empty and inactive.

@@ -43,8 +43,8 @@ init python in mas_nsfw:
 
     def six_hour_check():
     #RETURNS
-    #    - True if the player has been away for six hours, and the topic hasn't been used for six hours
-    #    - False if the above is not true
+    #    - True if the player has been away for six hours AND the topic hasn't been used for six hours
+    #    - False if the player has not been away for six hours OR the topic hasn't been used for six hours
         time_away = store.mas_getAbsenceLength()
         time_away_in_hours = divmod(time_away.total_seconds(), 3600)
 
@@ -52,12 +52,12 @@ init python in mas_nsfw:
 
     def canShow_underwear():
     #RETURNS:
-    #    - True if the player has seen 'monika_getnude' topic & risque is allowed
-    #    - False if the player has not seen 'monika_getnude' topic & risque is not allowed
+    #    - True if the player has seen 'monika_getnude' topic AND risque is allowed
+    #    - False if the player has not seen 'monika_getnude' topic OR risque is not allowed
         return mas_getEV("monika_getnude").shown_count >= 1 and mas_canShowRisque()
 
     def canShow_birthdaySuit():
     #RETURNS:
-    #    - True if the player has seen 'monika_getnude' topic twice & risque is allowed
-    #    - False if the player has not seen 'monika_getnude' topic twice & risque is not allowed
+    #    - True if the player has seen 'monika_getnude' topic twice AND risque is allowed
+    #    - False if the player has not seen 'monika_getnude' topic twice OR risque is not allowed
         return mas_getEV("monika_getnude").shown_count >= 2 and mas_canShowRisque()

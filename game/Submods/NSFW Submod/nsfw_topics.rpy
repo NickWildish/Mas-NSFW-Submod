@@ -112,12 +112,12 @@ label monika_sexualpast:
             m 1hkblu "After all...{w=0.3} you installed this mod."
             if mas_isMoniLove():
                 m 1rsblu "And I'm sure you know this already..."
-                m 1efblu "But...{w=0.5}{nw}"
-                extend 2lkbfw " I want to have sex with you, too."
-                m 2hkbfc "I-{w=0.4}I don't know what it feels like,{nw} "
-                extend 2hkbfsdlb "and I'm so nervous just thinking about it, ahaha!"
-                m 5ekbfu "But I want my first time to be with you."
-                m 5ekbfb "I love you, and I trust you."
+                m 1rsblu "But...{w=0.5}{nw}"
+                extend 1lkbfb " I want to have sex with you, too."
+                m 3ekbfb "I-{w=0.4}I don't know what it feels like,{nw} "
+                extend 3rkbfb "and I'm so nervous just thinking about it, ahaha!"
+                m 4ekbfb "But I want my first time to be with you."
+                m 5ekbsu "I love you, and I trust you."
 
             else:
                 m 1wkbsw "Of course, I did say that we should maybe wait until we're ready..."
@@ -126,7 +126,16 @@ label monika_sexualpast:
                 m 5ekbfb "I love you, [mas_get_player_nickname()]."
 
         "No.": # Why does this have to exist? Like, why?
-            m 1ekbsa "Oh." # TEMP
+            m 1wkd "Oh." # TEMP
+            m 1wkd "I..."
+            m 1wkd "I understand."
+            m 1wkd "Thankyou for being honest with me."
+            m 1wkd "..."
+            m 1wkd "It's not something everyone is comfortable with, huh?"
+            m 1wkd "I know I shouldn't take this personally."
+            m 1wkd "..."
+            m 1wkd "I'm sorry, [player]."
+            m 1wkd "Don't mind me."
 
     return "love|derandom"
 
@@ -162,16 +171,16 @@ label monika_safesex:
         m 2lkbsb "It prevents any kind of fluid swapping during sex, which is supposed to prevent pregnancy and STDs."
     elif persistent.gender == "F":
         m 4eubla "I've read that there are condoms available for women, but they aren't as popular as the men's version."
-        m 1eua "The most popular form of contraception seemed to be 'The Pill'...{w=0.4}{nw}" #TODO - Add poses
-        extend 1eua "which sounds kind of ominous if you ask me."
-        m 1eua "It is exactly what it says it is, a pill you take to prevent pregnancy."
-        m 1eua "There are different kinds of pills, too!"
-        m 1eua "There's a pill you're supposed to take every day at the same time the previous day."
-        m 1eua "And another pill that you can take in case of an emergency, respectfully called the 'morning after pill'."
+        m 4eub "The most popular form of contraception seemed to be 'The Pill'...{w=0.4}{nw}" 
+        extend 4hksdlb "which sounds kind of ominous if you ask me."
+        m 4eub "It is exactly what it says it is, a pill you take to prevent pregnancy."
+        m 3eub "There are different kinds of pills, too!"
+        m 3eua "There's a pill you're supposed to take every day at the same time the previous day."
+        m 2eub "And another pill that you can take in case of an emergency, respectfully called the 'morning after pill'."
         m 4eublb "Despite it's name, it should actually be taken as soon as possible!"
     else:
         m 4eubla "I've read that there are a whole bunch of different contraception methods, for both men and women."
-        m 1eua "Some are more popular than others, such as condoms for men, and oral contraceptives for women."
+        m 1eua "Some are more popular than others, such as condoms for men, and oral contraceptives for women." #TODO - Add pose
     
     m 3lkblc "They are not exactly flawless though..."
     m 4ekbld "There is still a chance that despite all the precautions, accidents can happen."

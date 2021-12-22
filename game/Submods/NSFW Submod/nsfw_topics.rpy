@@ -12,6 +12,7 @@ init 5 python:
 
 label monika_resetnsfwtopics:
     m 1esc "This will fix stuff I guess."
+    m 1esc "Not yet though."
     return
 
 init 5 python:

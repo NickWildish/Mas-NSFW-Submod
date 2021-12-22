@@ -60,4 +60,4 @@ init python in mas_nsfw:
     #RETURNS:
     #    - True if the player has seen 'monika_getnude' topic twice AND risque is allowed
     #    - False if the player has not seen 'monika_getnude' topic twice OR risque is not allowed
-        return mas_getEV("monika_getnude").shown_count >= 2 and mas_canShowRisque()
+        return mas_SELisUnlocked(mas_clothes_underwear) and mas_canShowRisque()

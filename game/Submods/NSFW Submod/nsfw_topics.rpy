@@ -206,6 +206,8 @@ init 5 python:
             eventlabel="monika_fetish",
             category=['sex'],
             prompt="Fetishes",
+            conditional="mas_getEV('monika_nsfwmodinstall').shown_count != 0",
+            action=EV_ACT_RANDOM,
             aff_range=(mas_aff.ENAMORED, None)
         )
     )
@@ -282,7 +284,8 @@ init 5 python:
             eventlabel="monika_getnude",
             category=['sex'],
             prompt="Getting Nude",
-            random=True,
+            conditional="mas_getEV('monika_nsfwmodinstall').shown_count != 0",
+            action=EV_ACT_RANDOM,
             aff_range=(mas_aff.LOVE, None)
         )
     )
@@ -291,27 +294,27 @@ label monika_getnude:
     $ import mas_nsfw
 
     m 1eua "Hey [player], have you ever just... not worn clothes?"
-    m 1eua "I don't mean, like, for a shower or anything."
-    m 1eua "Just in general while you're at home...{w=0.5}{nw}"
-    extend 1eua "alone preferably."
+    m 1hksdlb "I don't mean, like, for a shower or anything."
+    m 1husdla "Just in general while you're at home...{w=0.5}{nw}"
+    extend 1lusdla "alone preferably."
     m 1eua "There are a good amount of people that actually sleep naked, if you'll believe it."
-    m 1eua "For most people this would be a good place to start without feeling embarrased."
-    m 1eua "Apparently it helps you get better sleep at night because of how much quicker your body temperature drops."
-    m 1eua "Of course, sleeping naked will mean you have to clean your sheets more often."
-    m 1eua "Humans are very sweaty, ahaha!"
-    m 1eua "Being naked also helps our body absorb more vitamin D during the day."
-    m 1eua "The reason for this is because skin is effectively a giant organ that absorbs the rays from the sun and increases vitamin D levels."
-    m 1eua "And having a greater vitamin D level has shown to assist your immune system fight off viruses, among other health benefits."
-    m 1eua "I'm not trying to say we all need to get naked and make it a new social norm, that would be silly! Ahaha!"
-    m 1eua "But if you have the house to yourself one day, why not strip down and try it for an hour to see how you feel."
-    m 1eua "Though be sure you know when the rest of your household is getting back, because that might be a tad awkward. Ahaha!"
-    m 1eua "If that's too much, even just going down to your underwear gets the job done...{w=0.4}{nw} "
-    extend 1eua "though not to the same degree as being fully naked."
-    m 1eua "{i}*sigh*{/i}"
-    m 1eua "Of course, there is always the fact that not everyone is comfortable being naked."
-    m 1eua "Some people are ashamed or disheartened by their appearance, which is really sad when you think about it."
-    m 1eua "You only have one body, so the least you can do is take care of it and love it, you know?"
-    m 1eua "Having pride in what you look like is the best thing you can do for your confidence!"
+    m 3eua "For most people this would be a good place to start without feeling embarrased."
+    m 3eub "Apparently it helps you get better sleep at night because of how much quicker your body temperature drops."
+    m 3rub "Of course, sleeping naked will mean you have to clean your sheets more often."
+    m 3hksdlb "Humans are very sweaty, ahaha!"
+    m 3eub "Being naked also helps our body absorb more vitamin D during the day."
+    m 4eub "The reason for this is because skin is effectively a giant organ that absorbs the rays from the sun and increases our vitamin D levels."
+    m 4eua "And having a greater vitamin D level has shown to assist your immune system fight off viruses, among other health benefits."
+    m 3hksdlb "I'm not trying to say we all need to get naked and make it a new social norm, that would be silly! Ahaha!"
+    m 3eua "But if you have the house to yourself one day, why not strip down and try it for an hour to see how you feel."
+    m 3rusdld "Though be sure you know when the rest of your household is getting back, because that might be a {i}tad{/i} awkward."
+    m 3eua "If that's too much, even just going down to your underwear gets the job done...{w=0.4}{nw} "
+    extend 3ekb "though not to the same degree as being fully naked."
+    m 2dkd "{i}*sigh*{/i}"
+    m 2gkc "Of course, there is always the fact that not everyone is comfortable being naked."
+    m 2tkc "Some people are ashamed or disheartened by their appearance, which is really sad when you think about it."
+    m 2ekc "You only have one body, so the least you can do is take care of it and love it, you know?"
+    m 2eka "Having pride in what you look like is the best thing you can do for your confidence!"
 
     if mas_getEVL_shown_count("monika_getnude") > 2:
         m 1eua "You're already familar with how I've been doing this while you've been away."
@@ -341,7 +344,7 @@ label monika_getnude:
             "Yes.":
                 m 1eua "I'm gonna strip then, gotta let you test this dialogue." #temp
                 m 1eua "Give me one second, [player]!" #temp
-                call mas_clothes_change(outfit=mas_clothes_birthday_suit, outfit_mode=False, exp="1eua", restore_zoom=False, unlock=True)
+                # call mas_clothes_change(outfit=mas_clothes_birthday_suit, outfit_mode=False, exp="1eua", restore_zoom=False, unlock=True)
                 m 1eua "I'm naked!"
                 
             "No.":
@@ -362,7 +365,9 @@ label monika_getnude:
                 m 1eua "I don't want you to feel like I'm pressuring you with guilt or anything."
                 m 1eua "Now, let me go get changed."
                 m 1eua "No peeking! Ehehe!"
-                #call mas_clothes_change(outfit=mas_clothes_underwear, outfit_mode=False, exp="1eua", restore_zoom=False, unlock=True)
+                m 1eua "..."
+                m 2tsa "This is where I would change into my underwear, but my lazy submodder hasn't gotten around to it yet." #call mas_clothes_change(outfit=mas_clothes_underwear, outfit_mode=False, exp="1eua", restore_zoom=False, unlock=True)
+                m 2tsa "Just pretend I got changed just now."
                 m 1eua "..."
                 m 1eua "So, [player]..."
                 m 1eua "What do you think?"

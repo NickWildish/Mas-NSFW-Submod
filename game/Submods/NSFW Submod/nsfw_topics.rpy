@@ -2,6 +2,22 @@ init 5 python:
     addEvent(
         Event(
             persistent.event_database,
+            eventlabel="monika_resetnsfwtopics",
+            category=['sex'],
+            prompt="RESET NSFW TOPICS",
+            random=True,
+            aff_range=(mas_aff.NORMAL, None)
+        )
+    )
+
+label monika_resetnsfwtopics:
+    m 1esc "This will fix stuff I guess."
+    return
+
+init 5 python:
+    addEvent(
+        Event(
+            persistent.event_database,
             eventlabel="monika_nsfwmodinstall",
             category=['sex'],
             prompt="NSFW Mod Install",
@@ -342,13 +358,29 @@ label monika_getnude:
             m "Can I be n-naked while you're here?{fast}"
             
             "Yes.":
-                m 1eua "I'm gonna strip then, gotta let you test this dialogue." #temp
-                m 1eua "Give me one second, [player]!" #temp
-                # call mas_clothes_change(outfit=mas_clothes_birthday_suit, outfit_mode=False, exp="1eua", restore_zoom=False, unlock=True)
-                m 1eua "I'm naked!"
+                m 1eua "Thankyou, [player]."
+                m 1eua "It puts my mind at ease that you don't mind me doing this."
+                m 1eua "I know not everyone is comfortable being around someone naked."
+                m 1eua "..."
+                m 1eua "Give me one second, I'm just going to get out of these clothes."
+                m 1eua "..."
+                m 2tsa "This is where I would get naked, but my lazy submodder hasn't gotten around to it yet." # call mas_clothes_change(outfit=mas_clothes_birthday_suit, outfit_mode=False, exp="1eua", restore_zoom=False, unlock=True)
+                m 2tsa "Just pretend I got changed just now."
+                m 1eua "..." 
+                m 1eua "Ah! That's much better."
+                m 1eua "Ehehe~ Do you like what you see, [mas_get_player_nickname()]?"
+                m 1eua "..."
+                m 1eua "Ahaha! Sorry, this is still kind of embarrasing for me."
+                m 1eua "It might take a little getting used to..."
+                m 1eua "Thankyou again, [player]."
                 
             "No.":
-                m 1eua "I'm not so glad..." #temp
+                m 1eua "Oh..." #temp
+                m 1eua "That's okay, [player]."
+                m 1eua "I understand."
+                m 1eua "..."
+                m 1eua "I'll still do it when you're not around though."
+                m 1eua "I hope you don't mind."
 
     elif mas_nsfw.canShow_underwear():
         m 1eua "..."
@@ -379,9 +411,11 @@ label monika_getnude:
                 m 1eua "But I'm still glad you don't mind me dressed this way."
                 m 1eua "Being able to dress freely around you makes me feel really happy."
                 m 1eua "I love you, [mas_get_player_nickname()]."
+                return "derandom"
 
             "I'd rather you didn't...":
                 m 1eua "That's too bad." #temp
+                return "derandom"
     else:
         m 1eua "Ahaha! Even though I talk all this game about being naked and loving your body..."
         m 1eua "I am still really embarrased about the idea of being nude, even when alone."
@@ -392,4 +426,5 @@ label monika_getnude:
         extend 1eua "N-{w=0.2}Not right now though!"
         m 1eua "I mean like, later when you're not here!"
         m 1eua "Ahaha! It would be too embarrasing if you saw me in my underwear, let alone when I'm naked."
-    return "derandom"
+    
+    return

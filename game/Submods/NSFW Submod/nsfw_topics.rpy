@@ -36,16 +36,16 @@ label monika_nsfwmodinstall:
     if mas_isMoniEnamored(): #Need to fix wording here; player isn't having sex, just talking about it.
         m 2hkbssdlb "I wasn't expecting to see that..."
         m 2ekbssdlb "[player], is this something you want?"
-        m 3rkblsdlb "I mean, I'm kind of curious about sex myself."
+        m 3rkblsdlb "I mean, I'm kind of curious about it myself."
         m 3ekblsdlb "And if I'm going to share my first experience of it with anyone, I want it to be you."
-        m 2ekblsdlc "But in saying that...{w=0.5} I feel it's too soon for me."
+        m 2ekblsdlc "But with that said...{w=0.5} it feels too soon."
         m 2dkbsc "I just need a little more time."
-        m 2fkbsu "Hold on for me a little while longer, okay [mas_get_player_nickname()]?"
+        m 2fkbsu "Hold on for me a little while longer. Okay, [mas_get_player_nickname()]?"
     if mas_isMoniAff():
         m 2hkbssdlb "T-{w=0.4}This is a little sudden, don't you think?"
         m 3rkblsdlb "I mean, we've been with each other for a little while...{nw}"
         m 1wubssdld "Wait... {0.5}Is this when couples are supposed to start doing this s-{w=0.4}sort of thing?"
-        m 1hkblb "Ahaha, in any case I appreciate that you want to take our relationship to the next level."
+        m 1hkblb "Ahaha, even still I appreciate that you want to take our relationship to the next level."
         m 1dkblp "But I think we maybe should wait and see how we go."
         m 1ekbla "When the day comes where we do get to that stage in our relationship..."
         m 5ekbla "It will make the moment much sweeter, ehehe!"
@@ -118,26 +118,28 @@ label monika_sexualpast:
                 extend 3rkbfb "and I'm so nervous just thinking about it, ahaha!"
                 m 4ekbfb "But I want my first time to be with you."
                 m 5ekbsu "I love you, and I trust you."
+                return "love|derandom"
 
             else:
                 m 1wkbsw "Of course, I did say that we should maybe wait until we're ready..."
                 m 1rkbsa "But knowing we can be closer than ever before..."
                 m 5ekbsa "It is really exciting."
                 m 5ekbfb "I love you, [mas_get_player_nickname()]."
+                return "love|derandom"
 
         "No.": # Why does this have to exist? Like, why?
-            m 1wkd "Oh." # TEMP
-            m 1wkd "I..."
-            m 1wkd "I understand."
-            m 1wkd "Thankyou for being honest with me."
-            m 1wkd "..."
-            m 1wkd "It's not something everyone is comfortable with, huh?"
-            m 1wkd "I know I shouldn't take this personally."
-            m 1wkd "..."
-            m 1wkd "I'm sorry, [player]."
-            m 1wkd "Don't mind me."
+            m 1wkd "Oh."
+            m 2rkd "I..."
+            m 2dkc "I understand."
+            m 2dktpc "Thankyou for being honest with me."
+            m 2dktpc "..."
+            m 2fktpc "It's not something everyone is comfortable with, huh?"
+            m 2rktpc "I know I shouldn't take this personally."
+            m 2dktdc "..."
+            m 1hkb "I'm sorry, [player]."
+            m 1ektdb "Don't mind me."
 
-    return "love|derandom"
+    return "derandom"
 
 init 5 python:
     addEvent(

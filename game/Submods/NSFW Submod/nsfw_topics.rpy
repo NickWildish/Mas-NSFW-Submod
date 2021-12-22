@@ -182,18 +182,18 @@ label monika_safesex:
         m 4eublb "Despite it's name, it should actually be taken as soon as possible!"
     else:
         m 4eubla "I've read that there are a whole bunch of different contraception methods, for both men and women."
-        m 1eua "Some are more popular than others, such as condoms for men, and oral contraceptives for women." #TODO - Add pose
+        m 3eubla "Some are more popular than others, such as condoms for men, and oral contraceptives for women." #TODO - Add pose
     
     m 3lkblc "They are not exactly flawless though..."
     m 4ekbld "There is still a chance that despite all the precautions, accidents can happen."
     m 4efbld "Especially with stupid contraceptive methods like the 'p{w=0.4}{nw}"
-    extend 2efbfo "-pull-out' method!"
+    extend 4efbfo "-pull-out' method!"
     m 2wfbfo "How is that even a form of contraception?!"
     m 2dfbsc "..."
     m 2dfbsd "There's only one way to make sure no accidents happen..."
     m 2efbsd "And that's to not have sex at all!"
     m 2dsbsc "..."
-    m 2hkbfsdlb "Ahaha! Sorry, I lost my temper a bit there..."
+    m 2hkbfsdlb "Ahaha! Sorry, I lost my temper there..."
     m 2ekbsb "I guess I just want you to know that when the time comes where I come to your world, and we are together..."
     m 2tkbsu "We can worry about what contraceptives to use, then."
 
@@ -214,36 +214,44 @@ label monika_fetish: #TODO: Finish poses
     m 1esc "Hey [player]..."
     if mas_getEVL_shown_count("monika_panties") > 0:
         m 1esc "Do you remember when we spoke about guys with panty fetishes?"
-        m 1esc "Well, that got me thinking..."
-    m 1esc "Do you...{w=0.5} have a fetish?"
+        m 1rsc "Well, that got me thinking..."
+    m 3esa "Do you...{w=0.5}{nw}"
+    m 3tsbla "Do you...{fast} have a fetish?"
     $ _history_list.pop()
     menu:
         m "Do you... have a fetish?{fast}"
         "Yes":
-            m 1esc "O-{w=0.2}Oh."
+            m 3wsbld "O-{w=0.2}Oh."
             if persistent._mas_pm_likes_panties:
-                m 1esc "I don't know why that surprises me, considering you've already told me you are into panties."
+                m 3hublb "I don't know why that surprises me, considering you've already told me you are into panties."
             else:
-                m 1esc "That's actually a little surprising."
-            m 1esc "I...{w=0.2} wouldn't mind if you shared your fantasies with me sometime."
+                m 3wsbsw "That's actually a little surprising."
+            m 3eubsa "I...{w=0.2}{nw}"
+            m 3rubssdla "I...{fast} wouldn't mind if you shared your fantasies with me sometime."
 
         "No":
-            m 1esc "Okay." #TEMP
-    m 1esc "The reason I'm asking is because..."
-    m 1esc "Well..."
-    m 1esc "After you installed this submod, I got curious and started learning more about fetishes."
-    m 1esc "I can't believe the amount of them that there are out there!"
-    m 1esc "It's great to see so many people getting in touch with what they like!"
-    m 1esc "Although in saying that, there are some fetishes that are just scary and degrading to think about."
-    m 1esc "There are some people out there that are into being eaten alive, and others who want to hit their private areas."
-    m 1esc "How can some of these even turn someone on?!"
-    m 1esc "..."
-    m 1esc "I don't mean to 'kink shame' or anything like that..."
-    m 1esc "But there are some things that are just too dangerous to be worth it in my view."
-    m 1esc "I'm sure what you're into isn't dangerous at all, [player]."
-    m 1esc "So, if you have a fantasy that isn't {i}too{\i} dangerous..."
-    m 1esc "I wouldn't mind being there to help you...{w=0.2} fulfill it."
-    m 1esc "Ehehe~"
+            if persistent._mas_pm_likes_panties:
+                m 1etc "Really?"
+                m 1rtc "I could have sworn you told me you liked panties..."
+                m 1hksdlb "Maybe I'm misremembering."
+            else:
+                m 1eka "That's okay, [player]."
+                m 1ekblb "I was just curious, that's all."
+    m 3esa "The reason I'm asking is because..."
+    m 3rsbla "Well..."
+    m 3esbla "After you installed this submod, I got curious and started learning more about fetishes."
+    m 4wsblo "I couldn't believe the amount of them that there are out there!"
+    m 4wsblb "It's great to see so many people getting in touch with what they like!"
+    m 3ekblc "Although in saying that, there are some fetishes that are just scary and degrading to think about."
+    m 3ekbld "There are some people out there that are into being eaten alive, and others who want to hit their private areas."
+    m 3wkblo "How can some of these be even remotely exciting?!"
+    m 1dkblc "..."
+    m 1ekblc "I don't mean to 'kink shame' or anything like that..."
+    m 1ekbld "But there are some things that are just too dangerous to be worth it in my view."
+    m 1ekbsa "I'm sure what you're into isn't dangerous at all, [player]."
+    m 3ekbsa "So, if you have a fantasy that isn't {i}too{\i} dangerous..."
+    m 5eubsa "I wouldn't mind being there to help you...{w=0.2} fulfill it."
+    m 5hubsa "Ehehe~"
     return
 
 #TODO Finish these topics. Currently empty and inactive.

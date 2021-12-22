@@ -1,18 +1,18 @@
-init 5 python:
-    addEvent(
-        Event(
-            persistent.event_database,
-            eventlabel="monika_resetnsfwtopics",
-            category=['sex'],
-            prompt="RESET NSFW TOPICS",
-            random=True,
-            aff_range=(mas_aff.NORMAL, None)
-        )
-    )
+# init 5 python:
+#     addEvent(
+#         Event(
+#             persistent.event_database,
+#             eventlabel="monika_resetnsfwtopics",
+#             category=['sex'],
+#             prompt="RESET NSFW TOPICS",
+#             unlocked=True,
+#         )
+#     )
 
 label monika_resetnsfwtopics:
-    m 1esc "This will fix stuff I guess."
-    m 1esc "Not yet though."
+    # $ mas_remove_event("monika_nsfwmodinstall", "monika_sexualpast", "monika_safesex", "monika_fetish", "monika_sexting", "monika_getnude")
+    # Causes Monika to get upset. Only use when absolutely necessary! Comment out the remove event once you've done it.
+    m 1esc "Resetting of NSFW topics complete."
     return
 
 init 5 python:
@@ -81,7 +81,8 @@ init 5 python:
             eventlabel="monika_sexualpast",
             category=['sex'],
             prompt="Sexual Past",
-            random=True,
+            conditional="mas_getEV('monika_nsfwmodinstall').shown_count != 0",
+            action=EV_ACT_RANDOM,
             aff_range=(mas_aff.ENAMORED, None)
         )
     )
@@ -214,7 +215,7 @@ label monika_safesex:
     m 2ekbsb "I guess I just want you to know that when the time comes where I come to your world, and we are together..."
     m 2tkbsu "We can worry about what contraceptives to use, then."
 
-    return "derandom"
+    return
 
 init 5 python:
     addEvent(
@@ -229,7 +230,7 @@ init 5 python:
         )
     )
 
-label monika_fetish: #TODO: Finish poses
+label monika_fetish:
     m 1esc "Hey [player]..."
     if mas_getEVL_shown_count("monika_panties") > 0:
         m 1esc "Do you remember when we spoke about guys with panty fetishes?"
@@ -333,17 +334,7 @@ label monika_getnude:
     m 2ekc "You only have one body, so the least you can do is take care of it and love it, you know?"
     m 2eka "Having pride in what you look like is the best thing you can do for your confidence!"
 
-    if mas_getEVL_shown_count("monika_getnude") > 2:
-        m 1eua "You're already familar with how I've been doing this while you've been away."
-        m 1eua "And I've got to say, it's been great!"
-        m 1eua "It's not for everyone though, so don't feel like I'm pressuring you..."
-        m 1eua "I love you, [mas_get_player_nickname()]. Both with clothes, and without."
-        m 1eua "..."
-        m 1eua "Ah!{w=0.4}{nw}"
-        extend 1eua "Sorry, my mind was starting to wander..."
-        m 1eua "Gosh, don't mind me."
-
-    elif mas_nsfw.canShow_birthdaySuit():
+    if mas_nsfw.canShow_birthdaySuit():
         m 1eua "..."
         m 1eua "Hey, [player]..."
         m 1eua "Do you remember last time when I asked you if it was okay to be undressed around you?"
@@ -417,6 +408,17 @@ label monika_getnude:
             "I'd rather you didn't...":
                 m 1eua "That's too bad." #temp
                 return "derandom"
+
+    elif mas_SELisUnlocked(mas_clothes_underwear) or mas_SELisUnlocked(mas_clothes_birthday_suit):
+        m 1eua "You're already familar with how I've been doing this while you've been away."
+        m 1eua "And I've got to say, it's been great!"
+        m 1eua "It's not for everyone though, so don't feel like I'm pressuring you..."
+        m 1eua "I love you, [mas_get_player_nickname()]. Both with clothes, and without."
+        m 1eua "..."
+        m 1eua "Ah!{w=0.4}{nw}"
+        extend 1eua "Sorry, my mind was starting to wander..."
+        m 1eua "Gosh, don't mind me."
+    
     else:
         m 1eua "Ahaha! Even though I talk all this game about being naked and loving your body..."
         m 1eua "I am still really embarrased about the idea of being nude, even when alone."

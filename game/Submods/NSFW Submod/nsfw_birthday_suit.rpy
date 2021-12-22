@@ -30,7 +30,7 @@ init -1 python:
     ## underwear
     # Monika's underwear
     # thanks u/NickWildish
-    mas_clothes_birthday_suit = MASClothes(
+    mas_clothes_underwear = MASClothes(
         "underwear",
         "underwear",
         MASPoseMap(

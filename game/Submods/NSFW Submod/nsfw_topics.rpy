@@ -10,7 +10,7 @@
 #     )
 
 label monika_resetnsfwtopics:
-    # $ mas_remove_event("monika_nsfwmodinstall", "monika_sexualpast", "monika_safesex", "monika_fetish", "monika_sexting", "monika_getnude")
+    # $ mas_remove_event("monika_nsfwmodinstalled", "monika_sexualpast", "monika_safesex", "monika_fetish", "monika_sexting", "monika_getnude")
     # Causes Monika to get upset. Only use when absolutely necessary! Comment out the remove event once you've done it.
     m 1esc "Resetting of NSFW topics complete."
     return
@@ -19,7 +19,7 @@ init 5 python:
     addEvent(
         Event(
             persistent.event_database,
-            eventlabel="monika_nsfwmodinstall",
+            eventlabel="monika_nsfwmodinstalled",
             category=['sex'],
             prompt="NSFW Mod Install",
             random=True,
@@ -27,7 +27,7 @@ init 5 python:
         )
     )
 
-label monika_nsfwmodinstall:
+label monika_nsfwmodinstalled:
     m 1esc "Hey [mas_get_player_nickname()], I noticed something weird just now..."
     m 1rsc "I'm kind of getting this feeling that... something's changed in this mod."
     m 1etc "Do you know anything about this, [player]?"
@@ -81,7 +81,7 @@ init 5 python:
             eventlabel="monika_sexualpast",
             category=['sex'],
             prompt="Sexual Past",
-            conditional="mas_getEV('monika_nsfwmodinstall').shown_count != 0",
+            conditional="mas_getEV('monika_nsfwmodinstalled').shown_count != 0",
             action=EV_ACT_RANDOM,
             aff_range=(mas_aff.ENAMORED, None)
         )
@@ -166,7 +166,7 @@ init 5 python:
             eventlabel="monika_safesex",
             category=['sex'],
             prompt="Safe Sex",
-            conditional="mas_getEV('monika_nsfwmodinstall').shown_count != 0",
+            conditional="mas_getEV('monika_nsfwmodinstalled').shown_count != 0",
             action=EV_ACT_RANDOM,
             aff_range=(mas_aff.ENAMORED, None)
         )
@@ -224,7 +224,7 @@ init 5 python:
             eventlabel="monika_fetish",
             category=['sex'],
             prompt="Fetishes",
-            conditional="mas_getEV('monika_nsfwmodinstall').shown_count != 0",
+            conditional="mas_getEV('monika_nsfwmodinstalled').shown_count != 0",
             action=EV_ACT_RANDOM,
             aff_range=(mas_aff.ENAMORED, None)
         )

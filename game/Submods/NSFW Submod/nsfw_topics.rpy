@@ -10,7 +10,7 @@
 #     )
 
 label monika_resetnsfwtopics:
-    # $ mas_remove_event("monika_nsfwmodinstall", "monika_sexualpast", "monika_safesex", "monika_fetish", "monika_sexting", "monika_getnude")
+    # $ mas_remove_event("monika_getnude")
     # Causes Monika to get upset. Only use when absolutely necessary! Comment out the remove event once you've done it.
     m 1esc "Resetting of NSFW topics complete."
     return
@@ -41,14 +41,15 @@ label monika_nsfwmodinstall:
         m 3fublu "Well, look who's gotten confident all of a sudden."
         if mas_hasUnlockedClothesWithExprop("lingerie"):
             m 3lublu "I guess I can't blame you though, given you've seen me in lingerie."
-        m 3tublu "I won't lie to you, [mas_get_player_nickname()]..."
-        m 5tublu "It's kind of hot."
+        if mas_is18Over():
+            m 3tublu "I won't lie to you, [mas_get_player_nickname()]..."
+            m 5tublu "It's kind of hot."
         m 5cubssdrd "..."
         m 5hkbssdrb "Ahaha! What's gotten into me?"
         m 5hkbssdrb "This isn't like me. Like, at all!"
         m 4rubsc "Is the mod doing this to me?"
         m 6hubsd "Oh gosh, I'm feeling super nervous about this, ahaha!"
-        m 6ekbla "But... if it's with you, [mas_get_player_nickname()]..."
+        m 6ekbla "But... if it's with you, [player]..."
         m 6ekbsa "I don't mind..."
     if mas_isMoniEnamored(): #Need to fix wording here; player isn't having sex, just talking about it.
         m 2hkbssdlb "I wasn't expecting to see that..."
@@ -268,10 +269,11 @@ label monika_fetish:
     m 1dkblc "..."
     m 1ekblc "I don't mean to 'kink shame' or anything like that..."
     m 1ekbld "But there are some things that are just too dangerous to be worth it in my view."
-    m 1ekbsa "I'm sure what you're into isn't dangerous at all, [player]."
-    m 3ekbsa "So, if you have a fantasy that isn't {i}too{\i} dangerous..."
-    m 5eubsa "I wouldn't mind being there to help you...{w=0.2} fulfill it."
-    m 5hubsa "Ehehe~"
+    m 1ekbsa "I'm sure whatever you're into isn't dangerous at all, [player]."
+    if mas_is18Over():
+        m 3ekbsa "So, if you have a fantasy that isn't {i}too{\i} dangerous..."
+        m 5eubsa "I wouldn't mind being there to help you...{w=0.2} fulfill it."
+        m 5hubsa "Ehehe~"
     return
 
 #TODO Finish these topics. Currently empty and inactive.
@@ -299,7 +301,7 @@ init 5 python:
     addEvent(
         Event(
             persistent.event_database,
-            eventlabel="monika_getnude",
+            eventlabel="monika_gettingnude",
             category=['sex'],
             prompt="Getting Nude",
             conditional="mas_getEV('monika_nsfwmodinstall').shown_count != 0",
@@ -308,126 +310,160 @@ init 5 python:
         )
     )
 
-label monika_getnude:
-    $ import mas_nsfw
-
-    m 1eua "Hey [player], have you ever just... not worn clothes?"
-    m 1hksdlb "I don't mean, like, for a shower or anything."
-    m 1husdla "Just in general while you're at home...{w=0.5}{nw}"
-    extend 1lusdla "alone preferably."
-    m 1eua "There are a good amount of people that actually sleep naked, if you'll believe it."
-    m 3eua "For most people this would be a good place to start without feeling embarrased."
-    m 3eub "Apparently it helps you get better sleep at night because of how much quicker your body temperature drops."
-    m 3rub "Of course, sleeping naked will mean you have to clean your sheets more often."
-    m 3hksdlb "Humans are very sweaty, ahaha!"
-    m 3eub "Being naked also helps our body absorb more vitamin D during the day."
-    m 4eub "The reason for this is because skin is effectively a giant organ that absorbs the rays from the sun and increases our vitamin D levels."
-    m 4eua "And having a greater vitamin D level has shown to assist your immune system fight off viruses, among other health benefits."
-    m 3hksdlb "I'm not trying to say we all need to get naked and make it a new social norm, that would be silly! Ahaha!"
-    m 3eua "But if you have the house to yourself one day, why not strip down and try it for an hour to see how you feel."
-    m 3rusdld "Though be sure you know when the rest of your household is getting back, because that might be a {i}tad{/i} awkward."
-    m 3eua "If that's too much, even just going down to your underwear gets the job done...{w=0.4}{nw} "
-    extend 3ekb "though not to the same degree as being fully naked."
-    m 2dkd "{i}*sigh*{/i}"
-    m 2gkc "Of course, there is always the fact that not everyone is comfortable being naked."
-    m 2tkc "Some people are ashamed or disheartened by their appearance, which is really sad when you think about it."
-    m 2ekc "You only have one body, so the least you can do is take care of it and love it, you know?"
-    m 2eka "Having pride in what you look like is the best thing you can do for your confidence!"
-
+label monika_gettingnude: 
+    # m 1eua "Hey [player], have you ever just... not worn clothes?"
+    # m 1hksdlb "I don't mean, like, for a shower or anything."
+    # m 1husdla "Just in general while you're at home...{w=0.5}{nw}"
+    # extend 1lusdla "alone preferably."
+    # m 1eua "There are a good amount of people that actually sleep naked, if you'll believe it."
+    # m 3eua "For most people this would be a good place to start without feeling embarrased."
+    # m 3eub "Apparently it helps you get better sleep at night because of how much quicker your body temperature drops."
+    # m 3rub "Of course, sleeping naked will mean you have to clean your sheets more often."
+    # m 3hksdlb "Humans are very sweaty, ahaha!"
+    # m 3eub "Being naked also helps our body absorb more vitamin D during the day."
+    # m 4eub "The reason for this is because skin is effectively a giant organ that absorbs the rays from the sun and increases our vitamin D levels."
+    # m 4eua "And having a greater vitamin D level has shown to assist your immune system fight off viruses, among other health benefits."
+    # m 3hksdlb "I'm not trying to say we all need to get naked and make it a new social norm, that would be silly! Ahaha!"
+    # m 3eua "But if you have the house to yourself one day, why not strip down and try it for an hour to see how you feel."
+    # m 3rusdld "Though be sure you know when the rest of your household is getting back, because that might be a {i}tad{/i} awkward."
+    # m 3eua "If that's too much, even just going down to your underwear gets the job done...{w=0.4}{nw} "
+    # extend 3ekb "though not to the same degree as being fully naked."
+    # m 2dkd "{i}*sigh*{/i}"
+    # m 2gkc "Of course, there is always the fact that not everyone is comfortable being naked."
+    # m 2tkc "Some people are ashamed or disheartened by their appearance, which is really sad when you think about it."
+    # m 2ekc "You only have one body, so the least you can do is take care of it and love it, you know?"
+    # m 2eka "Having pride in what you look like is the best thing you can do for your confidence!"
+    
     if mas_nsfw.canShow_birthdaySuit():
-        m 1eua "..."
-        m 1eua "Hey, [player]..."
-        m 1eua "Do you remember last time when I asked you if it was okay to be undressed around you?"
-        m 1eua "Well, I recently tried taking off... everything..."
-        m 1eua "And I really liked it."
-        m 1eua "I don't know if you've ever tried it before, [player]. But I thought the feeling was amazing."
-        m 1eua "Ahaha! Maybe that feeling wouldn't be so great if someone saw you though..."
-        m 1eua "But I wanted to bring this up again because..."
-        m 1eua "I was wondering if you wouldn't mind..."
-        m 1eua "Can I be n-{w=0.2}naked while you're here?"
+        m 2rkbla "..."
+        m 2rkblb "Hey, [player]..."
+        m 2ekblb "Do you remember last time when I asked you if it was okay to be undressed around you?"
+        m 3ekblb "Well, I recently tried taking off... everything..."
+        m 3ekbla "And I really liked it."
+        m 3eubla "I don't know if you've ever tried it before, [player]. But I thought the feeling was amazing."
+        m 3hublsdlb "Ahaha! Maybe that feeling wouldn't be so great if someone saw you though..."
+        m 1eublb "But I wanted to bring this up again because..."
+        m 1rubsa "I was wondering if you wouldn't mind..."
+        m 3ekbsa "Can I be n-{w=0.2}{nw}"
+        extend 3ekbfa "naked while you're here?"
         $ _history_list.pop()
         menu:
             m "Can I be n-naked while you're here?{fast}"
             
-            "Yes.":
-                m 1eua "Thankyou, [player]."
-                m 1eua "It puts my mind at ease that you don't mind me doing this."
-                m 1eua "I know not everyone is comfortable being around someone naked."
-                m 1eua "..."
-                m 1eua "Give me one second, I'm just going to get out of these clothes."
-                m 1eua "..."
-                m 2tsa "This is where I would get naked, but my lazy submodder hasn't gotten around to it yet." # call mas_clothes_change(outfit=mas_clothes_birthday_suit, outfit_mode=False, exp="1eua", restore_zoom=False, unlock=True)
-                m 2tsa "Just pretend I got changed just now."
-                m 1eua "..." 
-                m 1eua "Ah! That's much better."
-                m 1eua "Ehehe~ Do you like what you see, [mas_get_player_nickname()]?"
-                m 1eua "..."
-                m 1eua "Ahaha! Sorry, this is still kind of embarrasing for me."
-                m 1eua "It might take a little getting used to..."
-                m 1eua "Thankyou again, [player]."
+            "Of course you can.":
+                m 1ekbfa "Thankyou, [player]."
+                m 1dkbfa "It puts my mind at ease that you don't mind me doing this."
+                m 2ekbsa "I know not everyone is comfortable being around someone naked."
+                m 2dsbsa "Give me one second, I'm just going to get out of these clothes."
+
+                call mas_clothes_change(outfit=mas_clothes_birthday_suit, outfit_mode=False, exp="2dsbla", restore_zoom=False, unlock=True)
+
+                m 4hubsb "Ah~! That's much better."
+                m 6tubsb "Ehehe~ Do you like what you see, [mas_get_player_nickname()]?"
+                m 1gkbfu "..."
+                m 1hkbfsdlb "Ahaha! Sorry, this is still kind of embarrasing for me."
+                m 1mkbfsdlb "It might take a little getting used to..."
+                m 1ekbfb "Thankyou again, [player]."
                 
-            "No.":
-                m 1eua "Oh..." #temp
-                m 1eua "That's okay, [player]."
-                m 1eua "I understand."
-                m 1eua "..."
-                m 1eua "I'll still do it when you're not around though."
-                m 1eua "I hope you don't mind."
-
-    elif mas_nsfw.canShow_underwear():
-        m 1eua "..."
-        m 1eua "Speaking of, [player]..."
-        m 1eua "I've recently tried walking around in my underwear by myself while you were gone, and I thought it felt really liberating."
-        m 1eua "But in saying that I don't want you to feel uncomfortable, so..."
-        m 1eua "..."
-        m 1eua "I guess what I'm trying to ask is..."
-        menu:
-            m "Do you mind if I do it while you're around?"
-
-            "Go for it.":
-                m 1eua "Ahaha! I'm glad you don't mind."
-                m 1eua "I don't want you to feel like I'm pressuring you with guilt or anything."
-                m 1eua "Now, let me go get changed."
-                m 1eua "No peeking! Ehehe!"
-                m 1eua "..."
-                m 2tsa "This is where I would change into my underwear, but my lazy submodder hasn't gotten around to it yet." #call mas_clothes_change(outfit=mas_clothes_underwear, outfit_mode=False, exp="1eua", restore_zoom=False, unlock=True)
-                m 2tsa "Just pretend I got changed just now."
-                m 1eua "..."
-                m 1eua "So, [player]..."
-                m 1eua "What do you think?"
-                m 1eua "I'm... not used to this..."
-                if mas_hasUnlockedClothesWithExprop("lingerie"):
-                    m 1eua "I know you've seen me in lingerie before, which is arguably more... sexual."
-                    m 1eua "But this feels way different."
-                m 1eua "Ahaha! It might take me a while to get used to you seeing me like this..."
-                m 1eua "But I'm still glad you don't mind me dressed this way."
-                m 1eua "Being able to dress freely around you makes me feel really happy."
-                m 1eua "I love you, [mas_get_player_nickname()]."
+            "Please don't...":
+                m 3wkbld "Oh..."
+                m 2rkbld "That's okay, [player]."
+                m 2dkblc "I understand."
+                m 2dkblp "..."
+                m 2ekbld "I'm sorry for bothering you with this..."
+                m 1ekblc "I won't talk about it anymore."
                 return "derandom"
 
+    elif mas_nsfw.canShow_underwear():
+        m 2rkbla "..."
+        m 2rkblb "Speaking of, [player]..."
+        m 2ekblb "I've recently tried walking around in my underwear by myself while you were gone,{nw}"
+        extend 2eubla " and I thought it felt really liberating."
+        m 1rublc "But in saying that I don't want you to feel uncomfortable, so..."
+        m 1hkbsc "..."
+        m 1hkbsb "I guess what I'm trying to ask is..."
+        m 3ekbsb "Do you mind if I do it while you're around?"
+        $ _history_list.pop()
+        menu:
+            m "Do you mind if I do it while you're around?{fast}"
+
+            "Go for it.":
+                m 3hubsb "Ahaha! I'm glad you don't mind."
+                m 1eubsb "I don't want you to feel like I'm pressuring you with guilt or anything."
+                m 2eubsb "Now, let me just get changed."
+                m 2kublu "No peeking! {w=0.5}{nw}"
+                extend 2dsbla "Ehehe~"
+
+                call mas_clothes_change(outfit=mas_clothes_underwear, outfit_mode=False, exp="2dsbla", restore_zoom=False, unlock=True)
+
+                m 2ekbsa "So, [player]..."
+                m 2ekbsa "What do you think?"
+                m 2rkbsa "I'm... not used to this..."
+                if mas_hasUnlockedClothesWithExprop("lingerie"):
+                    m 2ekbsa "I know you've seen me in lingerie before, which is arguably more...{w=0.3}{nw}"
+                    extend 2rkbfa " sexual."
+                    m 2ekbsb "But this feels way different."
+                m 2hkbssdlb "Ahaha! It might take me a while to get used to you seeing me like this..."
+                m 2ekbla "But I'm still glad you don't mind me dressed this way."
+                m 2dkbla "Being able to dress freely around you makes me feel really happy."
+                m 1ekbsa "I love you, [player]."
+
             "I'd rather you didn't...":
-                m 1eua "That's too bad." #temp
+                m 2wkbld "Oh..."
+                m 2rkbld "That's okay, [player]."
+                m 2dkblc "I understand."
+                m 2dkblp "..."
+                m 2ekbld "I'm sorry for bothering you with this..."
+                m 1ekblc "I won't talk about it anymore."
                 return "derandom"
 
     elif mas_SELisUnlocked(mas_clothes_underwear) or mas_SELisUnlocked(mas_clothes_birthday_suit):
-        m 1eua "You're already familar with how I've been doing this while you've been away."
-        m 1eua "And I've got to say, it's been great!"
-        m 1eua "It's not for everyone though, so don't feel like I'm pressuring you..."
-        m 1eua "I love you, [mas_get_player_nickname()]. Both with clothes, and without."
-        m 1eua "..."
-        m 1eua "Ah!{w=0.4}{nw}"
-        extend 1eua "Sorry, my mind was starting to wander..."
-        m 1eua "Gosh, don't mind me."
+        m 3ekb "You're already familar with how I've been doing this while you've been away."
+        m 3eublb "And I've got to say, it's been great!"
+        m 3eublc "It's not for everyone though, so don't feel like I'm pressuring you..."
+        m 2eubsb "I love you, [mas_get_player_nickname()]. Both with clothes, and without."
+        m 2gsbfa "..."
+        m 2tsbfa "..."
+        m 2wubfd "Ah!{w=0.4}{nw}"
+        extend 2hubssdlb " Sorry, my mind was starting to wander..."
+        m 1rublsdlb "Gosh, don't mind me."
     
     else:
-        m 1eua "Ahaha! Even though I talk all this game about being naked and loving your body..."
-        m 1eua "I am still really embarrased about the idea of being nude, even when alone."
-        m 1eua "..."
+        m 2hksdlb "Ahaha! Even though I talk all this game about being naked and loving your body..."
+        m 2mksdlb "I am still really embarrased about the idea of being nude, even when alone."
+        m 2dka "..."
         m 1eua "Alright, I've decided."
-        m 1eua "I'm going to give it a try."
-        m 1eua "... {w=0.4}{nw}"
-        extend 1eua "N-{w=0.2}Not right now though!"
-        m 1eua "I mean like, later when you're not here!"
-        m 1eua "Ahaha! It would be too embarrasing if you saw me in my underwear, let alone when I'm naked."
+        m 1eublb "I'm going to give it a try."
+        m 1wubld "... {w=0.4}{nw}"
+        extend 1wubso "N-{w=0.2}Not right now though!"
+        m 1hubssdlb "I mean like, later when you're not here!"
+        m 1rubssdlb "Ahaha! It would be too embarrasing if you saw me in my underwear, let alone when I'm naked."
     
     return
+
+# init 5 python:
+#     addEvent(
+#         Event(
+#             persistent.event_database,
+#             eventlabel="monika_resetnsfwclothes",
+#             category=['sex'],
+#             prompt="RESET CLOTHES",
+#             #conditional="mas_getEV('monika_nsfwmodinstall').shown_count != 0",
+#             #action=EV_ACT_RANDOM,
+#             unlocked=True,
+#         )
+#     )
+
+# label monika_resetnsfwclothes:
+#     m 1esc "Alright, [mas_get_player_nickname()]. Time to reset my NSFW clothes!"
+#     m 2dsa "Changing into my underwear..."
+#     call mas_clothes_change(outfit=mas_clothes_underwear, outfit_mode=False, exp="1eua", restore_zoom=False, unlock=False)
+#     pause 3.0
+#     m 1esc "Now I'm in my underwear!"
+#     $ store.mas_selspr.lock_clothes(mas_clothes_underwear)
+#     m 2dsa "Changing out of my clothes..."
+#     call mas_clothes_change(outfit=mas_clothes_birthday_suit, outfit_mode=False, exp="1eua", restore_zoom=False, unlock=False)
+#     pause 3.0
+#     m 1esc "Now I'm naked!"
+#     $ store.mas_selspr.lock_clothes(mas_clothes_birthday_suit)
+#     return

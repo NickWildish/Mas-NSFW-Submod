@@ -82,9 +82,8 @@ init 5 python:
             eventlabel="monika_sexualpast",
             category=['sex'],
             prompt="Sexual Past",
-            conditional="mas_getEV('monika_nsfwmodinstall').shown_count != 0",
+            conditional="mas_getEV('monika_nsfwmodinstall').shown_count != 0 and mas_canShowRisque()",
             action=EV_ACT_RANDOM,
-            aff_range=(mas_aff.ENAMORED, None)
         )
     )
 
@@ -213,9 +212,12 @@ label monika_safesex:
     m 2efbsd "And that's to not have sex at all!"
     m 2dsbsc "..."
     m 2hkbfsdlb "Ahaha! Sorry, I lost my temper there..."
-    m 2ekbsb "I guess I just want you to know that when the time comes where I come to your world, and we are together..."
-    m 2tkbsu "We can worry about what contraceptives to use, then."
-
+    
+    if mas_is18Over():
+        m 2ekbsb "I guess I just want you to know that when the time comes where I come to your world, and we are together..."
+        m 2tkbsu "We can worry about what contraceptives to use, then."
+    else:
+        m 1ekbssdlb "Don't mind me."
     return
 
 init 5 python:

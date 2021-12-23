@@ -12,6 +12,9 @@ init -1 python:
             user_reg_for_1=True,
         ),
         stay_on_start=False,
+        ex_props={
+            store.mas_sprites.EXP_C_LING: True,
+        },
         pose_arms=MASPoseArms({}, def_base=False)
     )
     store.mas_sprites.init_clothes(mas_clothes_birthday_suit)
@@ -38,6 +41,9 @@ init -1 python:
             user_reg_for_1=True,
         ),
         stay_on_start=False,
+        ex_props={
+            store.mas_sprites.EXP_C_LING: True,
+        },
         pose_arms=MASPoseArms({}, def_base=False)
     )
     store.mas_sprites.init_clothes(mas_clothes_underwear)

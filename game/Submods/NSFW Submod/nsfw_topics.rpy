@@ -313,28 +313,27 @@ init 5 python:
     )
 
 label monika_gettingnude: 
-    # m 1eua "Hey [player], have you ever just... not worn clothes?"
-    # m 1hksdlb "I don't mean, like, for a shower or anything."
-    # m 1husdla "Just in general while you're at home...{w=0.5}{nw}"
-    # extend 1lusdla "alone preferably."
-    # m 1eua "There are a good amount of people that actually sleep naked, if you'll believe it."
-    # m 3eua "For most people this would be a good place to start without feeling embarrased."
-    # m 3eub "Apparently it helps you get better sleep at night because of how much quicker your body temperature drops."
-    # m 3rub "Of course, sleeping naked will mean you have to clean your sheets more often."
-    # m 3hksdlb "Humans are very sweaty, ahaha!"
-    # m 3eub "Being naked also helps our body absorb more vitamin D during the day."
-    # m 4eub "The reason for this is because skin is effectively a giant organ that absorbs the rays from the sun and increases our vitamin D levels."
-    # m 4eua "And having a greater vitamin D level has shown to assist your immune system fight off viruses, among other health benefits."
-    # m 3hksdlb "I'm not trying to say we all need to get naked and make it a new social norm, that would be silly! Ahaha!"
-    # m 3eua "But if you have the house to yourself one day, why not strip down and try it for an hour to see how you feel."
-    # m 3rusdld "Though be sure you know when the rest of your household is getting back, because that might be a {i}tad{/i} awkward."
-    # m 3eua "If that's too much, even just going down to your underwear gets the job done...{w=0.4}{nw} "
-    # extend 3ekb "though not to the same degree as being fully naked."
-    # m 2dkd "{i}*sigh*{/i}"
-    # m 2gkc "Of course, there is always the fact that not everyone is comfortable being naked."
-    # m 2tkc "Some people are ashamed or disheartened by their appearance, which is really sad when you think about it."
-    # m 2ekc "You only have one body, so the least you can do is take care of it and love it, you know?"
-    # m 2eka "Having pride in what you look like is the best thing you can do for your confidence!"
+    m 1eua "Hey [player], have you ever just... not worn clothes?"
+    m 1hksdlb "I don't mean, like, for a shower or anything."
+    m 1husdla "Just in general while you're at home...{w=0.5}{nw}"
+    extend 1lusdla "alone preferably."
+    m 1eua "There are a good amount of people that actually sleep naked, if you'll believe it."
+    m 3eua "For most people this would be a good place to start without feeling embarrased."
+    m 3eub "Apparently it helps you get better sleep at night because of how much quicker your body temperature drops."
+    m 3rub "Of course, sleeping naked will mean you have to clean your sheets more often."
+    m 3hksdlb "Humans are very sweaty, ahaha!"
+    m 3eub "Being naked also helps our body absorb more vitamin D during the day."
+    m 4eub "The reason for this is because skin is effectively a giant organ that absorbs the rays from the sun and increases our vitamin D levels."
+    m 4eua "And having a greater vitamin D level has shown to assist your immune system fight off viruses, among other health benefits."
+    m 3hksdlb "I'm not trying to say we all need to get naked and make it a new social norm, that would be silly! Ahaha!"
+    m 3eua "But if you have the house to yourself one day, why not strip down and try it for an hour to see how you feel."
+    m 3rusdld "Though be sure you know when the rest of your household is getting back, because that might be a {i}tad{/i} awkward."
+    m 3eua "If that's too much, even just going down to your underwear gets the job done..."
+    m 2dkd "{i}*sigh*{/i}"
+    m 2gkc "Of course, there is always the fact that not everyone is comfortable being naked."
+    m 2tkc "Some people are ashamed or disheartened by their appearance, which is really sad when you think about it."
+    m 2ekc "You only have one body, so the least you can do is take care of it and love it, you know?"
+    m 2eka "Having pride in what you look like is the best thing you can do for your confidence!"
     
     if mas_nsfw.canShow_birthdaySuit():
         m 2rkbla "..."
@@ -358,7 +357,7 @@ label monika_gettingnude:
                 m 2ekbsa "I know not everyone is comfortable being around someone naked."
                 m 2dsbsa "Give me one second, I'm just going to get out of these clothes."
 
-                call mas_clothes_change(outfit=mas_clothes_birthday_suit, outfit_mode=False, exp="2dsbla", restore_zoom=False, unlock=True)
+                call mas_clothes_change(outfit=mas_clothes_birthday_suit, outfit_mode=False, exp="2dsbla", restore_zoom=False, unlock=False)
 
                 m 4hubsb "Ah~! That's much better."
                 m 6tubsb "Ehehe~ Do you like what you see, [mas_get_player_nickname()]?"
@@ -429,6 +428,7 @@ label monika_gettingnude:
         m 2wubfd "Ah!{w=0.4}{nw}"
         extend 2hubssdlb " Sorry, my mind was starting to wander..."
         m 1rublsdlb "Gosh, don't mind me."
+        return "love"
     
     else:
         m 2hksdlb "Ahaha! Even though I talk all this game about being naked and loving your body..."

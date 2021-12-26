@@ -42,22 +42,22 @@ init python in mas_nsfw:
     import datetime
 
     def six_hour_check():
-    #RETURNS
+    #RETURNS:
     #    - True if the player has been away for six hours AND the topic hasn't been used for six hours
     #    - False if the player has not been away for six hours OR the topic hasn't been used for six hours
         time_away = store.mas_getAbsenceLength()
         time_away_in_hours = divmod(time_away.total_seconds(), 3600)
 
-        return time_away_in_hours >= 6 and mas_getEVL_last_seen("monika_getnude") >= 6
+        return time_away_in_hours >= 6 and store.mas_getEVL_last_seen("monika_getnude") >= 6
 
     def canShow_underwear():
     #RETURNS:
     #    - True if the player has seen 'monika_getnude' topic AND risque is allowed AND the player hasn't seen the topic for at least 6 hours
     #    - False if the player has not seen 'monika_getnude' topic OR risque is not allowed AND the player has seen the topic in the last 6 hours
-        return mas_getEV("monika_getnude").shown_count >= 1 and mas_canShowRisque() and six_hour_check()
+        return store.mas_getEV("monika_getnude").shown_count >= 1 and store.mas_canShowRisque() and six_hour_check()
 
     def canShow_birthdaySuit():
     #RETURNS:
     #    - True if the player has seen 'monika_getnude' topic twice AND risque is allowed AND the player hasn't seen the topic for at least 6 hours
     #    - False if the player has not seen 'monika_getnude' topic twice OR risque is not allowed AND the player has seen the topic in the last 6 hours
-        return mas_SELisUnlocked(mas_clothes_underwear) and mas_canShowRisque() and six_hour_check()
+        return store.mas_SELisUnlocked(mas_clothes_underwear) and store.mas_canShowRisque() and six_hour_check()

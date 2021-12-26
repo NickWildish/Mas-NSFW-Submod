@@ -41,23 +41,40 @@ init python in mas_nsfw:
     import store
     import datetime
 
-    def six_hour_check():
-    #RETURNS:
-    #    - True if the player has been away for six hours AND the topic hasn't been used for six hours
-    #    - False if the player has not been away for six hours OR the topic hasn't been used for six hours
-        time_away = store.mas_getAbsenceLength()
-        time_away_in_hours = divmod(time_away.total_seconds(), 3600)
+    
 
-        return time_away_in_hours >= 6 and store.mas_getEVL_last_seen("monika_getnude") >= 6
+    def six_hour_check():
+        """
+        Checks if six hours has passed since the player has seen the getting nude topic and also been away from the pc for at least six hours.
+
+        RETURNS: True if the player has been away for six hours AND the getting nude topic hasn't been used for six hours, False if otherwise
+        """
+        time_away_req = datetime.timedelta(hours=6)
+        time_since_last_seen = datetime.datetime.now() - store.mas_getEVL_last_seen("monika_gettingnude")
+
+        if store.mas_getAbsenceLength() >= time_away_req and time_since_last_seen >= time_away_req:
+            return True
+        else:
+            return False
 
     def canShow_underwear():
-    #RETURNS:
-    #    - True if the player has seen 'monika_getnude' topic AND risque is allowed AND the player hasn't seen the topic for at least 6 hours
-    #    - False if the player has not seen 'monika_getnude' topic OR risque is not allowed AND the player has seen the topic in the last 6 hours
-        return store.mas_getEV("monika_getnude").shown_count >= 1 and store.mas_canShowRisque() and six_hour_check()
+        """
+        Checks if the player should be able to see Monika's underwear yet.
+
+        RETURNS: True if the player has seen 'monika_gettingnude' topic AND risque is allowed AND the player hasn't seen the topic for at least 6 hours, False if otherwise
+        """
+        if store.mas_getEV("monika_gettingnude").shown_count >= 1 and store.mas_canShowRisque() and six_hour_check():
+            return True
+        else:
+            return False
 
     def canShow_birthdaySuit():
-    #RETURNS:
-    #    - True if the player has seen 'monika_getnude' topic twice AND risque is allowed AND the player hasn't seen the topic for at least 6 hours
-    #    - False if the player has not seen 'monika_getnude' topic twice OR risque is not allowed AND the player has seen the topic in the last 6 hours
-        return store.mas_SELisUnlocked(mas_clothes_underwear) and store.mas_canShowRisque() and six_hour_check()
+        """
+        Checks to see if the player should be able to see Monika with no clothes yet.
+
+        RETURNS: True if the player has seen 'monika_gettingnude' topic twice AND risque is allowed AND the player hasn't seen the topic for at least 6 hours, false if otherwise
+        """
+        if store.mas_SELisUnlocked(store.mas_clothes_underwear) and store.mas_canShowRisque() and six_hour_check():
+            return True
+        else:
+            return False

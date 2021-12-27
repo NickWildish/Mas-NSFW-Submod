@@ -82,7 +82,7 @@ init 5 python:
             eventlabel="monika_sexualpast",
             category=['sex'],
             prompt="Sexual Past",
-            conditional="mas_getEV('monika_nsfwmodinstall').shown_count != 0 and mas_canShowRisque()",
+            conditional="renpy.seen_label('monika_nsfwmodinstall') and mas_canShowRisque()",
             action=EV_ACT_RANDOM,
         )
     )
@@ -166,7 +166,7 @@ init 5 python:
             eventlabel="monika_safesex",
             category=['sex'],
             prompt="Safe Sex",
-            conditional="mas_getEV('monika_nsfwmodinstall').shown_count != 0",
+            conditional="renpy.seen_label('monika_nsfwmodinstall')",
             action=EV_ACT_RANDOM,
             aff_range=(mas_aff.ENAMORED, None)
         )
@@ -227,7 +227,7 @@ init 5 python:
             eventlabel="monika_fetish",
             category=['sex'],
             prompt="Fetishes",
-            conditional="mas_getEV('monika_nsfwmodinstall').shown_count != 0",
+            conditional="renpy.seen_label('monika_nsfwmodinstall')",
             action=EV_ACT_RANDOM,
             aff_range=(mas_aff.ENAMORED, None)
         )
@@ -306,7 +306,7 @@ init 5 python:
             eventlabel="monika_gettingnude",
             category=['sex'],
             prompt="Getting Nude",
-            conditional="mas_getEV('monika_nsfwmodinstall').shown_count != 0",
+            conditional="renpy.seen_label('monika_nsfwmodinstall')",
             action=EV_ACT_RANDOM,
             aff_range=(mas_aff.LOVE, None)
         )
@@ -450,7 +450,7 @@ label monika_gettingnude:
 #             eventlabel="monika_resetnsfwclothes",
 #             category=['sex'],
 #             prompt="RESET CLOTHES",
-#             #conditional="mas_getEV('monika_nsfwmodinstall').shown_count != 0",
+#             #conditional="renpy.seen_label('monika_nsfwmodinstall')",
 #             #action=EV_ACT_RANDOM,
 #             unlocked=True,
 #         )

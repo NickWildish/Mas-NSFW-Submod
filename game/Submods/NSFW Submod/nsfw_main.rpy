@@ -61,9 +61,9 @@ init python in mas_nsfw:
         """
         Checks if the player should be able to see Monika's underwear yet.
 
-        RETURNS: True if the player has seen 'monika_gettingnude' topic AND risque is allowed AND the player hasn't seen the topic for at least 6 hours, False if otherwise
+        RETURNS: True if the player has seen 'monika_gettingnude' topic AND risque is allowed AND the player hasn't seen the topic for at least 6 hours AND the player hasn't already unlocked her underwear, False if otherwise
         """
-        if store.mas_getEV("monika_gettingnude").shown_count >= 1 and store.mas_canShowRisque() and six_hour_check():
+        if store.mas_getEV("monika_gettingnude").shown_count >= 1 and store.mas_canShowRisque() and six_hour_check() and not store.mas_SELisUnlocked(store.mas_clothes_underwear):
             return True
         else:
             return False
@@ -72,9 +72,9 @@ init python in mas_nsfw:
         """
         Checks to see if the player should be able to see Monika with no clothes yet.
 
-        RETURNS: True if the player has seen 'monika_gettingnude' topic twice AND risque is allowed AND the player hasn't seen the topic for at least 6 hours, false if otherwise
+        RETURNS: True if the player has seen 'monika_gettingnude' topic twice AND risque is allowed AND the player hasn't seen the topic for at least 6 hours AND the player hasn't already unlocked her naked, false if otherwise
         """
-        if store.mas_SELisUnlocked(store.mas_clothes_underwear) and store.mas_canShowRisque() and six_hour_check():
+        if store.mas_SELisUnlocked(store.mas_clothes_underwear) and store.mas_canShowRisque() and six_hour_check() and not store.mas_SELisUnlocked(store.mas_clothes_birthday_suit):
             return True
         else:
             return False

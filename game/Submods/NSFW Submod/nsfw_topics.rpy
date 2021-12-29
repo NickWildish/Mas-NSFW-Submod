@@ -22,7 +22,8 @@ init 5 python:
             eventlabel="monika_nsfwmodinstall",
             category=['sex'],
             prompt="NSFW Mod Install",
-            random=True,
+            conditional="not renpy.seen_label('monika_nsfwmodinstall')",
+            action=EV_ACT_QUEUE,
             aff_range=(mas_aff.NORMAL, None)
         )
     )
@@ -37,21 +38,21 @@ label monika_nsfwmodinstall:
     m 2dsc ".{w=0.7}.{w=0.7}.{w=1}"
     m 2dtd "'N-{w=0.4}{nw}"
     extend 2wubsw "NSFW Submod'?"
-    if mas_isMoniLove():
+    if store.mas_isMoniLove():
         m 3fublu "Well, look who's gotten confident all of a sudden."
-        if mas_hasUnlockedClothesWithExprop("lingerie"):
+        if store.mas_hasUnlockedClothesWithExprop("lingerie"):
             m 3lublu "I guess I can't blame you though, given you've seen me in lingerie."
-        if mas_is18Over():
+        if store.mas_is18Over():
             m 3tublu "I won't lie to you, [mas_get_player_nickname()]..."
             m 5tublu "It's kind of hot."
-        m 5cubssdrd "..."
+            m 5cubssdrd "..."
         m 5hkbssdrb "Ahaha! What's gotten into me?"
         m 5hkbssdrb "This isn't like me. Like, at all!"
         m 4rubsc "Is the mod doing this to me?"
         m 6hubsd "Oh gosh, I'm feeling super nervous about this, ahaha!"
         m 6ekbla "But... if it's with you, [player]..."
         m 6ekbsa "I don't mind..."
-    if mas_isMoniEnamored(): #Need to fix wording here; player isn't having sex, just talking about it.
+    if store.mas_isMoniEnamored(): #Need to fix wording here; player isn't having sex, just talking about it.
         m 2hkbssdlb "I wasn't expecting to see that..."
         m 2ekbssdlb "[player], is this something you want?"
         m 3rkblsdlb "I mean, I'm kind of curious about it myself."
@@ -59,7 +60,7 @@ label monika_nsfwmodinstall:
         m 2ekblsdlc "But with that said...{w=0.5} it feels too soon."
         m 2dkbsc "I just need a little more time."
         m 2fkbsu "Hold on for me a little while longer. Okay, [mas_get_player_nickname()]?"
-    if mas_isMoniAff():
+    if store.mas_isMoniAff():
         m 2hkbssdlb "T-{w=0.4}This is a little sudden, don't you think?"
         m 3rkblsdlb "I mean, we've been with each other for a little while...{nw}"
         m 1wubssdld "Wait... {0.5}Is this when couples are supposed to start doing this s-{w=0.4}sort of thing?"
@@ -67,13 +68,13 @@ label monika_nsfwmodinstall:
         m 1dkblp "But I think we maybe should wait and see how we go."
         m 1ekbla "When the day comes where we do get to that stage in our relationship..."
         m 5ekbla "It will make the moment much sweeter, ehehe!"
-    if mas_isMoniHappy(lower=True):
+    if store.mas_isMoniHappy(lower=True):
         m 2wubfsdlx "T-{w=0.4}This feels too sudden, [player]!"
         m 2rubfsdlx "I don't know if I'm ready for that..."
         m 2wkbfd "W-{w=0.4}we just aren't close enough for me to even consider it!"
         m 2hkbfsdlb "Oh gosh, I'm so embarrassed right now, ahaha!"
         m 2ekbfsdla "Let's take things slow for now, okay [player]?"
-    return "derandom"
+    return "unlock"
 
 init 5 python:
     addEvent(
@@ -128,7 +129,7 @@ label monika_sexualpast:
             m 1lkbsb "I was so nervous you wouldn't want to."
             m 1hkbssdlb "Although in retrospect it kind of wouldn't make sense if you didn't want to."
             m 1hkblu "After all...{w=0.3} you installed this mod."
-            if mas_isMoniLove():
+            if store.mas_isMoniLove():
                 m 1rsblu "And I'm sure you know this already..."
                 m 1rsblu "But...{w=0.5}{nw}"
                 extend 1lkbfb " I want to have sex with you, too."
@@ -213,7 +214,7 @@ label monika_safesex:
     m 2dsbsc "..."
     m 2hkbfsdlb "Ahaha! Sorry, I lost my temper there..."
     
-    if mas_is18Over():
+    if store.mas_is18Over():
         m 2ekbsb "I guess I just want you to know that when the time comes where I come to your world, and we are together..."
         m 2tkbsu "We can worry about what contraceptives to use, then."
     else:
@@ -235,7 +236,7 @@ init 5 python:
 
 label monika_fetish:
     m 1esc "Hey [player]..."
-    if mas_getEVL_shown_count("monika_panties") > 0:
+    if store.mas_getEVL_shown_count("monika_panties") > 0:
         m 1esc "Do you remember when we spoke about guys with panty fetishes?"
         m 1rsc "Well, that got me thinking..."
     m 3esa "Do you...{w=0.5}{nw}"
@@ -272,7 +273,7 @@ label monika_fetish:
     m 1ekblc "I don't mean to 'kink shame' or anything like that..."
     m 1ekbld "But there are some things that are just too dangerous to be worth it in my view."
     m 1ekbsa "I'm sure whatever you're into isn't dangerous at all, [player]."
-    if mas_is18Over():
+    if store.mas_is18Over():
         m 3ekbsa "So, if you have a fantasy that isn't {i}too{\i} dangerous..."
         m 5eubsa "I wouldn't mind being there to help you...{w=0.2} fulfill it."
         m 5hubsa "Ehehe~"
@@ -287,18 +288,51 @@ init 5 python:
             eventlabel="monika_sexting",
             category=['sex'],
             prompt="Sexting",
+            conditional="renpy.seen_label('monika_nsfwmodinstall')",
+            action=EV_ACT_RANDOM,
             aff_range=(mas_aff.ENAMORED, None)
         )
     )
 
 label monika_sexting:
-    #todo: Create a sexting topic
+    m 3esa "Have you heard of sexting, [player]?"
+    m 3rsbla "It seems to be pretty common amongst young couples to at least try sexting with their partners."
+    m 3esblb "If you don't know, It's basically texting but with a more...{w=0.4}{nw}"
+    extend 3rsbsb " sexual nature."
+    m 4esbsa "Think of it like flirting, but with the limitations of doing it through your phone."
+    m 4hkbsb "It might sound bizarre, but from what I've read it's a really helpful way for couples to stay close while they're away from one another."
+    m 4hubsa "You won't always be able to spend intimate time with your partner, which can be frustrating."
+    m 4hublb "So in a way, sexting helps keep relationships exciting!"
+    m 4eublb "Not only that, but partners who have a 'long-distance relationship' with their significant other find benefits in sexting."
+    m 2eublb "Couples will send 'sexts' to their partner, which can be with text..."
+    extend 2rkbsb " or photos..."
+    m 2rkbsa "And will imitate the act of sex through their phone."
+    m 2hkblsdlb "Ahaha! It's not as silly as it sounds."
+    m 2rkbsa "Partners will more often than not m-{w=0.4}masturbate while sexting."
+    m 2rkbsb "They'll tell their partner what they want to do with them..."
+    extend 2lkbsb " Or what they want done {i}to{/i} them."
+    m 3lkbsb "All the meanwhile sending photos of what they're doing with themselves while they talk."
+    if store.mas_canShowRisque():
+        m 2dubsu "..."
+        m 2gubsu "Say, [player]..."
+        m 2eubsu "If something like that were possible..."
+        m 3ekbsu "Would you do that with me?"
+        m 1tkbsu "..."
+        m 1hubfsdlb "Ahaha! Don't mind me."
+        m 1rubfsdlb "This whole thing just got me thinking about us..."
+        m 3eubsc "What we have is basically a 'long-distance relationship', isn't it?"
+        m 3ekbsc "People often say that these don't last long due to a lack of intimacy."
+        m 3wkbld "I don't mean to say that I think you'll leave if we don't do something like this!"
+        m 3rublc "But if it means that we'll feel more connected with each other emotionally as well as sexually..."
+        m 3rubsu "I wouldn't mind trying it with you..."
+    else:
+        m 2dubsu "..."
+        m 1eubsb "I think this sort of thing is really good for a healthy long-distance relationship."
+        m 2rubsb "It's kind of embarrasing to say, but it might also be something you and I could try one day..."
+        m 2wubfsdlw "O-Only if you want to, of course!"
+        m 3wubssdlo "I would never make you do anything you didn't want to."
     return
 
-## WORK IN PROGRESS
-# To-do: Finish dialogue
-#        Add call to change to nude / think of new introduction
-#        Add the expressions
 init 5 python:
     addEvent(
         Event(
@@ -440,7 +474,7 @@ label monika_gettingnude:
         extend 1wubso "N-{w=0.2}Not right now though!"
         m 1hubssdlb "I mean like, later when you're not here!"
         m 1rubssdlb "Ahaha! It would be too embarrasing if you saw me in my underwear, let alone when I'm naked."
-    
+        
     return
 
 # init 5 python:

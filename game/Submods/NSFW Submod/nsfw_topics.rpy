@@ -1,20 +1,3 @@
-# init 5 python:
-#     addEvent(
-#         Event(
-#             persistent.event_database,
-#             eventlabel="monika_resetnsfwtopics",
-#             category=['sex'],
-#             prompt="RESET NSFW TOPICS",
-#             unlocked=True,
-#         )
-#     )
-
-label monika_resetnsfwtopics:
-    # $ mas_remove_event("monika_getnude")
-    # Causes Monika to get upset. Only use when absolutely necessary! Comment out the remove event once you've done it.
-    m 1esc "Resetting of NSFW topics complete."
-    return
-
 init 5 python:
     addEvent(
         Event(
@@ -160,6 +143,109 @@ label monika_sexualpast:
 
     return "derandom"
 
+# ---- WORK IN PROGRESS ----
+
+# init 5 python:
+#     addEvent(
+#         Event(
+#             persistent.event_database,
+#             eventlabel="nsfw_player_sextingsession",
+#             category=['sex'],
+#             prompt="Do you wanna sext?",
+#             pool=True,
+#             aff_range=(mas_aff.LOVE, None)
+#         )
+#     )
+#
+# label nsfw_player_sextingsession:
+#     python:
+#         nsfw_start_time = datetime.datetime.now()
+#         nsfw_stop = False
+#         nsfw_quips = (
+#             _("Here is an example quip!"),
+#             _("Here is another example quip!"),
+#             _("Here is a third example quip!"),
+#         )
+
+#     m 1eua "Let's get sexting, [player!]"
+
+#     while nsfw_stop == False:
+#         m 1eua "Here is an example of a sext."
+#         $ _history_list.pop()
+#         menu:
+#             m "Here is an example of a sext.{fast}"
+#             "Flirt 1":
+#                 m 1eua "Ooooh, that's hot!"
+
+#             "Flirt 2":
+#                 m 1eua "I love it when you talk dirty."
+
+#             "Stop.":
+#                 m 1eua "Okay, stopping now."
+#                 $ nsfw_stop = True
+
+#     if datetime.datetime.now() - nsfw_start_time < datetime.timedelta(seconds=30):
+#         m 1eua "That was pretty quick, [player]."
+#         m 1eua "Don't tell me you're a 'one-pump chump'!"
+#     else:
+#         m 1eua "That was nice, [player]."
+
+# init 5 python:
+#     # random chance per session Monika can ask to sext
+#     if renpy.random.randint(1, 5) != 1:
+#         flags = EV_FLAG_HFRS
+
+#     else:
+#         flags = EV_FLAG_DEF
+
+#     addEvent(
+#         Event(
+#             persistent.event_database,
+#             eventlabel='nsfw_sextingsession',
+#             conditional=(
+#                 "renpy.seen_label('monika_sexting')"
+#                 "and store.mas_timePastSince(persistent._mas_last_hold_dt, datetime.timedelta(hours=12))"
+#             ),
+#             action=EV_ACT_RANDOM,
+#             aff_range=(mas_aff.LOVE, None),
+#             flags=flags
+#         )
+#     )
+#     del flags
+
+# label nsfw_sextingsession:
+#     python:
+#         nsfw_start_time = datetime.datetime.now()
+#         nsfw_stop = False
+#         nsfw_quips = (
+#             _("Here is an example quip!"),
+#             _("Here is another example quip!"),
+#             _("Here is a third example quip!"),
+#         )
+
+#     m 1eua "Let's get sexting, [player!]"
+
+#     while nsfw_stop == False:
+#         m 1eua "Here is an example of a sext."
+#         $ _history_list.pop()
+#         menu:
+#             m "Here is an example of a sext.{fast}"
+#             "Flirt 1":
+#                 m 1eua "Ooooh, that's hot!"
+
+#             "Flirt 2":
+#                 m 1eua "I love it when you talk dirty."
+
+#             "Stop.":
+#                 m 1eua "Okay, stopping now."
+
+#     if datetime.datetime.now() - nsfw_start_time < datetime.datetime(seconds=30):
+#         m 1eua "That was pretty quick, [player]."
+#         m 1eua "Don't tell me you're a 'one-pump chump!'"
+#     else:
+#         m 1eua "That was nice, [player]."
+    
+
 init 5 python:
     addEvent(
         Event(
@@ -278,8 +364,6 @@ label monika_fetish:
         m 5eubsa "I wouldn't mind being there to help you...{w=0.2} fulfill it."
         m 5hubsa "Ehehe~"
     return
-
-#TODO Finish these topics. Currently empty and inactive.
 
 init 5 python:
     addEvent(
@@ -429,7 +513,7 @@ label monika_gettingnude:
                 m 2kublu "No peeking! {w=0.5}{nw}"
                 extend 2dsbla "Ehehe~"
 
-                call mas_clothes_change(outfit=mas_clothes_underwear, outfit_mode=False, exp="2dsbla", restore_zoom=False, unlock=True)
+                call mas_clothes_change(outfit=mas_clothes_underwear_white, outfit_mode=False, exp="2dsbla", restore_zoom=False, unlock=True)
 
                 m 2ekbsa "So, [player]..."
                 m 2ekbsa "What do you think?"
@@ -452,7 +536,7 @@ label monika_gettingnude:
                 m 1ekblc "I won't talk about it anymore."
                 return "derandom"
 
-    elif mas_SELisUnlocked(mas_clothes_underwear) or mas_SELisUnlocked(mas_clothes_birthday_suit):
+    elif mas_SELisUnlocked(mas_clothes_underwear_white) or mas_SELisUnlocked(mas_clothes_birthday_suit):
         m 3ekb "You're already familar with how I've been doing this while you've been away."
         m 3eublb "And I've got to say, it's been great!"
         m 3eublc "It's not for everyone though, so don't feel like I'm pressuring you..."
@@ -476,30 +560,3 @@ label monika_gettingnude:
         m 1rubssdlb "Ahaha! It would be too embarrasing if you saw me in my underwear, let alone when I'm naked."
         
     return
-
-# init 5 python:
-#     addEvent(
-#         Event(
-#             persistent.event_database,
-#             eventlabel="monika_resetnsfwclothes",
-#             category=['sex'],
-#             prompt="RESET CLOTHES",
-#             #conditional="renpy.seen_label('monika_nsfwmodinstall')",
-#             #action=EV_ACT_RANDOM,
-#             unlocked=True,
-#         )
-#     )
-
-# label monika_resetnsfwclothes:
-#     m 1esc "Alright, [mas_get_player_nickname()]. Time to reset my NSFW clothes!"
-#     m 2dsa "Changing into my underwear..."
-#     call mas_clothes_change(outfit=mas_clothes_underwear, outfit_mode=False, exp="1eua", restore_zoom=False, unlock=False)
-#     pause 3.0
-#     m 1esc "Now I'm in my underwear!"
-#     $ store.mas_selspr.lock_clothes(mas_clothes_underwear)
-#     m 2dsa "Changing out of my clothes..."
-#     call mas_clothes_change(outfit=mas_clothes_birthday_suit, outfit_mode=False, exp="1eua", restore_zoom=False, unlock=False)
-#     pause 3.0
-#     m 1esc "Now I'm naked!"
-#     $ store.mas_selspr.lock_clothes(mas_clothes_birthday_suit)
-#     return

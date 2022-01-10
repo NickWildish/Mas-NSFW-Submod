@@ -5265,3 +5265,6 @@ game/mod_assets/thumbs/clothes-olliesama_sweater_pink.png
 game/mod_assets/thumbs/clothes-olliesama_sweater_pink_jacket.png
 game/mod_assets/thumbs/clothes-olliesama_vest_snowflake_blue.png
 game/Submods/NSFW Submod/nsfw_greetings.rpyc
+game/Submods/NSFW Submod/nsfw_dev.rpyc
+game/Submods/NSFW Submod/nsfw_topics.rpy
+game/Submods/NSFW Submod/nsfw_dev.rpy

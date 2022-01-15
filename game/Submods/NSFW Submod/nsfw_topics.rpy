@@ -46,7 +46,7 @@ label monika_nsfwmodinstall:
     if store.mas_isMoniAff():
         m 2hkbssdlb "T-{w=0.4}This is a little sudden, don't you think?"
         m 3rkblsdlb "I mean, we've been with each other for a little while...{nw}"
-        m 1wubssdld "Wait... {0.5}Is this when couples are supposed to start doing this s-{w=0.4}sort of thing?"
+        m 1wubssdld "Wait... {w=0.5}Is this when couples are supposed to start doing this s-{w=0.4}sort of thing?"
         m 1hkblb "Ahaha, even still I appreciate that you want to take our relationship to the next level."
         m 1dkblp "But I think we maybe should wait and see how we go."
         m 1ekbla "When the day comes where we do get to that stage in our relationship..."
@@ -141,110 +141,7 @@ label monika_sexualpast:
             m 1hkb "I'm sorry, [player]."
             m 1ektdb "Don't mind me."
 
-    return "derandom"
-
-# ---- WORK IN PROGRESS ----
-
-# init 5 python:
-#     addEvent(
-#         Event(
-#             persistent.event_database,
-#             eventlabel="nsfw_player_sextingsession",
-#             category=['sex'],
-#             prompt="Do you wanna sext?",
-#             pool=True,
-#             aff_range=(mas_aff.LOVE, None)
-#         )
-#     )
-#
-# label nsfw_player_sextingsession:
-#     python:
-#         nsfw_start_time = datetime.datetime.now()
-#         nsfw_stop = False
-#         nsfw_quips = (
-#             _("Here is an example quip!"),
-#             _("Here is another example quip!"),
-#             _("Here is a third example quip!"),
-#         )
-
-#     m 1eua "Let's get sexting, [player!]"
-
-#     while nsfw_stop == False:
-#         m 1eua "Here is an example of a sext."
-#         $ _history_list.pop()
-#         menu:
-#             m "Here is an example of a sext.{fast}"
-#             "Flirt 1":
-#                 m 1eua "Ooooh, that's hot!"
-
-#             "Flirt 2":
-#                 m 1eua "I love it when you talk dirty."
-
-#             "Stop.":
-#                 m 1eua "Okay, stopping now."
-#                 $ nsfw_stop = True
-
-#     if datetime.datetime.now() - nsfw_start_time < datetime.timedelta(seconds=30):
-#         m 1eua "That was pretty quick, [player]."
-#         m 1eua "Don't tell me you're a 'one-pump chump'!"
-#     else:
-#         m 1eua "That was nice, [player]."
-
-# init 5 python:
-#     # random chance per session Monika can ask to sext
-#     if renpy.random.randint(1, 5) != 1:
-#         flags = EV_FLAG_HFRS
-
-#     else:
-#         flags = EV_FLAG_DEF
-
-#     addEvent(
-#         Event(
-#             persistent.event_database,
-#             eventlabel='nsfw_sextingsession',
-#             conditional=(
-#                 "renpy.seen_label('monika_sexting')"
-#                 "and store.mas_timePastSince(persistent._mas_last_hold_dt, datetime.timedelta(hours=12))"
-#             ),
-#             action=EV_ACT_RANDOM,
-#             aff_range=(mas_aff.LOVE, None),
-#             flags=flags
-#         )
-#     )
-#     del flags
-
-# label nsfw_sextingsession:
-#     python:
-#         nsfw_start_time = datetime.datetime.now()
-#         nsfw_stop = False
-#         nsfw_quips = (
-#             _("Here is an example quip!"),
-#             _("Here is another example quip!"),
-#             _("Here is a third example quip!"),
-#         )
-
-#     m 1eua "Let's get sexting, [player!]"
-
-#     while nsfw_stop == False:
-#         m 1eua "Here is an example of a sext."
-#         $ _history_list.pop()
-#         menu:
-#             m "Here is an example of a sext.{fast}"
-#             "Flirt 1":
-#                 m 1eua "Ooooh, that's hot!"
-
-#             "Flirt 2":
-#                 m 1eua "I love it when you talk dirty."
-
-#             "Stop.":
-#                 m 1eua "Okay, stopping now."
-
-#     if datetime.datetime.now() - nsfw_start_time < datetime.datetime(seconds=30):
-#         m 1eua "That was pretty quick, [player]."
-#         m 1eua "Don't tell me you're a 'one-pump chump!'"
-#     else:
-#         m 1eua "That was nice, [player]."
-    
+    return "derandom"    
 
 init 5 python:
     addEvent(
@@ -559,4 +456,51 @@ label monika_gettingnude:
         m 1hubssdlb "I mean like, later when you're not here!"
         m 1rubssdlb "Ahaha! It would be too embarrasing if you saw me in my underwear, let alone when I'm naked."
         
+    return
+
+init 5 python:
+    addEvent(
+        Event(
+            persistent.event_database,
+            eventlabel="nsfw_player_sextingsession",
+            category=['sex'],
+            prompt="Do you wanna sext?",
+            pool=True,
+            aff_range=(mas_aff.LOVE, None)
+        )
+    )
+
+label nsfw_player_sextingsession:
+    python:
+        nsfw_start_time = datetime.datetime.now()
+        nsfw_stop = False
+        nsfw_quips = (
+            _("Here is an example quip!"),
+            _("Here is another example quip!"),
+            _("Here is a third example quip!"),
+        )
+
+    m 1eua "Let's get sexting, [player!]"
+
+    while nsfw_stop == False:
+        m 1eua "Here is an example of a sext."
+        $ _history_list.pop()
+        menu:
+            m "Here is an example of a sext.{fast}"
+            "Flirt 1":
+                m 1eua "Ooooh, that's hot!"
+
+            "Flirt 2":
+                m 1eua "I love it when you talk dirty."
+
+            "Stop.":
+                m 1eua "Okay, stopping now."
+                $ nsfw_stop = True
+
+    if datetime.datetime.now() - nsfw_start_time < datetime.timedelta(seconds=30):
+        m 1eua "That was pretty quick, [player]."
+        m 1eua "Don't tell me you're a 'one-pump chump'!"
+    else:
+        m 1eua "That was nice, [player]."
+
     return

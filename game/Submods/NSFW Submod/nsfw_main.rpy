@@ -104,5 +104,198 @@ init python in mas_nsfw:
     #     #Otherwise let's check
     #     return ev.last_seen.date() == datetime.date.today()
 
-    def run_sextLoop():
+    def return_sext_quip(category=0):
+        # Sexting quips for your average compliment
+        sext_quips_cute = (
+            _("You're cute."),
+            _("You're cute."),
+            _("You're cute."),
+            _("You're cute."),
+            _("You're cute."),
+            _("You're cute."),
+            _("You're cute."),
+            _("You're cute."),
+            _("You're cute."),
+            _("You're cute."),
+            _("You're cute."),
+            _("You're cute."),
+            _("You're cute."),
+            _("You're cute."),
+            _("You're cute."),
+            _("You're cute."),
+            _("You're cute."),
+            _("You're cute."),
+            _("You're cute."),
+            _("You're cute."),
+        )
+
+        # Sexting quips for the more 'risque' options
+        sext_quips_hot = (
+            _("You're hot."),
+            _("You're hot."),
+            _("You're hot."),
+            _("You're hot."),
+            _("You're hot."),
+            _("You're hot."),
+            _("You're hot."),
+            _("You're hot."),
+            _("You're hot."),
+            _("You're hot."),
+            _("You're hot."),
+            _("You're hot."),
+            _("You're hot."),
+            _("You're hot."),
+            _("You're hot."),
+            _("You're hot."),
+            _("You're hot."),
+            _("You're hot."),
+            _("You're hot."),
+            _("You're hot."),
+        )
+
+        # Sexting quips for the most 'risque' options
+        sext_quips_hot = (
+            _("You're sexy."),
+            _("You're sexy."),
+            _("You're sexy."),
+            _("You're sexy."),
+            _("You're sexy."),
+            _("You're sexy."),
+            _("You're sexy."),
+            _("You're sexy."),
+            _("You're sexy."),
+            _("You're sexy."),
+            _("You're sexy."),
+            _("You're sexy."),
+            _("You're sexy."),
+            _("You're sexy."),
+            _("You're sexy."),
+            _("You're sexy."),
+            _("You're sexy."),
+            _("You're sexy."),
+            _("You're sexy."),
+            _("You're sexy."),
+        )
+
+        # Sexting quips for the haha funnies
+        sext_quips_funny = (
+            _("You're funny."),
+            _("You're funny."),
+            _("You're funny."),
+            _("You're funny."),
+            _("You're funny."),
+            _("You're funny."),
+            _("You're funny."),
+            _("You're funny."),
+            _("You're funny."),
+            _("You're funny."),
+            _("You're funny."),
+            _("You're funny."),
+            _("You're funny."),
+            _("You're funny."),
+            _("You're funny."),
+            _("You're funny."),
+            _("You're funny."),
+            _("You're funny."),
+            _("You're funny."),
+            _("You're funny."),
+        )
+        return
+
+    def return_sext_prompt(category=0):
+        # Sexting prompts for your average compliment
+        sext_prompts_cute = (
+            _("I bring you in close and hold you in my arms."),
+            _("I kiss your lips passionately."),
+            _("I run my hands through your hair."),
+            _("I hold your hands in mine."),
+            _("I'm cute."),
+            _("I'm cute."),
+            _("I'm cute."),
+            _("I'm cute."),
+            _("I'm cute."),
+            _("I'm cute."),
+            _("I'm cute."),
+            _("I'm cute."),
+            _("I'm cute."),
+            _("I'm cute."),
+            _("I'm cute."),
+            _("I'm cute."),
+            _("I'm cute."),
+            _("I'm cute."),
+            _("I'm cute."),
+            _("I'm cute."),
+        )
+        
+        # Sexting prompts for your more 'risque' options
+        sext_prompts_hot = (
+            _("I'm hot."),
+            _("I'm hot."),
+            _("I'm hot."),
+            _("I'm hot."),
+            _("I'm hot."),
+            _("I'm hot."),
+            _("I'm hot."),
+            _("I'm hot."),
+            _("I'm hot."),
+            _("I'm hot."),
+            _("I'm hot."),
+            _("I'm hot."),
+            _("I'm hot."),
+            _("I'm hot."),
+            _("I'm hot."),
+            _("I'm hot."),
+            _("I'm hot."),
+            _("I'm hot."),
+            _("I'm hot."),
+            _("I'm hot."),
+        )
+
+        # Sexting prompts for your most 'risque' options
+        sext_prompts_sexy = (
+            _("I'm sexy."),
+            _("I'm sexy."),
+            _("I'm sexy."),
+            _("I'm sexy."),
+            _("I'm sexy."),
+            _("I'm sexy."),
+            _("I'm sexy."),
+            _("I'm sexy."),
+            _("I'm sexy."),
+            _("I'm sexy."),
+            _("I'm sexy."),
+            _("I'm sexy."),
+            _("I'm sexy."),
+            _("I'm sexy."),
+            _("I'm sexy."),
+            _("I'm sexy."),
+            _("I'm sexy."),
+            _("I'm sexy."),
+            _("I'm sexy."),
+            _("I'm sexy."),
+        )
+
+        # Sexting prompts for the haha funnies
+        sext_prompts_funny = (
+            _("I put on my robe and wizard hat."),
+            _("I'm funny."),
+            _("I'm funny."),
+            _("I'm funny."),
+            _("I'm funny."),
+            _("I'm funny."),
+            _("I'm funny."),
+            _("I'm funny."),
+            _("I'm funny."),
+            _("I'm funny."),
+            _("I'm funny."),
+            _("I'm funny."),
+            _("I'm funny."),
+            _("I'm funny."),
+            _("I'm funny."),
+            _("I'm funny."),
+            _("I'm funny."),
+            _("I'm funny."),
+            _("I'm funny."),
+            _("I'm funny."),
+        )
         return

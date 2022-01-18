@@ -458,49 +458,49 @@ label monika_gettingnude:
         
     return
 
-init 5 python:
-    addEvent(
-        Event(
-            persistent.event_database,
-            eventlabel="nsfw_player_sextingsession",
-            category=['sex'],
-            prompt="Do you wanna sext?",
-            pool=True,
-            aff_range=(mas_aff.LOVE, None)
-        )
-    )
+# init 5 python:
+#     addEvent(
+#         Event(
+#             persistent.event_database,
+#             eventlabel="nsfw_player_sextingsession",
+#             category=['sex'],
+#             prompt="Do you wanna sext?",
+#             pool=True,
+#             aff_range=(mas_aff.LOVE, None)
+#         )
+#     )
 
-label nsfw_player_sextingsession:
-    python:
-        nsfw_start_time = datetime.datetime.now()
-        nsfw_stop = False
-        nsfw_quips = (
-            _("Here is an example quip!"),
-            _("Here is another example quip!"),
-            _("Here is a third example quip!"),
-        )
+# label nsfw_player_sextingsession:
+#     python:
+#         nsfw_start_time = datetime.datetime.now()
+#         nsfw_stop = False
+#         nsfw_quips = (
+#             _("Here is an example quip!"),
+#             _("Here is another example quip!"),
+#             _("Here is a third example quip!"),
+#         )
 
-    m 1eua "Let's get sexting, [player!]"
+#     m 1eua "Let's get sexting, [player!]"
 
-    while nsfw_stop == False:
-        m 1eua "Here is an example of a sext."
-        $ _history_list.pop()
-        menu:
-            m "Here is an example of a sext.{fast}"
-            "Flirt 1":
-                m 1eua "Ooooh, that's hot!"
+#     while nsfw_stop == False:
+#         m 1eua "Here is an example of a sext."
+#         $ _history_list.pop()
+#         menu:
+#             m "Here is an example of a sext.{fast}"
+#             "Flirt 1":
+#                 m 1eua "Ooooh, that's hot!"
 
-            "Flirt 2":
-                m 1eua "I love it when you talk dirty."
+#             "Flirt 2":
+#                 m 1eua "I love it when you talk dirty."
 
-            "Stop.":
-                m 1eua "Okay, stopping now."
-                $ nsfw_stop = True
+#             "Stop.":
+#                 m 1eua "Okay, stopping now."
+#                 $ nsfw_stop = True
 
-    if datetime.datetime.now() - nsfw_start_time < datetime.timedelta(seconds=30):
-        m 1eua "That was pretty quick, [player]."
-        m 1eua "Don't tell me you're a 'one-pump chump'!"
-    else:
-        m 1eua "That was nice, [player]."
+#     if datetime.datetime.now() - nsfw_start_time < datetime.timedelta(seconds=30):
+#         m 1eua "That was pretty quick, [player]."
+#         m 1eua "Don't tell me you're a 'one-pump chump'!"
+#     else:
+#         m 1eua "That was nice, [player]."
 
-    return
+#     return

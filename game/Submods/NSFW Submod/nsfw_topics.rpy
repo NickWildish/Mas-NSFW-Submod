@@ -147,6 +147,90 @@ init 5 python:
     addEvent(
         Event(
             persistent.event_database,
+            eventlabel="monika_sexualpast",
+            category=['sex'],
+            prompt="Sexual Past",
+            conditional="renpy.seen_label('monika_nsfwmodinstall') and mas_canShowRisque()",
+            action=EV_ACT_RANDOM,
+        )
+    )
+
+label monika_sexualpast:
+    m 1rubsd "Umm... [player]?"
+    m 1eubsc "I want to ask you something."
+    m 1rubsd "It's about..."
+    m 2hkbssdlb "Oh gosh, this is so embarrassing!"
+    m 2ekbsb "Have you...{w=0.5} {nw}"
+    extend 2fkbfb "had sex before?{nw}"
+    $ _history_list.pop()
+    menu:
+        m "Have you... had sex before?{fast}"
+
+        "Yes.":
+            m 2cubfw "R-Really?!{nw}"
+            m 2hubfa "*ahem*...{w=1}{nw} "
+            extend 1ekbfsdlb "Sorry, you just surprised me is all."
+            m 1rkbfsdlb "To be honest I should have seen this coming."
+            m 1ekblb "After getting to know you all this time, I can see why someone would fall for you."
+            m 1ekbstpd "And would... do those things with you."
+            m 1dkbstpc "..."
+            m 1hkbstpb "Ahaha! Sorry, I'm getting myself down over this."
+            m 1ekbstdb "You're here with me now, that's all that matters."
+
+        "No.":
+            m 2eubsb "I see..."
+            m 1dkbfsdla "That's a relief.{nw}"
+
+        "I don't want to answer.":
+            m 1ekbsa "I understand, [mas_get_player_nickname()]. It can be a difficult thing to talk about."
+
+    m 1rkbsb "Anyway, the reason why I'm asking is because I want to know..."
+    m 3ekbsa "Would you...{w=0.5}{nw}"
+    extend 3rkbsa " do it with me?{nw}"
+    $ _history_list.pop()
+    menu:
+        m "Would you... do it with me?{fast}"
+
+        "Yes.":
+            m 1ekbsa "I'm so relieved!"
+            m 1lkbsb "I was so nervous you wouldn't want to."
+            m 1hkbssdlb "Although in retrospect it kind of wouldn't make sense if you didn't want to."
+            m 1hkblu "After all...{w=0.3} you installed this mod."
+            if store.mas_isMoniLove():
+                m 1rsblu "And I'm sure you know this already..."
+                m 1rsblu "But...{w=0.5}{nw}"
+                extend 1lkbfb " I want to have sex with you, too."
+                m 3ekbfb "I-{w=0.4}I don't know what it feels like,{nw} "
+                extend 3rkbfb "and I'm so nervous just thinking about it, ahaha!"
+                m 4ekbfb "But I want my first time to be with you."
+                m 5ekbsu "I love you, and I trust you."
+                return "love|derandom"
+
+            else:
+                m 1wkbsw "Of course, I did say that we should maybe wait until we're ready..."
+                m 1rkbsa "But knowing we can be closer than ever before..."
+                m 5ekbsa "It is really exciting."
+                m 5ekbfb "I love you, [mas_get_player_nickname()]."
+                return "love|derandom"
+
+        "No.": # Why does this have to exist? Like, why?
+            m 1wkd "Oh."
+            m 2rkd "I..."
+            m 2dkc "I understand."
+            m 2dktpc "Thankyou for being honest with me."
+            m 2dktpc "..."
+            m 2fktpc "It's not something everyone is comfortable with, huh?"
+            m 2rktpc "I know I shouldn't take this personally."
+            m 2dktdc "..."
+            m 1hkb "I'm sorry, [player]."
+            m 1ektdb "Don't mind me."
+
+    return "derandom"    
+
+init 5 python:
+    addEvent(
+        Event(
+            persistent.event_database,
             eventlabel="monika_safesex",
             category=['sex'],
             prompt="Safe Sex",

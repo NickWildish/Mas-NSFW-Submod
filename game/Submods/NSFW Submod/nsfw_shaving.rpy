@@ -42,4 +42,4 @@ label monika_shaving:
     m 1hub "Shaven or natural.."
     m 1nub "I'll always love you!"
 
-    return love
+    return

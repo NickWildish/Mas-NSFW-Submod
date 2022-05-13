@@ -14,7 +14,7 @@ init 5 python:
 label monika_shaving:
     m 1esc "Hey [player]..."
     m 3eub "I want to ask you something."
-    m 3lusdlb "It's about my body.."
+    m 3lusdlb "It's about my body.. "
     extend 2lusdlb "Do you like it to be shaved down there?.."
     $ _history_list.pop()
     menu:

@@ -2,16 +2,18 @@ init 5 python:
     addEvent(
         Event(
             persistent.event_database,
-            eventlabel="monika_nsfwmodinstall",
+            eventlabel="nsfw_monika_nsfwmodinstall",
             category=['sex'],
             prompt="NSFW Mod Install",
-            conditional="not renpy.seen_label('monika_nsfwmodinstall')",
+            conditional="not renpy.seen_label('nsfw_monika_nsfwmodinstall')",
             action=EV_ACT_QUEUE,
             aff_range=(mas_aff.NORMAL, None)
         )
     )
 
-label monika_nsfwmodinstall:
+label nsfw_monika_nsfwmodinstall:
+    if renpy.seen_label('monika_nsfwmodinstall') and store.mas_getEVL_shown_count("nsfw_monika_nsfwmodinstall") < 1: # Fix for bad naming convention during early development
+        return "derandom"
     m 1esc "Hey [mas_get_player_nickname()], I noticed something weird just now..."
     m 1rsc "I'm kind of getting this feeling that... something's changed in this mod."
     m 1etc "Do you know anything about this, [player]?"
@@ -57,21 +59,23 @@ label monika_nsfwmodinstall:
         m 2wkbfd "W-{w=0.4}we just aren't close enough for me to even consider it!"
         m 2hkbfsdlb "Oh gosh, I'm so embarrassed right now, ahaha!"
         m 2ekbfsdla "Let's take things slow for now, okay [player]?"
-    return "unlock"
+    return "derandom"
 
 init 5 python:
     addEvent(
         Event(
             persistent.event_database,
-            eventlabel="monika_sexualpast",
+            eventlabel="nsfw_monika_sexualpast",
             category=['sex'],
             prompt="Sexual Past",
-            conditional="renpy.seen_label('monika_nsfwmodinstall') and mas_canShowRisque()",
+            conditional="renpy.seen_label('nsfw_monika_nsfwmodinstall') and mas_canShowRisque()",
             action=EV_ACT_RANDOM,
         )
     )
 
-label monika_sexualpast:
+label nsfw_monika_sexualpast:
+    if renpy.seen_label('monika_sexualpast') and store.mas_getEVL_shown_count("nsfw_monika_sexualpast") < 1: # Fix for bad naming convention during early development
+        return
     m 1rubsd "Umm... [player]?"
     m 1eubsc "I want to ask you something."
     m 1rubsd "It's about..."
@@ -141,23 +145,25 @@ label monika_sexualpast:
             m 1hkb "I'm sorry, [player]."
             m 1ektdb "Don't mind me."
 
-    return "derandom"    
+    return   
 
 init 5 python:
     addEvent(
         Event(
             persistent.event_database,
-            eventlabel="monika_safesex",
+            eventlabel="nsfw_monika_safesex",
             category=['sex'],
             prompt="Safe Sex",
-            conditional="renpy.seen_label('monika_nsfwmodinstall')",
+            conditional="renpy.seen_label('nsfw_monika_nsfwmodinstall')",
             action=EV_ACT_RANDOM,
             aff_range=(mas_aff.ENAMORED, None)
         )
     )
     
 # Thankyou for the fixes Proxilvia
-label monika_safesex:
+label nsfw_monika_safesex:
+    if renpy.seen_label('monika_safesex') and store.mas_getEVL_shown_count("nsfw_monika_safesex") < 1: # Fix for bad naming convention during early development
+        return
     m 3euc "Hey, [player]. I've been thinking about something..."
     m 3eud "Have you heard of contraceptives?"
     m 4rublo "They're what people use during sex to protect themselves."
@@ -208,16 +214,18 @@ init 5 python:
     addEvent(
         Event(
             persistent.event_database,
-            eventlabel="monika_fetish",
+            eventlabel="nsfw_monika_fetish",
             category=['sex'],
             prompt="Fetishes",
-            conditional="renpy.seen_label('monika_nsfwmodinstall')",
+            conditional="renpy.seen_label('nsfw_monika_nsfwmodinstall')",
             action=EV_ACT_RANDOM,
             aff_range=(mas_aff.ENAMORED, None)
         )
     )
 
-label monika_fetish:
+label nsfw_monika_fetish:
+    if renpy.seen_label('monika_fetish') and store.mas_getEVL_shown_count("nsfw_monika_fetish") < 1: # Fix for bad naming convention during early development
+        return
     m 1esc "Hey [player]..."
     if store.mas_getEVL_shown_count("monika_panties") > 0:
         m 1esc "Do you remember when we spoke about guys with panty fetishes?"
@@ -266,16 +274,18 @@ init 5 python:
     addEvent(
         Event(
             persistent.event_database,
-            eventlabel="monika_sexting",
+            eventlabel="nsfw_monika_sexting",
             category=['sex'],
             prompt="Sexting",
-            conditional="renpy.seen_label('monika_nsfwmodinstall')",
+            conditional="renpy.seen_label('nsfw_monika_nsfwmodinstall')",
             action=EV_ACT_RANDOM,
             aff_range=(mas_aff.ENAMORED, None)
         )
     )
 
-label monika_sexting:
+label nsfw_monika_sexting:
+    if renpy.seen_label('monika_sexting') and store.mas_getEVL_shown_count("nsfw_monika_sexting") < 1: # Fix for bad naming convention during early development
+        return
     m 3esa "Have you heard of sexting, [player]?"
     m 3rsbla "It seems to be pretty common amongst young couples to at least try sexting with their partners."
     m 3esblb "If you don't know, It's basically texting but with a more...{w=0.4}{nw}"
@@ -318,16 +328,18 @@ init 5 python:
     addEvent(
         Event(
             persistent.event_database,
-            eventlabel="monika_gettingnude",
+            eventlabel="nsfw_monika_gettingnude",
             category=['sex'],
             prompt="Getting Nude",
-            conditional="renpy.seen_label('monika_nsfwmodinstall')",
+            conditional="renpy.seen_label('nsfw_monika_nsfwmodinstall')",
             action=EV_ACT_RANDOM,
             aff_range=(mas_aff.LOVE, None)
         )
     )
 
-label monika_gettingnude: 
+label nsfw_monika_gettingnude:
+    if renpy.seen_label('monika_gettingnude') and store.mas_getEVL_shown_count("nsfw_monika_gettingnude") < 1: # Fix for bad naming convention during early development
+        return
     m 1eua "Hey [player], have you ever just... not worn clothes?"
     m 1hksdlb "I don't mean, like, for a shower or anything."
     m 1husdla "Just in general while you're at home...{w=0.5}{nw}"
@@ -466,13 +478,15 @@ init 5 python:
             eventlabel="nsfw_monika_shaving",
             category=['sex'],
             prompt="Shaving",
-            conditional="renpy.seen_label('monika_nsfwmodinstall')",
+            conditional="renpy.seen_label('nsfw_monika_nsfwmodinstall')",
             action=EV_ACT_RANDOM,
             aff_range=(mas_aff.ENAMORED, None)
         )
     )
 
 label nsfw_monika_shaving:
+    if renpy.seen_label('monika_shaving') and store.mas_getEVL_shown_count("nsfw_monika_shaving") < 1: # Fix for bad naming convention during early development
+        return
     m 1esc "Hey [player]..."
     m 3eub "I want to ask you something."
     m 3lusdlb "It's about my body.. "
@@ -503,7 +517,7 @@ label nsfw_monika_shaving:
     m 1hub "Shaven or natural.."
     m 1nub "I'll always love you!"
 
-    return
+    return "love"
 
 
 # init 5 python:

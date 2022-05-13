@@ -1,44 +1,48 @@
-# File Types
-*~
+*/
+!.*/
+
 *.rpyc
+*.txt
+*.icns
+*.ico
 *.log
+*.exe
+*.py
+*.sh
+*.json
+*.HTML
 *.png
 
-# Individual Files
-errors.txt
-apikey.txt
-CustomIconMac.icns
-CustomIconWindows.ico
-DDLC.app
-COPYRIGHT.txt
-icon.icns
-icon.ico
-log.txt
-MAS.exe
-MAS.py
-MAS.sh
-project.json
-README.html
-traceback.txt
+!README.md
+!/.gitignore
 
-# Folders
-characters
-chess_games
-custom_bgm
-game
-lib
-log
-piano_songs
-renpy
-update
+!game
+game/*
 
-# Include only important folders and files
-!game/Submods/NSFW\ Submod
+!game/mod_assets
+game/mod_assets/*
+
+!game/mod_assets/monika
+game/mod_assets/monika/*
+!game/mod_assets/monika/c
+game/mod_assets/monika/c/*
 !game/mod_assets/monika/c/birthdaysuit
 !game/mod_assets/monika/c/plain_underwear_black
 !game/mod_assets/monika/c/plain_underwear_pink
 !game/mod_assets/monika/c/plain_underwear_white
+
+!game/mod_assets/thumbs
+game/mod_assets/thumbs/*
 !game/mod_assets/thumbs/clothes-birthdaysuit.png
 !game/mod_assets/thumbs/clothes-plain_underwear_black.png
 !game/mod_assets/thumbs/clothes-plain_underwear_pink.png
 !game/mod_assets/thumbs/clothes-plain_underwear_white.png
+
+!game/Submods
+game/Submods/*
+!game/Submods/NSFW\ Submod
+game/Submods/NSFW\ Submod/nsfw_dev.rpy
+
+# Include only important folders and files
+!game/Submods/NSFW\ Submod
+

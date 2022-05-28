@@ -3,7 +3,7 @@ init -990 python in mas_submod_utils:
         author="NickWildish",
         name="NSFW Submod",
         description="A collection of NSFW topics and features for MAS.",
-        version="0.1.0",
+        version="0.9.0",
         dependencies={},
         settings_pane=None,
         version_updates={}
@@ -45,7 +45,8 @@ init python in mas_nsfw:
         """
         Checks if six hours has passed since the player has seen the getting nude topic and also been away from the pc for at least six hours.
 
-        RETURNS: True if the player has been away for six hours AND the getting nude topic hasn't been used for six hours, False if otherwise
+        OUT: 
+            True if the player has been away for six hours AND the getting nude topic hasn't been used for six hours, False if otherwise
         """
         time_away_req = datetime.timedelta(hours=set_hours)
         time_since_last_seen = datetime.datetime.now() - store.mas_getEVL_last_seen("nsfw_monika_gettingnude")
@@ -59,7 +60,8 @@ init python in mas_nsfw:
         """
         Checks if the player should be able to see Monika's underwear yet.
 
-        RETURNS: True if the player has seen 'monika_gettingnude' topic AND risque is allowed AND the player hasn't seen the topic for at least 6 hours AND the player hasn't already unlocked her underwear, False if otherwise
+        OUT:
+            True if the player has seen 'monika_gettingnude' topic AND risque is allowed AND the player hasn't seen the topic for at least 6 hours AND the player hasn't already unlocked her underwear, False if otherwise
         """
         if store.mas_getEV("nsfw_monika_gettingnude").shown_count >= 1 and store.mas_canShowRisque() and hour_check(set_hours=6) and not store.mas_SELisUnlocked(store.mas_clothes_underwear_white):
             return True
@@ -70,7 +72,8 @@ init python in mas_nsfw:
         """
         Checks to see if the player should be able to see Monika with no clothes yet.
 
-        RETURNS: True if the player has seen 'monika_gettingnude' topic twice AND risque is allowed AND the player hasn't seen the topic for at least 6 hours AND the player hasn't already unlocked her naked, false if otherwise
+        OUT: 
+            True if the player has seen 'monika_gettingnude' topic twice AND risque is allowed AND the player hasn't seen the topic for at least 6 hours AND the player hasn't already unlocked her naked, false if otherwise
         """
         if store.mas_SELisUnlocked(store.mas_clothes_underwear_white) and store.mas_canShowRisque() and hour_check(set_hours=6) and not store.mas_SELisUnlocked(store.mas_clothes_birthday_suit):
             return True
@@ -104,7 +107,17 @@ init python in mas_nsfw:
     #     #Otherwise let's check
     #     return ev.last_seen.date() == datetime.date.today()
 
-    def return_sext_quip(category=0):
+    def return_sext_quip(category=0, quip_no=0):
+        """
+        Returns a Monika quip from a selected category.
+
+        IN:
+            The category of the quip
+            The location in the category of a quip
+
+        OUT: 
+            A string containing a particular quip from Monika.
+        """
         # Sexting quips for your average compliment
         sext_quips_cute = (
             _("You're cute."), #0
@@ -154,7 +167,7 @@ init python in mas_nsfw:
         )
 
         # Sexting quips for the most 'risque' options
-        sext_quips_hot = (
+        sext_quips_sexy = (
             _("You're sexy."), #0
             _("You're sexy."), #1
             _("You're sexy."), #2
@@ -200,9 +213,19 @@ init python in mas_nsfw:
             _("You're funny."), #18
             _("You're funny."), #19
         )
-        return
 
-    def return_sext_prompt(category=0):
+        if category == 1:
+            category_name = sext_quips_hot
+        else if category == 2:
+            category_name = sext_quips_sexy
+        else if category == 3:
+            category_name = sext_quips_funny
+        else:
+            category_name = sext_quips_cute
+
+        return category_name[quip_no]
+
+    def return_sext_prompt(category=0, prompt_no=0):
         # Sexting prompts for your average compliment
         sext_prompts_cute = (
             _("I guess your parents are bakers, because they made you such a cutie pie!"), #0
@@ -247,8 +270,8 @@ init python in mas_nsfw:
             _("You're so sexy."), #15
             _("I can't wait to be alone with you."), #16
             _("You're all I can think about."), #17
-            _("I'm hot."), #18
-            _("I'm hot."), #19
+            _("When we're together, I want to have you lie back and let me take care of you."), #18
+            _("I'm wearing something you might like right now."), #19
         )
 
         # Sexting prompts for your most 'risque' options
@@ -272,7 +295,7 @@ init python in mas_nsfw:
             _("I get so turned on thinking about you."), #16
             _("When you and I are finally together, I want to make you cum so hard."), #17
             _("I wanna brings sex toys into the bedroom with us and use them on you."), #18
-            _("I want to watch you masurbate for me."), #19
+            _("I want to watch you masturbate for me."), #19
         )
 
         # Sexting prompts for the haha funnies
@@ -281,7 +304,7 @@ init python in mas_nsfw:
             _("It's not my fault that I fell for you... You tripped me!"), #1 
             _("Do you like my shirt? It's made out of boyfriend material."), #2
             _("I looked hot today, you missed out."), #3
-            _("I'm funny."), #4
+            _("You like jazz?"), #4
             _("I'm funny."), #5
             _("I'm funny."), #6
             _("I'm funny."), #7
@@ -298,4 +321,14 @@ init python in mas_nsfw:
             _("I'm funny."), #18
             _("I'm funny."), #19
         )
-        return
+        
+        if category == 1:
+            category_name = sext_prompts_hot
+        else if category == 2:
+            category_name = sext_prompts_sexy
+        else if category == 3:
+            category_name = sext_prompts_funny
+        else:
+            category_name = sext_prompts_cute
+
+        return category_name[prompt_no]

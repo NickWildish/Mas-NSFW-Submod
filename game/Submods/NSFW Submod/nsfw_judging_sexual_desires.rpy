@@ -2,16 +2,16 @@ init 5 python:
     addEvent(
         Event(
             persistent.event_database,
-            eventlabel="monika_fetishes",
+            eventlabel="monika_judging_sexual_desires",
             category=['sex'],
-            prompt="Fetishes",
+            prompt="Judging Sexual Desires",
             conditional="renpy.seen_label('monika_nsfwmodinstall')",
             action=EV_ACT_RANDOM,
             aff_range=(mas_aff.ENAMORED, None)
         )
     )
 
-label monika_fetishes:
+label monika_judging_sexual_desires:
     m 2efc "I don't understand why so many people have problems with fetishes!"
     m 3efd "People take it too seriously."
     m 3efd "With sexuality being a taboo on a good day-"

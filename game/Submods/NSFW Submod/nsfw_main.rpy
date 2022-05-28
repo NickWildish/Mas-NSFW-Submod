@@ -219,9 +219,9 @@ init python in mas_nsfw:
 
         if category == 1:
             category_name = sext_quips_hot
-        else if category == 2:
+        elif category == 2:
             category_name = sext_quips_sexy
-        else if category == 3:
+        elif category == 3:
             category_name = sext_quips_funny
         else:
             category_name = sext_quips_cute
@@ -340,9 +340,9 @@ init python in mas_nsfw:
         
         if category == 1:
             category_name = sext_prompts_hot
-        else if category == 2:
+        elif category == 2:
             category_name = sext_prompts_sexy
-        else if category == 3:
+        elif category == 3:
             category_name = sext_prompts_funny
         else:
             category_name = sext_prompts_cute

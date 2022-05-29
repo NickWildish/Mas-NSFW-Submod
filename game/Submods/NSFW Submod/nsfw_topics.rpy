@@ -68,7 +68,7 @@ init 5 python:
             eventlabel="nsfw_monika_sexualpast",
             category=['sex'],
             prompt="Sexual Past",
-            conditional="renpy.seen_label('nsfw_monika_nsfwmodinstall') and mas_canShowRisque()",
+            conditional="mas_canShowRisque()",
             action=EV_ACT_RANDOM,
         )
     )
@@ -154,8 +154,7 @@ init 5 python:
             eventlabel="nsfw_monika_safesex",
             category=['sex'],
             prompt="Safe Sex",
-            conditional="renpy.seen_label('nsfw_monika_nsfwmodinstall')",
-            action=EV_ACT_RANDOM,
+            random=True,
             aff_range=(mas_aff.ENAMORED, None)
         )
     )
@@ -217,8 +216,7 @@ init 5 python:
             eventlabel="nsfw_monika_fetish",
             category=['sex'],
             prompt="Fetishes",
-            conditional="renpy.seen_label('nsfw_monika_nsfwmodinstall')",
-            action=EV_ACT_RANDOM,
+            random=True,
             aff_range=(mas_aff.ENAMORED, None)
         )
     )
@@ -277,8 +275,7 @@ init 5 python:
             eventlabel="nsfw_monika_sexting",
             category=['sex'],
             prompt="Sexting",
-            conditional="renpy.seen_label('nsfw_monika_nsfwmodinstall')",
-            action=EV_ACT_RANDOM,
+            random=True,
             aff_range=(mas_aff.ENAMORED, None)
         )
     )
@@ -331,8 +328,7 @@ init 5 python:
             eventlabel="nsfw_monika_gettingnude",
             category=['sex'],
             prompt="Getting Nude",
-            conditional="renpy.seen_label('nsfw_monika_nsfwmodinstall')",
-            action=EV_ACT_RANDOM,
+            random=True,
             aff_range=(mas_aff.LOVE, None)
         )
     )
@@ -478,8 +474,7 @@ init 5 python:
             eventlabel="nsfw_monika_shaving",
             category=['sex'],
             prompt="Shaving",
-            conditional="renpy.seen_label('nsfw_monika_nsfwmodinstall')",
-            action=EV_ACT_RANDOM,
+            random=True,
             aff_range=(mas_aff.ENAMORED, None)
         )
     )
@@ -527,8 +522,7 @@ init 5 python:
             eventlabel="nsfw_monika_judging_sexual_desires",
             category=['sex'],
             prompt="Judging Sexual Desires",
-            conditional="renpy.seen_label('monika_nsfwmodinstall')",
-            action=EV_ACT_RANDOM,
+            random=True,
             aff_range=(mas_aff.ENAMORED, None)
         )
     )

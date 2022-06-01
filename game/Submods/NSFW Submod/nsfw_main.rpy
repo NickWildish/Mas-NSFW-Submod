@@ -40,6 +40,7 @@ screen nsfw_submod_screen():
 init python in mas_nsfw:
     import store
     import datetime
+    import random
 
     def hour_check(set_hours=6):
         """
@@ -107,7 +108,7 @@ init python in mas_nsfw:
     #     #Otherwise let's check
     #     return ev.last_seen.date() == datetime.date.today()
 
-    def return_sext_response(category=0, response_no=0):
+    def return_sext_responses(response_category=0):
         """
         Returns a Monika response from a selected category.
 
@@ -217,18 +218,18 @@ init python in mas_nsfw:
             _("You're such a stud."), #19
         )
 
-        if category == 1:
+        if response_category == 1:
             category_sel = sext_response_hot
-        elif category == 2:
+        elif response_category == 2:
             category_sel = sext_response_sexy
-        elif category == 3:
+        elif response_category == 3:
             category_sel = sext_response_funny
         else:
             category_sel = sext_response_cute
 
-        return category_sel[quip_no]
+        return category_sel
 
-    def return_sext_prompt(category=0, prompt_no=0):
+    def return_sext_prompts(prompt_category=0):
         """
         Returns a prompt quip from a selected category.
 
@@ -338,18 +339,18 @@ init python in mas_nsfw:
             _("You're so cute."), #19 - You're stuch a stud / babe - You're a wizard, Harry.
         )
         
-        if category == 1:
+        if prompt_category == 1:
             category_sel = sext_prompts_hot
-        elif category == 2:
+        elif prompt_category == 2:
             category_sel = sext_prompts_sexy
-        elif category == 3:
+        elif prompt_category == 3:
             category_sel = sext_prompts_funny
         else:
             category_sel = sext_prompts_cute
 
-        return category_sel[prompt_no]
+        return category_sel
 
-    def return_sext_quip(category=0, quip_no=0):
+    def return_sext_quips(quip_category=0):
         """
         Returns a Monika quip from a selected category.
 
@@ -390,7 +391,7 @@ init python in mas_nsfw:
         # Sexting quips for your more 'risque' options
         sext_quips_hot = (
             _("Who said that you could be this hot?"), #0
-            _("I would love to kiss you right now.{w=0.3}.{w=0.3}.{w=0.3} Among other things~"), #1
+            _("I would love to kiss you right now... Among other things~"), #1
             _("You know, I was daydreaming about you today. It was hot"), #2
             _("I could just eat you up"), #3
             _("I want to feel you touching me all over"), #4
@@ -426,7 +427,7 @@ init python in mas_nsfw:
             _("I want you to kiss me~ Right now~"), #10
             _("I love how you talk to me when you're turned on"), #11
             _("I want you to tell me how much you want to do it with me"), #12
-            _("I want to look into your ['beautiful' if isinstance(persistent._mas_pm_eye_color, tuple) else persistent._mas_pm_eye_color] eyes as we press our bodies together"), #13
+            _("I want to look into your |eyecolor eyes as we press our bodies together"), #13
             _("I love it when you're naughty"), #14
             _("You're such a bad boy"), #15
             _("I want to feel you deep inside me"), #16
@@ -435,13 +436,99 @@ init python in mas_nsfw:
             _("Yes~ Just like that~"), #19
         )
 
-        if category == 1:
+        if quip_category == 1:
             category_sel = sext_quips_hot
-        elif category == 2:
+        elif quip_category == 2:
             category_sel = sext_quips_sexy
-        elif category == 3:
+        elif quip_category == 3:
             category_sel = sext_quips_funny
         else:
             category_sel = sext_quips_cute
 
-        return category_sel[prompt_no]
+        return category_sel
+
+    def return_sexting_dialogue(category_type="response", horny_level=0, hot_req=4, sexy_req=8):
+        """
+        Returns a string from a dialogue list based on 
+
+        IN:
+            category_type - The type of dialogue we want to pull (response = 0, prompt = 1, quip = 2)
+                (Default: 0)
+            horny_level - The level of horny Monika is at
+                (Default: 0)
+            hot_req - The requirement for hot dialogue
+                (Default: 4)
+            sexy_req - The requirement for sexy dialogue
+                (Default: 8)
+
+        OUT:
+            An individual string randomly picked from the list
+        """
+
+        # Grab list we will be drawing dialogue from, based on category_type and horny_level
+        if category_type == "quip": 
+            if horny_level >= sexy_req:
+                dialogue_list = return_sext_quips(quip_category=2)
+            elif horny_level >= hot_req:
+                dialogue_list = return_sext_quips(quip_category=1)
+            else:
+                dialogue_list = return_sext_quips(quip_category=0)
+        elif category_type == "prompt":
+            if horny_level >= sexy_req:
+                dialogue_list = return_sext_prompts(prompt_category=2)
+            elif horny_level >= hot_req:
+                dialogue_list = return_sext_prompts(prompt_category=1)
+            else:
+                dialogue_list = return_sext_prompts(prompt_category=0)
+        else: # We assume it's 0 here, but in case the wrong number is inputted we set it as default
+            if horny_level >= sexy_req:
+                dialogue_list = return_sext_responses(response_category=2)
+            elif horny_level >= hot_req:
+                dialogue_list = return_sext_responses(response_category=1)
+            else:
+                dialogue_list = return_sext_responses(response_category=0)
+
+        # Grab length of aquired list
+        list_length = len(dialogue_list)
+
+        # Grab random dialogue from list
+        dialogue_no = random.randint(0,list_length - 1)
+
+        return dialogue_list[dialogue_no]
+
+    def return_dialogue_end(dialogue=""):
+        """
+        Returns an ending to a dialogue, such as the classic tilde. Won't return anything if an ending already exists.
+
+        IN:
+            dialogue - The dialogue we want to have an ending for
+            (Default: "")
+
+        OUT:
+            dialogue_end - The ending randomly chosen for the dialogue, or an empty string
+        """
+
+        endings = (
+            "~",
+            ", |playername.",
+            ".",
+        )
+
+        existing_endings = (
+            "~",
+            ".",
+            "?",
+        )
+
+        # If the dialogue already has an ending, return an empty string
+        for ending in existing_endings:
+            if dialogue[-1] == ending:
+                return ""
+
+        # Otherwise, create a new ending
+        dialogue_end = endings[random.randint(0, len(endings) - 1)]
+
+        return dialogue_end
+
+    def return_random_pose():
+        return "1ekbsa"

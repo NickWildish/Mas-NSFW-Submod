@@ -1,52 +1,116 @@
-# ---- WORK IN PROGRESS ----
+label nsfw_sexting_main:
+    python:
+        sext_stop = False # So player can stop sexting at any time
+        horny_lvl = 0 # The level of horny Monika is experiencing
+        sexy_req = 8 # The horny_level requirement for sexy dialogue
+        hot_req = 4 # The horny_level requirement for hot dialogue
 
-# label nsfw_sexting_main:
-#     python:
-#         sext_start_time = datetime.datetime.now()
-#         sext_stop = False
+    m 1eua "Let's get sexting, [player]!" #temp
 
-#     m 1eua "Let's get sexting, [player]!" #temp
+    while True:
+        python:
+            # Grab random line of dialogue from list
+            monika_quip = mas_nsfw.return_sexting_dialogue(category_type="quip", horny_level=horny_lvl, hot_req=hot_req, sexy_req=sexy_req)
+            # Search for playername and eyecolor keywords in dialogue
+            monika_quip = monika_quip.replace("|playername", player)
+            monika_quip = monika_quip.replace("|eyecolor", "beautiful" if isinstance(persistent._mas_pm_eye_color, tuple) else persistent._mas_pm_eye_color)
 
-#     m 1eua "So...{w=0.3} What do you want to do to me?"
-#     $ _history_list.pop()
-#     menu:
-#         m "So...{w=0.3} What do you want to do to me?{fast}"
+            quip_ending = mas_nsfw.return_dialogue_end(monika_quip)
+            # Search for playername and eyecolor keywords in dialogue
+            quip_ending = quip_ending.replace("|playername", player)
+            quip_ending = quip_ending.replace("|eyecolor", "beautiful" if isinstance(persistent._mas_pm_eye_color, tuple) else persistent._mas_pm_eye_color)
 
-#         "I want to take you out to dinner.":
-#             m 1eua "Ooooh, that's hot!"
+            # Grab first random prompt from list
+            player_prompt_1 = mas_nsfw.return_sexting_dialogue(category_type="prompt", horny_level=0, hot_req=hot_req, sexy_req=sexy_req)
+            player_prompt_2 = mas_nsfw.return_sexting_dialogue(category_type="prompt", horny_level=hot_req, hot_req=hot_req, sexy_req=sexy_req)
+            player_prompt_3 = mas_nsfw.return_sexting_dialogue(category_type="prompt", horny_level=sexy_req, hot_req=hot_req, sexy_req=sexy_req)
 
-#         "Flirt 2":
-#             m 1eua "I love it when you talk dirty."
+            # While loop to prevent duplicates
+            while player_prompt_2 == player_prompt_1: 
+                # Grab second random prompt from list
+                player_prompt_2 = mas_nsfw.return_sexting_dialogue(category_type="prompt", horny_level=hot_req, hot_req=hot_req, sexy_req=sexy_req)
+        
+            while player_prompt_3 == player_prompt_1 or player_prompt_3 == player_prompt_2:
+                # Grab third random prompt from list
+                player_prompt_3 = mas_nsfw.return_sexting_dialogue(category_type="prompt", horny_level=sext_req, hot_req=hot_req, sexy_req=sexy_req)
 
-#         "Flirt 3":
-#             m 1eua "You're so funny!"
+        m "[monika_quip][quip_ending]"
+        $ _history_list.pop()
+        menu:
+            m "[monika_quip][quip_ending]{fast}"
 
-#         "Stop.":
-#             m 1eua "Okay, stopping now."
-#             $ sext_stop = True
+            "[player_prompt_1]":
+                show monika sexting_cute_poses
+                $ horny_lvl = 0
 
-#     while sext_stop == False:
-#         m 1eua "So...{w=0.3} What do you want to do to me?"
-#         $ _history_list.pop()
-#         menu:
-#             m "So...{w=0.3} What do you want to do to me?{fast}"
-#             "I want to take you out to dinner.":
-#                 m 1eua "Ooooh, that's hot!"
+            "[player_prompt_2]":
+                show monika sexting_hot_poses
+                $ horny_lvl = 4
 
-#             "Flirt 2":
-#                 m 1eua "I love it when you talk dirty."
+            "[player_prompt_3]":
+                show monika sexting_sexy_poses
+                $ horny_lvl = 8
 
-#             "Stop.":
-#                 m 1eua "Okay, stopping now."
-#                 $ sext_stop = True
+            "Stop.":
+                m 1eua "Okay, stopping now."
+                return
+        
+        $ monika_response = mas_nsfw.return_sexting_dialogue(category_type="response", horny_level=horny_lvl, hot_req=hot_req, sexy_req=sexy_req)
+        $ response_ending = mas_nsfw.return_dialogue_end(monika_response)
+        m "[monika_response][response_ending]"
 
-#     if datetime.datetime.now() - sext_start_time < datetime.timedelta(seconds=30):
-#         m 1eua "That was pretty quick, [player]."
-#         m 1eua "Don't tell me you're a 'one-pump chump'!"
-#     else:
-#         m 1eua "That was nice, [player]."
+label nsfw_sexting_init:
+    python:
+        sext_start_time = datetime.datetime.now()
 
-#     return
+    call nsfw_sexting_main
+
+    if datetime.datetime.now() - sext_start_time < datetime.timedelta(seconds=30):
+        m 1eua "That was pretty quick, [player]."
+        m 1eua "Don't tell me you're a 'one-pump chump'!"
+    else:
+        m 1eua "That was nice, [player]."
+
+# Images to be used for sexting purposes
+
+image monika sexting_cute_poses:
+    block:
+        choice:
+            "monika 1ekbsa"
+        choice:
+            "monika 2subsa"
+        choice:
+            "monika 2lubsu"
+        choice:
+            "monika 1hubsa"
+        choice:
+            "monika 3ekbfa"
+
+image monika sexting_hot_poses:
+    block:
+        choice:
+            "monika 2gubsa"
+        choice:
+            "monika 2mubfu"
+        choice:
+            "monika 2tsbfu"
+        choice:
+            "monika 2lsbfu"
+        choice:
+            "monika 2ttbfu"
+
+image monika sexting_sexy_poses:
+    block:
+        choice:
+            "monika 4hkbfsdlo"
+        choice:
+            "monika 6lkbfsdlo"
+        choice:
+            "monika 6hkbfsdld"
+        choice:
+            "monika 6skbfsdlw"
+        choice:
+            "monika 6mkbfsdlo"
 
 # init 5 python:
 #     # random chance per session Monika can ask to sext

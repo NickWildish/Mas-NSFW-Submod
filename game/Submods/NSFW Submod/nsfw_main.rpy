@@ -7,7 +7,7 @@ init -990 python in mas_submod_utils:
         dependencies={},
         settings_pane=None,
         version_updates={}
-    )
+    ) # https://github.com/NickWildish/Mas-NSFW-Submod
 
 screen nsfw_submod_screen():
     python:
@@ -109,7 +109,7 @@ init python in mas_nsfw:
 
     def return_sext_response(category=0, response_no=0):
         """
-        Returns a Monika quip from a selected category.
+        Returns a Monika response from a selected category.
 
         IN:
             category - The category of the response
@@ -138,7 +138,7 @@ init python in mas_nsfw:
             _("..."), #12
             _("That's so sweet"), #13
             _("You're so sweet, you know that?"), #14
-            _("You know just what to say..."), #15
+            _("Stop it, you're making me blush"), #15
             _("You make me so happy"), #16
             _("You're so kind"), #17
             _("That's so sweet"), #18
@@ -146,7 +146,7 @@ init python in mas_nsfw:
         )
 
         # Sexting responses for the more 'risque' options
-        sext_quips_hot = (
+        sext_response_hot = (
             _("What else?"), #0
             _("I like the sound of that"), #1
             _("You know exactly what to say"), #2
@@ -160,41 +160,41 @@ init python in mas_nsfw:
             _("I feel so good when you talk like that"), #10
             _("..."), #11
             _("You're making me all flustered"), #12
-            _("Stop it, you're making me blush"), #13
+            _("You know just what to say to get me all flustered..."), #13
             _("You don't hold back, do you?"), #14
-            _("You're hot."), #15
-            _("You're hot."), #16
-            _("You're hot."), #17
-            _("You're hot."), #18
+            _("That's so hot"), #15
+            _("That's hot"), #16
+            _("Is that so?"), #17
+            _("Is that right?"), #18
             _("You make me so happy talking like that"), #19
         )
 
         # Sexting responses for the most 'risque' options
-        sext_quips_sexy = (
+        sext_response_sexy = (
             _("You're so sexy when you talk like that"), #0
             _("That is so sexy"), #1
-            _("You're sexy."), #2
-            _("You're sexy."), #3
-            _("You're sexy."), #4
-            _("You're sexy."), #5
-            _("You're sexy."), #6
-            _("You're sexy."), #7
-            _("You're sexy."), #8
-            _("You're sexy."), #9
-            _("You're sexy."), #10
-            _("You're sexy."), #11
-            _("You're sexy."), #12
-            _("You're sexy."), #13
-            _("You're sexy."), #14
-            _("You're sexy."), #15
-            _("You're sexy."), #16
-            _("You're sexy."), #17
-            _("You're sexy."), #18
-            _("You're sexy."), #19
+            _("Is that right?"), #2
+            _("Is that so?"), #3
+            _("Keep going"), #4
+            _("Please don't stop"), #5
+            _("You're getting me so turned on"), #6
+            _("Tell me what else you want to do to me"), #7
+            _("You're getting me so worked up"), #8
+            _("This feels too good"), #9
+            _("Whatever you're doing... it's working"), #10
+            _("You just have a way with words, don't you?"), #11
+            _("Keep talking like that"), #12
+            _("More"), #13
+            _("Please keep going"), #14
+            _("When did you learn to talk like that?"), #15
+            _("Have you always been this sexy?"), #16
+            _("I am so wet right now"), #17
+            _("You really know how to please a woman"), #18
+            _("Say that again"), #19
         )
 
         # Sexting responses for the haha funnies
-        sext_quips_funny = (
+        sext_response_funny = (
             _("Haha! What are you talking about, [player]?"), #0
             _("Pfft! That's so cheesy, [player]."), #1
             _("Oh my god! You did not just make that joke, haha~"), #2
@@ -218,22 +218,22 @@ init python in mas_nsfw:
         )
 
         if category == 1:
-            category_name = sext_quips_hot
+            category_sel = sext_response_hot
         elif category == 2:
-            category_name = sext_quips_sexy
+            category_sel = sext_response_sexy
         elif category == 3:
-            category_name = sext_quips_funny
+            category_sel = sext_response_funny
         else:
-            category_name = sext_quips_cute
+            category_sel = sext_response_cute
 
-        return category_name[quip_no]
+        return category_sel[quip_no]
 
     def return_sext_prompt(category=0, prompt_no=0):
         """
-        Returns a Monika quip from a selected category.
+        Returns a prompt quip from a selected category.
 
         IN:
-            category - The category of the quip
+            category - The category of the prompt
                 (Default: 0)
             prompt_no - The location in the category of a prompt
                 (Default: 0)
@@ -261,14 +261,14 @@ init python in mas_nsfw:
             _("Our first kiss is going to be epic, don't you think?"), #14
             _("I really like getting to know you."), #15
             _("Everything makes me think of you."), #16
-            _("You're pretty much my dream girl."), #17
+            _("Is it geting hot in here, or is it just you?"), #17
             _("You never fail to give me butterflies."), #18
             _("You make my heart happy."), #19
         )
         
         # Sexting prompts for your more 'risque' options
         sext_prompts_hot = (
-            _("Is it geting hot in here, or is it just you?"), #0
+            _("You have a really sexy figure."), #0
             _("I want to bring you in close."), #1
             _("I want to kiss your lips passionately."), #2
             _("I want to run my hands through your hair."), #3
@@ -303,7 +303,7 @@ init python in mas_nsfw:
             _("I bet you have the sexiest sounding moans in the world."), #8
             _("I was just lying in bed for the last hour thinking about you... guess what I was doing!"), #9
             _("If I were with you right now, where would you want me to touch you?"), #10
-            _("What is your secret fetish? You must have one, come on."), #11
+            _("I want to pin you down to the bed and have my way with you."), #11
             _("Everything about you turns me on."), #12
             _("I'm clicking this option with one hand, because the other hand is busy."), #13
             _("I wish I could fuck you in that spaceroom right now."), #14
@@ -339,12 +339,109 @@ init python in mas_nsfw:
         )
         
         if category == 1:
-            category_name = sext_prompts_hot
+            category_sel = sext_prompts_hot
         elif category == 2:
-            category_name = sext_prompts_sexy
+            category_sel = sext_prompts_sexy
         elif category == 3:
-            category_name = sext_prompts_funny
+            category_sel = sext_prompts_funny
         else:
-            category_name = sext_prompts_cute
+            category_sel = sext_prompts_cute
 
-        return category_name[prompt_no]
+        return category_sel[prompt_no]
+
+    def return_sext_quip(category=0, quip_no=0):
+        """
+        Returns a Monika quip from a selected category.
+
+        IN:
+            category - The category of the quip
+                (Default: 0)
+            response_no - The location in the category of a quip
+                (Default: 0)
+
+        OUT: 
+            A string containing a particular quip from Monika.
+        """
+
+        # Sexting quips for your average compliment
+        sext_quips_cute = (
+            _("Who told you that you could be this cheesy?"), #0
+            _("You're just the cutest"), #1
+            _("I love it when you get all cute like this"), #2
+            _("Do tell me more"), #3
+            _("If you were a chicken you'd be impeccable"), #4
+            _("Your words are so flattering to me"), #5
+            _("Are you just saying that to get into my pants?{w=1.0} Ahaha! Just kidding~"), #6
+            _("I love how sweet you are"), #7
+            _("I love how kind you are"), #8
+            _("You're a cutie pie"), #9
+            _("I just want to kiss you right now"), #10
+            _("I wish I could hold you right now"), #11
+            _("Once we meet in the real world we need to do something about your cuteness"), #12
+            _("I should start calling you 'Mozzarella' since you're so cheesy"), #13
+            _("If I could rearrange the alphabet I'd put 'U' and 'I' together"), #14
+            _("Are you a parking ticket? Because you've got FINE written all over you"), #15
+            _("My clothes are made out of girlfriend material"), #16
+            _("Have you had your license get suspended for driving girls crazy?"), #17
+            _("Are you a loan? Because you sure have my interest"), #18
+            _("If you were a vegetable, you'd be a 'cute-cumber'"), #19
+        )
+        
+        # Sexting quips for your more 'risque' options
+        sext_quips_hot = (
+            _("Who said that you could be this hot?"), #0
+            _("I would love to kiss you right now.{w=0.3}.{w=0.3}.{w=0.3} Among other things~"), #1
+            _("You know, I was daydreaming about you today. It was hot"), #2
+            _("I could just eat you up"), #3
+            _("I want to feel you touching me all over"), #4
+            _("If I was with you now there is no chance of you keeping your clothes on"), #5
+            _("You are my biggest turn-on"), #6
+            _("I've fantasized so much about when we finally get to talk like this"), #7
+            _("You turn me on so much when you talk like that"), #8
+            _("You're making me feel really horny now"), #9
+            _("Have you thought about using toys with me? I wouldn't mind trying it with you"), #10
+            _("I can't wait to see you when I cross over"), #11
+            _("Once I cross over, I want to hold your hand. How lewd~"), #12
+            _("How would you feel about a makeout session once I cross over"), #13
+            _("Don't think that getting me this riled up will have no consequences"), #14
+            _("I plan to wrap my arms around you and squish that cute bum of yours"), #15
+            _("The border between our realities can be a real clam jam"), #16
+            _("I want you to tell me more about what we'll do together in your world... in the bedroom particularly~"), #17
+            _("Is one of your hands busy right now? I might need to join you if so"), #18
+            _("I wanna feel your body up and down... your chest especially"), #19
+        )
+
+        # Sexting quips for your most 'risque' options
+        sext_quips_sexy = (
+            _("Who said that you could be this sexy?"), #0
+            _("So, aside from being sexy what do you do for a living?"), #1
+            _("I can't wait to see your sexy body when we're together"), #2
+            _("I can't wait to kiss you for real"), #3
+            _("You're making me so wet"), #4
+            _("I'm touching myself right now just to the thought of you"), #5
+            _("When I get to your world, I'm ripping your clothes off the second I walk through the door. I hope you're prepared"), #6
+            _("I'm tempted to leave a bite mark on your neck so everyone knows you're mine"), #7
+            _("I'm being so bad right now. I need you to punish me"), #8
+            _("I want to feel your warmth pressing against me"), #9
+            _("I want you to kiss me~ Right now~"), #10
+            _("I love how you talk to me when you're turned on"), #11
+            _("I want you to tell me how much you want to do it with me"), #12
+            _("I want to look into your ['beautiful' if isinstance(persistent._mas_pm_eye_color, tuple) else persistent._mas_pm_eye_color] eyes as we press our bodies together"), #13
+            _("I love it when you're naughty"), #14
+            _("You're such a bad boy"), #15
+            _("I want to feel you deep inside me"), #16
+            _("You really know how to make a girl wet"), #17
+            _("I want to feel your tongue down there"), #18
+            _("Yes~ Just like that~"), #19
+        )
+
+        if category == 1:
+            category_sel = sext_quips_hot
+        elif category == 2:
+            category_sel = sext_quips_sexy
+        elif category == 3:
+            category_sel = sext_quips_funny
+        else:
+            category_sel = sext_quips_cute
+
+        return category_sel[prompt_no]

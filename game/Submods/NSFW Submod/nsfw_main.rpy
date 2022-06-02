@@ -3,7 +3,7 @@ init -990 python in mas_submod_utils:
         author="NickWildish",
         name="NSFW Submod",
         description="A collection of NSFW topics and features for MAS.",
-        version="0.9.0",
+        version="1.0.0",
         dependencies={},
         settings_pane=None,
         version_updates={}
@@ -262,7 +262,7 @@ init python in mas_nsfw:
             _("Our first kiss is going to be epic, don't you think?"), #14
             _("I really like getting to know you."), #15
             _("Everything makes me think of you."), #16
-            _("Is it geting hot in here, or is it just you?"), #17
+            _("Is it getting hot in here, or is it just you?"), #17
             _("You never fail to give me butterflies."), #18
             _("You make my heart happy."), #19
         )
@@ -453,54 +453,100 @@ init python in mas_nsfw:
 
         return category_sel
 
-    def return_sexting_dialogue(category_type="response", horny_level=0, hot_req=4, sexy_req=8):
+    def return_sexting_dialogue(category_type="response", horny_level=0, hot_req=10, sexy_req=30, horny_max=50, recent_prompts=[], recent_responses=[], recent_quips=[]):
         """
         Returns a string from a dialogue list based on 
 
         IN:
             category_type - The type of dialogue we want to pull (response = 0, prompt = 1, quip = 2)
-                (Default: 0)
+                (Default: "response")
             horny_level - The level of horny Monika is at
                 (Default: 0)
             hot_req - The requirement for hot dialogue
-                (Default: 4)
+                (Default: 10)
             sexy_req - The requirement for sexy dialogue
-                (Default: 8)
+                (Default: 30)
+            horny_max - The maximum possible horny level
+                (Default: 50)
+            recent_prompts - The recent prompts used in the 
 
         OUT:
-            An individual string randomly picked from the list
+            An individual string randomly picked from the list, and the category (sexy,hot,cute) the string is from
         """
 
         # Grab list we will be drawing dialogue from, based on category_type and horny_level
         if category_type == "quip": 
+            selected_recentlist = recent_quips
             if horny_level >= sexy_req:
                 dialogue_list = return_sext_quips(quip_category=2)
+                return_cat = "sexy"
             elif horny_level >= hot_req:
                 dialogue_list = return_sext_quips(quip_category=1)
-            else:
+                return_cat = "hot"
+            else: # Default
                 dialogue_list = return_sext_quips(quip_category=0)
+                return_cat = "cute"
+
         elif category_type == "prompt":
+            selected_recentlist = recent_prompts
             if horny_level >= sexy_req:
+                # Don't need to check here, as sexy is the highest level we can go for dialogue
                 dialogue_list = return_sext_prompts(prompt_category=2)
+                return_cat = "sexy"
+
             elif horny_level >= hot_req:
-                dialogue_list = return_sext_prompts(prompt_category=1)
-            else:
-                dialogue_list = return_sext_prompts(prompt_category=0)
-        else: # We assume it's 0 here, but in case the wrong number is inputted we set it as default
+                # Create random integer based on how close value is to sexy req vs max
+                hot_to_current_rand = random.randint(hot_req, horny_level)
+                current_to_sexy_rand = random.randint(horny_level, sexy_req)
+
+                # Check how close value is to sexy req vs max
+                hot_to_current = horny_level - hot_to_current_rand
+                current_to_sexy = current_to_sexy_rand - horny_level
+                if hot_to_current > current_to_sexy:
+                    dialogue_list = return_sext_prompts(prompt_category=2)
+                    return_cat = "sexy"
+                else:
+                    dialogue_list = return_sext_prompts(prompt_category=1)
+                    return_cat = "hot"
+
+            else: # Default
+                # Create random integer based on how close value is to sexy req vs max
+                min_to_current_rand = random.randint(0, horny_level)
+                current_to_hot_rand = random.randint(horny_level, hot_req)
+
+                # Check how close value is to sexy req vs max
+                min_to_current = horny_level - min_to_current_rand
+                current_to_hot = current_to_hot_rand - horny_level
+                if min_to_current > current_to_hot:
+                    dialogue_list = return_sext_prompts(prompt_category=1)
+                    return_cat = "hot"
+                else:
+                    dialogue_list = return_sext_prompts(prompt_category=0)
+                    return_cat = "cute"
+
+        else: # We assume it's the response category here, but in case of incorrect input we set it as default
+            selected_recentlist = recent_responses
             if horny_level >= sexy_req:
                 dialogue_list = return_sext_responses(response_category=2)
+                return_cat = "sexy"
             elif horny_level >= hot_req:
                 dialogue_list = return_sext_responses(response_category=1)
-            else:
+                return_cat = "hot"
+            else: # Default
                 dialogue_list = return_sext_responses(response_category=0)
+                return_cat = "cute"
 
         # Grab length of aquired list
         list_length = len(dialogue_list)
 
         # Grab random dialogue from list
-        dialogue_no = random.randint(0,list_length - 1)
+        dialogue_no = random.randint(0, list_length - 1)
 
-        return dialogue_list[dialogue_no]
+        # Do loop to check if selected dialogue was used recently
+        while dialogue_list[dialogue_no] in selected_recentlist:
+            dialogue_no = random.randint(0, list_length - 1)
+
+        return dialogue_list[dialogue_no], return_cat
 
     def return_dialogue_end(dialogue=""):
         """
@@ -536,7 +582,7 @@ init python in mas_nsfw:
 
         return dialogue_end
 
-    def return_dialogue_start(category="cute"):
+    def return_dialogue_start(horny_level=0, hot_req=4, sexy_req=8):
         """
         Returns a starting piece to dialogue, such as 'Hmm~' or 'Hah~'
 
@@ -551,7 +597,7 @@ init python in mas_nsfw:
         starts_cute = (
             "Hmm~ ",
             "Aww~ ",
-            "Naww ",
+            "Naww~ ",
             "",
         )
 
@@ -569,10 +615,10 @@ init python in mas_nsfw:
             "",
         )
 
-        if category == "hot":
-            return starts_hot[random.randint(0, len(starts_hot) - 1)]
-        elif category == "sexy":
+        if horny_level >= sexy_req:
             return starts_sexy[random.randint(0, len(starts_sexy) - 1)]
+        elif horny_level >= hot_req:
+            return starts_hot[random.randint(0, len(starts_hot) - 1)]
         else: # Default
             return starts_cute[random.randint(0, len(starts_cute) - 1)]
 

@@ -2,11 +2,10 @@ init 5 python:
     addEvent(
         Event(
             persistent.event_database,
-            eventlabel="monika_always_here",
+            eventlabel="nsfw_monika_always_here",
             category=['sex', 'monika'],
             prompt="Monika Always Here",
-            conditional="renpy.seen_label('monika_nsfwmodinstall')",
-            action=EV_ACT_RANDOM,
+            random=True,
             aff_range=(mas_aff.ENAMORED, None)
         )
     )

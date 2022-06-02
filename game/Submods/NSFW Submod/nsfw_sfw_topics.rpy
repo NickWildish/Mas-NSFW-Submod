@@ -10,7 +10,7 @@ init 5 python:
         )
     )
 
-label monika_always_here:
+label nsfw_monika_always_here:
     m 1eua "Hey [player]."
     m 3wublb "I found a quote I really love!"
     m 3tublb "But we have to read it together!"

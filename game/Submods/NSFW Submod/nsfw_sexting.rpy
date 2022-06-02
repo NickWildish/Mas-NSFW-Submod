@@ -9,17 +9,6 @@ label nsfw_sexting_main:
 
     while True:
         python:
-            # Grab random line of dialogue from list
-            monika_quip = mas_nsfw.return_sexting_dialogue(category_type="quip", horny_level=horny_lvl, hot_req=hot_req, sexy_req=sexy_req)
-            # Search for playername and eyecolor keywords in dialogue
-            monika_quip = monika_quip.replace("|playername", player)
-            monika_quip = monika_quip.replace("|eyecolor", "beautiful" if isinstance(persistent._mas_pm_eye_color, tuple) else persistent._mas_pm_eye_color)
-
-            quip_ending = mas_nsfw.return_dialogue_end(monika_quip)
-            # Search for playername and eyecolor keywords in dialogue
-            quip_ending = quip_ending.replace("|playername", player)
-            quip_ending = quip_ending.replace("|eyecolor", "beautiful" if isinstance(persistent._mas_pm_eye_color, tuple) else persistent._mas_pm_eye_color)
-
             # Grab first random prompt from list
             player_prompt_1 = mas_nsfw.return_sexting_dialogue(category_type="prompt", horny_level=0, hot_req=hot_req, sexy_req=sexy_req)
             player_prompt_2 = mas_nsfw.return_sexting_dialogue(category_type="prompt", horny_level=hot_req, hot_req=hot_req, sexy_req=sexy_req)
@@ -32,23 +21,33 @@ label nsfw_sexting_main:
         
             while player_prompt_3 == player_prompt_1 or player_prompt_3 == player_prompt_2:
                 # Grab third random prompt from list
-                player_prompt_3 = mas_nsfw.return_sexting_dialogue(category_type="prompt", horny_level=sext_req, hot_req=hot_req, sexy_req=sexy_req)
+                player_prompt_3 = mas_nsfw.return_sexting_dialogue(category_type="prompt", horny_level=sexy_req, hot_req=hot_req, sexy_req=sexy_req)
 
-        m "[monika_quip][quip_ending]"
+            # Grab random line of dialogue from list
+            monika_quip = mas_nsfw.return_sexting_dialogue(category_type="quip", horny_level=horny_lvl, hot_req=hot_req, sexy_req=sexy_req)
+            quip_ending = mas_nsfw.return_dialogue_end(monika_quip)
+
+        if horny_lvl >= sexy_req:
+            m 4ekbfo "[monika_quip][quip_ending]"
+        elif horny_lvl >= hot_req:
+            m 2msbsb "[monika_quip][quip_ending]"
+        else:
+            m 3hubsb "[monika_quip][quip_ending]"
+
         $ _history_list.pop()
         menu:
             m "[monika_quip][quip_ending]{fast}"
 
             "[player_prompt_1]":
-                show monika sexting_cute_poses
+                $ response_start = mas_nsfw.return_dialogue_start(category="cute")
                 $ horny_lvl = 0
 
             "[player_prompt_2]":
-                show monika sexting_hot_poses
+                $ response_start = mas_nsfw.return_dialogue_start(category="hot")
                 $ horny_lvl = 4
 
             "[player_prompt_3]":
-                show monika sexting_sexy_poses
+                $ response_start = mas_nsfw.return_dialogue_start(category="sexy")
                 $ horny_lvl = 8
 
             "Stop.":
@@ -57,7 +56,15 @@ label nsfw_sexting_main:
         
         $ monika_response = mas_nsfw.return_sexting_dialogue(category_type="response", horny_level=horny_lvl, hot_req=hot_req, sexy_req=sexy_req)
         $ response_ending = mas_nsfw.return_dialogue_end(monika_response)
-        m "[monika_response][response_ending]"
+
+        if horny_lvl >= sexy_req:
+            show monika sexting_sexy_poses
+        elif horny_lvl >= hot_req:
+            show monika sexting_hot_poses
+        else:
+            show monika sexting_cute_poses
+
+        m "[response_start][monika_response][response_ending]"
 
 label nsfw_sexting_init:
     python:

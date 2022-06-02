@@ -364,6 +364,12 @@ init python in mas_nsfw:
             A string containing a particular quip from Monika.
         """
 
+        # Purely for describing player's eyes
+        if isinstance(store.persistent._mas_pm_eye_color, tuple):
+            eye_desc = "beautiful"
+        else:
+            eye_desc = store.persistent._mas_pm_eye_color
+
         # Sexting quips for your average compliment
         sext_quips_cute = (
             _("Who told you that you could be this cheesy?"), #0
@@ -427,7 +433,7 @@ init python in mas_nsfw:
             _("I want you to kiss me~ Right now~"), #10
             _("I love how you talk to me when you're turned on"), #11
             _("I want you to tell me how much you want to do it with me"), #12
-            _("I want to look into your |eyecolor eyes as we press our bodies together"), #13
+            _("I want to look into your " + eye_desc + " eyes as we press our bodies together"), #13
             _("I love it when you're naughty"), #14
             _("You're such a bad boy"), #15
             _("I want to feel you deep inside me"), #16
@@ -510,7 +516,7 @@ init python in mas_nsfw:
 
         endings = (
             "~",
-            ", |playername.",
+            ", " + store.persistent.playername + ".",
             ".",
         )
 
@@ -530,5 +536,86 @@ init python in mas_nsfw:
 
         return dialogue_end
 
-    def return_random_pose():
-        return "1ekbsa"
+    def return_dialogue_start(category="cute"):
+        """
+        Returns a starting piece to dialogue, such as 'Hmm~' or 'Hah~'
+
+        IN:
+            category - The category in which we will pull the appropriate dialogue start from.
+                (Default: "cute")
+        
+        OUT:
+            The selected starting text for the dialogue
+        """
+
+        starts_cute = (
+            "Hmm~ ",
+            "Aww~ ",
+            "Naww ",
+            "",
+        )
+
+        starts_hot = (
+            "Oh? ",
+            "Hah~ ",
+            "Mmm? ",
+            "",
+        )
+
+        starts_sexy = (
+            "Hah~ ",
+            "Oh~ ",
+            "Mmm~ ",
+            "",
+        )
+
+        if category == "hot":
+            return starts_hot[random.randint(0, len(starts_hot) - 1)]
+        elif category == "sexy":
+            return starts_sexy[random.randint(0, len(starts_sexy) - 1)]
+        else: # Default
+            return starts_cute[random.randint(0, len(starts_cute) - 1)]
+
+    def nsfw_posing_sel(horny_level=0, hot_req=4, sexy_req=8):
+        """
+        Selects a random pose for Monika's nsfw dialogue based on her current horny level and RNG
+
+        IN:
+            horny_level - The level of horny Monika is currently at
+            hot_req - The requirement for Monika to start using 'hot' dialogue
+            sexy_req - The requirement for Monika to start using 'sexy' dialogue
+
+        OUT:
+            The pose Monika will use for the dialogue
+        """
+
+        sexting_cute_poses = (
+            "monika 1ekbsa",
+            "monika 2subsa",
+            "monika 2lubsu",
+            "monika 1hubsa",
+            "monika 3ekbfa",
+        )
+
+        sexting_hot_poses = (
+            "monika 2gubsa",
+            "monika 2mubfu",
+            "monika 2tsbfu",
+            "monika 2lsbfu",
+            "monika 2ttbfu",
+        )
+
+        sexting_sexy_poses = (
+            "monika 4hkbfsdlo",
+            "monika 6lkbfsdlo",
+            "monika 6hkbfsdld",
+            "monika 6skbfsdlw",
+            "monika 6mkbfsdlo"
+        )
+
+        if horny_level >= sexy_req:
+            return sexting_sexy_poses[random.randint(0, len(sexting_sexy_poses) - 1)], None
+        elif horny_level >= hot_req:
+            return sexting_hot_poses[random.randint(0, len(sexting_hot_poses) - 1)], None
+        else: # Default
+            return sexting_cute_poses[random.randint(0, len(sexting_cute_poses) - 1)], None

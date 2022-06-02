@@ -3,7 +3,7 @@ init -990 python in mas_submod_utils:
         author="NickWildish",
         name="NSFW Submod",
         description="A collection of NSFW topics and features for MAS.",
-        version="1.0.0",
+        version="1.0.1",
         dependencies={},
         settings_pane=None,
         version_updates={}

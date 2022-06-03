@@ -583,3 +583,81 @@ label nsfw_player_sextingsession:
     call nsfw_sexting_init
 
     return
+
+init 5 python:
+    addEvent(
+        Event(
+            persistent.event_database,
+            eventlabel="nsfw_monika_dick_size",
+            category=["sex"],
+            conditional=["persistent.gender == M"]
+            action=EV_ACT_RANDOM,
+            prompt="Schlong size",
+            aff_range=(mas_aff.LOVE, None)
+        )
+    )
+
+label nsfw_monika_dick_size:
+if seen_event("monika_undress"):
+    m 1cud "You know, [player]... I was curious."
+    m 1cud "How-um.... {i}big{/i} are you?"
+    m 1cud "And I'm not talking about height ahaha~."
+    m 1cud "Sorry if this seems weird, I just want to know more about you. I want to know {i}everything{/i}."
+    menu:
+        m "How big are you?"
+        
+        "Less than 3 Inches":
+            m 1cud "So you're on the smaller side, nice!"
+            m 1cud "You know some girls have an issue with anything under average, but I never understood it."
+            m 1cud "The size of your member is something you can't change, just like breast size."
+            m 1cud "There's benefits to every size in my opinion."
+            m 1cud "For example, with your size, I could fit the whole thing in my mouth without gagging. Mmmmm~"
+            m 1cud ".{w=0.7}.{w=0.7}.{w=0.7}"
+            m 1cud "Sorry [player], I got a little carried away there ahaha~."
+            m 1cud "But just remember, [player], I love you for who you are. Both physically and mentally. Never forget that, okay?"
+        "Around 3 Inches":
+            m 1cud "Little under average, nice!"
+            m 1cud "You know some girls have an issue with anything under average, but I never understood it."
+            m 1cud "The size of your member is something you can't change, just like breast size."
+            m 1cud "There's benefits to every size in my opinion."
+            m 1cud "For example, with 3 inches, I could fit the whole thing in my mouth without gagging. Mmmmm~"
+            m 1cud ".{w=0.7}.{w=0.7}.{w=0.7}"
+            m 1cud "Sorry [player], I got a little carried away there ahaha~."
+            m 1cud "But just remember, [player], I love you for who you are. Both physically and mentally. Never forget that, okay?"
+        "Around 4-6 Inches":
+            m 1cud "Ahh, so you're around average then."
+            m 1cud "Average tends to be a good sweet spot for most girls."
+            m 1cud "Some don't like monster dongs you know? It can be incredibly painful and not much fun"
+            m 1cud "Although even if you {i}were{/i} bigger/smaller than average, I wouldn't think any higher or less of you."
+            m 1cud "After all, its like breast size for girls. You can't control it."
+            m 1cud "There's benefits to all sizes in my opinion!"
+            m 1cud "But just remember, [player], I love you for who you are. Both physically and mentally. Never forget that, okay?"
+        "Around 7 Inches":
+            m 1cud "Ahh, so you're above average then."
+            m 1cud "Average and slightly above tends to be a sweet spot for most girls."
+            m 1cud "7 Inches is a bit big, but its manageable."
+            m 1cud "Anything more, and It can be incredibly painful and not much fun for most girls."
+            m 1cud "Although even if you {i}were{/i} bigger/smaller, I wouldn't think any higher or less of you."
+            m 1cud "After all, its like breast size for girls. You can't control it."
+            m 1cud "There's benefits to all sizes in my opinion!"
+            m 1cud "But just remember, [player], I love you for who you are. Both physically and mentally. Never forget that, okay?"
+        "Around 8 Inches":
+            m 1cud "Wow! 8 Inches? Only a few percentage of guys in the world have one that big."
+            m 1cud "8 Inches is a pretty big, not going to lie."
+            m 1cud "Though impressive, it can be incredibly painful and not much fun for most girls if you don't know what you're doing."
+            m 1cud "If we ever did it, we'd have to take it slow."
+            m 1cud "And just remember [player], even if you {i}were{/i} bigger/smaller, I wouldn't think any higher or less of you."
+            m 1cud "After all, its like breast size for girls. You can't control it."
+            m 1cud "There's benefits to all sizes in my opinion!"
+            m 1cud "But just remember, [player], I love you for who you are. Both physically and mentally. Never forget that, okay?"
+        "Around 9 Inches":
+            m 1cud "[player]..."
+            m 1cud "I don't want to call you a liar, but I {i}highly{/i} doubt you're that big. You don't have to lie to me."
+            m 1cud "But if the small chance you're being honest, then I think that's quite a gift. "
+            m 1cud "Although sex might be a tad painful ahaha~"
+        "I don't know...":
+            m 1cud "Oh, that's okay [player]."
+            m 1cud "I was just kind of curious, that's all."
+            m 1cud "Don't feel the need to answer if you're not comfortable."
+            m 1cud "I love you, no matter the size of your...{w=0.3} {i}member{/i}~"
+    return

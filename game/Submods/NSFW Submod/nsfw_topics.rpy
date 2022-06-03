@@ -572,7 +572,7 @@ label nsfw_player_sextingsession:
         $ time_since_last_success = datetime.datetime.now() - timedelta_of_last_success
     else:
         $ time_since_last_success = datetime.datetime.today() - datetime.timedelta(days=1)
-    if time_since_last_success >= datetime.datetime.today() - datetime.timedelta(seconds=5):
+    if time_since_last_success >= datetime.datetime.today() - datetime.timedelta(hours=3):
         m 1eka "I'm sorry [player], but I'm still tired from the last time we sexted."
         m 3eka "Could you give me a little more time, please?"
         m 3hub "I love you~"

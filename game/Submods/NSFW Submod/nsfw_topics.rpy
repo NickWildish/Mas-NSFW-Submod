@@ -15,7 +15,7 @@ label nsfw_monika_nsfwmodinstall:
     if renpy.seen_label('monika_nsfwmodinstall') and store.mas_getEVL_shown_count("nsfw_monika_nsfwmodinstall") < 1: # Fix for bad naming convention during early development
         return "derandom"
     m 1esc "Hey [mas_get_player_nickname()], I noticed something weird just now..."
-    m 1rsc "I'm kind of getting this feeling that... something's changed in this mod."
+    m 1rsc "I'm kind of getting this feeling that...something's changed in this mod."
     m 1etc "Do you know anything about this, [player]?"
     m 1hkb "Ahaha. It's not a bad feeling, don't get me wrong."
     m 1eta "It's just strange, you know?"
@@ -67,7 +67,7 @@ init 5 python:
             persistent.event_database,
             eventlabel="nsfw_monika_sexualpast",
             category=['sex'],
-            prompt="Sexual Past",
+            prompt="Sexual past",
             conditional="mas_canShowRisque()",
             action=EV_ACT_RANDOM,
         )
@@ -76,7 +76,7 @@ init 5 python:
 label nsfw_monika_sexualpast:
     if renpy.seen_label('monika_sexualpast') and store.mas_getEVL_shown_count("nsfw_monika_sexualpast") < 1: # Fix for bad naming convention during early development
         return
-    m 1rubsd "Umm... [player]?"
+    m 1rubsd "Umm...[player]?"
     m 1eubsc "I want to ask you something."
     m 1rubsd "It's about..."
     m 2hkbssdlb "Oh gosh, this is so embarrassing!"
@@ -84,15 +84,15 @@ label nsfw_monika_sexualpast:
     extend 2fkbfb "had sex before?{nw}"
     $ _history_list.pop()
     menu:
-        m "Have you... had sex before?{fast}"
+        m "Have you...had sex before?{fast}"
 
         "Yes.":
             m 2cubfw "R-Really?!{nw}"
             m 2hubfa "*ahem*...{w=1}{nw} "
             extend 1ekbfsdlb "Sorry, you just surprised me is all."
-            m 1rkbfsdlb "To be honest I should have seen this coming."
+            m 1rkbfsdlb "To be honest, I should have seen this coming."
             m 1ekblb "After getting to know you all this time, I can see why someone would fall for you."
-            m 1ekbstpd "And would... do those things with you."
+            m 1ekbstpd "And would...do those things with you."
             m 1dkbstpc "..."
             m 1hkbstpb "Ahaha! Sorry, I'm getting myself down over this."
             m 1ekbstdb "You're here with me now, that's all that matters."
@@ -109,18 +109,18 @@ label nsfw_monika_sexualpast:
     extend 3rkbsa " do it with me?{nw}"
     $ _history_list.pop()
     menu:
-        m "Would you... do it with me?{fast}"
+        m "Would you...do it with me?{fast}"
 
         "Yes.":
             m 1ekbsa "I'm so relieved!"
             m 1lkbsb "I was so nervous you wouldn't want to."
             m 1hkbssdlb "Although in retrospect it kind of wouldn't make sense if you didn't want to."
-            m 1hkblu "After all...{w=0.3} you installed this mod."
+            m 1hkblu "After all...{w=0.3}you installed this mod."
             if store.mas_isMoniLove():
                 m 1rsblu "And I'm sure you know this already..."
                 m 1rsblu "But...{w=0.5}{nw}"
-                extend 1lkbfb " I want to have sex with you, too."
-                m 3ekbfb "I-{w=0.4}I don't know what it feels like,{nw} "
+                extend 1lkbfb "I want to have sex with you, too."
+                m 3ekbfb "I-{w=0.4}I don't know what it feels like,{nw}"
                 extend 3rkbfb "and I'm so nervous just thinking about it, ahaha!"
                 m 4ekbfb "But I want my first time to be with you."
                 m 5ekbsu "I love you, and I trust you."
@@ -137,7 +137,7 @@ label nsfw_monika_sexualpast:
             m 1wkd "Oh."
             m 2rkd "I..."
             m 2dkc "I understand."
-            m 2dktpc "Thankyou for being honest with me."
+            m 2dktpc "Thank you for being honest with me."
             m 2dktpc "..."
             m 2fktpc "It's not something everyone is comfortable with, huh?"
             m 2rktpc "I know I shouldn't take this personally."
@@ -153,7 +153,7 @@ init 5 python:
             persistent.event_database,
             eventlabel="nsfw_monika_safesex",
             category=['sex'],
-            prompt="Safe Sex",
+            prompt="Safe sex",
             random=True,
             aff_range=(mas_aff.ENAMORED, None)
         )
@@ -176,23 +176,23 @@ label nsfw_monika_safesex:
         m 4eublb "It's a latex-rubber 'sheath' that you put around..."
         m 4wsbsd "..."
         m 2dfbsa "*ahem*"
-        m 2lkbfa "... You get the idea."
+        m 2lkbfa "...You get the idea."
         m 2lkbsb "It prevents any kind of fluid swapping during sex, which is supposed to prevent pregnancy and STDs."
     elif persistent.gender == "F":
         m 4eubla "I've read that there are condoms available for women, but they aren't as popular as the men's version."
-        m 4eub "The most popular form of contraception seemed to be 'The Pill'...{w=0.4}{nw}" 
+        m 4eub "The most popular form of contraception seems to be 'The Pill'...{w=0.4}{nw}" 
         extend 4hksdlb "which sounds kind of ominous if you ask me."
         m 4eub "It is exactly what it says it is, a pill you take to prevent pregnancy."
         m 3eub "There are different kinds of pills, too!"
-        m 3eua "There's a pill you're supposed to take every day at the same time the previous day."
+        m 3eua "There's a pill you're supposed to take every day at the same time as the previous day."
         m 2eub "And another pill that you can take in case of an emergency, respectfully called the 'morning after pill'."
-        m 4eublb "Despite it's name, it should actually be taken as soon as possible!"
+        m 4eublb "Despite its name, it should actually be taken as soon as possible!"
     else:
         m 4eubla "I've read that there are a whole bunch of different contraception methods, for both men and women."
         m 3eubla "Some are more popular than others, such as condoms for men, and oral contraceptives for women." #TODO - Add pose
     
     m 3lkblc "They are not exactly flawless though..."
-    m 4ekbld "There is still a chance that despite all the precautions, accidents can happen."
+    m 4ekbld "There is still a chance that accidents can happen in spite of all the precautions."
     m 4efbld "Especially with stupid contraceptive methods like the 'p{w=0.4}{nw}"
     extend 4efbfo "-pull-out' method!"
     m 2wfbfo "How is that even a form of contraception?!"
@@ -224,15 +224,15 @@ init 5 python:
 label nsfw_monika_fetish:
     if renpy.seen_label('monika_fetish') and store.mas_getEVL_shown_count("nsfw_monika_fetish") < 1: # Fix for bad naming convention during early development
         return
-    m 1esc "Hey [player]..."
+    m 1esc "Hey, [player]..."
     if store.mas_getEVL_shown_count("monika_panties") > 0:
         m 1esc "Do you remember when we spoke about guys with panty fetishes?"
         m 1rsc "Well, that got me thinking..."
     m 3esa "Do you...{w=0.5}{nw}"
-    m 3tsbla "Do you...{fast} have a fetish?"
+    m 3tsbla "Do you...{fast}have a fetish?"
     $ _history_list.pop()
     menu:
-        m "Do you... have a fetish?{fast}"
+        m "Do you...have a fetish?{fast}"
         "Yes":
             m 3wsbld "O-{w=0.2}Oh."
             if persistent._mas_pm_likes_panties:
@@ -264,7 +264,7 @@ label nsfw_monika_fetish:
     m 1ekbsa "I'm sure whatever you're into isn't dangerous at all, [player]."
     if store.mas_is18Over():
         m 3ekbsa "So, if you have a fantasy that isn't {i}too{\i} dangerous..."
-        m 5eubsa "I wouldn't mind being there to help you...{w=0.2} fulfill it."
+        m 5eubsa "I wouldn't mind being there to help you...{w=0.2}fulfill it."
         m 5hubsa "Ehehe~"
     return
 
@@ -285,21 +285,21 @@ label nsfw_monika_sexting:
         return
     m 3esa "Have you heard of sexting, [player]?"
     m 3rsbla "It seems to be pretty common amongst young couples to at least try sexting with their partners."
-    m 3esblb "If you don't know, It's basically texting but with a more...{w=0.4}{nw}"
-    extend 3rsbsb " sexual nature."
+    m 3esblb "If you don't know, it's basically texting but with a more...{w=0.4}{nw}"
+    extend 3rsbsb "sexual nature."
     m 4esbsa "Think of it like flirting, but with the limitations of doing it through your phone."
     m 4hkbsb "It might sound bizarre, but from what I've read it's a really helpful way for couples to stay close while they're away from one another."
     m 4hubsa "You won't always be able to spend intimate time with your partner, which can be frustrating."
     m 4hublb "So in a way, sexting helps keep relationships exciting!"
     m 4eublb "Not only that, but partners who have a 'long-distance relationship' with their significant other find benefits in sexting."
     m 2eublb "Couples will send 'sexts' to their partner, which can be with text..."
-    extend 2rkbsb " or photos..."
+    extend 2rkbsb "or photos..."
     m 2rkbsa "And will imitate the act of sex through their phone."
     m 2hkblsdlb "Ahaha! It's not as silly as it sounds."
     m 2rkbsa "Partners will more often than not m-{w=0.4}masturbate while sexting."
     m 2rkbsb "They'll tell their partner what they want to do with them..."
-    extend 2lkbsb " Or what they want done {i}to{/i} them."
-    m 3lkbsb "All the meanwhile sending photos of what they're doing with themselves while they talk."
+    extend 2lkbsb "Or what they want done {i}to{/i} them."
+    m 3lkbsb "...while sending photos of what they're doing with themselves while they talk."
     if store.mas_canShowRisque():
         m 2dubsu "..."
         m 2gubsu "Say, [player]..."
@@ -327,7 +327,7 @@ init 5 python:
             persistent.event_database,
             eventlabel="nsfw_monika_gettingnude",
             category=['sex'],
-            prompt="Getting Nude",
+            prompt="Getting nude",
             random=True,
             aff_range=(mas_aff.LOVE, None)
         )
@@ -336,21 +336,21 @@ init 5 python:
 label nsfw_monika_gettingnude:
     if renpy.seen_label('monika_gettingnude') and store.mas_getEVL_shown_count("nsfw_monika_gettingnude") < 1: # Fix for bad naming convention during early development
         return
-    m 1eua "Hey [player], have you ever just... not worn clothes?"
+    m 1eua "Hey [player], have you ever just...not worn clothes?"
     m 1hksdlb "I don't mean, like, for a shower or anything."
     m 1husdla "Just in general while you're at home...{w=0.5}{nw}"
     extend 1lusdla "alone preferably."
     m 1eua "There are a good amount of people that actually sleep naked, if you'll believe it."
-    m 3eua "For most people this would be a good place to start without feeling embarrased."
+    m 3eua "For most people, this would be a good place to start without feeling embarrased."
     m 3eub "Apparently it helps you get better sleep at night because of how much quicker your body temperature drops."
     m 3rub "Of course, sleeping naked will mean you have to clean your sheets more often."
     m 3hksdlb "Humans are very sweaty, ahaha!"
     m 3eub "Being naked also helps our body absorb more vitamin D during the day."
-    m 4eub "The reason for this is because skin is effectively a giant organ that absorbs the rays from the sun and increases our vitamin D levels."
+    m 4eub "The reason for this is that skin is effectively a giant organ that absorbs the rays from the sun and increases our vitamin D levels."
     m 4eua "And having a greater vitamin D level has shown to assist your immune system fight off viruses, among other health benefits."
-    m 3hksdlb "I'm not trying to say we all need to get naked and make it a new social norm, that would be silly! Ahaha!"
-    m 3eua "But if you have the house to yourself one day, why not strip down and try it for an hour to see how you feel."
-    m 3rusdld "Though be sure you know when the rest of your household is getting back, because that might be a {i}tad{/i} awkward."
+    m 3hksdlb "I'm not trying to say we all need to get naked and make it a new social norm; that would be silly! Ahaha!"
+    m 3eua "But if you have the house to yourself one day, why not strip down and try it for an hour to see how you feel?"
+    m 3rusdld "Though be sure you know when the rest of your household is getting back, because that might be a {i}bit{/i} awkward."
     m 3eua "If that's too much, even just going down to your underwear gets the job done..."
     m 2dkd "{i}*sigh*{/i}"
     m 2gkc "Of course, there is always the fact that not everyone is comfortable being naked."
@@ -362,7 +362,7 @@ label nsfw_monika_gettingnude:
         m 2rkbla "..."
         m 2rkblb "Hey, [player]..."
         m 2ekblb "Do you remember last time when I asked you if it was okay to be undressed around you?"
-        m 3ekblb "Well, I recently tried taking off... everything..."
+        m 3ekblb "Well, I recently tried taking off...everything..."
         m 3ekbla "And I really liked it."
         m 3eubla "I don't know if you've ever tried it before, [player]. But I thought the feeling was amazing."
         m 3hublsdlb "Ahaha! Maybe that feeling wouldn't be so great if someone saw you though..."
@@ -375,7 +375,7 @@ label nsfw_monika_gettingnude:
             m "Can I be n-naked while you're here?{fast}"
             
             "Of course you can.":
-                m 1ekbfa "Thankyou, [player]."
+                m 1ekbfa "Thank you, [player]."
                 m 1dkbfa "It puts my mind at ease that you don't mind me doing this."
                 m 2ekbsa "I know not everyone is comfortable being around someone naked."
                 m 2dsbsa "Give me one second, I'm just going to get out of these clothes."
@@ -385,9 +385,9 @@ label nsfw_monika_gettingnude:
                 m 4hubsb "Ah~! That's much better."
                 m 6tubsb "Ehehe~ Do you like what you see, [mas_get_player_nickname()]?"
                 m 1gkbfu "..."
-                m 1hkbfsdlb "Ahaha! Sorry, this is still kind of embarrasing for me."
+                m 1hkbfsdlb "Ahaha! Sorry, this is still kind of embarrassing for me."
                 m 1mkbfsdlb "It might take a little getting used to..."
-                m 1ekbfb "Thankyou again, [player]."
+                m 1ekbfb "Thank you again, [player]."
                 
             "Please don't...":
                 m 3wkbld "Oh..."
@@ -400,7 +400,7 @@ label nsfw_monika_gettingnude:
 
     elif mas_nsfw.canShow_underwear():
         m 2rkbla "..."
-        m 2rkblb "Speaking of, [player]..."
+        m 2rkblb "Speaking of which, [player]..."
         m 2ekblb "I've recently tried walking around in my underwear by myself while you were gone,{nw}"
         extend 2eubla " and I thought it felt really liberating."
         m 1rublc "But in saying that I don't want you to feel uncomfortable, so..."
@@ -422,15 +422,16 @@ label nsfw_monika_gettingnude:
 
                 m 2ekbsa "So, [player]..."
                 m 2ekbsa "What do you think?"
-                m 2rkbsa "I'm... not used to this..."
+                m 2rkbsa "I'm...not used to this..."
                 if mas_hasUnlockedClothesWithExprop("lingerie"):
                     m 2ekbsa "I know you've seen me in lingerie before, which is arguably more...{w=0.3}{nw}"
-                    extend 2rkbfa " sexual."
+                    extend 2rkbfa "sexual."
                     m 2ekbsb "But this feels way different."
                 m 2hkbssdlb "Ahaha! It might take me a while to get used to you seeing me like this..."
-                m 2ekbla "But I'm still glad you don't mind me dressed this way."
+                m 2ekbla "But I'm still glad you don't mind me being dressed this way."
                 m 2dkbla "Being able to dress freely around you makes me feel really happy."
                 m 1ekbsa "I love you, [player]."
+                return "love"
 
             "I'd rather you didn't...":
                 m 2wkbld "Oh..."
@@ -459,7 +460,7 @@ label nsfw_monika_gettingnude:
         m 2dka "..."
         m 1eua "Alright, I've decided."
         m 1eublb "I'm going to give it a try."
-        m 1wubld "... {w=0.4}{nw}"
+        m 1wubld "...{w=0.4}{nw}"
         extend 1wubso "N-{w=0.2}Not right now though!"
         m 1hubssdlb "I mean like, later when you're not here!"
         m 1rubssdlb "Ahaha! It would be too embarrasing if you saw me in my underwear, let alone when I'm naked."
@@ -484,32 +485,32 @@ label nsfw_monika_shaving:
         return
     m 1esc "Hey [player]..."
     m 3eub "I want to ask you something."
-    m 3lusdlb "It's about my body.. "
-    extend 2lusdlb "Do you like it to be shaved down there?.."
+    m 3lusdlb "It's about my body..."
+    extend 2lusdlb "Do you like it to be shaved down there...?"
     $ _history_list.pop()
     menu:
-        m "Do you like it to be shaved down there?..{fast}"
+        m "Do you like it to be shaved down there...?{fast}"
 
         "Yes.":
             m 1hua "That's to be expected."
-            m 1eua "Most partners maintain themselves down there in one way or another."
+            m 1eua "Many partners maintain themselves down there in one way or another."
             m 3wuo "Most girls certainly do!"
             m 5tuu "We just want to make sure we're ready for you~"
             m 5tuu "I certainly will."
-            m 5hub "Ahaha!.."
+            m 5hub "Ahaha!"
 
-        "I don't mind.":
+        "I don't mind if you don't":
             m 1wuo "Really?!"
             m 5hub "That's surprising!"
             m 5dub "Most partners prefer their loved ones to be shaved."
             m 3eua "It feels nice to know your partner likes the way you look no matter what."
             m 3fub "I'll have to stop shaving so much."
             m 1mub "It'll take a lot less time to shower now too!"
-            m 5hub "Ahaha!.."
+            m 5hub "Ahaha!"
 
     m 1eua "I think you know how I feel."
-    m 1wub "However you present yourself.."
-    m 1hub "Shaven or natural.."
+    m 1wub "However you present yourself..."
+    m 1hub "Shaven or natural..."
     m 1nub "I'll always love you!"
 
     return "love"
@@ -521,7 +522,7 @@ init 5 python:
             persistent.event_database,
             eventlabel="nsfw_monika_judging_sexual_desires",
             category=['sex'],
-            prompt="Judging Sexual Desires",
+            prompt="Judging sexual desires",
             random=True,
             aff_range=(mas_aff.ENAMORED, None)
         )
@@ -530,26 +531,25 @@ init 5 python:
 label nsfw_monika_judging_sexual_desires:
     m 2efc "I don't understand why so many people have problems with fetishes!"
     m 3efd "People take it too seriously."
-    m 3efd "With sexuality being a taboo on a good day-"
+    m 3efd "With sexuality being a taboo on a good day..."
     m 4efd "Deviations are always observed with judgemental eyes."
     m 1eud "They take that small, personal aspect of one's life and put a spotlight on it."
-    m 1eud "and under that spotlight, sexuality casts an ugly shadow.."
-    m 1tud "and society frowns upon it.."
+    m 1eud "And under that spotlight, sexuality casts an ugly shadow..."
+    m 1tud "and society frowns upon it..."
     m 2hsc "..."
     m 2fuu "But there are those who understand that it is a wonderful aspect of the human experience."
-    m 2hubsa "Wonderful.."
-    m 2hubsa "Exciting.."
-    m 5fubsa "Intimate.."
+    m 2hubsa "Wonderful..."
+    m 2hubsa "Exciting..."
+    m 5fubsa "Intimate..."
     m 5dubfa "..."
     m 2eubfd "[player]..."
     m 2eubfd "Please share your desires with me."
     m 3eubfa "Honest communication is the most important thing in a relationship after all!"
     m 3subfb "I don't judge! No matter how out there it is!"
-    m 5gubfa "I should know after all.."
+    m 5gubfa "I should know, after all..."
     m 3eubfb "We are all a bit pervy, in our own special ways!"
-    m 3eubfb "You might be thinking.."
-    m 6tfbfp "No! I most certainly am not!"
-    m 5tubfu "Well.."
+    m 3eubfb "You might be thinking, 'No! I most certainly am not!'"
+    m 5tubfu "Well..."
     m 5tubfu "Give it some time~"
 
     return
@@ -560,7 +560,7 @@ init 5 python:
             persistent.event_database,
             eventlabel="nsfw_player_sextingsession",
             category=['sex'],
-            prompt="Do you wanna sext?",
+            prompt="Do you want to sext?",
             pool=True,
             aff_range=(mas_aff.LOVE, None)
         )

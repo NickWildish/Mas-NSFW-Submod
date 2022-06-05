@@ -186,10 +186,13 @@ label nsfw_sexting_hot_transfer:
     return
 
 label nsfw_sexting_sexy_transfer:
-    if mas_nsfw.canShow_birthdaySuit():
+    if store.mas_SELisUnlocked(store.mas_clothes_underwear_white):
         m 6hkbfsdlo "Hnn~ I can't take it anymore!"
 
-        call mas_clothes_change(outfit=mas_clothes_birthday_suit, outfit_mode=False, exp="6hubfb", restore_zoom=False)
+        if store.mas_SELisUnlocked(store.mas_clothes_birthday_suit):
+            call mas_clothes_change(outfit=mas_clothes_birthday_suit, outfit_mode=False, exp="6hubfb", restore_zoom=False)
+        else:
+            call mas_clothes_change(outfit=mas_clothes_underwear_white, outfit_mode=False, exp="6hubfb", restore_zoom=False)
 
         m 6hubfb "Hah~ That feels better."
         m 7tubfb "Don't think that I'm letting you off the hook now, [player]."

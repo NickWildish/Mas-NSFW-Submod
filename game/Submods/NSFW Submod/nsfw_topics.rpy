@@ -609,16 +609,16 @@ init 5 python:
     addEvent(
         Event(
             persistent.event_database,
-            eventlabel="nsfw_monika_favourite_position",
+            eventlabel="nsfw_monika_favorite_position",
             category=['sex'],
-            prompt="Favourite position",
+            prompt="Favorite position",
             conditional="mas_canShowRisque(aff_thresh=400)",
             action=EV_ACT_RANDOM,
             aff_range=(mas_aff.ENAMORED, None)
         )
     )
 
-label nsfw_monika_favourite_position:
+label nsfw_monika_favorite_position:
     m 1eua "So...[player]..."
     m 1eua "I've been meaning to ask you about this for some time..."
     m 1eua "..."
@@ -627,11 +627,11 @@ label nsfw_monika_favourite_position:
         m 1eua "I know we already talked about s-sex before, but..."
         m 1eua "It's still extremely embarrassing to talk about this kind of stuff..."
     m 1eua "Ahem..."
-    m 1eua "So...What's your favourite position? During...y'know...s-sex?"
+    m 1eua "So...What's your favorite position? During...y'know...s-sex?"
 
     $ _history_list.pop()
     menu:
-        m "So...What's your favourite position? During...y'know...s-sex?{fast}"
+        m "So...What's your favorite position? During...y'know...s-sex?{fast}"
 
         "Doggystyle.":
             m 1eua "Oh? Really?"
@@ -640,7 +640,7 @@ label nsfw_monika_favourite_position:
             m 1eua "See? I did my research! Ahaha~"
             m 1eua "I can see why so many people would like it, honestly!"
             m 1eua "The guy can get a really good view of his partner while they're doing it."
-            m 1eua "I bet you'd like to see me from taht perspective too, huh?"
+            m 1eua "I bet you'd like to see me from that perspective too, huh?"
             m 1eua "Ahaha! Don't get flustered~"
             m 1eua "Just knowing you're pleased and have a nice view of my body is enough for me to feel good~"
 
@@ -653,7 +653,7 @@ label nsfw_monika_favourite_position:
 
         "Cowgirl.":
             m 1eua "Really? I wasn't expecting that."
-            m 1eua "Don't take it the wrong way, please! Cowgirl sounds really fun, I just didn't think that would be your favourite one!"
+            m 1eua "Don't take it the wrong way, please! Cowgirl sounds really fun, I just didn't think that would be your favorite one!"
             m 1eua "I know I don't weigh all that much...but even like this, I think it would be quite tiring for you if I were to ride you, don't you think?"
             m 1eua "I just fear you would get too exhausted from my humping."
             m 1eua "And...y'know..."
@@ -661,7 +661,7 @@ label nsfw_monika_favourite_position:
             m 1eua "But..."
             m 1eua "If you insist on liking it the most..."
             m 1eua "I'd be happy to take your {i}yee in my haw{/i} and ride it real good! Ahaha~"
-            m 1eua "Sorry, that was a bad joke~"
+            m 1eua "Sorry, that was a bad joke."
 
     return
 
@@ -671,7 +671,7 @@ init 5 python:
     addEvent(
         Event(
             persistent.event_database,
-            eventlabel="nsfw_monika_blowjobs",
+            eventlabel="nsfw_monika_oralsex",
             category=['sex'],
             prompt="Oral Sex",
             conditional=("mas_canShowRisque(aff_thresh=400)"),
@@ -680,7 +680,7 @@ init 5 python:
         )
     )
 
-label nsfw_monika_blowjobs:
+label nsfw_monika_oralsex:
     if persistent.gender == 'M':
         m 1eua "..."
         m 1eua "Uhm..."

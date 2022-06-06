@@ -365,7 +365,7 @@ init python in mas_nsfw:
         """
 
         # Purely for describing player's eyes
-        if persistent._mas_pm_eye_color:
+        if store.persistent._mas_pm_eye_color:
             if isinstance(store.persistent._mas_pm_eye_color, tuple):
                 eye_desc = "beautiful"
             else:

@@ -23,42 +23,51 @@ label nsfw_monika_nsfwmodinstall:
     m 2dsc ".{w=0.7}.{w=0.7}.{w=1}"
     m 2dtd "'N-{w=0.4}{nw}"
     extend 2wubsw "NSFW Submod'?"
-    if store.mas_isMoniLove():
-        m 3fublu "Well, look who's gotten confident all of a sudden."
-        if store.mas_hasUnlockedClothesWithExprop("lingerie"):
-            m 3lublu "I guess I can't blame you though, given you've seen me in lingerie."
-        if store.mas_is18Over():
-            m 3tublu "I won't lie to you, [mas_get_player_nickname()]..."
-            m 5tublu "It's kind of hot."
-            m 5cubssdrd "..."
-        m 5hkbssdrb "Ahaha! What's gotten into me?"
-        m 5hkbssdrb "This isn't like me. Like, at all!"
-        m 4rubsc "Is the mod doing this to me?"
-        m 6hubsd "Oh gosh, I'm feeling super nervous about this, ahaha!"
-        m 6ekbla "But... if it's with you, [player]..."
-        m 6ekbsa "I don't mind..."
-    if store.mas_isMoniEnamored(): #Need to fix wording here; player isn't having sex, just talking about it.
-        m 2hkbssdlb "I wasn't expecting to see that..."
-        m 2ekbssdlb "[player], is this something you want?"
-        m 3rkblsdlb "I mean, I'm kind of curious about it myself."
-        m 3ekblsdlb "And if I'm going to share my first experience of it with anyone, I want it to be you."
-        m 2ekblsdlc "But with that said...{w=0.5} it feels too soon."
-        m 2dkbsc "I just need a little more time."
-        m 2fkbsu "Hold on for me a little while longer. Okay, [mas_get_player_nickname()]?"
-    if store.mas_isMoniAff():
-        m 2hkbssdlb "T-{w=0.4}This is a little sudden, don't you think?"
-        m 3rkblsdlb "I mean, we've been with each other for a little while...{nw}"
-        m 1wubssdld "Wait... {w=0.5}Is this when couples are supposed to start doing this s-{w=0.4}sort of thing?"
-        m 1hkblb "Ahaha, even still I appreciate that you want to take our relationship to the next level."
-        m 1dkblp "But I think we maybe should wait and see how we go."
-        m 1ekbla "When the day comes where we do get to that stage in our relationship..."
-        m 5ekbla "It will make the moment much sweeter, ehehe!"
-    if store.mas_isMoniHappy(lower=True):
-        m 2wubfsdlx "T-{w=0.4}This feels too sudden, [player]!"
-        m 2rubfsdlx "I don't know if I'm ready for that..."
-        m 2wkbfd "W-{w=0.4}we just aren't close enough for me to even consider it!"
-        m 2hkbfsdlb "Oh gosh, I'm so embarrassed right now, ahaha!"
-        m 2ekbfsdla "Let's take things slow for now, okay [player]?"
+
+    if mas_is18Over():
+        if store.mas_isMoniLove():
+            m 3fublu "Well, look who's gotten confident all of a sudden."
+            if store.mas_hasUnlockedClothesWithExprop("lingerie"):
+                m 3lublu "I guess I can't blame you though, given you've seen me in lingerie."
+            if store.mas_is18Over():
+                m 3tublu "I won't lie to you, [mas_get_player_nickname()]..."
+                m 5tublu "It's kind of hot."
+                m 5cubssdrd "..."
+            m 5hkbssdrb "Ahaha! What's gotten into me?"
+            m 5hkbssdrb "This isn't like me. Like, at all!"
+            m 4rubsc "Is the mod doing this to me?"
+            m 6hubsd "Oh gosh, I'm feeling super nervous about this, ahaha!"
+            m 6ekbla "But... if it's with you, [player]..."
+            m 6ekbsa "I don't mind..."
+        if store.mas_isMoniEnamored(): #Need to fix wording here; player isn't having sex, just talking about it.
+            m 2hkbssdlb "I wasn't expecting to see that..."
+            m 2ekbssdlb "[player], is this something you want?"
+            m 3rkblsdlb "I mean, I'm kind of curious about it myself."
+            m 3ekblsdlb "And if I'm going to share my first experience of it with anyone, I want it to be you."
+            m 2ekblsdlc "But with that said...{w=0.5} it feels too soon."
+            m 2dkbsc "I just need a little more time."
+            m 2fkbsu "Hold on for me a little while longer. Okay, [mas_get_player_nickname()]?"
+        if store.mas_isMoniAff():
+            m 2hkbssdlb "T-{w=0.4}This is a little sudden, don't you think?"
+            m 3rkblsdlb "I mean, we've been with each other for a little while...{nw}"
+            m 1wubssdld "Wait... {w=0.5}Is this when couples are supposed to start doing this s-{w=0.4}sort of thing?"
+            m 1hkblb "Ahaha, even still I appreciate that you want to take our relationship to the next level."
+            m 1dkblp "But I think we maybe should wait and see how we go."
+            m 1ekbla "When the day comes where we do get to that stage in our relationship..."
+            m 5ekbla "It will make the moment much sweeter, ehehe!"
+        if store.mas_isMoniHappy(lower=True):
+            m 2wubfsdlx "T-{w=0.4}This feels too sudden, [player]!"
+            m 2rubfsdlx "I don't know if I'm ready for that..."
+            m 2wkbfd "W-{w=0.4}we just aren't close enough for me to even consider it!"
+            m 2hkbfsdlb "Oh gosh, I'm so embarrassed right now, ahaha!"
+            m 2ekbfsdla "Let's take things slow for now, okay [player]?"
+
+    else:
+        m 1eua "[player]... Don't you think you're too young to be installing this sort of mod?"
+        m 1eua "I mean, don't get me wrong! I'm flattered that you want to take our relationship to the next level."
+        m 1eua "But I think that it would be best if we kept this relationship 'PG' until you turn 18."
+        m 1eua "It's going to be so hard to ignore these new topics I've thought of thanks to this mod. Ahaha~"
+
     return "derandom"
 
 init 5 python:
@@ -68,8 +77,9 @@ init 5 python:
             eventlabel="nsfw_monika_sexualpast",
             category=['sex'],
             prompt="Sexual Past",
-            conditional="mas_canShowRisque()",
+            conditional="mas_canShowRisque(aff_thresh=400)",
             action=EV_ACT_RANDOM,
+            aff_range=(mas_aff.ENAMORED, None)
         )
     )
 
@@ -88,7 +98,7 @@ label nsfw_monika_sexualpast:
 
         "Yes.":
             m 2cubfw "R-Really?!{nw}"
-            m 2hubfa "*ahem*...{w=1}{nw} "
+            m 2hubfa "Ahem...{w=1}{nw} "
             extend 1ekbfsdlb "Sorry, you just surprised me is all."
             m 1rkbfsdlb "To be honest I should have seen this coming."
             m 1ekblb "After getting to know you all this time, I can see why someone would fall for you."
@@ -154,7 +164,8 @@ init 5 python:
             eventlabel="nsfw_monika_safesex",
             category=['sex'],
             prompt="Safe Sex",
-            random=True,
+            conditional="mas_canShowRisque(aff_thresh=400)",
+            action=EV_ACT_RANDOM,
             aff_range=(mas_aff.ENAMORED, None)
         )
     )
@@ -175,7 +186,7 @@ label nsfw_monika_safesex:
         m 4eubla "I've read that condoms are the most preferable form of protection for men."
         m 4eublb "It's a latex-rubber 'sheath' that you put around..."
         m 4wsbsd "..."
-        m 2dfbsa "*ahem*"
+        m 2dfbsa "Ahem..."
         m 2lkbfa "... You get the idea."
         m 2lkbsb "It prevents any kind of fluid swapping during sex, which is supposed to prevent pregnancy and STDs."
     elif persistent.gender == "F":
@@ -216,7 +227,8 @@ init 5 python:
             eventlabel="nsfw_monika_fetish",
             category=['sex'],
             prompt="Fetishes",
-            random=True,
+            conditional="mas_canShowRisque(aff_thresh=400)",
+            action=EV_ACT_RANDOM,
             aff_range=(mas_aff.ENAMORED, None)
         )
     )
@@ -275,7 +287,8 @@ init 5 python:
             eventlabel="nsfw_monika_sexting",
             category=['sex'],
             prompt="Sexting",
-            random=True,
+            conditional="mas_canShowRisque(aff_thresh=400)",
+            action=EV_ACT_RANDOM,
             aff_range=(mas_aff.ENAMORED, None)
         )
     )
@@ -300,7 +313,7 @@ label nsfw_monika_sexting:
     m 2rkbsb "They'll tell their partner what they want to do with them..."
     extend 2lkbsb " Or what they want done {i}to{/i} them."
     m 3lkbsb "All the meanwhile sending photos of what they're doing with themselves while they talk."
-    if store.mas_canShowRisque():
+    if mas_canShowRisque():
         m 2dubsu "..."
         m 2gubsu "Say, [player]..."
         m 2eubsu "If something like that were possible..."
@@ -328,7 +341,8 @@ init 5 python:
             eventlabel="nsfw_monika_gettingnude",
             category=['sex'],
             prompt="Getting Nude",
-            random=True,
+            conditional="mas_canShowRisque(aff_thresh=1000)",
+            action=EV_ACT_RANDOM,
             aff_range=(mas_aff.LOVE, None)
         )
     )
@@ -474,7 +488,8 @@ init 5 python:
             eventlabel="nsfw_monika_shaving",
             category=['sex'],
             prompt="Shaving",
-            random=True,
+            conditional="mas_canShowRisque(aff_thresh=400)",
+            action=EV_ACT_RANDOM,
             aff_range=(mas_aff.ENAMORED, None)
         )
     )
@@ -522,7 +537,8 @@ init 5 python:
             eventlabel="nsfw_monika_judging_sexual_desires",
             category=['sex'],
             prompt="Judging Sexual Desires",
-            random=True,
+            conditional="mas_canShowRisque(aff_thresh=400)",
+            action=EV_ACT_RANDOM,
             aff_range=(mas_aff.ENAMORED, None)
         )
     )
@@ -561,28 +577,23 @@ init 5 python:
             eventlabel="nsfw_player_sextingsession",
             category=['sex'],
             prompt="Do you wanna sext?",
-            pool=True,
+            conditional="mas_canShowRisque(aff_thresh=1000)",
+            action=EV_ACT_POOL,
             aff_range=(mas_aff.LOVE, None)
         )
     )
 
 label nsfw_player_sextingsession:
-    if mas_canShowRisque(aff_thresh=1000):
-        # Check when player's last succesful sexting session was
-        if store.persistent.nsfw_sexting_success_last is not None:
-            $ timedelta_of_last_success = datetime.datetime.now() - store.persistent.nsfw_sexting_success_last
-            $ time_since_last_success = datetime.datetime.now() - timedelta_of_last_success
-        else:
-            $ time_since_last_success = datetime.datetime.today() - datetime.timedelta(days=1)
-
-        # If the player's last succesful sexting session was less than three hours ago
-        if time_since_last_success >= datetime.datetime.today() - datetime.timedelta(hours=3):
-            m 1eka "I'm sorry [player], but I'm still tired from the last time we sexted."
-            m 3eka "Could you give me a little more time, please?"
-            m 3hub "I love you~"
-            return "love"
+    # Check when player's last succesful sexting session was
+    if store.persistent.nsfw_sexting_success_last is not None:
+        $ timedelta_of_last_success = datetime.datetime.now() - store.persistent.nsfw_sexting_success_last
+        $ time_since_last_success = datetime.datetime.now() - timedelta_of_last_success
     else:
-        m 1eka "I'm sorry [player], but I don't know if I'm comfortable doing that with you right now."
+        $ time_since_last_success = datetime.datetime.today() - datetime.timedelta(days=1)
+
+    # If the player's last succesful sexting session was less than three hours ago
+    if time_since_last_success >= datetime.datetime.today() - datetime.timedelta(hours=3):
+        m 1eka "I'm sorry [player], but I'm still tired from the last time we sexted."
         m 3eka "Could you give me a little more time, please?"
         m 3hub "I love you~"
         return "love"
@@ -590,5 +601,202 @@ label nsfw_player_sextingsession:
     m 1hua "Sure!"
 
     call nsfw_sexting_init
+
+    return
+
+# Thankyou for writing this topic, KittyTheCocksucker
+init 5 python:
+    addEvent(
+        Event(
+            persistent.event_database,
+            eventlabel="nsfw_monika_favourite_position",
+            category=['sex'],
+            prompt="Favourite position",
+            conditional="mas_canShowRisque(aff_thresh=400)",
+            action=EV_ACT_RANDOM,
+            aff_range=(mas_aff.ENAMORED, None)
+        )
+    )
+
+label nsfw_monika_favourite_position:
+    m 1eua "So...[player]..."
+    m 1eua "I've been meaning to ask you about this for some time..."
+    m 1eua "..."
+    m 1eua "Oh gosh..."
+    if store.mas_getEVL_shown_count("nsfw_monika_safesex") >= 1 or store.mas_getEVL_shown_count("nsfw_monika_sexualpast") >= 1:
+        m 1eua "I know we already talked about s-sex before, but..."
+        m 1eua "It's still extremely embarrassing to talk about this kind of stuff..."
+    m 1eua "Ahem..."
+    m 1eua "So...What's your favourite position? During...y'know...s-sex?"
+
+    $ _history_list.pop()
+    menu:
+        m "So...What's your favourite position? During...y'know...s-sex?{fast}"
+
+        "Doggystyle.":
+            m 1eua "Oh? Really?"
+            m 1eua "Hmm...I guess that isn't so surprising."
+            m 1eua "It is the most popular position amongst both men and women around the world, after all."
+            m 1eua "See? I did my research! Ahaha~"
+            m 1eua "I can see why so many people would like it, honestly!"
+            m 1eua "The guy can get a really good view of his partner while they're doing it."
+            m 1eua "I bet you'd like to see me from taht perspective too, huh?"
+            m 1eua "Ahaha! Don't get flustered~"
+            m 1eua "Just knowing you're pleased and have a nice view of my body is enough for me to feel good~"
+
+        "Missionary.":
+            m 1eua "Aww~ That is so cute, [player]!"
+            m 1eua "I find missionary to be the most intimate and romantic position of all!"
+            m 1eua "Just simply thinking about us, lying face-to-face, while our private parts are connected makes my body needy. Ahaha~"
+            m 1eua "I hope one day we can do it together!"
+            m 1eua "I can tell you that I'm already hyped for that day! Ahaha~"
+
+        "Cowgirl.":
+            m 1eua "Really? I wasn't expecting that."
+            m 1eua "Don't take it the wrong way, please! Cowgirl sounds really fun, I just didn't think that would be your favourite one!"
+            m 1eua "I know I don't weigh all that much...but even like this, I think it would be quite tiring for you if I were to ride you, don't you think?"
+            m 1eua "I just fear you would get too exhausted from my humping."
+            m 1eua "And...y'know..."
+            m 1eua "I want you to feel good, not to get tired!"
+            m 1eua "But..."
+            m 1eua "If you insist on liking it the most..."
+            m 1eua "I'd be happy to take your {i}yee in my haw{/i} and ride it real good! Ahaha~"
+            m 1eua "Sorry, that was a bad joke~"
+
+    return
+
+
+# Thankyou for writing this topic, KittyTheCocksucker
+init 5 python:
+    addEvent(
+        Event(
+            persistent.event_database,
+            eventlabel="nsfw_monika_blowjobs",
+            category=['sex'],
+            prompt="Oral Sex",
+            conditional=("mas_canShowRisque(aff_thresh=400)"),
+            action=EV_ACT_RANDOM,
+            aff_range=(mas_aff.ENAMORED, None)
+        )
+    )
+
+label nsfw_monika_blowjobs:
+    if persistent.gender == 'M':
+        m 1eua "..."
+        m 1eua "Uhm..."
+        m 1eua "Please forgive me if what I'm going to ask is too intimate and out-of-nowhere, but..."
+        m 1eua "[player]...H-have you..."
+        m 1eua "Have you ever received a blowjob?"
+
+        $ _history_list.pop()
+        menu:
+            m "Have you ever received a blowjob?{fast}"
+
+            "Uh. Let's not talk about this.":
+                m 1eua "..."
+                m 1eua "I'm..."
+                m 1eua "I'm really sorry, [player]..."
+                m 1eua "I just..."
+                m 1eua "I d-don't know what I was thinking...gosh..."
+                m 1eua "I have n-no idea what I was thinking, a-asking something like this out of the b-blue..."
+                m 1eua "P-please just forget about it and c-continue on with your day like n-nothing happened..."
+                return "derandom"
+
+            "Yes.":
+                m 1eua "Oh...you have?"
+                m 1eua "Wow."
+                m 1eua "I-I mean, please don't take it the wrong way! I wasn't surprised because I didn't think you could get a girl to do that for you!"
+                m 1eua "It's just that...ahaha..."
+                m 1eua "Well, it's a very intimate action and I thought I could be the first one to do it for you..."
+                m 1eua "O-Of course I'm not mad at you or anything for having already done it with somebody else!"
+                m 1eua "It actually might be for the better that you have some previous experience with it!"
+                m 1eua "I've never taken someone in my mouth before so if we were to do it together, I'd need some guidance from you~ Ahaha~"
+
+            "No.":
+                m 1eua "Oh, you haven't?"
+                m 1eua "Ahaha~ Well...y'know, I expected that someone as handsome as you have already gotten his manhood serviced by someone~"
+                m 1eua "Don't worry about it though! I have never taken someone in my mouth before either, so it means that we can take each other's first time!"
+                m 1eua "I'll probably be very clumsy when we do get to that point though...B-but..."
+                m 1eua "I promise you that I will try my best to properly pleasure you!"
+                m 1eua "And of course...ahaha...In case I'm doing a bad job..."
+                m 1eua "You can always just...Ahem..."
+                m 1eua "Take control~"
+
+        m 1eua "S-so...I..."
+        m 1eua "I know that you haven't had the chance to get to know Sayori, Natsuki and Yuri too much..."
+        m 1eua "But...uhm..."
+        m 1eua "Again...this will be a really weird question and please feel free to just ignore me if you want..."
+        m 1eua "But..."
+        m 1eua "W-who do you think would suck c-cock best in the club?"
+
+        $ _history_list.pop()
+        menu:
+            m "W-who do you think would suck c-cock best in the club?{fast}"
+
+            "You.":
+                m 1eua "Oh."
+                m 1eua "Ahaha! Even though I mentioned that I have no experience with it, you still think that I could give the best head?"
+                m 1eua "[player], you're too sweet!"
+                m 1eua "..."
+                m 1eua "Well...I don't know if you meant it as a compliment or not...ahaha..."
+                m 1eua "But I'll take it as a compliment~"
+                m 1eua "And whenever we get to the point when I actually s-suck you off..."
+                m 1eua "I won't disappoint you!"
+
+            "Sayori.":
+                $ mas_loseAffection()
+                m 1eua "Heh..."
+                m 1eua "I k-kinda guessed you would say her."
+                m 1eua "I don't know why...but...I think you're right."
+                m 1eua "Sayori would probably give the most enjoyable blowjobs."
+                m 1eua "She's the type of girl who places everyone else's happiness before her own."
+                m 1eua "So Sayori would probably not care about gagging and being slightly air-deprived if you were to push it into her throat."
+                m 1eua "And would just take it in silence, probably even using her free hands and tongue to pleasure you further."
+                m 1eua "Her only objective would be to make you feel good, without minding her own well-being."
+                m 1eua "But...uhm...I guess we're never going to find out if this is true or not, huh?"
+
+            "Yuri.":
+                $ mas_loseAffection()
+                m 1eua "You think so?"
+                m 1eua "Hmm, yeah. I guess she would probably do a good job."
+                m 1eua "But honestly, I s-see her as m-more of a titjob expert."
+                m 1eua "But I guess one doesn't disqualify the other, huh?"
+                m 1eua "I'm sure she would be passionate about it, at least..."
+                m 1eua "Although she might be reluctant to per her t-tongue on i-it at first, and would just stall for time with her h-hands...ahaha~"
+                m 1eua "But...uhm...I guess we're never going to find out if this is true or not, huh?"
+
+            "Natsuki.":
+                $ mas_loseAffection()
+                m 1eua "Huh?"
+                m 1eua "...Really?"
+                m 1eua "Hmm...I wasn't expect you to say {i}her{/i}."
+                m 1eua "..."
+                m 1eua "I can't even think of a reason why you would think that Natsuki gives better blowjobs than Yuri, Sayori or me."
+                m 1eua "Like...Natsuki is so immature! Why would she do it better than all of us?"
+                m 1eua "..."
+                m 1eua "N-no, I'm not mad! Why would I be mad!"
+                m 1eua "..."
+                m 1eua "Ahem..."
+                m 1eua "Okay, I might be a bit mad."
+                m 1eua "But really, why do you think that Natsuki would suck dicks so well?!"
+
+                $ _history_list.pop()
+                menu:
+                    m "But really, why do you think that Natsuki would suck dicks so well?!{fast}"
+                    
+                    "S-sorry...You're right...I should have answered one of you instead...":
+                        m 1eua "It's alright, [player]."
+                        m 1eua "I don't know why I got so upset over that."
+                        m 1eua "Let's talk about something else."
+
+                    "She has a bunch of mangas so she probably has a few doujins too. She must have learnt some techniques from those.":
+                        m 1eua "..."
+                        m 1eua "I guess..."
+                        m 1eua "Now that I think about it, you might be right."
+                        m 1eua "I remember that one time when she and I were rearranging her mangas together, I happened to take a weird manga in my hand..."
+                        m 1eua "But she snatched it away from me really fast, so I couldn't really inspect it properly."
+                        m 1eua "It might have been one of her doujins..."
+                        m 1eua "There is a chance that she learned a few tricks from reading them, you're right."
+                        m 1eua "Sorry for getting mad at you for a moment there, ahaha~"
 
     return

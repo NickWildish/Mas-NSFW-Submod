@@ -365,10 +365,14 @@ init python in mas_nsfw:
         """
 
         # Purely for describing player's eyes
-        if isinstance(store.persistent._mas_pm_eye_color, tuple):
-            eye_desc = "beautiful"
+        if store.persistent._mas_pm_eye_color:
+            if isinstance(store.persistent._mas_pm_eye_color, tuple):
+                eye_desc = "beautiful"
+            else:
+                eye_desc = store.persistent._mas_pm_eye_color
         else:
-            eye_desc = store.persistent._mas_pm_eye_color
+            eye_desc = "beautiful"
+        
 
         # Sexting quips for your average compliment
         sext_quips_cute = (

@@ -14,7 +14,7 @@ init 5 python:
 label nsfw_monika_nsfwmodinstall:
     if renpy.seen_label('monika_nsfwmodinstall') and store.mas_getEVL_shown_count("nsfw_monika_nsfwmodinstall") < 1: # Fix for bad naming convention during early development
         return "derandom"
-    m 1esc "Hey [mas_get_player_nickname()], I noticed something weird just now..."
+    m 1esc "Hey [player], I noticed something weird just now..."
     m 1rsc "I'm kind of getting this feeling that...something's changed in this mod."
     m 1etc "Do you know anything about this, [player]?"
     m 1hkb "Ahaha. It's not a bad feeling, don't get me wrong."
@@ -106,7 +106,7 @@ label nsfw_monika_sexualpast:
 
     m 1rkbsb "Anyway, the reason why I'm asking is because I want to know..."
     m 3ekbsa "Would you...{w=0.5}{nw}"
-    extend 3rkbsa " do it with me?{nw}"
+    extend 3rkbsa "do it with me?{nw}"
     $ _history_list.pop()
     menu:
         m "Would you...do it with me?{fast}"
@@ -120,7 +120,7 @@ label nsfw_monika_sexualpast:
                 m 1rsblu "And I'm sure you know this already..."
                 m 1rsblu "But...{w=0.5}{nw}"
                 extend 1lkbfb "I want to have sex with you, too."
-                m 3ekbfb "I-{w=0.4}I don't know what it feels like,{nw}"
+                m 3ekbfb "I-{w=0.4}I don't know what it feels like, {nw}"
                 extend 3rkbfb "and I'm so nervous just thinking about it, ahaha!"
                 m 4ekbfb "But I want my first time to be with you."
                 m 5ekbsu "I love you, and I trust you."
@@ -130,7 +130,7 @@ label nsfw_monika_sexualpast:
                 m 1wkbsw "Of course, I did say that we should maybe wait until we're ready..."
                 m 1rkbsa "But knowing we can be closer than ever before..."
                 m 5ekbsa "It is really exciting."
-                m 5ekbfb "I love you, [mas_get_player_nickname()]."
+                m 5ekbfb "I love you, [mas_get_player_nickname(exclude_names=['my love', 'love'])]."
                 return "love|derandom"
 
         "No.": # Why does this have to exist? Like, why?
@@ -191,8 +191,8 @@ label nsfw_monika_safesex:
         m 4eubla "I've read that there are a whole bunch of different contraception methods, for both men and women."
         m 3eubla "Some are more popular than others, such as condoms for men, and oral contraceptives for women." #TODO - Add pose
     
-    m 3lkblc "They are not exactly flawless though..."
-    m 4ekbld "There is still a chance that accidents can happen in spite of all the precautions."
+    m 3lkblc "They aren't exactly flawless though..."
+    m 4ekbld "There is still a chance of accidents happening in spite of all the precautions."
     m 4efbld "Especially with stupid contraceptive methods like the 'p{w=0.4}{nw}"
     extend 4efbfo "-pull-out' method!"
     m 2wfbfo "How is that even a form of contraception?!"
@@ -233,7 +233,7 @@ label nsfw_monika_fetish:
     $ _history_list.pop()
     menu:
         m "Do you...have a fetish?{fast}"
-        "Yes":
+        "Yes.":
             m 3wsbld "O-{w=0.2}Oh."
             if persistent._mas_pm_likes_panties:
                 m 3hublb "I don't know why that surprises me, considering you've already told me you are into panties."
@@ -242,7 +242,7 @@ label nsfw_monika_fetish:
             m 3eubsa "I...{w=0.2}{nw}"
             m 3rubssdla "I...{fast} wouldn't mind if you shared your fantasies with me sometime."
 
-        "No":
+        "No.":
             if persistent._mas_pm_likes_panties:
                 m 1etc "Really?"
                 m 1rtc "I could have sworn you told me you liked panties..."
@@ -316,7 +316,7 @@ label nsfw_monika_sexting:
     else:
         m 2dubsu "..."
         m 1eubsb "I think this sort of thing is really good for a healthy long-distance relationship."
-        m 2rubsb "It's kind of embarrasing to say, but it might also be something you and I could try one day..."
+        m 2rubsb "It's kind of embarrassing to say, but it might also be something you and I could try one day..."
         m 2wubfsdlw "O-Only if you want to, of course!"
         m 3wubssdlo "I would never make you do anything you didn't want to."
     return
@@ -341,7 +341,7 @@ label nsfw_monika_gettingnude:
     m 1husdla "Just in general while you're at home...{w=0.5}{nw}"
     extend 1lusdla "alone preferably."
     m 1eua "There are a good amount of people that actually sleep naked, if you'll believe it."
-    m 3eua "For most people, this would be a good place to start without feeling embarrased."
+    m 3eua "For most people, this would be a good place to start without feeling embarrassed."
     m 3eub "Apparently it helps you get better sleep at night because of how much quicker your body temperature drops."
     m 3rub "Of course, sleeping naked will mean you have to clean your sheets more often."
     m 3hksdlb "Humans are very sweaty, ahaha!"
@@ -374,7 +374,7 @@ label nsfw_monika_gettingnude:
         menu:
             m "Can I be n-naked while you're here?{fast}"
             
-            "Of course you can.":
+            "Of course, [m_name].":
                 m 1ekbfa "Thank you, [player]."
                 m 1dkbfa "It puts my mind at ease that you don't mind me doing this."
                 m 2ekbsa "I know not everyone is comfortable being around someone naked."
@@ -401,8 +401,8 @@ label nsfw_monika_gettingnude:
     elif mas_nsfw.canShow_underwear():
         m 2rkbla "..."
         m 2rkblb "Speaking of which, [player]..."
-        m 2ekblb "I've recently tried walking around in my underwear by myself while you were gone,{nw}"
-        extend 2eubla " and I thought it felt really liberating."
+        m 2ekblb "I've recently tried walking around in my underwear by myself while you were gone, {nw}"
+        extend 2eubla "and I thought it felt really liberating."
         m 1rublc "But in saying that I don't want you to feel uncomfortable, so..."
         m 1hkbsc "..."
         m 1hkbsb "I guess what I'm trying to ask is..."
@@ -446,7 +446,7 @@ label nsfw_monika_gettingnude:
         m 3ekb "You're already familar with how I've been doing this while you've been away."
         m 3eublb "And I've got to say, it's been great!"
         m 3eublc "It's not for everyone though, so don't feel like I'm pressuring you..."
-        m 2eubsb "I love you, [mas_get_player_nickname()]. Both with clothes, and without."
+        m 2eubsb "I love you, [mas_get_player_nickname(exclude_names=['my love', 'love'])]. Both with clothes, and without."
         m 2gsbfa "..."
         m 2tsbfa "..."
         m 2wubfd "Ah!{w=0.4}{nw}"
@@ -455,15 +455,15 @@ label nsfw_monika_gettingnude:
         return "love"
     
     else:
-        m 2hksdlb "Ahaha! Even though I talk all this game about being naked and loving your body..."
-        m 2mksdlb "I am still really embarrased about the idea of being nude, even when alone."
+        m 2hksdlb "Ahaha! Even though I talk about being naked and loving your body..."
+        m 2mksdlb "I am still really embarrassed about the idea of being nude, even when alone."
         m 2dka "..."
         m 1eua "Alright, I've decided."
         m 1eublb "I'm going to give it a try."
         m 1wubld "...{w=0.4}{nw}"
         extend 1wubso "N-{w=0.2}Not right now though!"
         m 1hubssdlb "I mean like, later when you're not here!"
-        m 1rubssdlb "Ahaha! It would be too embarrasing if you saw me in my underwear, let alone when I'm naked."
+        m 1rubssdlb "Ahaha! It would be too embarrassing if you saw me in my underwear, let alone when I'm naked."
         
     return
 
@@ -499,7 +499,7 @@ label nsfw_monika_shaving:
             m 5tuu "I certainly will."
             m 5hub "Ahaha!"
 
-        "I don't mind if you don't":
+        "I don't mind if you don't.":
             m 1wuo "Really?!"
             m 5hub "That's surprising!"
             m 5dub "Most partners prefer their loved ones to be shaved."
@@ -535,7 +535,7 @@ label nsfw_monika_judging_sexual_desires:
     m 4efd "Deviations are always observed with judgemental eyes."
     m 1eud "They take that small, personal aspect of one's life and put a spotlight on it."
     m 1eud "And under that spotlight, sexuality casts an ugly shadow..."
-    m 1tud "and society frowns upon it..."
+    m 1tud "And society frowns upon it..."
     m 2hsc "..."
     m 2fuu "But there are those who understand that it is a wonderful aspect of the human experience."
     m 2hubsa "Wonderful..."

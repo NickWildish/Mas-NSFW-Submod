@@ -206,7 +206,7 @@ label nsfw_sexting_finale:
     menu:
         m "Are you close too?{fast}"
 
-        "Yes":
+        "Yes.":
             m 6ekbfo "Okay, we're going to cum together on the count of ten."
             m 6tkbfu "Hope you can hold it until then, ehehe~"
             m 6tkbfb "I'll count down for you, so don't worry about clicking for this."
@@ -228,7 +228,7 @@ label nsfw_sexting_finale:
             m 6ekbfd "Five.{w=3}{nw}"
             m 6wkbfo "We're almost there.{w=1}{nw}"
             m 6hkbfc "Mmm~{w=2}{nw}"
-            m 6hkbfd "Four{w=3}{nw}."
+            m 6hkbfd "Four.{w=3}{nw}"
             m 6ekbfo "Hah~{w=2}{nw}"
             m 6ekbfd "Three.{w=3}{nw}"
             m 6hkbfo "Hah~{w=2}{nw}"
@@ -286,7 +286,7 @@ label nsfw_sexting_finale:
 
             return
 
-        "No":
+        "No.":
             m 6ekbfp "Okay, [player]."
             m 6mkbfp "I'll hold on a little longer for you."
             m 6tkbfb "I want us to come together~"

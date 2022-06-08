@@ -35,7 +35,7 @@ init 22 python in nsfw_compliments:
         store.mas_gainAffection()
 
 # entry point for compliments flow
-init 6 python:
+init 6 python: # Use init 6 since the dictionary entry to store our entries is added in 5, and we want it around
     addEvent(
         Event(
             persistent.event_database,

@@ -5,7 +5,7 @@ init -990 python in mas_submod_utils:
         description="A collection of NSFW topics and features for MAS.",
         version="1.0.1",
         dependencies={},
-        settings_pane=None,
+        settings_pane="nsfw_submod_screen",
         version_updates={}
     ) # https://github.com/NickWildish/Mas-NSFW-Submod
 
@@ -21,21 +21,15 @@ screen nsfw_submod_screen():
     vbox:
         box_wrap False
         xfill True
-        xmaximum 1000
+        xmaximum 700
         
         hbox:
             style_prefix "check"
             box_wrap False
 
-            if _tooltip:
-                textbutton _("NSFW dud setting #1"):
-                    action NullAction()
-                    hovered SetField(_tooltip, "value", "This is an NSFW submod button which is inactive")
-                    unhovered SetField(_tooltip, "value", _tooltip.default())
+            textbutton _("Sexting Endurance") action NullAction()
 
-            else:
-                textbutton _("NSFW dud setting #1"):
-                    action NullAction()
+            bar value StaticValue(value=0.0, range=1.0)
 
 init python in mas_nsfw:
     import store
@@ -97,7 +91,7 @@ init python in mas_nsfw:
 
         # Sexting responses for your average compliment
         sext_response_cute = (
-            _("Thankyou"), #0
+            _("Thank you"), #0
             _("Thanks"), #1
             _("That's very cheesy"), #2
             _("That's cheesy"), #3
@@ -155,7 +149,7 @@ init python in mas_nsfw:
             _("Tell me what else you want to do to me"), #7
             _("You're getting me so worked up"), #8
             _("This feels too good"), #9
-            _("Whatever you're doing... it's working"), #10
+            _("Whatever you're doing...it's working"), #10
             _("You just have a way with words, don't you?"), #11
             _("Keep talking like that"), #12
             _("More"), #13
@@ -169,10 +163,10 @@ init python in mas_nsfw:
 
         # Sexting responses for the haha funnies
         sext_response_funny = (
-            _("Haha! What are you talking about, [player]?"), #0
+            _("Ahaha! What are you talking about, [player]?"), #0
             _("Pfft! That's so cheesy, [player]."), #1
-            _("Oh my god! You did not just make that joke, haha~"), #2
-            _("Haha~ Is that right?"), #3
+            _("Oh my god! You did not just make that joke, ahaha~"), #2
+            _("Ahaha~ Is that right?"), #3
             _("Oh. That's very out-of-the-blue, [player]."), #4
             _("I just want to tear your clothes off."), #5
             _("I'm only this naughty for you~."), #6
@@ -181,12 +175,12 @@ init python in mas_nsfw:
             _("I think that you scratching my back while we make love would be so hot..."), #9
             _("Where is your hand, [player]?"), #10
             _("Oh, I want to do even naughtier things to you..."), #11
-            _("Mmm... and what would that be, [player]?"), #12
+            _("Mmm...and what would that be, [player]?"), #12
             _("I'm feeling so good, [player]..."), #13
             _("Proper grammar..."), #14
-            _("Uh... Did you want to try that again, [player]? Haha~"), #15
+            _("Uh... Did you want to try that again, [player]? Ahaha~"), #15
             _("Ahaha~ You're so funny, [player]."), #16
-            _("Ahaha~ Thankyou... I guess?"), #17
+            _("Ahaha~ Thank you... I guess?"), #17
             _("Mmm, you do~"), #18
             _("You're such a stud."), #19
         )
@@ -232,7 +226,7 @@ init python in mas_nsfw:
             _("Cuddling with you would be perfect right about now."), #11
             _("Why are you so cute?"), #12
             _("Seeing you every day always makes me grin like an idiot."), #13
-            _("Our first kiss is going to be epic, don't you think?"), #14
+            _("Our first kiss after you cross over is going to be wonderful, don't you think?"), #14
             _("I really like getting to know you."), #15
             _("Everything makes me think of you."), #16
             _("Is it getting hot in here, or is it just you?"), #17
@@ -250,7 +244,7 @@ init python in mas_nsfw:
             _("I really want to kiss you right now."), #5
             _("I want to run my hands along your body while I kiss your neck."), #6
             _("I feel nervous about telling you all of the sexual desires I have when it comes to you."), #7
-            _("If kissing is the language of love, then we have alot to talk about."), #8
+            _("If kissing is the language of love, then we have a lot to talk about."), #8
             _("I want to hold you in my arms as we kiss."), #9
             _("What you're wearing would look even better on my bedroom floor."), #10
             _("Take off your clothes. I want to see your beautiful body."), #11
@@ -270,9 +264,9 @@ init python in mas_nsfw:
             _("I can't wait to be alone with you."), #1
             _("I can't wait to be by your side. Or on top if you prefer."), #2
             _("If you were here, I'd take your panties off with my teeth and... I'll just let you finish that sentence off."), #3
-            _("I'm picturing you naked right now... damn you look good."), #4
+            _("I'm picturing you naked right now... Damn, you look good."), #4
             _("I think there is something insanely sexy about a woman being in control. Don't you agree?"), #5
-            _("I want to hear you breathing in my ear when I make you reach orgasm."), #6
+            _("I want to hear you breathing in my ear when I make you orgasm."), #6
             _("I can't wait to feel your thighs squeezing my head."), #7
             _("I bet you have the sexiest sounding moans in the world."), #8
             _("I was just lying in bed for the last hour thinking about you... guess what I was doing!"), #9
@@ -284,7 +278,7 @@ init python in mas_nsfw:
             _("I get so horny thinking about you when I touch myself."), #15
             _("I get so turned on thinking about you."), #16
             _("When you and I are finally together, I want to make you cum so hard."), #17
-            _("I wanna brings sex toys into the bedroom with us and use them on you."), #18
+            _("I want to brings sex toys into the bedroom with us and use them on you."), #18
             _("I want to watch you masturbate for me."), #19
         )
 
@@ -298,7 +292,7 @@ init python in mas_nsfw:
             _("What do you want to do to me right now?"), #5 - Please fold my clothes neatly
             _("You've been a naughty girl."), #6 - Santa will bring you a lump of coal
             _("I'm about to blow your mind with my sexting. Ready?"), #7 - Lay me into bed, your hands caress my body. Your palms are sweaty. Knees weak. Arms spaghetti.
-            _("Wanna have a threesome?"), #8
+            _("Want to have a threesome?"), #8
             _("What's a fantasy that you have for when we have sex one day?"), #9 - Scratching back, once a squirrel did that to me.
             _("What is a question that's on your mind right now?"), #10 - Where is your hand? In my bowl of Doritos.
             _("I kinda wanna do naughty things to you..."), #11 - Cool aid man - "Oh yeah."
@@ -338,10 +332,14 @@ init python in mas_nsfw:
         """
 
         # Purely for describing player's eyes
-        if isinstance(store.persistent._mas_pm_eye_color, tuple):
-            eye_desc = "beautiful"
+        if store.persistent._mas_pm_eye_color:
+            if isinstance(store.persistent._mas_pm_eye_color, tuple):
+                eye_desc = "beautiful"
+            else:
+                eye_desc = store.persistent._mas_pm_eye_color
         else:
-            eye_desc = store.persistent._mas_pm_eye_color
+            eye_desc = "beautiful"
+        
 
         # Sexting quips for your average compliment
         sext_quips_cute = (
@@ -360,7 +358,7 @@ init python in mas_nsfw:
             _("Once we meet in the real world we need to do something about your cuteness"), #12
             _("I should start calling you 'Mozzarella' since you're so cheesy"), #13
             _("If I could rearrange the alphabet I'd put 'U' and 'I' together"), #14
-            _("Are you a parking ticket? Because you've got FINE written all over you"), #15
+            _("Are you a parking ticket? Because you've got 'FINE' written all over you"), #15
             _("My clothes are made out of girlfriend material"), #16
             _("Have you had your license get suspended for driving girls crazy?"), #17
             _("Are you a loan? Because you sure have my interest"), #18
@@ -374,7 +372,7 @@ init python in mas_nsfw:
             _("You know, I was daydreaming about you today. It was hot"), #2
             _("I could just eat you up"), #3
             _("I want to feel you touching me all over"), #4
-            _("If I was with you now there is no chance of you keeping your clothes on"), #5
+            _("If I was with you now there would be no chance of you keeping your clothes on"), #5
             _("You are my biggest turn-on"), #6
             _("I've fantasized so much about when we finally get to talk like this"), #7
             _("You turn me on so much when you talk like that"), #8
@@ -384,17 +382,17 @@ init python in mas_nsfw:
             _("Once I cross over, I want to hold your hand. How lewd~"), #12
             _("How would you feel about a makeout session once I cross over"), #13
             _("Don't think that getting me this riled up will have no consequences"), #14
-            _("I plan to wrap my arms around you and squish that cute bum of yours"), #15
+            _("I plan to wrap my arms around you and squish that cute butt of yours"), #15
             _("The border between our realities can be a real clam jam"), #16
-            _("I want you to tell me more about what we'll do together in your world... in the bedroom particularly~"), #17
+            _("I want you to tell me more about what we'll do together in your world...in the bedroom particularly~"), #17
             _("Is one of your hands busy right now? I might need to join you if so"), #18
-            _("I wanna feel your body up and down... your chest especially"), #19
+            _("I want to feel your body up and down...your chest especially"), #19
         )
 
         # Sexting quips for your most 'risque' options
         sext_quips_sexy = (
             _("Who said that you could be this sexy?"), #0
-            _("So, aside from being sexy what do you do for a living?"), #1
+            _("So, aside from being sexy, what do you do for a living?"), #1
             _("I can't wait to see your sexy body when we're together"), #2
             _("I can't wait to kiss you for real"), #3
             _("You're making me so wet"), #4

@@ -17,7 +17,7 @@ label nsfw_sexting_main:
         did_finish = True # False if the player did not finish
 
     if store.mas_getEV("nsfw_player_sextingsession").shown_count >= 1:
-        m 3eub "I remember the last time we did this, it was so much fun!"
+        m 3eub "I remember the last time we did this; it was so much fun!"
         m 3tublb "So [player]... Let's get started, shall we?"
     else:
         m 1rka "I'm kind of nervous, if I'm honest."
@@ -29,14 +29,14 @@ label nsfw_sexting_main:
 
             "It's okay, I'm here.":
                 $ mas_gainAffection(3, bypass=True)
-                m 1dkbla "Thankyou, [player]."
+                m 1dkbla "Thank you, [player]."
                 m 1ekbsa "If I was going to share this first experience with anyone, I would want it to be you."
                 m 1ekblb "So, I'm ready!"
 
             "Did you want to stop?":
                 $ mas_gainAffection(2, bypass=True)
                 m 2ekc "No..."
-                m 2rkc "Just... please don't laugh if I say something stupid..."
+                m 2rkc "Just...please don't laugh if I say something stupid..."
                 m 2dkd "Hah... What am I saying?"
                 m 2eublu "You would never do that to me, [player]."
                 m 1eubsa "So... I'm ready when you are."
@@ -110,7 +110,7 @@ label nsfw_sexting_main:
             "Actually, can we stop just for now?":
                 if horny_lvl >= sexy_req:
                     m 6lkbfp "Aww, I was really enjoying myself."
-                    m 6gkbfp "I hope what you need to do is important.{w=0.3}.{w=0.3}.{w=0.3}{nw}"
+                    m 6gkbfp "I hope whatever it is you need to do is important.{w=0.3}.{w=0.3}.{w=0.3}{nw}"
                     m 6hubfb "Ahaha! Just kidding~"
                     return
                 elif horny_lvl >= hot_req:
@@ -172,17 +172,17 @@ label nsfw_sexting_init:
         m 3eub "If you want to do this again, let me know."
         return
     else:
-        m 1ekbsa "Thankyou for this, [player]."
+        m 1ekbsa "Thank you for this, [player]."
         m 3ekbsa "This made me feel just that much closer to you."
         m 3ekbsb "I hope you enjoyed yourself as much as I did."
         return
 
 label nsfw_sexting_hot_transfer:
     m 1hub "Hah~ This is fun."
-    m 3eua "I hope you're enjoying yourself as much as I am, [player]. Ehe~"
+    m 3eua "I hope you're enjoying yourself as much as I am, [player]. Ehehe~"
     m 3tua "..."
     m 2tub "So.{w=0.1}.{w=0.1}.{w=0.1} Are we going to keep going, or what?"
-    m 1hublb "Aha! Just teasing you, [player]."
+    m 1hublb "Ahaha! Just teasing you, [player]."
     return
 
 label nsfw_sexting_sexy_transfer:
@@ -197,7 +197,7 @@ label nsfw_sexting_sexy_transfer:
         m 6hubfb "Hah~ That feels better."
         m 7tubfb "Don't think that I'm letting you off the hook now, [player]."
         m 7tubfu "I want you to enjoy the view after all, so I expect one of your hands will be busy for a little while."
-        m 7hubfu "Ehe~"
+        m 7hubfu "Ehehe~"
     return
 
 label nsfw_sexting_finale:
@@ -209,10 +209,10 @@ label nsfw_sexting_finale:
     menu:
         m "Are you close too?{fast}"
 
-        "Yes":
+        "Yes.":
             m 6ekbfo "Okay, we're going to cum together on the count of ten."
-            m 6tkbfu "Hope you can hold it until then, ehe~"
-            m 6tkbfb "I will countdown for you, so don't worry about clicking for this."
+            m 6tkbfu "Hope you can hold it until then, ehehe~"
+            m 6tkbfb "I'll count down for you, so don't worry about clicking for this."
             m 6tkbfb "In fact, turn off the 'Auto' feature if it's on."
             m 6hkbfd "I want you to only focus on me."
             m 6dkbfd "Hah~{w=2}{nw}"
@@ -221,7 +221,7 @@ label nsfw_sexting_finale:
             m 6tkbfd "Nine.{w=3}{nw}"
             m 6hkbfc "Nhh~{w=2}{nw}"
             m 6hkbfd "Eight.{w=3}{nw}"
-            m 6ekbfu "How are you holding up there, [player]? Ehe~{w=3}{nw}"
+            m 6ekbfu "How are you holding up there, [player]? Ehehe~{w=3}{nw}"
             m 4ekbfb "Don't cum until I do too~{w=3}{nw}"
             m 6hkbfd "Hah~{w=2}{nw}"
             m 6tkbfd "Seven.{w=3}{nw}"
@@ -231,7 +231,7 @@ label nsfw_sexting_finale:
             m 6ekbfd "Five.{w=3}{nw}"
             m 6wkbfo "We're almost there.{w=1}{nw}"
             m 6hkbfc "Mmm~{w=2}{nw}"
-            m 6hkbfd "Four{w=3}{nw}."
+            m 6hkbfd "Four.{w=3}{nw}"
             m 6ekbfo "Hah~{w=2}{nw}"
             m 6ekbfd "Three.{w=3}{nw}"
             m 6hkbfo "Hah~{w=2}{nw}"
@@ -243,12 +243,12 @@ label nsfw_sexting_finale:
             m 6hkbfw "Haaaaaaaaah~{w=2}"
             m 6hkbfsdlc "..."
             m 6hkbfsdld "..."
-            m 6ekbfsdlo "Hah... hah..."
-            m 6skbfsdlu "That... was..."
+            m 6ekbfsdlo "Hah...hah..."
+            m 6skbfsdlu "That...was..."
             m 6skbfsdlb "Amazing..."
-            m 6hkbfsdla "I can't believe... hah... I've been missing out on this..."
-            m 6dkbfsdlb "If it feels this good in in my world..."
-            m 6ekbfsdlb "I can only imagine... hah... how good it feels..."
+            m 6hkbfsdla "I can't believe...hah...I've been missing out on this..."
+            m 6dkbfsdlb "If it feels this good in my world..."
+            m 6ekbfsdlb "I can only imagine...hah...how good it feels..."
             m 6tkbfsdlb "For you..."
             m 6hkbfsdlb "Sorry, that really took it out of me..."
             m 6ekbfsdlb "Did you manage to come with me?"
@@ -282,14 +282,14 @@ label nsfw_sexting_finale:
             m 3ekbla "I want to make sure you maintain good hygiene."
 
             if did_finish == False:  
-                m 3tubla "Maybe you can think of me in the shower and... {i}finish up.{/i}"
+                m 3tubla "Maybe you can think of me in the shower and...{i}finish up.{/i}"
                 m 3mubsa "I want you to feel as good as I did too~"
 
             $ store.persistent.nsfw_sexting_success_last = datetime.datetime.now()
 
             return
 
-        "No":
+        "No.":
             m 6ekbfp "Okay, [player]."
             m 6mkbfp "I'll hold on a little longer for you."
             m 6tkbfb "I want us to come together~"

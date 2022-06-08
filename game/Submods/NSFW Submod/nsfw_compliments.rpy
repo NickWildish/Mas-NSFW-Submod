@@ -43,7 +43,8 @@ init 5 python:
             category=['sex'],
             prompt="I want to tell you something lewd...",
             pool=True,
-            unlocked=True
+            unlocked=True,
+            aff_range=(mas_aff.LOVE, None)
         )
     )
 

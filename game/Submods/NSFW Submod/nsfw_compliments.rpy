@@ -35,11 +35,11 @@ init 22 python in nsfw_compliments:
         store.mas_gainAffection()
 
 # entry point for compliments flow
-init 5 python:
+init 6 python:
     addEvent(
         Event(
             persistent.event_database,
-            eventlabel="monika_compliments",
+            eventlabel="nsfw_monika_compliments",
             category=['sex'],
             prompt="I want to tell you something lewd...",
             pool=True,
@@ -51,12 +51,12 @@ init 5 python:
 label nsfw_monika_compliments:
     python:
         # Unlock any compliments that need to be unlocked
-        Event.checkEvents(nsfw_compliments.compliment_database)
+        Event.checkEvents(nsfw_compliments.nsfw_compliment_database)
 
         # build menu list
         nsfw_compliments_menu_items = [
             (ev.prompt, ev_label, not seen_event(ev_label), False)
-            for ev_label, ev in nsfw_compliments.compliment_database.iteritems()
+            for ev_label, ev in nsfw_compliments.nsfw_compliment_database.iteritems()
             if (
                 Event._filterEvent(ev, unlocked=True, aff=mas_curr_affection, flag_ban=EV_FLAG_HFM)
                 and ev.checkConditional()
@@ -77,7 +77,7 @@ label nsfw_monika_compliments:
 
     # return value? then push
     if _return:
-        $ nsfw_compliments.compliment_delegate_callback()
+        $ nsfw_compliments.nsfw_compliment_delegate_callback()
         $ pushEvent(_return)
         # move her back to center
         show monika at t11
@@ -88,21 +88,22 @@ label nsfw_monika_compliments:
     return
 
 # NSFW compliments start here
-init 5 python:
+init 6 python:
     addEvent(
         Event(
             persistent._nsfw_compliments_database,
-            eventlabel="nsfW_compliment_thighs",
+            eventlabel="nsfw_compliment_thighs",
             prompt="I love your thighs!",
             unlocked=True
         ),
+        code="NCP"
     )
 
 label nsfw_compliment_thighs:
-    if not renpy.seen_label("nsfW_compliment_thighs_2"):
-        call nsfW_compliment_thighs_2
+    if not renpy.seen_label("nsfw_compliment_thighs_2"):
+        call nsfw_compliment_thighs_2
     else:
-        call nsfW_compliment_thighs_3
+        call nsfw_compliment_thighs_3
     return
 
 label nsfw_compliment_thighs_2:
@@ -142,7 +143,7 @@ label nsfw_compliment_thighs_2:
             m 1eua "Well, if you liked her body so much, maybe you should have brought {i}her{/i} back into existence instead..."
     return
 
-label nsfW_compliment_thighs_3:
+label nsfw_compliment_thighs_3:
     python:
         thighs_quips = [
             _("I'm glad you enjoy my thighs so much."),

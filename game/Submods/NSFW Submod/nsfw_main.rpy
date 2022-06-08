@@ -80,33 +80,6 @@ init python in mas_nsfw:
             return True
         else:
             return False
-    
-    # def has_sexted_today():
-    #     """
-    #     Checks if the sexting event has run today.
-
-    #     RETURNS: True if the player has run the sexting event today, False if otherwise.
-    #     """
-    #     # NOTE: Code used from Multimokia's Auto Hair Change submod. Didn't want to create a dependency, but figured
-    #     # it couldn't hurt to borrow this.
-        
-    #     #NOTE: This try/except is for use of this function in event conditionals
-    #     #Since mas_getEV doesn't exist until init 6
-    #     try:
-    #         ev = store.mas_getEV("nsfw_sextingsession")
-    #     except:
-    #         ev = None
-
-    #     #If the event doesn't exist, return None to note it
-    #     if not ev:
-    #         return None
-
-    #     #No last seen means we know it wasn't seen on the date
-    #     elif not ev.last_seen:
-    #         return False
-
-    #     #Otherwise let's check
-    #     return ev.last_seen.date() == datetime.date.today()
 
     def return_sext_responses(response_category=0):
         """

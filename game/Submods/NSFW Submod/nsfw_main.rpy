@@ -58,7 +58,7 @@ init python in mas_nsfw:
         OUT:
             True if the player has seen 'monika_gettingnude' topic AND risque is allowed AND the player hasn't seen the topic for at least 6 hours AND the player hasn't already unlocked her underwear, False if otherwise
         """
-        if store.mas_getEV("nsfw_monika_gettingnude").shown_count >= 1 and store.mas_canShowRisque() and hour_check(set_hours=6) and not store.mas_SELisUnlocked(store.mas_clothes_underwear_white):
+        if store.mas_getEV("nsfw_monika_gettingnude").shown_count >= 1 and store.mas_canShowRisque(aff_thresh=1000) and hour_check(set_hours=6) and not store.mas_SELisUnlocked(store.mas_clothes_underwear_white):
             return True
         else:
             return False
@@ -74,33 +74,6 @@ init python in mas_nsfw:
             return True
         else:
             return False
-    
-    # def has_sexted_today():
-    #     """
-    #     Checks if the sexting event has run today.
-
-    #     RETURNS: True if the player has run the sexting event today, False if otherwise.
-    #     """
-    #     # NOTE: Code used from Multimokia's Auto Hair Change submod. Didn't want to create a dependency, but figured
-    #     # it couldn't hurt to borrow this.
-        
-    #     #NOTE: This try/except is for use of this function in event conditionals
-    #     #Since mas_getEV doesn't exist until init 6
-    #     try:
-    #         ev = store.mas_getEV("nsfw_sextingsession")
-    #     except:
-    #         ev = None
-
-    #     #If the event doesn't exist, return None to note it
-    #     if not ev:
-    #         return None
-
-    #     #No last seen means we know it wasn't seen on the date
-    #     elif not ev.last_seen:
-    #         return False
-
-    #     #Otherwise let's check
-    #     return ev.last_seen.date() == datetime.date.today()
 
     def return_sext_responses(response_category=0):
         """

@@ -31,6 +31,9 @@ screen nsfw_submod_screen():
 
             bar value StaticValue(value=0.0, range=1.0)
 
+init 5 python:
+    mas_all_ev_db_map.update({"NCP" : store.nsfw_compliments.nsfw_compliment_database})
+
 init python in mas_nsfw:
     import store
     import datetime

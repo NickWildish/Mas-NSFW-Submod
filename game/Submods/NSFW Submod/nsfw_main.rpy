@@ -5,7 +5,7 @@ init -990 python in mas_submod_utils:
         description="A collection of NSFW topics and features for MAS.",
         version="1.0.1",
         dependencies={},
-        settings_pane=None,
+        settings_pane="nsfw_submod_screen",
         version_updates={}
     ) # https://github.com/NickWildish/Mas-NSFW-Submod
 
@@ -21,21 +21,15 @@ screen nsfw_submod_screen():
     vbox:
         box_wrap False
         xfill True
-        xmaximum 1000
+        xmaximum 700
         
         hbox:
             style_prefix "check"
             box_wrap False
 
-            if _tooltip:
-                textbutton _("NSFW dud setting #1"):
-                    action NullAction()
-                    hovered SetField(_tooltip, "value", "This is an NSFW submod button which is inactive")
-                    unhovered SetField(_tooltip, "value", _tooltip.default())
+            textbutton _("Sexting Endurance") action NullAction()
 
-            else:
-                textbutton _("NSFW dud setting #1"):
-                    action NullAction()
+            bar value StaticValue(value=0.0, range=1.0)
 
 init python in mas_nsfw:
     import store

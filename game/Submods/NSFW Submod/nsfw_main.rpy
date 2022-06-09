@@ -3,11 +3,20 @@ init -990 python in mas_submod_utils:
         author="NickWildish",
         name="NSFW Submod",
         description="A collection of NSFW topics and features for MAS.",
-        version="1.0.1",
+        version="1.1.0",
         dependencies={},
         settings_pane="nsfw_submod_screen",
         version_updates={}
     ) # https://github.com/NickWildish/Mas-NSFW-Submod
+
+# Register the updater
+init -989 python:
+    if store.mas_submod_utils.isSubmodInstalled("Submod Updater Plugin"):
+        store.sup_utils.SubmodUpdater(
+            submod="NSFW Submod",
+            user_name="NickWildish",
+            repository_name="Mas-NSFW-Submod"
+        )
 
 screen nsfw_submod_screen():
     python:

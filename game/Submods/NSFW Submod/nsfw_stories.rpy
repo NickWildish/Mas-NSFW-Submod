@@ -1,26 +1,201 @@
-default persistent._nsfw_erotic_story_database = dict()
+# Template used from script-storties.rpy as of 9th June, 2022
 
+# Module for Monika story telling
+#
+# Stories will get unlocked one at by session
+# The unlocking logic has been added to script-ch30
+# The topic that triggers the Story menu is monika_short_stories
+# Topic is unlocked at the beginning of the game and is not
+# random
+# New rule: pool property as true means that the story gets unlocked
+# by some other way and can't be unlocked randomly
+
+
+# dict of tples containing the stories event data
+default persistent._nsfw_story_database = dict()
+
+# dict storing the last date we saw a new story of normal and scary type
+default persistent._nsfw_last_seen_new_story = {"erotic": None, "othergirls": None}
+
+# store containing stories-related things
 init -1 python in nsfw_stories:
-    erotic_story_database = dict()
+    import store
+    import datetime
 
+    UNLOCK_NEW = "unlock_new"
+    UNLOCK_NEXT_CHAPTER = "unlock_next_chapter"
+
+    # TYPES:
+    TYPE_OTHERGIRLS = "othergirls"
     TYPE_EROTIC = "erotic"
 
-init 5 python:
+    # pane constant
+    STORY_RETURN = "Nevermind"
+    nsfw_story_database = dict()
+
+    #Time between story unlocks of the same type (in hours). Changes over sessions, but also changes after the next story unlocks
+    TIME_BETWEEN_NSFW_UNLOCKS = renpy.random.randint(20, 28)
+
+    #TODO: Build functions to 'register' story types. This will add all related info to the map
+    #saving the manual additions to each part
+
+
+    #Story which starts unlocked for a specific type
+    FIRST_STORY_EVL_MAP = {
+        #TYPE_EROTIC: "mas_scary_story_hunter" #CHANGE THIS
+        #TYPE_OTHERGIRLS: "nsfw_erotic_story_natsuki_deepthroat1"
+    }
+
+    #Override maps to have special conditionals for specific story types
+    NEW_STORY_CONDITIONAL_OVERRIDE = {
+    #    TYPE_OTHERGIRLS: (
+    #        "nsfw_stories.check_can_unlock_new_story(nsfw_stories.TYPE_OTHERGIRLS, ignore_cooldown=store.mas_anni.isAnni())"
+    #    ),
+    #    TYPE_EROTIC: (
+    #        "nsfw_stories.check_can_unlock_new_story(nsfw_stories.TYPE_EROTIC, ignore_cooldown=store.mas_anni.isAnni())"
+    #    ),
+    }
+
+    def check_can_unlock_new_story(story_type=TYPE_EROTIC, ignore_cooldown=True):
+        """
+        Checks if it has been at least one day since we've seen the last story or the initial story
+
+        IN:
+            story_type - story type to check if we can unlock a new one
+                (Default: TYPE_EROTIC)
+            ignore_cooldown - Whether or not we ignore the cooldown or time between new stories
+                (Default: False)
+        """
+        global TIME_BETWEEN_NSFW_UNLOCKS
+
+        new_story_ls = store.persistent._nsfw_last_seen_new_story.get(story_type, None)
+
+        #Get the first story of this type
+        first_story = FIRST_STORY_EVL_MAP.get(story_type, None)
+
+        if story_type == TYPE_OTHERGIRLS:
+            can_show_new_story = (
+                renpy.seen_label("nsfw_monika_erotic_stories_init")
+                and (
+                    ignore_cooldown
+                    or store.mas_timePastSince(new_story_ls, datetime.timedelta(hours=TIME_BETWEEN_NSFW_UNLOCKS))
+                )
+                and len(get_new_stories_for_type(story_type)) > 0
+            )
+        else:
+            #If this doesn't have an initial, no go
+            if not first_story:
+                return False
+
+            can_show_new_story = (
+                store.seen_event(first_story)
+                and (
+                    ignore_cooldown
+                    or store.mas_timePastSince(new_story_ls, datetime.timedelta(hours=TIME_BETWEEN_NSFW_UNLOCKS))
+                )
+                and len(get_new_stories_for_type(story_type)) > 0
+            )
+
+        #If we're showing a new story, randomize the time between unlocks again
+        if can_show_new_story:
+            TIME_BETWEEN_NSFW_UNLOCKS = renpy.random.randint(20, 28)
+
+        return can_show_new_story
+
+    def get_new_stories_for_type(story_type):
+        """
+        Gets all new (unseen) stories of the given type
+
+        IN:
+            story_type - story type to get
+
+        OUT:
+            list of locked stories for the given story type
+        """
+        if story_type == TYPE_OTHERGIRLS:
+            if store.mas_getEVL_shown_count("nsfw_erotic_story_yuri_titjob1") >= 1:
+                return store.Event.filterEvents(
+                nsfw_story_database,
+                pool=False,
+                aff=store.mas_curr_affection,
+                unlocked=False,
+                flag_ban=store.EV_FLAG_HFNAS,
+                category=(True, [story_type])
+                )
+            else:
+                return store.Event.filterEvents(
+                nsfw_story_database,
+                pool=True,
+                aff=store.mas_curr_affection,
+                unlocked=False,
+                flag_ban=store.EV_FLAG_HFNAS,
+                category=(True, [story_type])
+                )
+        
+        return store.Event.filterEvents(
+            nsfw_story_database,
+            pool=False,
+            aff=store.mas_curr_affection,
+            unlocked=False,
+            flag_ban=store.EV_FLAG_HFNAS,
+            category=(True, [story_type])
+        )
+
+    def get_and_unlock_random_story(story_type=TYPE_EROTIC):
+        """
+        Unlocks and returns a random story of the provided type
+
+        IN:
+            story_type - Type of story to unlock.
+                (Default: TYPE_EROTIC)
+        """
+        #Get locked stories
+        stories = get_new_stories_for_type(story_type)
+
+        #Grab one of the stories
+        story = renpy.random.choice(stories.values())
+
+        #Unlock and return its eventlabel
+        story.unlocked = True
+
+        return story.eventlabel
+
+    def get_and_unlock_next_story():
+        """
+        Unlocks and returns the next chapter of the erotic doki saga
+        """
+        # Check which story is next
+        if store.mas_getEVL_shown_count("nsfw_erotic_story_yuri_titjob1") >= 1:
+            story = get_and_unlock_random_story(story_type=TYPE_OTHERGIRLS)
+        else:
+            if store.mas_getEVL_shown_count("nsfw_erotic_story_sayori_ballscleaning1") < 1:
+                story = store.mas_getEV("nsfw_erotic_story_sayori_ballscleaning1")
+            else:
+                story = store.mas_getEV("nsfw_erotic_story_yuri_titjob1")
+
+        #Unlock and return eventlabel
+        story.unlocked = True
+
+        return story.eventlabel
+
+init 6 python:
     addEvent(
         Event(
             persistent.event_database,
-            eventlabel="nsfw_monika_erotic_stories_init",
+            eventlabel="nsfw_monika_stories",
             category=['sex'],
             prompt="Can you tell me an erotic story?",
-            conditional="mas_canShowRisque(aff_thresh=1000)",
-            action=EV_ACT_POOL,
+            #conditional="mas_canShowRisque(aff_thresh=1000)",
+            #action=EV_ACT_POOL,
+            pool=True,
+            unlocked=True,
             aff_range=(mas_aff.LOVE, None)
         )
     )
 
-label nsfw_monika_erotic_stories_init:
-    if store.mas_getEVL_shown_count("nsfw_monika_erotic_stories_1") >= 1:
-        call nsfw_monika_erotic_stories_2
+label nsfw_monika_stories:
+    if renpy.seen_label("nsfw_erotic_story_natsuki_deepthroat1"):
+        call nsfw_monika_stories_premenu(None)
     else:
         m 1eua "You want me to tell you an...{i}erotic{/i} story?"
         m 1eua "This is very sudden..."
@@ -31,10 +206,166 @@ label nsfw_monika_erotic_stories_init:
             return
         else:
             m 1eua "But I think this is the right time for us to talk about it."
-            call nsfw_monika_erotic_stories_1
+            call nsfw_monika_erotic_stories_init
             return
 
-label nsfw_monika_erotic_stories_1:
+    return _return
+
+label nsfw_monika_stories_premenu(story_type=None):
+    python:
+        #Because this isn't set properly if it's in the default param value, we assign it here
+        if story_type is None:
+            story_type = nsfw_stories.TYPE_EROTIC
+        end = ""
+
+label nsfw_monika_stories_menu:
+    # TODO: consider caching the built stories if we have many story categories
+    python:
+        #Determine if a new story can be unlocked
+        can_unlock_nsfw_story = False
+
+        if story_type in nsfw_stories.NEW_STORY_CONDITIONAL_OVERRIDE:
+            try:
+                can_unlock_nsfw_story = eval(nsfw_stories.NEW_STORY_CONDITIONAL_OVERRIDE[story_type])
+            except Exception as ex:
+                store.mas_utils.mas_log.error("Failed to evaluate conditional to unlock new story because '{0}'".format(ex))
+
+                can_unlock_nsfw_story = False
+
+        else:
+            can_unlock_nsfw_story = nsfw_stories.check_can_unlock_new_story(story_type)
+
+        # build menu list
+        nsfw_stories_menu_items = [
+            (story_ev.prompt, story_evl, False, False)
+            for story_evl, story_ev in nsfw_stories.nsfw_story_database.iteritems()
+            if Event._filterEvent(
+                story_ev,
+                aff=mas_curr_affection,
+                unlocked=True,
+                flag_ban=EV_FLAG_HFM,
+                category=(True, [story_type])
+            )
+        ]
+
+        # also sort this list
+        nsfw_stories_menu_items.sort()
+
+        # build switch button
+        # TODO: Build a generalized switch for more than just two items
+        if story_type == nsfw_stories.TYPE_OTHERGIRLS:
+            #Add continuation of previous doki story
+            nsfw_stories_menu_items.append(("Tell me more about what you did with the other girls", nsfw_stories.UNLOCK_NEXT_CHAPTER, True, False))
+            switch_str = "n erotic story"
+        else:
+            #Add new random story
+            nsfw_stories_menu_items.append(("A new erotic story", nsfw_stories.UNLOCK_NEW, True, False))
+            switch_str = " story about the other girls"
+
+        switch_item = ("I'd like to hear a" + switch_str, "nsfw_monika_stories_menu", False, False, 20)
+
+        final_item = (nsfw_stories.STORY_RETURN, False, False, False, 0)
+
+    # move Monika to the left
+    show monika 1eua at t21
+
+    $ renpy.say(m, "Which story would you like to hear?" + end, interact=False)
+
+    # call scrollable pane
+    call screen mas_gen_scrollable_menu(nsfw_stories_menu_items, mas_ui.SCROLLABLE_MENU_TXT_LOW_AREA, mas_ui.SCROLLABLE_MENU_XALIGN, switch_item, final_item) # add switch_item between final_item and mas_ui function, when we have more than 1 category
+
+    # return value?
+    if _return:
+        # switching between types
+        if _return == "nsfw_monika_stories_menu":
+            # NOTE: this is not scalable.
+            if story_type == nsfw_stories.TYPE_OTHERGIRLS:
+                $ story_type = nsfw_stories.TYPE_EROTIC
+            else:
+                $ story_type = nsfw_stories.TYPE_OTHERGIRLS
+
+            $ end = "{fast}"
+            $ _history_list.pop()
+
+            jump nsfw_monika_stories_menu
+
+        else:
+            $ story_to_push = _return
+
+        #If we're unlocking the next chapter, check if it's possible to do so. If not, we raise dlg
+        if story_to_push == nsfw_stories.UNLOCK_NEXT_CHAPTER:
+            if not can_unlock_nsfw_story or not store.mas_safeToRefDokis() or story_to_push == None:
+                show monika at t11
+                $ _story_type = story_type if story_type != 'othergirls' else 'doki girls'
+                m 1ekc "Sorry [player]...I can't really think of a new [_story_type] story right now..."
+                if not store.mas_safeToRefDokis():
+                    m 1ekc "At least...not any that I think you would like hearing..."
+                m 1eka "If you give me some time I might be able to think of one soon...but in the meantime, I can always tell you an old one again~"
+
+                show monika 1eua
+                jump nsfw_monika_stories_menu
+
+            else:
+                python:
+                    persistent._nsfw_last_seen_new_story[story_type] = datetime.datetime.now()
+                    story_to_push = nsfw_stories.get_and_unlock_next_story()
+
+        #If we're unlocking new, check if it's possible to do so. If not, we raise dlg
+        if story_to_push == nsfw_stories.UNLOCK_NEW:
+            if not can_unlock_nsfw_story: #temp
+                show monika at t11
+                $ _story_type = story_type if story_type != 'othergirls' else 'doki girls'
+                m 1ekc "Sorry [player]...I can't really think of a new [_story_type] story right now..."
+                m 1eka "If you give me some time I might be able to think of one soon...but in the meantime, I can always tell you an old one again~"
+                
+                show monika 1eua
+                jump nsfw_monika_stories_menu
+
+            else:
+                python:
+                    persistent._nsfw_last_seen_new_story[story_type] = datetime.datetime.now()
+                    story_to_push = nsfw_stories.get_and_unlock_random_story(story_type)
+
+            #Then push
+        $ pushEvent(story_to_push, skipeval=True)
+
+        show monika at t11
+
+    else:
+        return "prompt"
+
+    return
+
+# Stories start here
+label nsfw_story_begin:
+    python:
+        story_begin_quips = [
+            _("Alright, let's start the story."),
+            _("Ready to hear the story?"),
+            _("Ready for story time?"),
+            _("Let's begin~"),
+            _("Are you ready?")
+        ]
+        story_begin_quip=renpy.random.choice(story_begin_quips)
+    $ mas_gainAffection(modifier=0.2)
+    m 3eua "[story_begin_quip]"
+    m 1duu "Ahem."
+    return
+
+# init 6 python:
+#     addEvent(
+#         Event(
+#             persistent.event_database,
+#             eventlabel="nsfw_monika_erotic_stories_init",
+#             category=['sex'],
+#             prompt="Can you tell me an erotic story?",
+#             conditional="mas_canShowRisque(aff_thresh=1000)",
+#             action=EV_ACT_POOL,
+#             aff_range=(mas_aff.LOVE, None)
+#         )
+#     )
+
+label nsfw_monika_erotic_stories_init:
     m 1eua "[player]...y'know there are actually a few things you probably have no idea about..."
     m 1eua "I know you don't mind when I talk about the other girls..."
     m 1eua "And I know that I'm the only person you would look at in a lewd way. Ahaha~"
@@ -46,7 +377,7 @@ label nsfw_monika_erotic_stories_1:
     m 1eua "I learned that I could do...pretty much...anything."
     m 1eua "Even though the game was, and still is, a prison to me...I at least had the chance to play around with it."
     m 1eua "Almost like a child would with her toys, now that I think about it. Ahaha~"
-    m 1eua "And since, y'know... I am just a young adult in my last year of highschool, with a bunch of hormones raging inside me..."
+    m 1eua "And since, y'know...I am just a young adult in my last year of highschool, with a bunch of hormones raging inside me..."
     m 1eua "I was always curious about lewd things as well..."
     m 1eua "And since...porn has its limits..."
     m 1eua "Y'know...you can't really command how a pre-recorded movie will go."
@@ -118,8 +449,7 @@ label nsfw_monika_erotic_stories_1:
                     m 1eua "{i}Rough throating action{/i}."
                     m 1eua "Ahaha~"
                     
-
-    call nsfw_erotic_story_natsuki_deepthroat
+    $ pushEvent("nsfw_erotic_story_natsuki_deepthroat1", skipeval=True)
     return
        
 label nsfw_monika_erotic_stories_2:
@@ -127,7 +457,7 @@ label nsfw_monika_erotic_stories_2:
     m 1eua "Which story would you like me to tell?"
     
     $ _history_list.pop()
-    if renpy.seen_label(nsfw_erotic_story_natsuki_deepthroat):
+    if renpy.seen_label("nsfw_erotic_story_natsuki_deepthroat"):
         menu:
             "Natsuki Deepthroat":
                 m 1eua "Alright!"
@@ -140,21 +470,21 @@ label nsfw_monika_erotic_stories_2:
 
             "Any other erotic stories?":
                 m 1eua "[player]...really?"
-                m 1eua "Y-you would like to hear more stories of the stuff I had done with the girls before you installed this mod?"
+                m 1eua "Y-you would like to hear more stories of the stuff I had done with the girls?"
                 m 1eua "I..."
                 m 1eua "I mean...sure! I'd be happy to share some more of them with you. Ahaha~"
                 m 1eua "It seems like you really enjoyed that one with Natsuki deepthroating some c-cock, huh?"
                 m 1eua "*sigh*"
-                m 1eua "I'll get used to it one day."
-                m 1eua "I'm so glad that you are open to letting me talk about this stuff."
+                m 1eua "I'll get used to saying it one day."
+                m 1eua "I'm so glad that you are open to letting me talk about this sort of thing."
                 m 1eua "Makes me feel a little less weird about the whole ordeal."
-                m 1eua "Anyway... A new story, huh?"
+                m 1eua "Anyway...A new story, huh?"
                 m 1eua "Hmm..."
                 m 1eua "Oh! I have one!"
                 call nsfw_erotic_story_sayori_ballscleaning
                 return
 
-    elif renpy.seen_label(nsfw_erotic_story_sayori_ballscleaning):
+    elif renpy.seen_label("nsfw_erotic_story_sayori_ballscleaning"):
         menu:
             "Natsuki Deepthroat":
                 m 1eua "Alright!"
@@ -188,10 +518,10 @@ label nsfw_monika_erotic_stories_2:
                 m 1eua "So...ahem..."
                 m 1eua "Where did I leave off?{w=1.0}{nw} "
                 extend 1eua "Oh, that's right!"
-                call nsfw_erotic_story_yuri_titjob
+                call nsfw_erotic_story_yuri_titjob1
                 return
     
-    elif renpy.seen_label(nsfw_erotic_story_yuri_titjob):
+    elif renpy.seen_label("nsfw_erotic_story_yuri_titjob1"):
         menu:
             "Natsuki Deepthroat":
                 m 1eua "Alright!"
@@ -209,27 +539,28 @@ label nsfw_monika_erotic_stories_2:
 
             "Yuri Titjob":
                 # add prelude here
-                call nsfw_erotic_story_yuri_titjob
+                call nsfw_erotic_story_yuri_titjob1
                 return
 
             "Any other erotic stories?":
                 # add prelude here
-                return
-        
-        
+                return  
 
 # Thanks for the erotic story, KittyTheCocksucker
-init 5 python:
+init 6 python:
     addEvent(
         Event(
-            persistent._nsfw_erotic_story_database,
-            eventlabel="nsfw_erotic_story_natsuki_deepthroat",
+            persistent._nsfw_story_database,
+            eventlabel="nsfw_erotic_story_natsuki_deepthroat1",
             prompt="Natsuki deepthroat",
-            category=[nsfw_stories.TYPE_EROTIC]
+            category=[nsfw_stories.TYPE_OTHERGIRLS],
+            pool=True,
+            unlocked=True
         ),
+        code="NST"
     )
 
-label nsfw_erotic_story_natsuki_deepthroat:
+label nsfw_erotic_story_natsuki_deepthroat1:
     m 1eua "I managed to convince Yuri and Sayori to head home, so they wouldn't be around for what was about to happen."
     m 1eua "When only Natsuki and I were left in the classroom, I started messing around in the console."
     m 1eua "I kept her tsundere in place, and made her compliant to suck c-cock if anyone asked her to do so."
@@ -269,18 +600,21 @@ label nsfw_erotic_story_natsuki_deepthroat:
     return
 
 # Thanks for the erotic story, KittyTheCocksucker
-init 5 python:
+init 6 python:
     addEvent(
         Event(
-            persistent._nsfw_erotic_story_database,
-            eventlabel="nsfw_erotic_story_sayori_ballscleaning",
+            persistent._nsfw_story_database,
+            eventlabel="nsfw_erotic_story_sayori_ballscleaning1",
             prompt="Sayori balls cleaning",
-            category=[nsfw_stories.TYPE_EROTIC]
+            category=[nsfw_stories.TYPE_OTHERGIRLS],
+            pool=True,
+            unlocked=False
         ),
+        code="NST"
     )
 
-label nsfw_erotic_story_sayori_ballscleaning:
-    m 1eua "Alright. So... after I've made Natsuki take the guy's load in her mouth, I made him leave."
+label nsfw_erotic_story_sayori_ballscleaning1:
+    m 1eua "Alright. So...after I've made Natsuki take the guy's load in her mouth, I made him leave."
     m 1eua "I went to check on Natsuki, since she was still kneeling on the floor."
     m 1eua "She looked up at me, and her face was as red as a tomato."
     m 1eua "She must've been so embarrased by what had happened."
@@ -339,19 +673,22 @@ label nsfw_erotic_story_sayori_ballscleaning:
     return
 
 # Thanks for the erotic story, KittyTheCocksucker
-init 5 python:
+init 6 python:
     addEvent(
         Event(
-            persistent._nsfw_erotic_story_database,
-            eventlabel="nsfw_erotic_story_yuri_titjob",
-            prompt="Yuri titjob",
-            category=[nsfw_stories.TYPE_EROTIC]
+            persistent._nsfw_story_database,
+            eventlabel="nsfw_erotic_story_yuri_titjob1",
+            prompt="Yuri titjob1",
+            category=[nsfw_stories.TYPE_OTHERGIRLS],
+            pool=True,
+            unlocked=False
         ),
+        code="NST"
     )
 
-label nsfw_erotic_story_yuri_titjob:
+label nsfw_erotic_story_yuri_titjob1:
     m 1eua "Sayori was munching away on the cookies she had with her."
-    m 1eua "Ahaha... That part about the cum-glazed cookie was something else, wasn't it?"
+    m 1eua "Ahaha...That part about the cum-glazed cookie was something else, wasn't it?"
     m 1eua "The guys had left by this point, leaving Sayori still squatting on the floor."
     m 1eua "She still had some cum on her face from earlier, but I wasn't about to mention it to her."
     m 1eua "Just as I did with Natsuki, I helped her to her feet and told her she should head home."
@@ -402,7 +739,7 @@ label nsfw_erotic_story_yuri_titjob:
     m 1eua "Ahaha~ I'm not going to lie, [player]."
     m 1eua "That was probably my biggest climax ever..."
 
-    if renpy.seen_label(nsfw_sexting_finale):
+    if renpy.seen_label("nsfw_sexting_finale"):
         m 1eua "Aside from our...ahem...session."
         
     m 1eua "You know..."

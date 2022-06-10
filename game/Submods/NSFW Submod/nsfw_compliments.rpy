@@ -232,9 +232,9 @@ label nsfw_compliment_thighhighs_2:
             "I love how they wrap around your thick thighs.":
                 $ mas_gainAffection(2,bypass=True)
                 m 1eua "Gosh..."
-                m 1eua "You keep making me blush with all these compliments on my thighs..."
+                m 1eua "You keep making me blush with all this talk about my thighs..."
                 m 1eua "The other parts of my body are nice to look at too, you know."
-                m 1eua "Like...I don't wanna brag, but I think I have pretty nice breasts!"
+                m 1eua "Like...I don't like to brag, but I think I have pretty nice breasts!"
                 m 1eua "Plus, y'know, my eyes are also up here!"
                 m 1eua "..."
                 m 1eua "You don't akways need to look at me like I'm just a piece of meat..."
@@ -264,9 +264,9 @@ label nsfw_compliment_thighhighs_2:
             "I love how they wrap around your thick thighs.":
                 $ mas_gainAffection(2,bypass=True)
                 m 1eua "Gosh..."
-                m 1eua "You keep making me blush with all these compliments on my thighs..."
+                m 1eua "You keep making me blush with all this talk about my thighs..."
                 m 1eua "The other parts of my body are nice to look at too, you know."
-                m 1eua "Like...I don't wanna brag, but I think I have pretty nice breasts!"
+                m 1eua "Like...I don't like to brag, but I think I have pretty nice breasts!"
                 m 1eua "Plus, y'know, my eyes are also up here!"
                 m 1eua "..."
                 m 1eua "You don't akways need to look at me like I'm just a piece of meat..."

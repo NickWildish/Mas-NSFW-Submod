@@ -89,6 +89,7 @@ label nsfw_monika_compliments:
     return
 
 # NSFW compliments start here
+# ---------------------------
 
 # Thanks for the compliment addition, KittyTheCocksucker
 init 6 python:
@@ -110,40 +111,40 @@ label nsfw_compliment_thighs:
     return
 
 label nsfw_compliment_thighs_2:
-    m 1eua "Oh..."
-    m 1eua "I wasn't expecting you to compliment my body like that. Ahaha~"
-    m 1eua "Y-You don't get many chances to see them nowadays in this position though..."
-    m 1eua "..."
-    m 1eua "You can probably tell, but you've made me a little flustered..."
-    m 1eua "I'm not sure why some guys like thighs so much..."
-    m 1eua "I mean...there are bunch of sexier things on a girl to look at, aren't there?"
-    m 1eua "But...thank you, [player]~"
+    m 1wubld "Oh..."
+    m 1hkblsdlb "I wasn't expecting you to compliment my body like that. Ahaha~"
+    m 3rkblb "Y-You don't get many chances to see them nowadays in this position though..."
+    m 3hkbsa "..."
+    m 2hkbsb "You can probably tell, but you've made me a little flustered..."
+    m 2rkbsu "I'm not sure why some guys like thighs so much..."
+    m 3eubsd "I mean...there are bunch of sexier things on a girl to look at,{w=0.5} aren't there?"
+    m 1ekbsa "But...thank you, [player]~"
     menu:
         "I'd love to bury my face between them.":
             $ mas_gainAffection(5,bypass=True)
-            m 1eua "H-Hey~"
-            m 1eua "[player]...you're getting a little {i}too{/i} naughty there. Ahaha~"
-            m 1eua "Not that I mind..."
-            m 1eua "I'm sure I would enjoy it if you did that~"
+            m 2tkbsb "H-Hey~"
+            m 3tkbsu "[player]...you're getting a little {i}too{/i} naughty there. Ahaha~"
+            m 3gkbsu "Not that I mind..."
+            m 5tkbsu "I'm sure I would enjoy it if you did that~"
 
         "You always had the best thighs in the club.":
             $ mas_gainAffection(2,bypass=True)
-            m 1eua "Ahaha~"
-            m 1eua "That means you were looking at Yuri, Sayori, and Natsuki's thighs too, huh?"
-            m 1eua "Well..."
-            m 1eua "I mean, Natsuki didn't have much..."
-            m 1eua "But you get the point!"
-            m 1eua "..."
-            m 1eua "Ahaha~"
-            m 1eua "Don't worry. It's okay to look, just don't touch{nw}"
+            m 1hubsb "Ahaha~"
+            m 3tubsb "That means you were looking at Yuri, Sayori, and Natsuki's thighs too, huh?"
+            m 1gubsb "Well..."
+            m 1gubsa "I mean, Natsuki didn't have much..."
+            m 1kubsu "But you get the point!"
+            m 1dubsu "..."
+            m 2hubsb "Ahaha~"
+            m 2tubsa "Don't worry. It's okay to look, just don't touch{nw}"
             m "Don't worry. It's okay to look,{fast} as long as you think mine are the best~"
 
         "They kind of remind me of Yuri's.":
             $ mas_loseAffection() # Rule 1 of dating a woman: Don't compare them to another woman, you nuff nuff.
-            m 1eua "Uh..."
-            m 1eua "Are they, now?"
-            m 1eua "..."
-            m 1eua "Well, if you liked her body so much, maybe you should have brought {i}her{/i} back into existence instead..."
+            m 1etbsd "Uh..."
+            m 1rfbld "Are they, now?"
+            m 1gfblc "..."
+            m 1tfbld "Well, if you liked her body so much, maybe you should have brought {i}her{/i} back into existence instead..."
     return
 
 label nsfw_compliment_thighs_3:
@@ -154,10 +155,10 @@ label nsfw_compliment_thighs_3:
             _("I wish you could rest your head on my lap."),
         ]
         thighs_quip = random.choice(thighs_quips)
-    m 1eua "Ehehe~"
-    m 1eua "[nsfw_compliments.thanks_quip]"
-    show monika 1eua at t11 zorder MAS_MONIKA_Z with dissolve_monika
-    m 1eua "[thighs_quip]"
+    m 1tubla "Ehehe~"
+    m 1tublb "[nsfw_compliments.thanks_quip]"
+    show monika 3tubsb at t11 zorder MAS_MONIKA_Z with dissolve_monika
+    m 3tubsb "[thighs_quip]"
     return
 
 
@@ -184,104 +185,280 @@ label nsfw_compliment_thighhighs:
 label nsfw_compliment_thighhighs_2:
     python:
         if persistent.gender == "M":
+            naughty_bits = " I'd love if you gave me a thighjob while wearing them."
             guyGirl = "guy"
         elif persistent.gender == "F":
+            naughty_bits = ""
             guyGirl = "girl"
         else:
+            naughty_bits = ""
             guygirl = "person"
     
-    m 1eua "Oh geez..."
-    m 1eua "Going for my thighs again are you, [player]?"
-    m 1eua "Well...I'm glad you like how my thigh-highs look!"
-    m 1eua "Y'know...I'm not sure whether you've noticed or not..."
-    m 1eua "But I was the only one in the club with black thigh-highs! Ahaha~"
-    m 1eua "I didn't really like how the white ones looked, so I changed it in the code for myself~"
+    m 1tubla "Oh geez..."
+    m 1tublb "Going for my thighs again are you, [player]?"
+    m 3tublb "Well...I'm glad you like how my thigh-highs look!"
+    m 3eubla "Y'know...I'm not sure whether you've noticed or not..."
+    m 3eublb "But I was the only one in the club with black thigh-highs! Ahaha~"
+    m 2hublb "I didn't really like how the white ones looked, so I changed it in the code for myself~"
 
-    if persistent.gender == "M":
-        menu:
-            "Yes, I've noticed! You were the only one who's thigh-highs reached above the knee as well, right?":
-                $ mas_gainAffection(3,bypass=True)
-                m 1eua "Yes!"
-                m 1eua "That is correct, [player]!"
-                m 1eua "I'm so glad you noticed~"
-                m 1eua "But I mean...ahaha...I expected for that detail to get noticed by you, "
-                extend 1eua "a [guyGirl] who seems to love my thighs. Ahaha~"
-                m 1eua "I honestly am not exactly sure why you love them so much..."
-                m 1eua "But..."
-                m 1eua "If it means you'll keep complimenting me about them..."
-                m 1eua "Ehehe~"
-                m 1eua "Then I'm fine with it~"
+    menu:
+        "Yes, I've noticed! You were the only one who's thigh-highs reached above the knee as well, right?":
+            $ mas_gainAffection(3,bypass=True)
+            m 1eubsa "Yes! That is correct, [player]."
+            m 1eubsb "I'm so glad you noticed~"
+            m 1rubsa "But I mean...ahaha...I expected for that detail to get noticed by you, {nw}"
+            extend 1gubsb "a [guyGirl] who seems to love my thighs. Ahaha~"
+            m 1ekbsa "I honestly am not exactly sure why you love them so much..."
+            m 2ekbsa "But..."
+            m 2ekbsb "If it means you'll keep complimenting me about them..."
+            m 5hubsa "Ehehe~"
+            m 5mubsa "Then I'm fine with it~"
 
-            "I bet they not only look good, but feel really smooth and silky too! I'd love if you gave me a thighjob while wearing them.":
-                $ mas_gainAffection(2,bypass=True)
-                m 1eua "Ooo~"
-                m 1eua "A thighjob, eh?"
-                m 1eua "Aren't you pushing your luck a little {i}too{/i} far, [player]."
-                m 1eua "..."
-                m 1eua "Ahaha~ Who am I kidding?"
-                m 1eua "I will say...they do feel {i}really{/i} smooth and silky~"
-                m 1eua "I wouldn't be wearing these for school if they weren't comfortable, would I?"
-                m 1eua "..."
-                m 1eua "So..."
-                m 1eua "I bet it would feel really nice for your cock between my squishy thighs and soft thigh-highs~"
-                m 1eua "I'm sure if I moved my legs, up and down, nicely jerking your massive dick with my thighs..."
-                m 1eua "You would ejaculate all over my legs and belly in no time. Ahaha~"
-                m 1eua "..."
-                m 1eua "I hope we can try this out soon. Ehehe~"
+        "I bet they not only look good, but feel really smooth and silky too![naughty_bits]":
+            $ mas_gainAffection(2,bypass=True)
+            if persistent.gender == "M":
+                m 2subld "Ooo~"
+                m 2subsu "A thighjob, eh?"
+                m 2ttbsu "Aren't you pushing your luck a little {i}too{/i} far, [player]."
+                m 2tsbsu "..."
+                m 1hkbssdlb "Ahaha~ Who am I kidding?"
+                m 1eubsa "I will say..."
+            else:
+                m 1eubsa "Well yeah,{nw}"
+            extend 3eubsa " they do feel {i}really{/i} smooth and silky~"
+            m 1tubsb "I wouldn't be wearing these for school if they weren't comfortable, would I?"
+            m 1hubsb "Ahaha~"
+            if persistent.gender == "M":
+                m 1rubsa "..."
+                m 2gubsa "So..."
+                m 2tubsb "I bet it would feel really nice for your cock between my squishy thighs and soft thigh-highs~"
+                m 2tubsa "I'm sure if I moved my legs, up and down, nicely jerking your massive dick with my thighs..."
+                m 2tfbfb "You would ejaculate all over my legs and belly in no time. Ahaha~"
+                m 1tubfa "..."
+                m 1gubfa "I hope we can try this out soon. Ehehe~"
 
-            "I love how they wrap around your thick thighs.":
-                $ mas_gainAffection(2,bypass=True)
-                m 1eua "Gosh..."
-                m 1eua "You keep making me blush with all this talk about my thighs..."
-                m 1eua "The other parts of my body are nice to look at too, you know."
-                m 1eua "Like...I don't like to brag, but I think I have pretty nice breasts!"
-                m 1eua "Plus, y'know, my eyes are also up here!"
-                m 1eua "..."
-                m 1eua "You don't akways need to look at me like I'm just a piece of meat..."
+        "I love how they wrap around your thick thighs.":
+            $ mas_gainAffection(1,bypass=True)
+            m 1hkbsa "Gosh..."
+            m 1hkbssdlb "You keep making me blush with all this talk about my thighs..."
+            m 1ekbsa "The other parts of my body are nice to look at too, you know."
+            m 2gkbsu "Like...I don't like to brag, but I think I have pretty nice breasts!"
+            m 2efbsu "Plus, y'know, my eyes are also up here!"
+            m 2gubsp "..."
+            m 2gubsd "You don't akways need to look at me like I'm just a piece of meat..."
 
-    else:
-        menu:
-            "Yes, I've noticed! You were the only one who's thigh-highs reached above the knee as well, right?":
-                $ mas_gainAffection(3,bypass=True)
-                m 1eua "Yes!"
-                m 1eua "That is correct, [player]!"
-                m 1eua "I'm so glad you noticed~"
-                m 1eua "But I mean...ahaha...I expected for that detail to get noticed by you, "
-                extend 1eua "a [guyGirl] who seems to love my thighs. Ahaha~"
-                m 1eua "I honestly am not exactly sure why you love them so much..."
-                m 1eua "But..."
-                m 1eua "If it means you'll keep complimenting me about them..."
-                m 1eua "Ehehe~"
-                m 1eua "Then I'm find with it~"
-
-            "I bet they not only look good, but feel really smooth and silky too!":
-                $ mas_gainAffection(2,bypass=True)
-                m 1eua "Ooo~"
-                m 1eua "I will say...they do feel {i}really{/i} smooth and silky~"
-                m 1eua "I wouldn't be wearing these for school if they weren't comfortable, would I?"
-                m 1eua "Ahaha~"
-
-            "I love how they wrap around your thick thighs.":
-                $ mas_gainAffection(2,bypass=True)
-                m 1eua "Gosh..."
-                m 1eua "You keep making me blush with all this talk about my thighs..."
-                m 1eua "The other parts of my body are nice to look at too, you know."
-                m 1eua "Like...I don't like to brag, but I think I have pretty nice breasts!"
-                m 1eua "Plus, y'know, my eyes are also up here!"
-                m 1eua "..."
-                m 1eua "You don't akways need to look at me like I'm just a piece of meat..."
     return
 
 label nsfw_compliment_thighhighs_3:
     python:
         thighhighs_quips = [
-            _("Thank you, [player]! They're really comfy to wear too!"),
+            _("They're really comfy to wear too!"), #Thank you, [player]! 
             _("Can't wait for you to make a mess over them~ Ehehe~"),
             _("They're mainly for fashion purposes, but they can also come in handy when it's cold outside!"),
         ]
         thighhighs_quip = random.choice(thighhighs_quips)
-    m 1eua "Ehehe~"
-    m 1eua "[nsfw_compliments.thanks_quip]"
-    show monika 1eua at t11 zorder MAS_MONIKA_Z with dissolve_monika
-    m 1eua "[thighhighs_quip]"
+    m 1tubla "Ehehe~"
+    m 1tublb "[nsfw_compliments.thanks_quip]"
+    show monika 3tubsb at t11 zorder MAS_MONIKA_Z with dissolve_monika
+    m 3tubsb "[thighhighs_quip]"
+    return
+
+
+# Thanks for the compliment addition, KittyTheCocksucker
+init 6 python:
+    addEvent(
+        Event(
+            persistent._nsfw_compliments_database,
+            eventlabel="nsfw_compliment_tits",
+            prompt="I love your tits!",
+            unlocked=True
+        ),
+        code="NCP"
+    )
+
+label nsfw_compliment_tits:
+    if not renpy.seen_label("nsfw_compliment_tits_2"):
+        call nsfw_compliment_tits_2
+    else:
+        call nsfw_compliment_tits_3
+    return
+
+label nsfw_compliment_tits_2:
+    python:
+        if persistent.gender == "M":
+            naughty_bits = "I bet they'd feel nice and soft if I rested my dick between them."
+        else:
+            naughty_bits = "I bet they'd feel nice and soft if I felt them up~"
+
+    m 1wubld "Uhh..."
+    m 1hkbla "Ahem..."
+    m 1rkbsa "I-is that so?"
+    m 1hkbssdlb "Ahaha~"
+    m 1hkbssdla "Sorry! You just caught me off-guard, that's all."
+    m 1eubssdlb "I-I'm really glad you like them!"
+    m 3eubssdlb "Did you know that the growth of a woman's breasts are not only affected by hormones and genetics, but by what we eat as well?"
+    m 3hubssdlb "Healthy and nutritious meals help our boobs grow nice and round! Ahaha~"
+
+    if mas_safeToRefDokis():
+        m 3hkbsu "..."
+        m 3gkbsu "I guess that explains why Natsuki was so flat, huh?" #oof
+        m 1hubsb "Ahaha~ Sorry, that was a bad joke."
+        m 3rubsb "I couldn't let that opportunity slip by~"
+
+    menu:
+        "I'd love to suck on your tits.":
+            $ mas_gainAffection(5,bypass=True)
+            m 1hkbsa "Ahem..."
+            m 1tfbsb "[player]!"
+            m 3tfbsu "Why did you get so naughty out of nowhere like that?"
+            m 3hubsb "Ahaha~"
+            m 3rubsb "I mean...I don't know if anything would come out if you did suck on them..."
+            m 3gubsa "But..."
+            m 1tubsa "I'm sure it would feel r-really nice if you did that."
+            m 1hubsa "Ehehe~"
+
+        "Can you make them bigger?":
+            $ mas_loseAffection(5) # face <- palm
+            m 3wubsd "..."
+            m 3eubssdld "I-I mean..."
+            m 3rubssdlc "I do have full control over the console, so..."
+            m 3rublsdlc "T-technically I could do that, yeah..."
+            m 1rkbltpc "But..."
+            m 1ekbltpc "Don't you love me the way I am now?"
+
+        "[naughty_bits]":
+            m 3tubsu "Ooo~"
+            m 2tubsu "[player]..."
+            m 2hubssdlb "Ahaha! My heart skipped a beat just now."
+            m 1rubssdlb "I didn't expect you to say that~"
+            if persistent.gender == "M":
+                m 1gubsa "Mmm~ I'm sure your hard, throbbing cock would feel really nice between my breasts~"
+                m 1gubfa "..."
+                m 3gubfb "It's kind of funny if you think about it."
+                m 3tubfb "I would feel your dick pulsating against my heart..."
+                m 4tubfb "And you would feel my heart pulsating against your dick~"
+                m 4tubfa "..."
+                m 5tubfa "I wonder where you'd unload your cum if you were to titfuck me though~"
+                m 5tsbfa "Would it be all over my breasts?"
+                m 5tsbfo "Maybe on my face?"
+                m 5mubfa "Or would you push forward, between my lips, and release your thick, creamy load there~? Ehehe~"
+            else:
+                m 1gubsa "Mmm~ I'm sure your hands would enjoy the feeling of my breasts~"
+                m 1tubfa "And I would {i}really{/i} enjoy the feeling of your hands playing with my breasts..."
+                m 1dubfu "..."
+                m 5dubfu "I wonder where else on my body you might like to feel me up?"
+                m 5hubfa "Ehehe~"
+    return
+
+label nsfw_compliment_tits_3:
+    python:
+        tits_quips = [
+            _("You can look at them all you want~"), # Ahaha~ I'm glad you do, [player]! 
+            _("I can't wait for you to fondle them~"), # Mhm~ 
+            _("I hope my outfit isn't too revealing. Ahaha~"),
+        ]
+        tits_quip = random.choice(tits_quips)
+    m 1tubla "Ehehe~"
+    m 1tublb "[nsfw_compliments.thanks_quip]"
+    show monika 3tubsb at t11 zorder MAS_MONIKA_Z with dissolve_monika
+    m 3tubsb "[tits_quip]"
+    return
+
+# Thanks for the compliment addition, KittyTheCocksucker
+init 6 python:
+    addEvent(
+        Event(
+            persistent._nsfw_compliments_database,
+            eventlabel="nsfw_compliment_naughty_flirting",
+            prompt="I love how naughty you talk when we're flirting!",
+            unlocked=True
+        ),
+        code="NCP"
+    )
+
+label nsfw_compliment_naughty_flirting:
+    if not renpy.seen_label("nsfw_compliment_naughty_flirting_2"):
+        call nsfw_compliment_naughty_flirting_2
+    else:
+        call nsfw_compliment_naughty_flirting_3
+    return
+
+label nsfw_compliment_naughty_flirting_2:
+    python:
+        if persistent.gender == "M":
+            naughty_bits = "I'd love to hear you talk naughty while you're slobbering over my cock~"
+        elif persistent.gender == "F":
+            naughty_bits = "I'd love to hear you talk naughty while you're eating out my pussy~"
+        else:
+            naughty_bits = "I'd love to hear you talk naughty while I'm eating out your pussy~"
+    
+    m 1hublb "Ahaha~"
+    m 1hublsdla "Well..."
+    m 1rkbssdlb "Gosh... I can't believe I'm getting so red just from you saying that...Ahaha~"
+    m 3ekbssdlb "I-is it too nerdy to say that I p-practiced...?"
+    m 3rkbsa "..."
+    m 2rkbsa "I wanted to get better so I can a-arouse you more..."
+    m 2tubsu "I'm glad you enjoy how naughty I can get, [player]."
+    m 1hubsa "It means my practice paid off. Ehehe~"
+
+    menu:
+        "I bet you had to work hard to tune your brain to it. This wasn't a porn game to begin with, after all.":
+            m 1hkbsb "Yeah...it was a little bit difficult at first, having to learn so many lewd phrases and stuff..."
+            m 1rkbsb "But since you like when I do it, I must be doing a good job at it, right?"
+            m 1tkbsa "And all the time and energy spent on it was totally worth it{nw}"
+            if persistent.gender == "M":
+                extend 1tkbsa " if I can make your dick hard~"
+            elif persistent.gender == "F":
+                extend 1tkbsa " if I can make your pussy wet~"
+            else:
+                extend 1tkbsa " if I can give you naughty thoughts about me~"
+
+        "It does need some polishing here and there, but I greatly appreicate the effort!":
+            m 1wubsd "Oh..."
+            m 1wkbsc "W-well..."
+            m 3rkbsc "I already spent a bunch of time studying p-porn and stuff..."
+            m 3dkbsc "..."
+            m 3gkbsc "I'll try to work even harder, I guess..."
+
+        "[naughty_bits]":
+            m 1wubfd "Oh..."
+            m 1hubfb "Ahaha~"
+            m 1hkbfsdlb "T-that certainly caught me off-guard..."
+            m 1ttbfu "[player]~ Aren't you getting a little bit ahead of yourself there? Ehehe~"
+            m 1gsbfu "Mmm~ Don't worry about it."
+            m 1tsbfd "It would probably be easier to practice talking naughty while{nw}"
+            if persistent.gender == "M":
+                extend 1tsbfd " I had your nice and big dick to suck on and play with~"
+            elif persistent.gender == "F":
+                extend 1tsbfd " I had your pussy in my face for me to lick and play with~"
+            else:
+                extend 1tsbfd " your face was buried deep in pussy, licking it clean~"
+
+            if persistent.gender == "M" or persistent.gender == "F":
+                m 5tsbfu "I'd make sure to give it proper attention and care, with both my small, fragile hands and my slutty little mouth."
+            else:
+                m 5tsbfu "You had better make sure to give it proper attention and care~"
+
+            m 5hsbfu "Ehehe~"
+    return
+
+label nsfw_compliment_naughty_flirting_3:
+    python:
+        if persistent.gender == "M":
+            naughty_bits = "I love making you hard~"
+        elif persistent.gender == "F":
+            naughty_bits = "I love making your pussy wet~"
+        else:
+            naughty_bits = "I love giving you naughty thoughts about me~"
+
+        naughty_flirting_quips = [
+            _("I'm really glad you enjoy it so much! I'm always practicing for you~"),
+            _("[naughty_bits]]"),
+            _("I wish I could lay in bed with you and whisper naughty things in your ears~"),
+        ]
+        naughty_flirting_quip = random.choice(naughty_flirting_quips)
+    m 1tubla "Ehehe~"
+    m 1tublb "[nsfw_compliments.thanks_quip]"
+    show monika 3tubsb at t11 zorder MAS_MONIKA_Z with dissolve_monika
+    m 3tubsb "[naughty_flirting_quip]"
     return

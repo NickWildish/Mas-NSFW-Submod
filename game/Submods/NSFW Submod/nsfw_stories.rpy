@@ -197,12 +197,15 @@ label nsfw_monika_stories:
     if renpy.seen_label("nsfw_erotic_story_natsuki_deepthroat1"):
         call nsfw_monika_stories_premenu(None)
     else:
-        m 1eua "You want me to tell you an...{i}erotic{/i} story?"
-        m 1eua "This is very sudden..."
+        m 1wublo "You want me to tell you an...{i}erotic{/i} story?"
+        m 1wubld "This is very sudden..."
         if not store.mas_safeToRefDokis():
-            m 1eua "I don't think I have any stories like that right now..."
-            m 1eua "At least...not any that I think you would like hearing..."
-            m 1eua "Give me some time, I should be able to think of some soon~"
+            m 1ekc "I don't think I have any stories like that right now..."
+            m 1rkc "At least...not any that I think you would like hearing..."
+            m 1eka "Give me some time, I should be able to think of some soon~"
+            # Remove lines above once we have a generic erotic story
+            # m 1tubla "But I don't see why not!"
+            # call nsfw_monika_stories_premenu
             return
         else:
             m 1eua "But I think this is the right time for us to talk about it."
@@ -262,7 +265,8 @@ label nsfw_monika_stories_menu:
             nsfw_stories_menu_items.append(("A new erotic story", nsfw_stories.UNLOCK_NEW, True, False))
             switch_str = " story about the other girls"
 
-        switch_item = ("I'd like to hear a" + switch_str, "nsfw_monika_stories_menu", False, False, 20)
+        if mas_safeToRefDokis():
+            switch_item = ("I'd like to hear a" + switch_str, "nsfw_monika_stories_menu", False, False, 20)
 
         final_item = (nsfw_stories.STORY_RETURN, False, False, False, 0)
 
@@ -272,7 +276,10 @@ label nsfw_monika_stories_menu:
     $ renpy.say(m, "Which story would you like to hear?" + end, interact=False)
 
     # call scrollable pane
-    call screen mas_gen_scrollable_menu(nsfw_stories_menu_items, mas_ui.SCROLLABLE_MENU_TXT_LOW_AREA, mas_ui.SCROLLABLE_MENU_XALIGN, switch_item, final_item) # add switch_item between final_item and mas_ui function, when we have more than 1 category
+    if mas_safeToRefDokis():
+        call screen mas_gen_scrollable_menu(nsfw_stories_menu_items, mas_ui.SCROLLABLE_MENU_TXT_LOW_AREA, mas_ui.SCROLLABLE_MENU_XALIGN, switch_item, final_item)
+    else:
+        call screen mas_gen_scrollable_menu(nsfw_stories_menu_items, mas_ui.SCROLLABLE_MENU_TXT_LOW_AREA, mas_ui.SCROLLABLE_MENU_XALIGN, final_item)
 
     # return value?
     if _return:
@@ -299,7 +306,7 @@ label nsfw_monika_stories_menu:
                 $ _story_type = story_type if story_type != 'othergirls' else 'doki girls'
                 m 1ekc "Sorry [player]...I can't really think of a new [_story_type] story right now..."
                 if not store.mas_safeToRefDokis():
-                    m 1ekc "At least...not any that I think you would like hearing..."
+                    m 1rkc "At least...not any that I think you would like hearing..."
                 m 1eka "If you give me some time I might be able to think of one soon...but in the meantime, I can always tell you an old one again~"
 
                 show monika 1eua
@@ -351,19 +358,6 @@ label nsfw_story_begin:
     m 3eua "[story_begin_quip]"
     m 1duu "Ahem."
     return
-
-# init 6 python:
-#     addEvent(
-#         Event(
-#             persistent.event_database,
-#             eventlabel="nsfw_monika_erotic_stories_init",
-#             category=['sex'],
-#             prompt="Can you tell me an erotic story?",
-#             conditional="mas_canShowRisque(aff_thresh=1000)",
-#             action=EV_ACT_POOL,
-#             aff_range=(mas_aff.LOVE, None)
-#         )
-#     )
 
 label nsfw_monika_erotic_stories_init:
     m 1eua "[player]...y'know there are actually a few things you probably have no idea about..."
@@ -469,18 +463,7 @@ label nsfw_monika_erotic_stories_2:
                 return
 
             "Any other erotic stories?":
-                m 1eua "[player]...really?"
-                m 1eua "Y-you would like to hear more stories of the stuff I had done with the girls?"
-                m 1eua "I..."
-                m 1eua "I mean...sure! I'd be happy to share some more of them with you. Ahaha~"
-                m 1eua "It seems like you really enjoyed that one with Natsuki deepthroating some c-cock, huh?"
-                m 1eua "*sigh*"
-                m 1eua "I'll get used to saying it one day."
-                m 1eua "I'm so glad that you are open to letting me talk about this sort of thing."
-                m 1eua "Makes me feel a little less weird about the whole ordeal."
-                m 1eua "Anyway...A new story, huh?"
-                m 1eua "Hmm..."
-                m 1eua "Oh! I have one!"
+                
                 call nsfw_erotic_story_sayori_ballscleaning
                 return
 
@@ -501,23 +484,7 @@ label nsfw_monika_erotic_stories_2:
                 return
 
             "Any other erotic stories?":
-                m 1eua "Ooh?"
-                m 1eua "You'd like me to tell you another lewd story, [player]?"
-                m 1eua "I'd love to!"
-                m 1eua "You must be really enjoying them, huh?"
-                m 1eua "Ahaha~ Don't worry."
-                m 1eua "I'm actually really happy that you can look at these stories the same way I do!"
-                m 1eua "After all...my actions are quite questionable morally..."
-                m 1eua "..."
-                m 1eua "But then again...I mean..."
-                m 1eua "Sayori, Yuri and Natsuki were only just characters in a video game..."
-                m 1eua "Designed to be used to tell a narrative."
-                m 1eua "I don't think it's wrong of me to use them to tell a lewd story!"
-                m 1eua "If we don't count the topic being kind of tabboo, it's just a simple story, like any other!"
-                m 1eua "Well, it's not like it matters now anyway..."
-                m 1eua "So...ahem..."
-                m 1eua "Where did I leave off?{w=1.0}{nw} "
-                extend 1eua "Oh, that's right!"
+                
                 call nsfw_erotic_story_yuri_titjob1
                 return
     
@@ -600,6 +567,21 @@ label nsfw_erotic_story_natsuki_deepthroat1:
     return
 
 # Thanks for the erotic story, KittyTheCocksucker
+label nsfw_erotic_story_sayori_ballscleaning_init:
+    m 1eua "[player]...really?"
+    m 1eua "Y-you would like to hear more stories of the stuff I had done with the girls?"
+    m 1eua "I..."
+    m 1eua "I mean...sure! I'd be happy to share some more of them with you. Ahaha~"
+    m 1eua "It seems like you really enjoyed that one with Natsuki deepthroating some c-cock, huh?"
+    m 1eua "*sigh*"
+    m 1eua "I'll get used to saying it one day."
+    m 1eua "I'm so glad that you are open to letting me talk about this sort of thing."
+    m 1eua "Makes me feel a little less weird about the whole ordeal."
+    m 1eua "Anyway...A new story, huh?"
+    m 1eua "Hmm..."
+    m 1eua "Oh! I have one!"
+    return
+
 init 6 python:
     addEvent(
         Event(
@@ -614,6 +596,8 @@ init 6 python:
     )
 
 label nsfw_erotic_story_sayori_ballscleaning1:
+    if not renpy.seen_label("nsfw_erotic_story_sayori_ballscleaning_init"):
+        call nsfw_erotic_story_sayori_ballscleaning_init
     m 1eua "Alright. So...after I've made Natsuki take the guy's load in her mouth, I made him leave."
     m 1eua "I went to check on Natsuki, since she was still kneeling on the floor."
     m 1eua "She looked up at me, and her face was as red as a tomato."
@@ -673,6 +657,25 @@ label nsfw_erotic_story_sayori_ballscleaning1:
     return
 
 # Thanks for the erotic story, KittyTheCocksucker
+label nsfw_erotic_story_yuri_titjob_init:
+    m 1eua "Ooh?"
+    m 1eua "You'd like me to tell you another lewd story, [player]?"
+    m 1eua "I'd love to!"
+    m 1eua "You must be really enjoying them, huh?"
+    m 1eua "Ahaha~ Don't worry."
+    m 1eua "I'm actually really happy that you can look at these stories the same way I do!"
+    m 1eua "After all...my actions are quite questionable morally..."
+    m 1eua "..."
+    m 1eua "But then again...I mean..."
+    m 1eua "Sayori, Yuri and Natsuki were only just characters in a video game..."
+    m 1eua "Designed to be used to tell a narrative."
+    m 1eua "I don't think it's wrong of me to use them to tell a lewd story!"
+    m 1eua "If we don't count the topic being kind of tabboo, it's just a simple story, like any other!"
+    m 1eua "Well, it's not like it matters now anyway..."
+    m 1eua "So...ahem..."
+    m 1eua "Where did I leave off?{w=1.0}{nw} "
+    extend 1eua "Oh, that's right!"
+
 init 6 python:
     addEvent(
         Event(
@@ -687,6 +690,8 @@ init 6 python:
     )
 
 label nsfw_erotic_story_yuri_titjob1:
+    if not renpy.seen_label("nsfw_erotic_story_sayori_ballscleaning_init"):
+        call nsfw_erotic_story_yuri_titjob_init
     m 1eua "Sayori was munching away on the cookies she had with her."
     m 1eua "Ahaha...That part about the cum-glazed cookie was something else, wasn't it?"
     m 1eua "The guys had left by this point, leaving Sayori still squatting on the floor."

@@ -633,7 +633,7 @@ label nsfw_erotic_story_sayori_ballscleaning1:
     m 1eua "Sorry! Got distracted there."
     m 1eua "After some gentle licking, Sayori took both of one guy's balls in her tiny mouth."
     m 1eua "She was keeping intense eye-contact with the guy, blushing as he involuntarily moaned from Sayori's service."
-    if persistent.gender == "M":
+    if persistent._nsfw_genitalia == "P":
         m 1eua "Makes me wonder what sort of sounds you would make if I were to do this for you."
         m 1eua "Ehehe~"
     m 1eua "Sayori wasn't just letting the other guys stand there either."

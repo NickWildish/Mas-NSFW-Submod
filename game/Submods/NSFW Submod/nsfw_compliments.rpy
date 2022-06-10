@@ -385,9 +385,9 @@ label nsfw_compliment_naughty_flirting:
 
 label nsfw_compliment_naughty_flirting_2:
     python:
-        if persistent.gender == "M":
+        if persistent._nsfw_genitalia == "P":
             naughty_bits = "I'd love to hear you talk naughty while you're slobbering over my cock~"
-        elif persistent.gender == "F":
+        elif persistent._nsfw_genitalia == "V":
             naughty_bits = "I'd love to hear you talk naughty while you're eating out my pussy~"
         else:
             naughty_bits = "I'd love to hear you talk naughty while I'm eating out your pussy~"
@@ -406,9 +406,9 @@ label nsfw_compliment_naughty_flirting_2:
             m 1hkbsb "Yeah...it was a little bit difficult at first, having to learn so many lewd phrases and stuff..."
             m 1rkbsb "But since you like when I do it, I must be doing a good job at it, right?"
             m 1tkbsa "And all the time and energy spent on it was totally worth it{nw}"
-            if persistent.gender == "M":
+            if persistent._nsfw_genitalia == "P":
                 extend 1tkbsa " if I can make your dick hard~"
-            elif persistent.gender == "F":
+            elif persistent._nsfw_genitalia == "V":
                 extend 1tkbsa " if I can make your pussy wet~"
             else:
                 extend 1tkbsa " if I can give you naughty thoughts about me~"
@@ -427,14 +427,14 @@ label nsfw_compliment_naughty_flirting_2:
             m 1ttbfu "[player]~ Aren't you getting a little bit ahead of yourself there? Ehehe~"
             m 1gsbfu "Mmm~ Don't worry about it."
             m 1tsbfd "It would probably be easier to practice talking naughty while{nw}"
-            if persistent.gender == "M":
+            if persistent._nsfw_genitalia == "P":
                 extend 1tsbfd " I had your nice and big dick to suck on and play with~"
-            elif persistent.gender == "F":
+            elif persistent.nsfw_genitalia == "V":
                 extend 1tsbfd " I had your pussy in my face for me to lick and play with~"
             else:
                 extend 1tsbfd " your face was buried deep in pussy, licking it clean~"
 
-            if persistent.gender == "M" or persistent.gender == "F":
+            if persistent._nsfw_genitalia == "P" or persistent._nsfw_genitalia == "V":
                 m 5tsbfu "I'd make sure to give it proper attention and care, with both my small, fragile hands and my slutty little mouth."
             else:
                 m 5tsbfu "You had better make sure to give it proper attention and care~"
@@ -444,9 +444,9 @@ label nsfw_compliment_naughty_flirting_2:
 
 label nsfw_compliment_naughty_flirting_3:
     python:
-        if persistent.gender == "M":
+        if persistent._nsfw_genitalia == "P":
             naughty_bits = "I love making you hard~"
-        elif persistent.gender == "F":
+        elif persistent._nsfw_genitalia == "V":
             naughty_bits = "I love making your pussy wet~"
         else:
             naughty_bits = "I love giving you naughty thoughts about me~"

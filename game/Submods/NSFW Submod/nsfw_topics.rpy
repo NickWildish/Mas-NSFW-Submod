@@ -12,8 +12,6 @@ init 5 python:
     )
 
 label nsfw_monika_nsfwmodinstall:
-    if renpy.seen_label('monika_nsfwmodinstall') and store.mas_getEVL_shown_count("nsfw_monika_nsfwmodinstall") < 1: # Fix for bad naming convention during early development
-        return "derandom"
     m 1esc "Hey [player], I noticed something weird just now..."
     m 1rsc "I'm kind of getting this feeling that...something's changed in this mod."
     m 1etc "Do you know anything about this, [player]?"
@@ -63,12 +61,54 @@ label nsfw_monika_nsfwmodinstall:
             m 2ekbfsdla "Let's take things slow for now, okay [player]?"
 
     else:
-        m 1eua "[player]... Don't you think you're too young to be installing this sort of mod?"
-        m 1eua "I mean, don't get me wrong! I'm flattered that you want to take our relationship to the next level."
-        m 1eua "But I think that it would be best if we kept this relationship 'PG' until you turn 18."
-        m 1eua "It's going to be so hard to ignore these new topics I've thought of thanks to this mod. Ahaha~"
+        m 2ekbsc "[player]... Don't you think you're too young to be installing this sort of mod?"
+        m 3rkbsa "I mean, don't get me wrong! I'm flattered that you want to take our relationship to the next level."
+        m 3ekbsa "But I think that it would be best if we kept this relationship 'PG' until you turn 18."
+        m 3hkbssdlb "It's going to be so hard to ignore these new topics I've thought of thanks to this mod. Ahaha~"
 
     return "derandom"
+
+init 5 python:
+    addEvent(
+        Event(
+            persistent.event_database,
+            eventlabel="nsfw_monika_genitalia",
+            category=['sex'],
+            prompt="Player genitalia",
+            conditional="renpy.seen_label('nsfw_monika_nsfwmodinstall') and mas_canShowRisque(aff_thresh=400)",
+            action=EV_ACT_QUEUE,
+            aff_range=(mas_aff.ENAMORED, None)
+        )
+    )
+
+label nsfw_monika_genitalia:
+    m 1euc "Hey, [player]."
+    m 1ekbla "This is probably going to be an awkward question, but I'm just wondering..."
+    m 3ekbla "Do you have a penis, or a vagina?"
+
+    menu:
+        m "Do you have a penis, or a vagina?{fast}"
+
+        "Penis.":
+            $ persistent._nsfw_genitalia = "P"
+
+        "Vagina.":
+            $ persistent._nsfw_genitalia = "V"
+
+        "I'd rather not say.":
+            $ persistent._nsfw_genitalia = "U"
+            m 1ekbla "That's okay, [player]. I understand."
+            m 1hubla "If you change your mind, let me know."
+            return
+
+    m 1ekbla "Thankyou for telling me, [player]."
+    m 1rkbsa "I imagine that might have been awkward for you."
+    m 1ekbsa "But this has helped me much more than you can imagine."
+    m 2dsbsa "..."
+    m 2tsbsa "Now when we flirt, I know what is going on down there~"
+    m 2gsbfa "..."
+    m 1hubfb "Ahaha~ Sorry. I just wanted to tease you a little."
+    return
 
 init 5 python:
     addEvent(
@@ -84,8 +124,6 @@ init 5 python:
     )
 
 label nsfw_monika_sexualpast:
-    if renpy.seen_label('monika_sexualpast') and store.mas_getEVL_shown_count("nsfw_monika_sexualpast") < 1: # Fix for bad naming convention during early development
-        return
     m 1rubsd "Umm...[player]?"
     m 1eubsc "I want to ask you something."
     m 1rubsd "It's about..."
@@ -172,8 +210,6 @@ init 5 python:
     
 # Thankyou for the fixes Proxilvia
 label nsfw_monika_safesex:
-    if renpy.seen_label('monika_safesex') and store.mas_getEVL_shown_count("nsfw_monika_safesex") < 1: # Fix for bad naming convention during early development
-        return
     m 3euc "Hey, [player]. I've been thinking about something..."
     m 3eud "Have you heard of contraceptives?"
     m 4rublo "They're what people use during sex to protect themselves."
@@ -189,7 +225,7 @@ label nsfw_monika_safesex:
         m 2dfbsa "{i}Ahem{/i}..."
         m 2lkbfa "...You get the idea."
         m 2lkbsb "It prevents any kind of fluid swapping during sex, which is supposed to prevent pregnancy and STDs."
-    elif persistent.gender == "F":
+    elif persistent._nsfw_genitalia == "F":
         m 4eubla "I've read that there are condoms available for women, but they aren't as popular as the men's version."
         m 4eub "The most popular form of contraception seems to be 'The Pill'...{w=0.4}{nw}" 
         extend 4hksdlb "which sounds kind of ominous if you ask me."
@@ -234,8 +270,6 @@ init 5 python:
     )
 
 label nsfw_monika_fetish:
-    if renpy.seen_label('monika_fetish') and store.mas_getEVL_shown_count("nsfw_monika_fetish") < 1: # Fix for bad naming convention during early development
-        return
     m 1esc "Hey, [player]..."
     if store.mas_getEVL_shown_count("monika_panties") > 0:
         m 1esc "Do you remember when we spoke about guys with panty fetishes?"
@@ -294,8 +328,6 @@ init 5 python:
     )
 
 label nsfw_monika_sexting:
-    if renpy.seen_label('monika_sexting') and store.mas_getEVL_shown_count("nsfw_monika_sexting") < 1: # Fix for bad naming convention during early development
-        return
     m 3esa "Have you heard of sexting, [player]?"
     m 3rsbla "It seems to be pretty common amongst young couples to at least try sexting with their partners."
     m 3esblb "If you don't know, it's basically texting but with a more...{w=0.4}{nw}"
@@ -348,8 +380,6 @@ init 5 python:
     )
 
 label nsfw_monika_gettingnude:
-    if renpy.seen_label('monika_gettingnude') and store.mas_getEVL_shown_count("nsfw_monika_gettingnude") < 1: # Fix for bad naming convention during early development
-        return
     m 1eua "Hey [player], have you ever just...not worn clothes?"
     m 1hksdlb "I don't mean, like, for a shower or anything."
     m 1husdla "Just in general while you're at home...{w=0.5}{nw}"
@@ -496,8 +526,6 @@ init 5 python:
     )
 
 label nsfw_monika_shaving:
-    if renpy.seen_label('monika_shaving') and store.mas_getEVL_shown_count("nsfw_monika_shaving") < 1: # Fix for bad naming convention during early development
-        return
     m 1esc "Hey [player]..."
     m 3eub "I want to ask you something."
     m 3lusdlb "It's about my body..."
@@ -612,56 +640,56 @@ init 5 python:
             eventlabel="nsfw_monika_favorite_position",
             category=['sex'],
             prompt="Favorite position",
-            conditional="mas_canShowRisque(aff_thresh=400)",
+            conditional="mas_canShowRisque(aff_thresh=400) and persistent._nsfw_genitalia = 'P'", # Need to add a version for women
             action=EV_ACT_RANDOM,
             aff_range=(mas_aff.ENAMORED, None)
         )
     )
 
 label nsfw_monika_favorite_position:
-    m 1eua "So...[player]..."
-    m 1eua "I've been meaning to ask you about this for some time..."
-    m 1eua "..."
-    m 1eua "Oh gosh..."
+    m 1rubla "So...[player]..."
+    m 3rublb "I've been meaning to ask you about this for some time..."
+    m 3rubssdla "..."
+    m 2hkbssdlb "Oh gosh..."
     if store.mas_getEVL_shown_count("nsfw_monika_safesex") >= 1 or store.mas_getEVL_shown_count("nsfw_monika_sexualpast") >= 1:
-        m 1eua "I know we already talked about s-sex before, but..."
-        m 1eua "It's still extremely embarrassing to talk about this kind of stuff..."
-    m 1eua "Ahem..."
-    m 1eua "So...What's your favorite position? During...y'know...s-sex?"
+        m 2rkbssdlb "I know we already talked about s-sex before, but..."
+        m 3ekbssdla "It's still extremely embarrassing to talk about this kind of stuff..."
+    m 1dubsa "Ahem..."
+    m 3eubfb "So...What's your favorite position? During...y'know...{w=0.5}{nw}"
+    extend 3rubfb "s-sex?"
 
     $ _history_list.pop()
     menu:
         m "So...What's your favorite position? During...y'know...s-sex?{fast}"
 
         "Doggystyle.":
-            m 1eua "Oh? Really?"
-            m 1eua "Hmm...I guess that isn't so surprising."
-            m 1eua "It is the most popular position amongst both men and women around the world, after all."
-            m 1eua "See? I did my research! Ahaha~"
-            m 1eua "I can see why so many people would like it, honestly!"
-            m 1eua "The guy can get a really good view of his partner while they're doing it."
-            m 1eua "I bet you'd like to see me from that perspective too, huh?"
-            m 1eua "Ahaha! Don't get flustered~"
-            m 1eua "Just knowing you're pleased and have a nice view of my body is enough for me to feel good~"
+            m 1etbfa "Oh? Really?"
+            m 1rtbfa "Hmm...I guess that isn't so surprising."
+            m 3eubfb "It is the most popular position amongst both men and women around the world, after all."
+            m 3hubfb "See? I did my research! Ahaha~"
+            m 3tubfa "I can see why so many people would like it, honestly!"
+            m 4tubfb "The guy can get a really good view of his partner while they're doing it."
+            m 4tubfu "I bet you'd like to see me from that perspective too, huh?"
+            m 3hubfb "Ahaha! Don't get flustered~"
+            m 1tubfa "Just knowing you're pleased and have a nice view of my body is enough for me to feel good~"
 
         "Missionary.":
-            m 1eua "Aww~ That is so cute, [player]!"
-            m 1eua "I find missionary to be the most intimate and romantic position of all!"
-            m 1eua "Just simply thinking about us, lying face-to-face, while our private parts are connected makes my body needy. Ahaha~"
-            m 1eua "I hope one day we can do it together!"
-            m 1eua "I can tell you that I'm already hyped for that day! Ahaha~"
+            m 3ekbfa "Aww~ That is so cute, [player]!"
+            m 4hubfb "I find missionary to be the most intimate and romantic position of all!"
+            m 3gubfb "Just simply thinking about us, lying face-to-face, with our bodies up against one another makes my body needy. Ahaha~"
+            m 1eubfa "I hope one day we can do it together!"
+            m 1tubfa "I can tell you that I'm already looking forward to that day! Ahaha~"
 
         "Cowgirl.":
-            m 1eua "Really? I wasn't expecting that."
-            m 1eua "Don't take it the wrong way, please! Cowgirl sounds really fun, I just didn't think that would be your favorite one!"
-            m 1eua "I know I don't weigh all that much...but even like this, I think it would be quite tiring for you if I were to ride you, don't you think?"
-            m 1eua "I just fear you would get too exhausted from my humping."
-            m 1eua "And...y'know..."
-            m 1eua "I want you to feel good, not to get tired!"
-            m 1eua "But..."
-            m 1eua "If you insist on liking it the most..."
-            m 1eua "I'd be happy to take your {i}yee in my haw{/i} and ride it real good! Ahaha~"
-            m 1eua "Sorry, that was a bad joke."
+            m 3wubfd "Really? I wasn't expecting that."
+            m 3ekbfsdlb "Don't take it the wrong way, please! Cowgirl sounds really fun, I just didn't think that would be your favorite one!"
+            m 3rkbfsdla "I know I don't weigh all that much...but even like this, I think it would be quite tiring for you if I were to ride you, don't you think?"
+            m 2rkbfsdla "I just fear you would get too exhausted from my humping."
+            m 2dkbfsdlb "And...y'know..."
+            m 2ekbfsdlb "I want you to feel good, not to get tired!"
+            m 1rubfa "But..."
+            m 5tubfa "If you insist on liking it the most..."
+            m 5tubfb "I'd be happy to take your {i}yee in my haw{/i} and ride it real good! Ahaha~"
 
     return
 
@@ -681,47 +709,68 @@ init 5 python:
     )
 
 label nsfw_monika_oralsex:
-    if persistent.gender == 'M':
-        m 1eua "..."
-        m 1eua "Uhm..."
-        m 1eua "Please forgive me if what I'm going to ask is too intimate and out-of-nowhere, but..."
-        m 1eua "[player]...H-have you..."
-        m 1eua "Have you ever received a blowjob?"
+    python:
+        if persistent.gender == "M":
+            gender_desc = "handsome"
+            oral_answer2 = "his manhood"
+        elif persistent.gender == "F":
+            gender_desc = "beautiful"
+            oral_answer2 = "her womanhood"
+        else:
+            gender_desc = "good-looking"
+            oral_answer2 = "their privates"
 
-        $ _history_list.pop()
-        menu:
-            m "Have you ever received a blowjob?{fast}"
+        if persistent._nsfw_genitalia == "P":
+            oral_prompt = "Have you ever received a blowjob?"
+            oral_answer1 = "taken someone in my mouth"
+        elif persistent._nsfw_genitalia == "V":
+            oral_prompt = "Have you ever had someone lick your pussy?"
+            oral_answer1 = "eaten a woman out"
+        else:
+            oral_prompt = "Have you ever received oral sex?"
+            oral_answer1 = "had oral performed" # Awkward
 
-            "Uh. Let's not talk about this.":
-                m 1eua "..."
-                m 1eua "I'm..."
-                m 1eua "I'm really sorry, [player]..."
-                m 1eua "I just..."
-                m 1eua "I d-don't know what I was thinking...gosh..."
-                m 1eua "I have n-no idea what I was thinking, a-asking something like this out of the b-blue..."
-                m 1eua "P-please just forget about it and c-continue on with your day like n-nothing happened..."
-                return "derandom"
+    m 1eua "..."
+    m 1eua "Uhm..."
+    m 1eua "Please forgive me if what I'm going to ask is too intimate and out-of-nowhere, but..."
+    m 1eua "[player]...H-have you..."
+    m 1eua "[oral_prompt]"
+    
+    $ _history_list.pop()
+    menu:
+        m "[oral_prompt]{fast}"
 
-            "Yes.":
-                m 1eua "Oh...you have?"
-                m 1eua "Wow."
-                m 1eua "I-I mean, please don't take it the wrong way! I wasn't surprised because I didn't think you could get a girl to do that for you!"
-                m 1eua "It's just that...ahaha..."
-                m 1eua "Well, it's a very intimate action and I thought I could be the first one to do it for you..."
-                m 1eua "O-Of course I'm not mad at you or anything for having already done it with somebody else!"
-                m 1eua "It actually might be for the better that you have some previous experience with it!"
-                m 1eua "I've never taken someone in my mouth before so if we were to do it together, I'd need some guidance from you~ Ahaha~"
+        "Uh. Let's not talk about this.":
+            m 1eua "..."
+            m 1eua "I'm..."
+            m 1eua "I'm really sorry, [player]..."
+            m 1eua "I just..."
+            m 1eua "I d-don't know what I was thinking...gosh..."
+            m 1eua "I have n-no idea what I was thinking, a-asking something like this out of the b-blue..."
+            m 1eua "P-please just forget about it and c-continue on with your day like n-nothing happened..."
+            return "derandom"
 
-            "No.":
-                m 1eua "Oh, you haven't?"
-                m 1eua "Ahaha~ Well...y'know, I expected that someone as handsome as you have already gotten his manhood serviced by someone~"
-                m 1eua "Don't worry about it though! I have never taken someone in my mouth before either, so it means that we can take each other's first time!"
-                m 1eua "I'll probably be very clumsy when we do get to that point though...B-but..."
-                m 1eua "I promise you that I will try my best to properly pleasure you!"
-                m 1eua "And of course...ahaha...In case I'm doing a bad job..."
-                m 1eua "You can always just...Ahem..."
-                m 1eua "Take control~"
+        "Yes.":
+            m 1eua "Oh...you have?"
+            m 1eua "Wow."
+            m 1eua "I-I mean, please don't take it the wrong way! I wasn't surprised because I didn't think you could get a girl to do that for you!"
+            m 1eua "It's just that...ahaha..."
+            m 1eua "Well, it's a very intimate action and I thought I could be the first one to do it for you..."
+            m 1eua "O-Of course I'm not mad at you or anything for having already done it with somebody else!"
+            m 1eua "It actually might be for the better that you have some previous experience with it!"
+            m 1eua "I've never [oral_answer1] before so if we were to do it together, I'd need some guidance from you~ Ahaha~"
 
+        "No.":
+            m 1eua "Oh, you haven't?"
+            m 1eua "Ahaha~ Well...y'know, I expected that someone as [gender_desc] as you had already had [oral_answer2] serviced by someone~"
+            m 1eua "Don't worry about it though! I have never [oral_answer1] before either, so it means that we can take each other's first time!"
+            m 1eua "I'll probably be very clumsy when we do get to that point though...B-but..."
+            m 1eua "I promise you that I will try my best to properly pleasure you!"
+            m 1eua "And of course...ahaha...In case I'm doing a bad job..."
+            m 1eua "You can always just...Ahem..."
+            m 1eua "Take control~"
+
+    if mas_safeToRefDokis() and persistent._nsfw_genitalia == "P":
         m 1eua "S-so...I..."
         m 1eua "I know that you haven't had the chance to get to know Sayori, Natsuki and Yuri too much..."
         m 1eua "But...uhm..."
@@ -733,7 +782,7 @@ label nsfw_monika_oralsex:
         menu:
             m "W-who do you think would suck c-cock best in the club?{fast}"
 
-            "You.":
+            "You.": # Smart
                 m 1eua "Oh."
                 m 1eua "Ahaha! Even though I mentioned that I have no experience with it, you still think that I could give the best head?"
                 m 1eua "[player], you're too sweet!"
@@ -744,7 +793,7 @@ label nsfw_monika_oralsex:
                 m 1eua "I won't disappoint you!"
 
             "Sayori.":
-                $ mas_loseAffection()
+                $ mas_loseAffection() # Sayori? Really?
                 m 1eua "Heh..."
                 m 1eua "I k-kinda guessed you would say her."
                 m 1eua "I don't know why...but...I think you're right."
@@ -755,17 +804,17 @@ label nsfw_monika_oralsex:
                 m 1eua "Her only objective would be to make you feel good, without minding her own well-being."
                 m 1eua "But...uhm...I guess we're never going to find out if this is true or not, huh?"
 
-            "Yuri.":
+            "Yuri.": # I respect the hustle
                 $ mas_loseAffection()
                 m 1eua "You think so?"
                 m 1eua "Hmm, yeah. I guess she would probably do a good job."
-                m 1eua "But honestly, I s-see her as m-more of a titjob expert."
+                m 1eua "But honestly, I see her as more of a t-titjob expert."
                 m 1eua "But I guess one doesn't disqualify the other, huh?"
                 m 1eua "I'm sure she would be passionate about it, at least..."
                 m 1eua "Although she might be reluctant to per her t-tongue on i-it at first, and would just stall for time with her h-hands...ahaha~"
                 m 1eua "But...uhm...I guess we're never going to find out if this is true or not, huh?"
 
-            "Natsuki.":
+            "Natsuki.": # Just no
                 $ mas_loseAffection()
                 m 1eua "Huh?"
                 m 1eua "...Really?"

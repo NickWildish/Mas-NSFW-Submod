@@ -852,3 +852,81 @@ label nsfw_monika_oralsex:
                         m 1ekbsa "Sorry for getting mad at you for a moment there."
 
     return
+
+# Thanks to mysterylewds for this topic
+init 5 python:
+    addEvent(
+        Event(
+            persistent.event_database,
+            eventlabel="nsfw_monika_dick_size",
+            category=["sex"],
+            prompt="Schlong size",
+            conditional=("mas_canShowRisque(aff_thresh=1000) and persistent._nsfw_genitalia == 'P'"),
+            action=EV_ACT_RANDOM,
+            aff_range=(mas_aff.LOVE, None)
+        )
+    )
+
+label nsfw_monika_dick_size:
+    m 1tua "You know, [player]... I was curious."
+    m 1gublb "How, um....{w=0.5} {i}big{/i} are you?"
+    m 1hkblsdlb "And I'm not talking about height ahaha~."
+    m 1rubsa "Sorry if this seems weird, I just want to know more about you. I want to know {i}everything{/i}."
+    menu:
+        m "How big are you?"
+        
+        "Less than 3 Inches":
+            m 1eubsa "So you're on the smaller side, nice!"
+            m 1rubsc "You know some girls have an issue with anything under average, but I never understood it."
+            m 1ekbsa "The size of your member is something you can't change, just like breast size."
+            m 3eubsa "There's benefits to every size in my opinion."
+            m 3tubsb "For example, with your size, I could fit the whole thing in my mouth without gagging. Mmmmm~"
+            m 3gkbsa ".{w=0.7}.{w=0.7}.{w=0.7}"
+            m 3hkbssdlb "Sorry [player], I got a little carried away there ahaha~."
+            m 5ekbsa "But just remember, [player], I love you for who you are. Both physically and mentally. Never forget that, okay?"
+            return
+        "Around 3 Inches":
+            m 1eubsa "Little under average, nice!"
+            m 1rubsc "You know some girls have an issue with anything under average, but I never understood it."
+            m 1ekbsa "The size of your member is something you can't change, just like breast size."
+            m 3eubsa "There's benefits to every size in my opinion."
+            m 3tubsb "For example, with 3 inches, I could fit the whole thing in my mouth without gagging. Mmmmm~"
+            m 3gkbsa ".{w=0.7}.{w=0.7}.{w=0.7}"
+            m 3hkbssdlb "Sorry [player], I got a little carried away there ahaha~."
+            m 5ekbsa "But just remember, [player], I love you for who you are. Both physically and mentally. Never forget that, okay?"
+            return
+        "Around 4-6 Inches":
+            m 1eubsa "Ahh, so you're around average then."
+            m 3eubsb "Average tends to be a good sweet spot for most girls."
+            m 3hkbssdlb "Some don't like monster dongs you know? It can be incredibly painful and not much fun."
+            m 5ekbsa "Although even if you {i}were{/i} bigger or smaller than average, I wouldn't think any more or less of you."
+        "Around 7 Inches":
+            m 1wubsa "Ahh, so you're above average then."
+            m 3eubsb "Average and slightly above tends to be a sweet spot for most girls."
+            m 3rubsb "7 Inches is a bit big, but its manageable."
+            m 3hkbssdlb "Anything more, and It can be incredibly painful and not much fun for most girls."
+            m 5ekbsa "Although even if you {i}were{/i} bigger or smaller, I wouldn't think any more or less of you."
+        "Around 8 Inches":
+            m 1wubso "Wow! 8 Inches? Only a few percentage of guys in the world have one that big."
+            m 1hkbssdlb "8 Inches is a pretty big, not going to lie."
+            m 3rkbssdlb "Though impressive, it can be incredibly painful and not much fun for most girls if you don't know what you're doing."
+            m 2ekbsa "When we eventually do it, we'd have to take it slow."
+            m 5ekbsa "And just remember [player], even if you {i}were{/i} bigger/smaller, I wouldn't think any more or less of you."
+        "Around 9 Inches":
+            m 1tubsu "[player]..."
+            m 3tubsb "I don't want to call you a liar, but I {i}highly{/i} doubt you're that big. You don't have to lie to me."
+            m 3gubsb "But in the small chance you're being honest..."
+            extend 3kubsb " then I think that's quite a gift. "
+            m 3hkbssdlb "Although sex might be a tad painful ahaha~"
+            return
+        "I don't know...":
+            m 1ekbsa "Oh, that's okay [player]."
+            m 1rkbsa "I was just kind of curious, that's all."
+            m 3ekbsb "Don't feel the need to answer if you're not comfortable."
+            m 5tkbsa "I love you, no matter the size of your...{w=0.3} {i}member{/i}~"
+            return
+
+    m 5rubsb "After all, its like breast size for girls. You can't control it."
+    m 5hubsb "There's benefits to all sizes in my opinion!"
+    m 5ekbsa "But just remember, [player], I love you for who you are. Both physically and mentally. Never forget that, okay?"
+    return

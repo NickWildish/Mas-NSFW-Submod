@@ -455,7 +455,7 @@ init 6 python:
         Event(
             persistent._nsfw_story_database,
             eventlabel="nsfw_erotic_story_natsuki_deepthroat1",
-            prompt="Natsuki Deepthroat",
+            prompt="Natsuki deepthroat",
             category=[nsfw_stories.TYPE_OTHERGIRLS],
             pool=True,
             unlocked=True
@@ -523,7 +523,7 @@ init 6 python:
         Event(
             persistent._nsfw_story_database,
             eventlabel="nsfw_erotic_story_sayori_ballscleaning1",
-            prompt="Sayori's Ball Cleaning",
+            prompt="Sayori's ball cleaning",
             category=[nsfw_stories.TYPE_OTHERGIRLS],
             pool=True,
             unlocked=False

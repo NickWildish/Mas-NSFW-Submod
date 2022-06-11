@@ -1,7 +1,7 @@
 init 5 python:
     addEvent(Event(persistent._mas_mood_database,"nsfw_mood_horny",prompt="...horny.",category=[store.mas_moods.TYPE_GOOD],unlocked=True),code="MOO")
 
-label mas_mood_horny:
+label nsfw_mood_horny:
     m 1eua "Oh? Is that so, [player]?"
     m 1eua "Oh...wait..."
     m 1eua "Sorry [player], it looks like the developer is getting tired and wants to get some sleep."

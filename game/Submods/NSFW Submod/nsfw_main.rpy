@@ -15,7 +15,9 @@ init -989 python:
         store.sup_utils.SubmodUpdater(
             submod="NSFW Submod",
             user_name="NickWildish",
-            repository_name="Mas-NSFW-Submod"
+            repository_name="Mas-NSFW-Submod",
+            update_dir="",
+            attachment_id=None
         )
 
 screen nsfw_submod_screen():

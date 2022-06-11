@@ -14,12 +14,12 @@ init 5 python:
     )
 
 label monika_brb_nsfw_masturbate:
-    #
-
+    # make a random int, for randomness
     $ mas_Rand = renpy.random.randint(1, 3)
 
-    # Love (1000+)
-    if mas_isMoniLove():
+    # To do - add in Affectionate variation?
+    # Enamored (400-999+)
+    if mas_isMoniEnamored():
     # Room for expansion - more random responses? More topics unlocked?
         if mas_Rand == 1:
         # Response 1
@@ -45,7 +45,7 @@ label monika_brb_nsfw_masturbate:
             m 2ksbfa "That'll make me happy."
             m 3kublu "I'll be here when you're finished up~"
     # other affection values
-    # elsif mas_isMoniEnamored():
+    # elsif mas_isMoniAff():
         # to do - variations for lower affection values
     # Don't know why you'd try this is if you have low affection
     else:

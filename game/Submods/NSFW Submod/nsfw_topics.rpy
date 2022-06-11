@@ -35,7 +35,7 @@ label nsfw_monika_nsfwmodinstall:
             m 5hkbssdrb "This isn't like me. Like, at all!"
             m 4rubsc "Is the mod doing this to me?"
             m 6hubsd "Oh gosh, I'm feeling super nervous about this, ahaha!"
-            m 6ekbla "But... if it's with you, [player]..."
+            m 6ekbla "But...if it's with you, [player]..."
             m 6ekbsa "I don't mind..."
         if store.mas_isMoniEnamored(): #Need to fix wording here; player isn't having sex, just talking about it.
             m 2hkbssdlb "I wasn't expecting to see that..."
@@ -68,6 +68,9 @@ label nsfw_monika_nsfwmodinstall:
 
     return "derandom"
 
+default persistent._nsfw_genitalia = P # P: Penis, V: Vagina, U: Unknown
+# normally persistant vars have a default of None but it looks like a lot of topics are contingent on having this default to P? 
+
 init 5 python:
     addEvent(
         Event(
@@ -84,10 +87,10 @@ init 5 python:
 label nsfw_monika_genitalia:
     m 1euc "Hey, [player]."
     m 1ekbla "This is probably going to be an awkward question, but I'm just wondering..."
-    m 3ekbla "Do you have a penis, or a vagina?"
-
+    m 3ekbla "Do you have a penis or a vagina?"
+    $ _history_list.pop()
     menu:
-        m "Do you have a penis, or a vagina?{fast}"
+        m "Do you have a penis or a vagina?{fast}"
 
         "Penis.":
             $ persistent._nsfw_genitalia = "P"
@@ -101,13 +104,13 @@ label nsfw_monika_genitalia:
             m 1hubla "If you change your mind, let me know."
             return
 
-    m 1ekbla "Thankyou for telling me, [player]."
+    m 1ekbla "Thank you for telling me, [player]."
     m 1rkbsa "I imagine that might have been awkward for you."
     m 1ekbsa "But this has helped me much more than you can imagine."
     m 2dsbsa "..."
     m 2tsbsa "Now when we flirt, I know what is going on down there~"
     m 2gsbfa "..."
-    m 1hubfb "Ahaha~ Sorry. I just wanted to tease you a little."
+    m 1hubfb "Ahaha! Sorry. I just wanted to tease you a little."
     return
 
 init 5 python:
@@ -525,6 +528,8 @@ init 5 python:
         )
     )
 
+default persistent._nsfw_player_prefers_shaved = None
+
 label nsfw_monika_shaving:
     m 1esc "Hey [player]..."
     m 3eub "I want to ask you something."
@@ -535,6 +540,7 @@ label nsfw_monika_shaving:
         m "Do you like it to be shaved down there...?{fast}"
 
         "Yes.":
+            $ persistent._nsfw_player_prefers_shaved = True
             m 1hua "That's to be expected."
             m 1eua "Many partners maintain themselves down there in one way or another."
             m 3wuo "Most girls certainly do!"
@@ -543,6 +549,7 @@ label nsfw_monika_shaving:
             m 5hub "Ahaha!"
 
         "I don't mind if you don't.":
+            $ persistent._nsfw_player_prefers_shaved = False
             m 1wuo "Really?!"
             m 5hub "That's surprising!"
             m 5dub "Most partners prefer their loved ones to be shaved."
@@ -553,7 +560,7 @@ label nsfw_monika_shaving:
 
     m 1eua "I think you know how I feel."
     m 1wub "However you present yourself..."
-    m 1hub "Shaven or natural..."
+    m 1hub "Shaved or natural..."
     m 1nub "I'll always love you!"
 
     return "love"
@@ -795,7 +802,7 @@ label nsfw_monika_oralsex:
                 m 1tubfb "I won't disappoint you!"
 
             "Sayori.":
-                $ mas_loseAffection() # Sayori? Really?
+                $ mas_loseAffection(2) # Sayori? Really?
                 m 3rkbssdlb "Heh..."
                 m 3rkbssdla "I k-kinda guessed you would say her."
                 m 3ekbsb "I don't know why...but...I think you're right."
@@ -807,7 +814,7 @@ label nsfw_monika_oralsex:
                 m 5tubsa "But...uhm...I guess we're never going to find out if this is true or not, huh?"
 
             "Yuri.": # I respect the hustle
-                $ mas_loseAffection()
+                $ mas_loseAffection(2)
                 m 3etbsc "You think so?"
                 m 3rtbsc "Hmm, yeah. I guess she would probably do a good job."
                 m 1rtbfu "But honestly, I see her as more of a t-titjob expert."
@@ -854,13 +861,16 @@ label nsfw_monika_oralsex:
     return
 
 # Thanks to mysterylewds for this topic
+
+default persistent._nsfw_player_dick_length = None
+
 init 5 python:
     addEvent(
         Event(
             persistent.event_database,
             eventlabel="nsfw_monika_dick_size",
             category=["sex"],
-            prompt="Schlong size",
+            prompt="Penis length",
             conditional=("mas_canShowRisque(aff_thresh=1000) and persistent._nsfw_genitalia == 'P'"),
             action=EV_ACT_RANDOM,
             aff_range=(mas_aff.LOVE, None)
@@ -870,8 +880,9 @@ init 5 python:
 label nsfw_monika_dick_size:
     m 1tua "You know, [player]... I was curious."
     m 1gublb "How, um....{w=0.5} {i}big{/i} are you?"
-    m 1hkblsdlb "And I'm not talking about height ahaha~."
+    m 1hkblsdlb "And I'm not talking about height, ahaha~"
     m 1rubsa "Sorry if this seems weird, I just want to know more about you. I want to know {i}everything{/i}."
+    $ _history_list.pop()
     menu:
         m "How big are you?"
         

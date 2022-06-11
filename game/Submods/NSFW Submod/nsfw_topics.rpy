@@ -101,7 +101,7 @@ label nsfw_monika_genitalia:
             m 1hubla "If you change your mind, let me know."
             return
 
-    m 1ekbla "Thankyou for telling me, [player]."
+    m 1ekbla "Thank you for telling me, [player]."
     m 1rkbsa "I imagine that might have been awkward for you."
     m 1ekbsa "But this has helped me much more than you can imagine."
     m 2dsbsa "..."
@@ -674,13 +674,13 @@ label nsfw_monika_masturbation_benefits:
             m 2efc "Now, with all that in mind...!"
             m 3efd "Masturbation addition can be a serious issue."
             m 3efd "The benefits I mentioned... the dopamine release... chasing that high too often {i}is{/i} bad for you."
-            m 4efd "People who masturbate {i}too{/i} frequently can have a harder time {w=1}getting off{w=1} with a partner..."
+            m 4efd "People who masturbate {i}too{/i} frequently can have a harder time getting off with a partner..."
             m 1eud "Not to mention, if you use porn to get off, especially visual media...{w=0.5} You can become desensitized to more vanilla experiences."
             m 1eud "Masturbating more than once a day..."
             m 1tud "Is probably a little too much."
             m 2hsc "..."
             m 1eua "Thank you for letting me talk about this, [player]."
-            m 3eua "Talking about masturbation like this is surprisingly fun!"
+            m 3eubfb "Talking about masturbation like this is surprisingly fun!"
             m 5tubfu "It's a natural part of human sexuality, after all."
 
         "Not right now.":

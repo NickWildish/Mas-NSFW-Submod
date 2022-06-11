@@ -640,12 +640,8 @@ init 5 python:
             eventlabel="nsfw_monika_masturbation_benefits",
             category=['sex'],
             prompt="Masturbation Benefits",
-            conditional=(
-                "renpy.seen_label(monika_brb_nsfw_masturbate)",
-                "mas_canShowRisque()",
-            ),
-            aff_range=(mas_aff.ENAMORED, None),
-            random=True # random but not unlocked by default
+            action=EV_ACT_RANDOM,
+            aff_range=(mas_aff.ENAMORED, None)
         )
     )
 
@@ -657,20 +653,21 @@ label nsfw_monika_masturbation_benefits:
     m 1ekblb "Specifically... {w=1}It's about the {i}benefits{/i} of regular masturbation!"
     $ _history_list.pop()
     menu:
-        m "Are you okay with me talking about this?{fast}"
+        m "Are you okay with me talking about this?"
 
         "Yes.":
             m 2eub "Really? Okay!"
             m 1eua "You see, [player], I didn't give it much thought until recently."
-            m 3eua "Like a lot of people, I always thought masturbation was a... {w=0.5}dirty habit, and nothing more."
+            m 3eubla "Like a lot of people, I always thought masturbation was a... {w=0.5}{i}dirty habit{/i}, and nothing more."
             m 3eub "But I've done a bit of research, and it seems that masturbating now and again can actually be beneficial!"
             m 3rub "Among other things, it can of course reduce your stress..."
             m 3eua "The release of serotonin and dopamine can reduce anxiety, and ease muscle tension."
-            m 3hksdlb "It can even help ease period pains... Ahaha..."
-            m 3eub "For men, studies have shown that it reduces the risk of prostate cancer."
-            m 4eub "The reasons for this are currently unknown, but there {i}is{/i} a connection between the two."
+            m 3hksdlb "For women, it can even help ease period pains... {w=0.5}Ahaha..."
+            m 3eub "For men, studies have shown that it reduces the risk of prostate cancer in certain cases."
+            m 4eub "The reasons for this aren't fully known, but there {i}is{/i} a connection between the two."
+            m 3eublb "The working theory seems to be that a regular release helps to keep the prostate healthy."
             m 4eua "For men and women alike, it can lead to better sexual satisfaction. {w=0.5}It makes sense, if you think about it!"
-            m 3hksdlb "If you know your own body, then you'll have an easier time conveying to your partner what you like..."
+            m 3eubla "If you know your own body, then you'll have an easier time conveying to your partner what you like..."
             m 2efc "Now, with all that in mind...!"
             m 3efd "Masturbation addition can be a serious issue."
             m 3efd "The benefits I mentioned... the dopamine release... chasing that high too often {i}is{/i} bad for you."
@@ -682,9 +679,11 @@ label nsfw_monika_masturbation_benefits:
             m 1eua "Thank you for letting me talk about this, [player]."
             m 3eubfb "Talking about masturbation like this is surprisingly fun!"
             m 5tubfu "It's a natural part of human sexuality, after all."
+            m 5kublu "There's nothing wrong with having a bit of {i}fun{/i} by yourself now and again~"
 
         "Not right now.":
             m 2eubsb "Ah. I understand."
+            m 1lkblb "I promise you I wasn't going to tell you off, or anything, but..."
             m 1eubsb "Maybe some other time, then!"
 
     return

@@ -23,35 +23,35 @@ label monika_brb_nsfw_masturbate:
     # Room for expansion - more random responses? More topics unlocked?
         if mas_Rand == 1:
         # Response 1
-            m 1eua "Oh? My, [player], how bold of you~"
-            m 1eua "Admitting to your girlfriend that you're going to go masturbate?"
-            m 1eua "Hehe!~"
-            m 1euabf "Well, I hope you're thinking of me while you do it, [mas_get_player_nickname()]..."
-            m 1euabf "I'll be... flattered, if you do."
-            m 1eua "I'll be waiting for you to be finished~"
+            m 1tublb "Oh? My, [player], how bold of you~"
+            m 1tubla "Admitting to your girlfriend that you're going to go masturbate?"
+            m 1hubla "Hehe!~"
+            m 1mublb "Well, I hope you're thinking of me while you do it, [mas_get_player_nickname()]..."
+            m 2tublb "I'll be... flattered, if you do."
+            m 3kublu "I'll be waiting for you to be finished~"
         elif mas_Rand == 2:
-            m 1euabf "[player]... How very forward of you~"
-            m 1eua "It's almost like you want me to give you permission... is that it?"
-            m 1eua "Hehe!~"
-            m 1eua "If that's the case... [mas_get_player_nickname()], you have my permission to go and... masturbate."
-            m 3eubfa "Masturbate while thinking of me, [player]."
-            m 1eua "I'll be here when you're done~"
+            m 1tublb "[player]... How very forward of you~"
+            m 1tubla "It's almost like you want me to give you permission... is that it?"
+            m 1hubla "Hehe!~"
+            m 1mublb "If that's the case... [mas_get_player_nickname()], you have my permission to go and... masturbate."
+            m 6tubfb "Masturbate while thinking of me, [player]."
+            m 3kublu "I'll be here when you're done~"
         elif mas_Rand == 3:
-            m 1euabf "Oh! Oh my, [player], I wasn't expecting {i}that!{/i}"
-            m 1eua "That caught me off guard a little..."
-            m 1eua "Hehe!~"
-            m 1eua "Well, it's nice to know that's what you're up to..."
-            m 1euabf "Just make sure to think of your girlfriend, Monika, while you do it!"
-            m 1eubfb "That'll make me happy."
-            m 1eua "I'll be here when you're finished up~"
+            m 6wubfsdlo "Oh! Oh my, [player], I wasn't expecting {i}that!{/i}"
+            m 6ekbfa "That caught me off guard a little..."
+            m 1hubla "Hehe!~"
+            m 1mublb "Well, it's nice to know that's what you're up to..."
+            m 4ksbfa "Just make sure to think of your girlfriend, Monika, while you do it!"
+            m 2ksbfa "That'll make me happy."
+            m 3kublu "I'll be here when you're finished up~"
     # other affection values
     # elsif mas_isMoniEnamored():
         # to do - variations for lower affection values
     # Don't know why you'd try this is if you have low affection
     else:
-        m 6ckc "..."
-        m 6ekc "I'm going to pretend I didn't hear that."
-        m 6ekd "Just tell me when you're done."
+        m 2tsbsc "..."
+        m 2tsbsd "I'm going to pretend I didn't hear that."
+        m 2ekbssdlb "Just tell me when you're done."
 
 
     # the callback label
@@ -59,7 +59,8 @@ label monika_brb_nsfw_masturbate:
     # The idle data
     $ persistent._mas_idle_data["monika_idle_brb"] = True
     # unlock masturbation random topics
-    $ mas_unlockEventLabel("nsfw_monika_masturbation_benefits")
+        # $ mas_unlockEventLabel("nsfw_monika_masturbation_benefits")
+    $ mas_showEVL("nsfw_monika_masturbation_benefits", "EVE", _random=True)
     # and exit
     return "idle"
 

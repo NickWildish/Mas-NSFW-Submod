@@ -617,7 +617,7 @@ init 6 python:
         Event(
             persistent._nsfw_story_database,
             eventlabel="nsfw_erotic_story_yuri_titjob1",
-            prompt="Yuri Titjob",
+            prompt="Yuri titjob",
             category=[nsfw_stories.TYPE_OTHERGIRLS],
             pool=True,
             unlocked=False
@@ -720,7 +720,7 @@ init 6 python:
         Event(
             persistent._nsfw_story_database,
             eventlabel="nsfw_erotic_story_pizza_party",
-            prompt="Club Pizza Party",
+            prompt="Club pizza party",
             category=[nsfw_stories.TYPE_OTHERGIRLS],
             pool=True,
             unlocked=False

@@ -531,7 +531,7 @@ init 6 python:
         code="NST"
     )
 
-label nsfw_erotic_story_sayori_ballscleaning:
+label nsfw_erotic_story_sayori_ballscleaning1:
     if not renpy.seen_label("nsfw_erotic_story_sayori_ballscleaning_init"):
         call nsfw_erotic_story_sayori_ballscleaning_init
     m 1eua "Alright. So...after I've made Natsuki take the guy's load in her mouth, I made him leave."
@@ -625,7 +625,7 @@ init 6 python:
         code="NST"
     )
 
-label nsfw_erotic_story_yuri_titjob:
+label nsfw_erotic_story_yuri_titjob1:
     if not renpy.seen_label("nsfw_erotic_story_sayori_ballscleaning_init"):
         call nsfw_erotic_story_yuri_titjob_init
     m 1eua "Sayori was munching away on the cookies she had with her."

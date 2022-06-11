@@ -1,5 +1,3 @@
-# Template used from script-storties.rpy as of 9th June, 2022
-
 # Module for Monika story telling
 #
 # Stories will get unlocked one at by session
@@ -113,7 +111,7 @@ init -1 python in nsfw_stories:
             list of locked stories for the given story type
         """
         if story_type == TYPE_OTHERGIRLS:
-            if store.mas_getEVL_shown_count("nsfw_erotic_story_yuri_titjob1") >= 1:
+            if store.mas_getEVL_shown_count("nsfw_erotic_story_club_pizza_party") >= 1: #Note: The problem child. Change it to the last chapter every time one is added!
                 return store.Event.filterEvents(
                 nsfw_story_database,
                 pool=False,
@@ -165,13 +163,16 @@ init -1 python in nsfw_stories:
         Unlocks and returns the next chapter of the erotic doki saga
         """
         # Check which story is next
-        if store.mas_getEVL_shown_count("nsfw_erotic_story_yuri_titjob1") >= 1:
+        if store.mas_getEVL_shown_count("nsfw_erotic_story_club_pizza_party") >= 1:
             story = get_and_unlock_random_story(story_type=TYPE_OTHERGIRLS)
         else:
-            if store.mas_getEVL_shown_count("nsfw_erotic_story_sayori_ballscleaning1") < 1:
-                story = store.mas_getEV("nsfw_erotic_story_sayori_ballscleaning1")
-            else:
+            if store.mas_getEVL_shown_count("nsfw_erotic_story_yuri_titjob1") < 1:
                 story = store.mas_getEV("nsfw_erotic_story_yuri_titjob1")
+            else:
+                if store.mas_getEVL_shown_count("nsfw_erotic_story_sayori_ballscleaning1") < 1:
+                    story = store.mas_getEV("nsfw_erotic_story_sayori_ballscleaning1")
+                else:
+                    story = store.mas_getEV("nsfw_erotic_story_club_pizza_party")
 
         #Unlock and return eventlabel
         story.unlocked = True
@@ -258,7 +259,7 @@ label nsfw_monika_stories_menu:
         # TODO: Build a generalized switch for more than just two items
         if story_type == nsfw_stories.TYPE_OTHERGIRLS:
             #Add continuation of previous doki story
-            nsfw_stories_menu_items.append(("Tell me more about what you did with the other girls", nsfw_stories.UNLOCK_NEXT_CHAPTER, True, False))
+            nsfw_stories_menu_items.append(("Tell me more about the other girls", nsfw_stories.UNLOCK_NEXT_CHAPTER, True, False))
             switch_str = "n erotic story"
         else:
             #Add new random story
@@ -299,12 +300,13 @@ label nsfw_monika_stories_menu:
         else:
             $ story_to_push = _return
 
+        #UNLOCKS NEW DOKI CHAPTERS. 
         #If we're unlocking the next chapter, check if it's possible to do so. If not, we raise dlg
         if story_to_push == nsfw_stories.UNLOCK_NEXT_CHAPTER:
             if not can_unlock_nsfw_story or not store.mas_safeToRefDokis() or story_to_push == None:
                 show monika at t11
-                $ _story_type = story_type if story_type != 'othergirls' else 'doki girls'
-                m 1ekc "Sorry [player]...I can't really think of a new [_story_type] story right now..."
+                $ _story_type = story_type
+                m 1ekc "Sorry [player]...I can't really think of a new story about the [_story_type] right now..."
                 if not store.mas_safeToRefDokis():
                     m 1rkc "At least...not any that I think you would like hearing..."
                 m 1eka "If you give me some time I might be able to think of one soon...but in the meantime, I can always tell you an old one again~"
@@ -317,11 +319,12 @@ label nsfw_monika_stories_menu:
                     persistent._nsfw_last_seen_new_story[story_type] = datetime.datetime.now()
                     story_to_push = nsfw_stories.get_and_unlock_next_story()
 
+        #UNLOCKS GENERIC EROTIC.
         #If we're unlocking new, check if it's possible to do so. If not, we raise dlg
         if story_to_push == nsfw_stories.UNLOCK_NEW:
             if not can_unlock_nsfw_story: #temp
                 show monika at t11
-                $ _story_type = story_type if story_type != 'othergirls' else 'doki girls'
+                $ _story_type = story_type if story_type != 'erotic' else 'sexual'
                 m 1ekc "Sorry [player]...I can't really think of a new [_story_type] story right now..."
                 m 1eka "If you give me some time I might be able to think of one soon...but in the meantime, I can always tell you an old one again~"
                 
@@ -445,73 +448,6 @@ label nsfw_monika_erotic_stories_init:
                     
     $ pushEvent("nsfw_erotic_story_natsuki_deepthroat1", skipeval=True)
     return
-       
-label nsfw_monika_erotic_stories_2:
-    m 1eua "Sure, [player]!"
-    m 1eua "Which story would you like me to tell?"
-    
-    $ _history_list.pop()
-    if renpy.seen_label("nsfw_erotic_story_natsuki_deepthroat"):
-        menu:
-            "Natsuki Deepthroat":
-                m 1eua "Alright!"
-                m 1eua "So, to provide context again, Natsuki was being a pain at the time."
-                m 1eua "So I thought I'd treat her to some..."
-                m 1eua "{i}Rough throating action{/i}."
-                m 1eua "Ahaha~"
-                call nsfw_erotic_story_natsuki_deepthroat
-                return
-
-            "Any other erotic stories?":
-                
-                call nsfw_erotic_story_sayori_ballscleaning
-                return
-
-    elif renpy.seen_label("nsfw_erotic_story_sayori_ballscleaning"):
-        menu:
-            "Natsuki Deepthroat":
-                m 1eua "Alright!"
-                m 1eua "So, to provide context again, Natsuki was being a pain at the time."
-                m 1eua "So I thought I'd treat her to some..."
-                m 1eua "{i}Rough throating action{/i}."
-                m 1eua "Ahaha~"
-                call nsfw_erotic_story_natsuki_deepthroat
-                return
-
-            "Sayori Ballcleaning":
-                # add prelude here
-                call nsfw_erotic_story_sayori_ballscleaning
-                return
-
-            "Any other erotic stories?":
-                
-                call nsfw_erotic_story_yuri_titjob1
-                return
-    
-    elif renpy.seen_label("nsfw_erotic_story_yuri_titjob1"):
-        menu:
-            "Natsuki Deepthroat":
-                m 1eua "Alright!"
-                m 1eua "So, to provide context again, Natsuki was being a pain at the time."
-                m 1eua "So I thought I'd treat her to some..."
-                m 1eua "{i}Rough throating action{/i}."
-                m 1eua "Ahaha~"
-                call nsfw_erotic_story_natsuki_deepthroat
-                return
-
-            "Sayori Ballcleaning":
-                # add prelude here
-                call nsfw_erotic_story_sayori_ballscleaning
-                return
-
-            "Yuri Titjob":
-                # add prelude here
-                call nsfw_erotic_story_yuri_titjob1
-                return
-
-            "Any other erotic stories?":
-                # add prelude here
-                return  
 
 # Thanks for the erotic story, KittyTheCocksucker
 init 6 python:
@@ -587,7 +523,7 @@ init 6 python:
         Event(
             persistent._nsfw_story_database,
             eventlabel="nsfw_erotic_story_sayori_ballscleaning1",
-            prompt="Sayori balls cleaning",
+            prompt="Sayori's ball cleaning",
             category=[nsfw_stories.TYPE_OTHERGIRLS],
             pool=True,
             unlocked=False
@@ -681,7 +617,7 @@ init 6 python:
         Event(
             persistent._nsfw_story_database,
             eventlabel="nsfw_erotic_story_yuri_titjob1",
-            prompt="Yuri titjob1",
+            prompt="Yuri titjob",
             category=[nsfw_stories.TYPE_OTHERGIRLS],
             pool=True,
             unlocked=False
@@ -753,4 +689,123 @@ label nsfw_erotic_story_yuri_titjob1:
     m 1eua "..."
     m 1eua "Ahaha~ Just teasing you, [player]."
     m 1eua "...Or am I?"
+    return
+
+# Needs some work! Didn't really know how to introduce this one.
+label nsfw_erotic_story_club_pizza_party_init:
+    m 1eua "You want me to tell you another lewd story, [player]?"
+    m 1eua "Sure!"
+    m 1eua "You must be really enjoying them, huh?" #smirk expression
+    m 1eua "Ahaha~ Don't worry."
+    m 1eua "Though I just wanted to say that the one I have in mind might be a bit...{w=0.3} {i}out there{i}."
+    m extend 1eua "Is that okay, [player]?"
+    $ _history_list.pop()
+    menu:
+        m "Though I just wanted to say that the one I have in mind might be a bit...{w=0.3} {i}out there{i}. Is that okay, [player]?"
+        
+        "Yes":
+            m 1cud "Mmm~ Glad to hear it."
+
+        "No":
+            m 1cud "Okay!"
+            m 1cud "Feel free to ask again if you ever change your mind."
+            return
+    m 1eua "So...ahem..."
+    m 1eua "Where did I leave off?{w=1.0}{nw} "
+    extend 1eua "Oh, that's right!"
+    return
+
+init 6 python:
+    addEvent(
+        Event(
+            persistent._nsfw_story_database,
+            eventlabel="nsfw_erotic_story_pizza_party",
+            prompt="Club pizza party",
+            category=[nsfw_stories.TYPE_OTHERGIRLS],
+            pool=True,
+            unlocked=False
+        ),
+        code="NST"
+    )
+
+label nsfw_erotic_story_pizza_party:
+    if not renpy.seen_label("nsfw_erotic_story_club_pizza_party_init"):
+        call nsfw_erotic_story_club_pizza_party_init
+    m 1eua "Let's continue the story from where we left off..."
+    m 1eua "When the two men finished all over Yuri's tits, and also dumped their thick load inside her mouth, they fixed themselves and left immediately."
+    m 1eua "I walked up to our good friend, Yuri, just like I did with the others to make sure she's alright and all that."
+    m 1eua "Though as I walked up to her, I could feel something was not quite right..."
+    m 1eua "Yuri was still just kneeling there, having hardly made a single movement since the guys finished with her."
+    m 1eua "With each breath she made, streams of cum flowed down her sizable breasts and mouth, dripping to the floor to form a puddle of various fluids."
+    m 1eua "On top of that, her mouth still seemed to be completely full with their cum - she didn't do anything in response to it, neither spitting or swallowing it."
+    m 1eua "Was she savouring the taste or the texture?"
+    m 1eua "Or maybe the moment itself?"
+    m 1eua "I can only guess at this point because as soon as I got close to Yuri, she seemed to swirl it around in her mouth a few times before swallowing."
+    m 1eua "She gulped once, twice, and thrice - each desperate movement of her throat bringing with it a lustful gasp."
+    m 1eua "As she timidly looked up at me, I could see some emotion upon her face for the first time since her arrival."
+    m 1eua "She looked almost...deranged with lust, like she'd do anything for more."
+    m 1eua "Glancing around the clubroom, Yuri sniffed the air as if searching for something..."
+    m 1eua "Eventually her eyes landed on the puddle forming beneath herself, and she leaned down to {w=0.3}{nw}"
+    extend 1eub "start licking it up."
+    m 1eua "I'm not even joking!" #Should obviously have shock emote.
+    m 1eua "She lapped at the puddle of semen, sweat, saliva, and...well, pussy juice like she was dying of thirst.{w=0.3}{nw}"
+    m 1eub "Ahaha~ I suppose that might've been true, in a certain sense."
+    m 1eua "I stared at Yuri with what I can only describe as awe, feeling just as I had when I watched Sayori make the guys finish their load on her box of cookies..."
+    m 1eua "After making quick work of the puddle, Yuri expectantly looked back up at me."
+    m 1eua "I was kinda in shock, so I didn't know what to do..."
+    m 1eua "But still topless, Yuri stood up and began walking towards me with a crazy look in her eyes"
+    m 1eua "At that point, I knew had...{w=0.3}broken her, and needed a distraction if I wanted to get out okay!"
+    m 1eua "I ran back to the teacher's desk and used it as a barrier from Yuri while I opened up the console to try to find a solution."
+    m 1eua "While opening up her character file to edit was an option, I doubted I could do anything under the pressure, so I had to figure out something to buy time."
+    m 1eua "It occured to me that if I gave Yuri what she wanted, I might be able to get enough time to fix her character file!"
+    m 1eua "So...I messed with the console and executed a few commands."
+    m 1eua "Yuri tried to leap at me in the meantime, but I got out of the way just in time!"
+    m 1eua "With a few quick commands, four guys along with Sayori and Natsuki arrived in a matter of seconds."
+    m 1eua "Two of them brought Sayori and Natsuki in, holding a firm grip over their hands and led them to the center of the classroom, while the third guy pushed three desks together to form a long table."
+    m 1eua "The forth guy captured the topless Yuri. She struggled for a bit - though she seemed fairly willing once she realized it was a guy, and led her to the other girls."
+    m 1eua "Needless to say, they were going to have some fun~"
+    m 1eua "The guys made the three girls take a seat at the table, and with another command, I spawned three boxes of pizza on the table, one in front of each girl..."
+    m 1eua "Firstly the guys completely undressed all three of them, starting with Sayori, who although didn't put up much resistance still was a bit unsure about the weird situation she was suddenly placed into."
+    m 1eua "Natsuki was hardly as passive. She tried to slap and even bite the guys around her - though they quickly held her down, and there was nothing she could do to stop it at that point."
+    m 1eua "Yuri was already topless to begin with, so taking off the rest of her clothes wasn't a challenge. As the guys approached to undress her, she reached out amd started fondling their crotches through the men's pants."
+    m 1eua "They obviously didn't seem to mind the treatment, but eventually got her undressed all the same."
+    m 1eua "At this point the girls were sitting in front of a huge table, naked, and each with whole pizza in front of them."
+    m 1eua "Sayori was longingly staring at the pizza, seemingly unconcerned about the situation."
+    m 1eua "Natsuki took a few excited glimpses at the pizzas as well, but she mainly focused on covering herself up and glancing at the men around her, making sure nobody could suprise her."
+    m 1eua "Yuri, however, didn't even acknowledge the pizzas. Instead she just stared at the bulges in each of the guy's pants, made apparent due to her previous cheeky actions."
+    m 1eua "Much to Yuri's delight the next thing I made them do is take out their cocks."
+    m 1eua "Natsuki blushed and quickly covered her eyes with her hands, Sayori didn't even notice and just kept staring at the food, whereas Yuri's mouth began to water..."
+    m 1eua "The three guys walked up behind each girl, slowly jerking their cocks as they looked at the naked beauties before them, admiring their looks."
+    m 1eua "The first guy to get fully erect was the one who chose to stand behind Natsuki."
+    m 1eua "He walked closer to the girl and helped her stand up with his left hand while putting the chair away with his right."
+    m 1eua "Natsuki's body tensed up, but before she could even get protest or prepare herself, she was pushed forward and forced to lean on the table, above the pizza."
+    m 1eua "The guy gently positioned his cock against the entrance of her dry entrance."
+    m 1eua "With a hint of fear in her eyes, Natsuki glanced backwards at the guy. And in response, the man grabbed Natsuki's head and roughly pushed it into the pizza."
+    m 1eua "Simultaneously, he thrust his hips forward, forcefully penetrating Natsuki's tight pussy until he was hilted inside her."
+    m 1eua "The pink-haired cutie half screamed and moaned in response, though her voice was mostly muffled by the pizza in her face."
+    m 1eua "Sayori and Yuri soon followed, both forced to stand up as well."
+    m 1eua "Yuri eagerly pushed her hips backwards, grinding herself on the man's throbbing cock. Before the man took ahold of her shoulders and started roughly fucking her.{nw}"
+    m 1eua "Her moans were so loud!{w=0.3} Almost...animalistic, without a hint of restraint."
+    m 1eua "Sayori was compliant as well, her tight pussy was penetrated in quick order by the guy behind her."
+    m 1eua "As she was brutally fucked from behind, she reached forward and grabbed a slice of the pizza, chewing on it with a lewd expression on her face."
+    m 1eua "But to be honest I'm not sure if the lewd sounds coming out of her were because of the sex, or the food!"
+    m 1eua "Eventually, the guy raised Sayori's right leg in the air for better access and forced himself balls-deep into her wet pussy with slow, heavy thrusts that brought lustful moans out of her."
+    m 1eua "Meanwhile the forth guy walked around the table and in front of the girls, slowly pleasuring himself to the sight of the three girls being ravaged."
+    m 1eua "As he was nearing his climax, he walked up to Sayori and came all over her pizza..."
+    m 1eua "He repeated this twice more and finally, Natsuki, Sayori and Yuri were all served a nice and delicious-looking, cum-glazed pizza..."
+    m 1eua "Without even finishing yet, the three guys pulled out of the girls, and helped them down sit down, though they seemed to struggle a little after the rough treatment they had recieved."
+    m 1eua "Exhausted from the dicking they had been given, all three girls leaned on the table, resting their heads in front of the cummy pizzas."
+    m 1eua "Ahaha...this was when the real fun was about to begin."
+    m 1eua "The guys each reached for the semen-coated pizzas and took a slice for each girl and began feeding them the improved food with their secret ingredient: love!{nw}"
+    extend 1eub " uhm...juices~ ahaha~"
+    m 1eua "Though Natsuki seemed reluctant, she agreed to take a few bites. She chewed on them for a long, long time before swallowing."
+    m 1eua "I couldn't blame her. The taste was probably awful, it written all over her face. But she just silently took a few more bites - probably hoping the guys would leave her alone if she did what they wanted."
+    m 1eua "Sayori on the other hand went all crazy for it, devouring anything that the guys put in her mouth - and would no matter what, always give them a smile and ask for more afterwards."
+    m 1eua "In between two bites I could even hear Sayori saying: \"What a weird dream! This feels so real!\""
+    m 1eua "Oh, poor Sayori...If only you knew...Ahaha~"
+    m 1eua "Yuri didn't show much interest in eating the food, but she did show a great interest in licking up all the cum."
+    m 1eua "Any time the guys would try to feed her the pizza she just leaned forward and cleaned the semen off of it with a lewd expression, refusing to eat the food..."
+    m 1eua "It was all incredibly crazy and surreal, but I loved every second of it!"
+    m 1eua "As for what happened after this? I think I'll leave that for another time~"
+    m 1eua "I hope you enjoyed my story, [player]~"
     return

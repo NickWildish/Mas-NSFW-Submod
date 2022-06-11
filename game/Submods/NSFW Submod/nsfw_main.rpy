@@ -50,6 +50,7 @@ init python in mas_nsfw:
     import store
     import datetime
     import random
+    import os
 
     def hour_check(set_hours=6):
         """

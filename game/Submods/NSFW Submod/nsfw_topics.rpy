@@ -68,7 +68,7 @@ label nsfw_monika_nsfwmodinstall:
 
     return "derandom"
 
-default persistent._nsfw_genitalia = P # P: Penis, V: Vagina, U: Unknown
+default persistent._nsfw_genitalia = "P" # P: Penis, V: Vagina, U: Unknown
 # normally persistant vars have a default of None but it looks like a lot of topics are contingent on having this default to P? 
 
 init 5 python:

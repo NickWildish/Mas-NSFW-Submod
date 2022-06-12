@@ -19,7 +19,7 @@ label monika_brb_nsfw_masturbate:
 
     # To do - add in Affectionate variation?
     # Enamored (400-999+)
-    if mas_isMoniEnamored():
+    if mas_isMoniEnamored(higher=True):
     # Room for expansion - more random responses? More topics unlocked?
         if mas_Rand == 1:
         # Response 1

@@ -20,6 +20,13 @@ init -1 python in nsfw_stories:
     import store
     import datetime
 
+    othergirls_stories_order = [
+        "nsfw_erotic_story_natsuki_deepthroat1",
+        "nsfw_erotic_story_sayori_ballscleaning1",
+        "nsfw_erotic_story_yuri_titjob1",
+        "nsfw_erotic_story_club_pizza_party"
+    ]
+
     UNLOCK_NEW = "unlock_new"
     UNLOCK_NEXT_CHAPTER = "unlock_next_chapter"
 
@@ -160,24 +167,19 @@ init -1 python in nsfw_stories:
 
     def get_and_unlock_next_story():
         """
-        Unlocks and returns the next chapter of the erotic doki saga
+        Unlocks and returns the next chapter of the erotic doki saga. Returns None if no new story available
         """
+
         # Check which story is next
-        if store.mas_getEVL_shown_count("nsfw_erotic_story_club_pizza_party") >= 1:
-            story = get_and_unlock_random_story(story_type=TYPE_OTHERGIRLS)
-        else:
-            if store.mas_getEVL_shown_count("nsfw_erotic_story_yuri_titjob1") < 1:
-                story = store.mas_getEV("nsfw_erotic_story_yuri_titjob1")
-            else:
-                if store.mas_getEVL_shown_count("nsfw_erotic_story_sayori_ballscleaning1") < 1:
-                    story = store.mas_getEV("nsfw_erotic_story_sayori_ballscleaning1")
-                else:
-                    story = store.mas_getEV("nsfw_erotic_story_club_pizza_party")
+        for story_label in othergirls_stories_order:
+            if not renpy.seen_label(story_label):
+                story = store.mas_getEV(story_label)
+                # Unlock and return eventlabel
+                story.unlocked = True
+                return story_label
 
-        #Unlock and return eventlabel
-        story.unlocked = True
-
-        return story.eventlabel
+        # If no story to unlock, return none
+        return None
 
 init 6 python:
     addEvent(
@@ -259,11 +261,17 @@ label nsfw_monika_stories_menu:
         # TODO: Build a generalized switch for more than just two items
         if story_type == nsfw_stories.TYPE_OTHERGIRLS:
             #Add continuation of previous doki story
-            nsfw_stories_menu_items.append(("Tell me more about the other girls", nsfw_stories.UNLOCK_NEXT_CHAPTER, True, False))
+            if nsfw_stories.check_can_unlock_new_story(nsfw_stories.TYPE_OTHERGIRLS) == True:
+                nsfw_stories_menu_items.append(("Tell me more about the other girls", nsfw_stories.UNLOCK_NEXT_CHAPTER, True, False))
+            else:
+                nsfw_stories_menu_items.append(("Tell me more about the other girls", nsfw_stories.UNLOCK_NEXT_CHAPTER, False, False))
             switch_str = "n erotic story"
         else:
             #Add new random story
-            nsfw_stories_menu_items.append(("A new erotic story", nsfw_stories.UNLOCK_NEW, True, False))
+            if nsfw_stories.check_can_unlock_new_story(nsfw_stories.TYPE_EROTIC) == True:
+                nsfw_stories_menu_items.append(("A new erotic story", nsfw_stories.UNLOCK_NEW, True, False))
+            else:
+                nsfw_stories_menu_items.append(("A new erotic story", nsfw_stories.UNLOCK_NEW, False, False))
             switch_str = " story about the other girls"
 
         if mas_safeToRefDokis():
@@ -303,7 +311,7 @@ label nsfw_monika_stories_menu:
         #UNLOCKS NEW DOKI CHAPTERS. 
         #If we're unlocking the next chapter, check if it's possible to do so. If not, we raise dlg
         if story_to_push == nsfw_stories.UNLOCK_NEXT_CHAPTER:
-            if not can_unlock_nsfw_story or not store.mas_safeToRefDokis() or story_to_push == None:
+            if not can_unlock_nsfw_story or not store.mas_safeToRefDokis() or story_to_push == None or nsfw_stories.get_and_unlock_next_story() == None:
                 show monika at t11
                 $ _story_type = story_type
                 m 1ekc "Sorry [player]...I can't really think of a new story about the [_story_type] right now..."
@@ -626,7 +634,7 @@ init 6 python:
     )
 
 label nsfw_erotic_story_yuri_titjob1:
-    if not renpy.seen_label("nsfw_erotic_story_sayori_ballscleaning_init"):
+    if not renpy.seen_label("nsfw_erotic_story_yuri_titjob_init"):
         call nsfw_erotic_story_yuri_titjob_init
     m 1eua "Sayori was munching away on the cookies she had with her."
     m 1eua "Ahaha...That part about the cum-glazed cookie was something else, wasn't it?"
@@ -719,7 +727,7 @@ init 6 python:
     addEvent(
         Event(
             persistent._nsfw_story_database,
-            eventlabel="nsfw_erotic_story_pizza_party",
+            eventlabel="nsfw_erotic_story_club_pizza_party",
             prompt="Club pizza party",
             category=[nsfw_stories.TYPE_OTHERGIRLS],
             pool=True,
@@ -728,7 +736,7 @@ init 6 python:
         code="NST"
     )
 
-label nsfw_erotic_story_pizza_party:
+label nsfw_erotic_story_club_pizza_party:
     if not renpy.seen_label("nsfw_erotic_story_club_pizza_party_init"):
         call nsfw_erotic_story_club_pizza_party_init
     m 1eua "Let's continue the story from where we left off..."

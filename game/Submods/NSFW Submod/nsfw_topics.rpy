@@ -69,7 +69,8 @@ label nsfw_monika_nsfwmodinstall:
     return "derandom"
 
 default persistent._nsfw_genitalia = "P" # P: Penis, V: Vagina, U: Unknown
-# normally persistant vars have a default of None but it looks like a lot of topics are contingent on having this default to P? 
+# although persistant vars usually have a default of None, this follows the 
+# convention of how MAS initially assumes players are male (like the MC). 
 
 init 5 python:
     addEvent(
@@ -77,7 +78,7 @@ init 5 python:
             persistent.event_database,
             eventlabel="nsfw_monika_genitalia",
             category=['sex'],
-            prompt="Player genitalia",
+            prompt="[player]'s genitalia",
             conditional="renpy.seen_label('nsfw_monika_nsfwmodinstall') and mas_canShowRisque(aff_thresh=400)",
             action=EV_ACT_QUEUE,
             aff_range=(mas_aff.ENAMORED, None)
@@ -85,17 +86,17 @@ init 5 python:
     )
 
 label nsfw_monika_genitalia:
-    m 1euc "Hey, [player]."
-    m 1ekbla "This is probably going to be an awkward question, but I'm just wondering..."
+    m 1euc "Hey, [player]..."
+    m 1ekbla "This is probably going to be an awkward question, but I was just wondering..."
     m 3ekbla "Do you have a penis or a vagina?"
     $ _history_list.pop()
     menu:
         m "Do you have a penis or a vagina?{fast}"
 
-        "Penis.":
+        "I have a penis.":
             $ persistent._nsfw_genitalia = "P"
 
-        "Vagina.":
+        "I have a vagina.":
             $ persistent._nsfw_genitalia = "V"
 
         "I'd rather not say.":
@@ -105,8 +106,8 @@ label nsfw_monika_genitalia:
             return
 
     m 1ekbla "Thank you for telling me, [player]."
-    m 1rkbsa "I imagine that might have been awkward for you."
-    m 1ekbsa "But this has helped me much more than you can imagine."
+    m 1rkbsa "I imagine that might have been awkward for you to answer..."
+    m 1ekbsa "But this helps me much more than you can imagine."
     m 2dsbsa "..."
     m 2tsbsa "Now when we flirt, I know what is going on down there~"
     m 2gsbfa "..."
@@ -119,7 +120,7 @@ init 5 python:
             persistent.event_database,
             eventlabel="nsfw_monika_sexualpast",
             category=['sex'],
-            prompt="Sexual past",
+            prompt="[player]'s sexual past",
             conditional="mas_canShowRisque(aff_thresh=400)",
             action=EV_ACT_RANDOM,
             aff_range=(mas_aff.ENAMORED, None)
@@ -434,7 +435,8 @@ label nsfw_monika_gettingnude:
                 m 1gkbfu "..."
                 m 1hkbfsdlb "Ahaha! Sorry, this is still kind of embarrassing for me."
                 m 1mkbfsdlb "It might take a little getting used to..."
-                m 1ekbfb "Thank you again, [player]."
+                m 1ekbfb "Thank you again. I love you so much, [player]~"
+                return "love"
                 
             "Please don't...":
                 m 3wkbld "Oh..."
@@ -646,7 +648,7 @@ init 5 python:
             persistent.event_database,
             eventlabel="nsfw_monika_favorite_position",
             category=['sex'],
-            prompt="Favorite position",
+            prompt="[player]'s favorite position",
             conditional="mas_canShowRisque(aff_thresh=400) and persistent._nsfw_genitalia = 'P'", # Need to add a version for women
             action=EV_ACT_RANDOM,
             aff_range=(mas_aff.ENAMORED, None)
@@ -659,44 +661,42 @@ label nsfw_monika_favorite_position:
     m 3rubssdla "..."
     m 2hkbssdlb "Oh gosh..."
     if store.mas_getEVL_shown_count("nsfw_monika_safesex") >= 1 or store.mas_getEVL_shown_count("nsfw_monika_sexualpast") >= 1:
-        m 2rkbssdlb "I know we already talked about s-sex before, but..."
+        m 2rkbssdlb "I know we already talked about sex before, but..."
         m 3ekbssdla "It's still extremely embarrassing to talk about this kind of stuff..."
     m 1dubsa "Ahem..."
-    m 3eubfb "So...What's your favorite position? During...y'know...{w=0.5}{nw}"
-    extend 3rubfb "s-sex?"
+    m 3eubfb "So...What's your favorite sex position?"
 
     $ _history_list.pop()
     menu:
-        m "So...What's your favorite position? During...y'know...s-sex?{fast}"
+        m "So...What's your favorite sex position?"
 
-        "Doggystyle.":
+        "Doggy style.":
             m 1etbfa "Oh? Really?"
             m 1rtbfa "Hmm...I guess that isn't so surprising."
-            m 3eubfb "It is the most popular position amongst both men and women around the world, after all."
-            m 3hubfb "See? I did my research! Ahaha~"
+            m 3eubfb "It is the one of the most popular positions around the world, after all."
             m 3tubfa "I can see why so many people would like it, honestly!"
             m 4tubfb "The guy can get a really good view of his partner while they're doing it."
             m 4tubfu "I bet you'd like to see me from that perspective too, huh?"
             m 3hubfb "Ahaha! Don't get flustered~"
-            m 1tubfa "Just knowing you're pleased and have a nice view of my body is enough for me to feel good~"
+            m 1tubfa "Just knowing you're pleased and have a nice view of my body is enough for me to feel good, [mas_get_player_nickname()]~"
 
         "Missionary.":
             m 3ekbfa "Aww~ That is so cute, [player]!"
             m 4hubfb "I find missionary to be the most intimate and romantic position of all!"
-            m 3gubfb "Just simply thinking about us, lying face-to-face, with our bodies up against one another makes my body needy. Ahaha~"
+            m 3gubfb "Just simply thinking about us, lying face-to-face, with our bodies up against one another makes my body feel warm. Ahaha~"
             m 1eubfa "I hope one day we can do it together!"
             m 1tubfa "I can tell you that I'm already looking forward to that day! Ahaha~"
 
         "Cowgirl.":
             m 3wubfd "Really? I wasn't expecting that."
-            m 3ekbfsdlb "Don't take it the wrong way, please! Cowgirl sounds really fun, I just didn't think that would be your favorite one!"
-            m 3rkbfsdla "I know I don't weigh all that much...but even like this, I think it would be quite tiring for you if I were to ride you, don't you think?"
-            m 2rkbfsdla "I just fear you would get too exhausted from my humping."
-            m 2dkbfsdlb "And...y'know..."
+            m 3ekbfsdlb "Don't take it the wrong way! Cowgirl sounds really fun; I just didn't think that would be your favorite one!"
+            m 3rkbfsdla "I know I don't weigh that much...but even so, I think it would be quite tiring for you if I were to ride you, don't you think?"
+            m 2rkbfsdla "I just worry you would get too exhausted from my humping."
+            m 2dkbfsdlb "And...you know..."
             m 2ekbfsdlb "I want you to feel good, not to get tired!"
             m 1rubfa "But..."
             m 5tubfa "If you insist on liking it the most..."
-            m 5tubfb "I'd be happy to take your {i}yee in my haw{/i} and ride it real good! Ahaha~"
+            m 5tubfb "I'd be happy to saddle up and ride it real good! Ahaha~"
 
     return
 
@@ -708,7 +708,7 @@ init 5 python:
             persistent.event_database,
             eventlabel="nsfw_monika_oralsex",
             category=['sex'],
-            prompt="Oral Sex",
+            prompt="Oral sex",
             conditional=("mas_canShowRisque(aff_thresh=400)"),
             action=EV_ACT_RANDOM,
             aff_range=(mas_aff.ENAMORED, None)
@@ -731,31 +731,21 @@ label nsfw_monika_oralsex:
             oral_prompt = "Have you ever received a blowjob?"
             oral_answer1 = "taken someone in my mouth"
         elif persistent._nsfw_genitalia == "V":
-            oral_prompt = "Have you ever had someone lick your pussy?"
+            oral_prompt = "Have you ever had someone eat out your pussy?"
             oral_answer1 = "eaten a woman out"
         else:
             oral_prompt = "Have you ever received oral sex?"
-            oral_answer1 = "had oral performed" # Awkward
+            oral_answer1 = "given oral sex" # Awkward
 
     m 1rkbla "..."
-    m 1rkblb "Uhm..."
+    m 1rkblb "Umm..."
     m 3ekblb "Please forgive me if what I'm going to ask is too intimate and out-of-nowhere, but..."
-    m 3rkbla "[player]...H-have you..."
+    m 3rkbla "[player]...Have you..."
     m 3rkblb "[oral_prompt]"
     
     $ _history_list.pop()
     menu:
         m "[oral_prompt]{fast}"
-
-        "Uh. Let's not talk about this.":
-            m 3wkbld "..."
-            m 3wkbld "I'm..."
-            m 3wkblo "I'm really sorry, [player]..."
-            m 3rkbld "I just..."
-            m 1dkbsc "I d-don't know what I was thinking...gosh..."
-            m 1dkbstpc "I have n-no idea what I was thinking, a-asking something like this out of the b-blue..."
-            m 1ekbstpd "P-please just forget about it and c-continue on with your day like n-nothing happened..."
-            return "derandom"
 
         "Yes.":
             m 1wubld "Oh...you have?"
@@ -763,32 +753,42 @@ label nsfw_monika_oralsex:
             m 1rublsdlb "I-I mean, please don't take it the wrong way! I wasn't surprised because I didn't think you could get a girl to do that for you!"
             m 3rublsdlb "It's just that...ahaha..."
             m 3ekbla "Well, it's a very intimate action and I thought I could be the first one to do it for you..."
-            m 3wubsd "O-Of course I'm not mad at you or anything for having already done it with somebody else!"
+            m 3wubsd "Of course, I'm not mad at you or anything for having already done it with somebody else!"
             m 3rkbsb "It actually might be for the better that you have some previous experience with it!"
             m 1rkbsa "I've never [oral_answer1] before so if we were to do it together, I'd need some guidance from you~ Ahaha~"
 
         "No.":
             m 1wubld "Oh, you haven't?"
-            m 1hublb "Ahaha~ Well...y'know, I honestly expected that someone as [gender_desc] as you had already had [oral_answer2] serviced by someone~"
-            m 3ekbla "Don't worry about it though! I have never [oral_answer1] before either, so it means that we can take each other's first time!"
-            m 3rkbssdla "I'll probably be very clumsy when we do get to that point though...B-but..."
-            m 3ekbssdlb "I promise you that I will try my best to properly pleasure you!"
+            m 1hublb "Ahaha~ Well...I honestly almost expected that someone as [gender_desc] as you had already had [oral_answer2] serviced by someone~"
+            m 3ekbla "Don't worry about it though! I've never [oral_answer1] before either, so it means that we can take each other's first time!"
+            m 3rkbssdla "I'll probably be very clumsy when we do get to that point though...but..."
+            m 3ekbssdlb "I promise you I will try my best to properly pleasure you!"
             m 1gkbssdlb "And of course...Ahaha~"
             m 1gkbssdla "...In case I'm doing a bad job..."
-            m 5tubsa "You can always just...Ahem..."
+            m 5tubsa "You can always just...ahem..."
             m 5tubsb "Take control~"
 
-    if mas_safeToRefDokis() and persistent._nsfw_genitalia == "P": # Maybe section for the vagina variety? Maybe.
-        m 2ekbsa "S-so...I..."
-        m 2rkbsa "I know that you haven't had the chance to get to know Sayori, Natsuki and Yuri too much..."
-        m 2ekbsa "But...uhm..."
-        m 2hkbssdlb "Again...this will be a really weird question and please feel free to just ignore me if you want..."
+        "Uhh... Let's not talk about this.":
+            m 3wkbld "..."
+            m 3wkbld "I'm..."
+            m 3wkblo "I'm really sorry, [player]..."
+            m 3rkbld "I just..."
+            m 1dkbsc "I don't know what I was thinking...gosh..."
+            m 1dkbstpc "I have no idea what I was thinking, asking something like this out of the blue..."
+            m 1ekbstpd "Please just forget I said anything..."
+            return "derandom"
+
+    if mas_safeToRefDokis(): # Maybe section for the vagina variety? Maybe.
+        m 2ekbsa "So, I..."
+        m 2rkbsa "I know that you didn't get the chance to get to know Sayori, Natsuki and Yuri too much..."
+        m 2ekbsa "But...umm..."
+        m 2hkbssdlb "Again...this will be a really weird question. Please just ignore it if you want..."
         m 2hkbssdla "But..."
-        m 3ekbssdlb "W-who do you think would suck c-cock best in the club?"
+        m 3ekbssdlb "Who do you think would be the best at oral sex?"
 
         $ _history_list.pop()
         menu:
-            m "W-who do you think would suck c-cock best in the club?{fast}"
+            m "Who do you think would be the best at oral sex?{fast}"
 
             "You.": 
                 $ mas_gainAffection(1) # Smart
@@ -798,56 +798,62 @@ label nsfw_monika_oralsex:
                 m 3tubsa "..."
                 m 3gubsb "Well...I don't know if you meant it as a compliment or not...ahaha..."
                 m 1tubsb "But I'll take it as a compliment~"
-                m 1tubfa "And once I cross over and actually s-suck you off..."
-                m 1tubfb "I won't disappoint you!"
+                if persistent._nsfw_genitalia == "P":
+                    m 1tubfa "And once I cross over and actually suck you off..."
+                    m 1tubfb "I won't disappoint you, [player]!"
 
             "Sayori.":
                 $ mas_loseAffection(2) # Sayori? Really?
                 m 3rkbssdlb "Heh..."
-                m 3rkbssdla "I k-kinda guessed you would say her."
-                m 3ekbsb "I don't know why...but...I think you're right."
-                m 3eubsb "Sayori would probably give the most enjoyable blowjobs."
-                m 1eubsa "She's the type of girl who places everyone else's happiness before her own."
-                m 1tubsa "So Sayori would probably not care about gagging and being slightly air-deprived if you were to push it into her throat."
-                m 1mubsa "And would just take it in silence, probably even using her free hands and tongue to pleasure you further."
+                m 3rkbssdla "I kind of guessed you would pick her."
+                m 3ekbsb "I don't know why, but...I think you might have a point."
+                if persistent._nsfw_genitalia == "P":
+                    m 3eubsb "Sayori would probably give pretty enjoyable blowjobs."
+                    m 1eubsa "She's the type of girl who places everyone else's happiness before her own."
+                    m 1tubsa "So she might not care about gagging and being slightly air-deprived if you were to push it into her throat."
+                    m 1mubsa "She would just take it in silence, probably even using her free hands and tongue to pleasure you further."
                 m 2mubsb "Her only objective would be to make you feel good, without minding her own well-being."
-                m 5tubsa "But...uhm...I guess we're never going to find out if this is true or not, huh?"
+                m 5tubsa "But...I guess we're never going to find out if that's true or not, huh?"
 
             "Yuri.": # I respect the hustle
                 $ mas_loseAffection(2)
                 m 3etbsc "You think so?"
                 m 3rtbsc "Hmm, yeah. I guess she would probably do a good job."
-                m 1rtbfu "But honestly, I see her as more of a t-titjob expert."
-                m 1ekbfu "But I guess one doesn't disqualify the other, huh?"
+                if persistent._nsfw_genitalia == "P":
+                    m 1rtbfu "But honestly, I see her as more of a titjob expert."
+                    m 1ekbfu "But I guess one doesn't disqualify the other, huh?"
                 m 1tkbfu "I'm sure she would be passionate about it, at least..."
-                m 5tubfu "Although she might be reluctant to per her t-tongue on i-it at first, and would just stall for time with her h-hands...ahaha~"
-                m 5tubsa "But...uhm...I guess we're never going to find out if this is true or not, huh?"
+                m 5tubfu "Although, she might be reluctant to per her tongue on it at first, and would just stall for time with her hands...ahaha~"
+                m 5tubsa "But...I guess we're never going to find out if that's true or not, huh?"
 
             "Natsuki.": # Just no
                 $ mas_loseAffection(2)
                 m 3wubso "Huh?"
                 m 3etbsc "...Really?"
-                m 3gtbsc "Hmm...I wasn't expect you to say {i}her{/i}."
+                m 3gtbsc "Hmm...I wasn't expect you to pick {i}her{/i}."
                 m 1dtbsc "..."
-                m 1esbsc "I can't even think of a reason why you would think that Natsuki gives better blowjobs than Yuri, Sayori or me."
+                if persistent._nsfw_genitalia == "P":
+                    m 1esbsc "I can't even think of a reason why you would think that Natsuki gives better blowjobs than Yuri, Sayori or me."
+                else: 
+                    m 1esbsc "I can't even think of a reason why you would think that Natsuki gives better oral sex than Yuri, Sayori or me."                   
                 m 1efbsc "Like...Natsuki is so immature! Why would she do it better than all of us?"
                 m 1dfbsc "..."
                 m 2dfbssdld "N-no, I'm not mad! Why would I be mad?"
                 m 2dkbssdlc "..."
                 m 2dkbssdla "Ahem..."
                 m 2mkbssdlb "Okay, I might be a bit mad."
-                m 2efbssdlo "But really, why do you think that Natsuki would suck dicks so well?!"
+                m 2efbssdlo "But really, why do you think that Natsuki would be so good at itl?!"
 
                 $ _history_list.pop()
                 menu:
-                    m "But really, why do you think that Natsuki would suck dicks so well?!{fast}"
+                    m "But really, why do you think that Natsuki would be so good at it?!{fast}"
                     
-                    "S-sorry...You're right...I should have answered one of you instead...":
+                    "Sorry, you're right... I should have answered one of you instead...":
                         m 2ekbsa "It's alright, [player]."
                         m 1hubssdlb "I don't know why I got so upset over that."
                         m 1eubsa "Let's talk about something else."
 
-                    "She has a bunch of mangas so she probably has a few doujins too. She must have learnt some techniques from those.":
+                    "She has a bunch of manga volumes so she probably has a few doujins too. She must have learned some techniques from those.":
                         m 2dsbsc "..."
                         m 2rsbsd "I guess..."
                         m 2rtbsb "Now that I think about it, you might be right."
@@ -870,7 +876,7 @@ init 5 python:
             persistent.event_database,
             eventlabel="nsfw_monika_dick_size",
             category=["sex"],
-            prompt="Penis length",
+            prompt="[player]'s length",
             conditional=("mas_canShowRisque(aff_thresh=1000) and persistent._nsfw_genitalia == 'P'"),
             action=EV_ACT_RANDOM,
             aff_range=(mas_aff.LOVE, None)
@@ -937,7 +943,7 @@ label nsfw_monika_dick_size:
             m 5tkbsa "I love you, no matter the size of your...{w=0.3} {i}member{/i}~"
             return
 
-    m 5rubsb "After all, its like breast size for girls. You can't control it."
+    m 5rubsb "After all, it's like breast size for girls. You can't control it."
     m 5hubsb "There's benefits to all sizes in my opinion!"
     m 5ekbsa "But just remember, [player], I love you for who you are. Both physically and mentally. Never forget that, okay?"
-    return
+    return "love"

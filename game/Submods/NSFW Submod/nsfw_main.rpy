@@ -1,6 +1,6 @@
 init -990 python in mas_submod_utils:
     Submod(
-        author="NickWildish, proxilvia, TheBlushingSoldier, mizuotanu-nirera, KittyTheCocksucker, TheOneandOnlyDargonite",
+        author="NSFW Dev Team",
         name="NSFW Submod",
         description="A collection of NSFW topics and features for MAS.",
         version="1.1.0",

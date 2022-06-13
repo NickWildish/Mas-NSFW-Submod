@@ -62,6 +62,9 @@ init 5 python: # init 5 as the modified dictionary (mas_all_ev_db_map) is using 
     mas_all_ev_db_map.update({"NST" : store.nsfw_stories.nsfw_story_database})
 
 init python in mas_nsfw:
+    """
+    Contains functions and methods used by NSFW content
+    """
     import store
     import datetime
     import random
@@ -109,6 +112,32 @@ init python in mas_nsfw:
             return True
         else:
             return False
+
+    def calc_sexting_reqs(horny_max=50, horny_min=0, hot_req=10, sexy_req=30):
+        """
+        Calculates what the values of horny maximum, minimum, hot_req and sexy_req are, based on the player's endurance value
+
+        IN: 
+            horny_max - The maximum amount of horny Monika can withold before exploding in ecstasy
+                (Default: 50)
+            horny_min - The minimum horny value
+                (Default: 0)
+            hot_req - The horny_level requirement for hot dialogue
+                (Default: 10)
+            sexy_req - The horny_level requirement for sexy dialogue
+                (Default: 30)
+        
+        OUT:
+            The maximum, minimum, hot_req and sexy_req values
+        """
+        player_endurance = store.persistent._nsfw_player_endurance
+
+        new_horny_max = horny_max * player_endurance
+        new_horny_min = horny_min * player_endurance # It's always gonna be zero babyyy
+        new_hot_req = hot_req * player_endurance
+        new_sexy_req = sexy_req * player_endurance
+
+        return new_horny_max, new_horny_min, new_hot_req, new_sexy_req
 
     def return_sext_responses(response_category=0):
         """

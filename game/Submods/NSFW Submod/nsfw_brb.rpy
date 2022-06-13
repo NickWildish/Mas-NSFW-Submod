@@ -17,9 +17,8 @@ label monika_brb_nsfw_masturbate:
     # make a random int, for randomness
     $ mas_Rand = renpy.random.randint(1, 3)
 
-    # To do - add in Affectionate variation?
-    # Enamored (400-999+)
-    if mas_isMoniEnamored(higher=True):
+    # Expansion - add in Affectionate variation, possibly with call to Sexting etc.
+    if mas_isMoniEnamored(higher=True): # Enamored (400-999+)
     # Room for expansion - more random responses? More topics unlocked?
         if mas_Rand == 1:
         # Response 1
@@ -44,15 +43,11 @@ label monika_brb_nsfw_masturbate:
             m 4ksbfa "Just make sure to think of your girlfriend, Monika, while you do it!"
             m 2ksbfa "That'll make me happy."
             m 3kublu "I'll be here when you're finished up~"
-    # other affection values
-    # elsif mas_isMoniAff():
-        # to do - variations for lower affection values
-    # Don't know why you'd try this is if you have low affection
-    else:
+    # other affection values - Don't know why you'd try this is if you have low affection
+    else: # Anything less than 400 affection
         m 2tsbsc "..."
         m 2tsbsd "I'm going to pretend I didn't hear that."
         m 2ekbssdlb "Just tell me when you're done."
-
 
     # the callback label
     $ mas_idle_mailbox.send_idle_cb("monika_brb_nsfw_masturbate_callback")
@@ -67,8 +62,8 @@ label monika_brb_nsfw_masturbate:
 label monika_brb_nsfw_masturbate_callback:
     $ wb_quip = mas_brbs.get_wb_quip()
 
-    # to do - add in choices for added interaction, e.g. "I came" "I didnt get off" etc
-    if mas_isMoniLove(higher=True):
+    # Expansion - add in choices for added interaction, e.g. "I came" "I didnt get off" etc
+    if mas_isMoniEnamored(higher=True):
         if mas_brbs.was_idle_for_at_least(datetime.timedelta(minutes=30), "monika_brb_nsfw_masturbate"):
             m 2eubf "There you are, [player]!"
             m 2eubf "I was worried something had happened to you."

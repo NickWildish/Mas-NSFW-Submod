@@ -23,5 +23,22 @@ label nsfw_mood_horny:
 
     m 1eua "Oh? Is that so, [player]?"
     m 1eua "Well...I think I know a way that we can relieve you of {i}that{/i} problem..."
-    m 1eua "We could try "
+    m 1eua "Would like me to lend you a hand?"
+
+    $ _history_list.pop()
+    menu:
+        m "Would like me to lend you a hand?{fast}"
+
+        "Yes.":
+            $ store.persistent._nsfw_sext_hot_start = True # Might change this in the future if we make Monika's horny level change depending on other events. Making this an IF statement rather than forcing her to be horny.
+            m 1eua "Hnnn~"
+            m 1eua "Okay, I want you to follow my lead."
+            m 1eua "Just talk as naughty as you like to me, and enjoy yourself~"
+
+            call nsfw_sexting_init
+
+        "No.":
+            m 1eua "Naww..."
+            m 1eua "That's okay, [player]."
+            m 1eua "I'll always be here if you need me~"
     return

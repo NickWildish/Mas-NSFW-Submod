@@ -24,10 +24,10 @@ default persistent._nsfw_player_endurance = 1
 
 screen nsfw_submod_screen():
     python:
-        submods_screen = store.renpy.get_screen("submods", "screens")
-
-        if submods_screen:
-            _tooltip = submods_screen.scope.get("tooltip", None)
+        nsfw_submods_screen = store.renpy.get_screen("submods", "screens")
+        
+        if nsfw_submods_screen:
+            _tooltip = nsfw_submods_screen.scope.get("tooltip", None)
         else:
             _tooltip = None
     
@@ -40,9 +40,22 @@ screen nsfw_submod_screen():
             style_prefix "check"
             box_wrap False
 
-            textbutton _("Sexting Endurance") action NullAction()
+            if _tooltip:
+                textbutton _("Sexting Endurance"):
+                    action NullAction()
+                    hovered SetField(_tooltip, "value", "Changes the duration that Monika will last during sexting, from ~5 minutes to ~55 minutes")
+                    unhovered SetField(_tooltip, "value", _tooltip.default)
+            else:
+                textbutton _("Sexting Endurance"):
+                    action NullAction()
 
-            bar value StaticValue(value=0.0, range=1.0)
+            bar value FieldValue(
+                persistent,
+                "_nsfw_player_endurance",
+                range=10,
+                offset=1,
+                style="slider"
+            )
 
 init 5 python: # init 5 as the modified dictionary (mas_all_ev_db_map) is using priority 4, and we want it to be around before adding anything.
     mas_all_ev_db_map.update({"NCP" : store.nsfw_compliments.nsfw_compliment_database})

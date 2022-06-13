@@ -10,15 +10,17 @@ init -990 python in mas_submod_utils:
     ) # https://github.com/NickWildish/Mas-NSFW-Submod
 
 # Register the updater
-init -989 python:
-    if store.mas_submod_utils.isSubmodInstalled("Submod Updater Plugin"):
-        store.sup_utils.SubmodUpdater(
-            submod="NSFW Submod",
-            user_name="NickWildish",
-            repository_name="Mas-NSFW-Submod",
-            update_dir="",
-            attachment_id=None
-        )
+# init -989 python:
+#     if store.mas_submod_utils.isSubmodInstalled("Submod Updater Plugin"):
+#         store.sup_utils.SubmodUpdater(
+#             submod="NSFW Submod",
+#             user_name="NickWildish",
+#             repository_name="Mas-NSFW-Submod",
+#             update_dir="",
+#             attachment_id=None
+#         )
+
+default persistent._nsfw_player_endurance = 1
 
 screen nsfw_submod_screen():
     python:

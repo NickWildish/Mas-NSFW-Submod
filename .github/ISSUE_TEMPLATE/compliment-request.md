@@ -1,7 +1,7 @@
 ---
 name: Compliment request
 about: Suggest a new compliment for this submod
-title: ''
+title: 'Compliment - '
 labels: feature idea
 assignees: ''
 

@@ -1,7 +1,7 @@
 ---
 name: Story request
 about: Suggest a new story for this submod
-title: ''
+title: 'Story - '
 labels: feature idea
 assignees: ''
 

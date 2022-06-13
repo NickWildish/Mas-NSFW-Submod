@@ -669,7 +669,7 @@ label nsfw_monika_masturbation_benefits:
             m 4eua "For men and women alike, it can lead to better sexual satisfaction. {w=0.5}It makes sense, if you think about it!"
             m 3eubla "If you know your own body, then you'll have an easier time conveying to your partner what you like..."
             m 2efc "Now, with all that in mind...!"
-            m 3efd "Masturbation addition can be a serious issue."
+            m 3efd "Masturbation addiction can be a serious issue."
             m 3efd "The benefits I mentioned... the dopamine release... chasing that high too often {i}is{/i} bad for you."
             m 4efd "People who masturbate {i}too{/i} frequently can have a harder time getting off with a partner..."
             m 1eud "Not to mention, if you use porn to get off, especially visual media...{w=0.5} You can become desensitized to more vanilla experiences."

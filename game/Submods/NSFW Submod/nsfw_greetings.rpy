@@ -5,7 +5,7 @@ init 5 python:
             eventlabel="greeting_nsfw_seductive",
             unlocked=True,
             aff_range=(mas_aff.ENAMORED, None),
-            conditional="mas_canShowRisque()"
+            conditional="mas_canShowRisque(aff_thresh=400)"
         ),
         code="GRE"
     )

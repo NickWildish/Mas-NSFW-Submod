@@ -6,7 +6,7 @@ init 5 python:
             eventlabel="monika_brb_nsfw_masturbate",
             prompt="I'm going to go masturbate",
             category=['be right back'],
-            conditional="mas_canShowRisque()",
+            conditional="mas_is18Over()",
             pool=True,
             unlocked=True
         ),
@@ -84,7 +84,7 @@ label monika_brb_nsfw_masturbate_callback:
             m 1hubfb "Welcome back, [player]. Hehe~{w=0.2} {nw}"
             m 1eubfb "I'm guessing you had enough time to... do the deed?"
             m 1eubfb "I hope you had a bit of {i}fun{/i} by yourself, there..."
-            m 1eubfb "[wb_quip]"
+            m 1eua "[wb_quip]"
         elif mas_brbs.was_idle_for_at_least(datetime.timedelta(minutes=1), "monika_brb_nsfw_masturbate"):
             m 1hubfb "Welcome back, [player]. Hehe~{w=0.2} {nw}"
             m 2hubfb "That was fast... Ehehe~"

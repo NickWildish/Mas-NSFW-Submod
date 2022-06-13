@@ -1,6 +1,6 @@
 init -990 python in mas_submod_utils:
     Submod(
-        author="NickWildish",
+        author="NSFW Dev Team",
         name="NSFW Submod",
         description="A collection of NSFW topics and features for MAS.",
         version="1.1.0",
@@ -10,22 +10,24 @@ init -990 python in mas_submod_utils:
     ) # https://github.com/NickWildish/Mas-NSFW-Submod
 
 # Register the updater
-init -989 python:
-    if store.mas_submod_utils.isSubmodInstalled("Submod Updater Plugin"):
-        store.sup_utils.SubmodUpdater(
-            submod="NSFW Submod",
-            user_name="NickWildish",
-            repository_name="Mas-NSFW-Submod",
-            update_dir="",
-            attachment_id=None
-        )
+# init -989 python:
+#     if store.mas_submod_utils.isSubmodInstalled("Submod Updater Plugin"):
+#         store.sup_utils.SubmodUpdater(
+#             submod="NSFW Submod",
+#             user_name="NickWildish",
+#             repository_name="Mas-NSFW-Submod",
+#             update_dir="",
+#             attachment_id=None
+#         )
+
+default persistent._nsfw_player_endurance = 1
 
 screen nsfw_submod_screen():
     python:
-        submods_screen = store.renpy.get_screen("submods", "screens")
-
-        if submods_screen:
-            _tooltip = submods_screen.scope.get("tooltip", None)
+        nsfw_submods_screen = store.renpy.get_screen("submods", "screens")
+        
+        if nsfw_submods_screen:
+            _tooltip = nsfw_submods_screen.scope.get("tooltip", None)
         else:
             _tooltip = None
     
@@ -38,15 +40,31 @@ screen nsfw_submod_screen():
             style_prefix "check"
             box_wrap False
 
-            textbutton _("Sexting Endurance") action NullAction()
+            if _tooltip:
+                textbutton _("Sexting Endurance"):
+                    action NullAction()
+                    hovered SetField(_tooltip, "value", "Changes the duration that Monika will last during sexting, from ~5 minutes to ~55 minutes")
+                    unhovered SetField(_tooltip, "value", _tooltip.default)
+            else:
+                textbutton _("Sexting Endurance"):
+                    action NullAction()
 
-            bar value StaticValue(value=0.0, range=1.0)
+            bar value FieldValue(
+                persistent,
+                "_nsfw_player_endurance",
+                range=10,
+                offset=1,
+                style="slider"
+            )
 
 init 5 python: # init 5 as the modified dictionary (mas_all_ev_db_map) is using priority 4, and we want it to be around before adding anything.
     mas_all_ev_db_map.update({"NCP" : store.nsfw_compliments.nsfw_compliment_database})
     mas_all_ev_db_map.update({"NST" : store.nsfw_stories.nsfw_story_database})
 
 init python in mas_nsfw:
+    """
+    Contains functions and methods used by NSFW content
+    """
     import store
     import datetime
     import random
@@ -55,6 +73,10 @@ init python in mas_nsfw:
     def hour_check(set_hours=6):
         """
         Checks if six hours has passed since the player has seen the getting nude topic and also been away from the pc for at least six hours.
+
+        IN:
+            set_hours - The amount of time that has to have passed since the player last saw the getting nude topic.
+                (Default: 6)
 
         OUT: 
             True if the player has been away for six hours AND the getting nude topic hasn't been used for six hours, False if otherwise
@@ -90,6 +112,32 @@ init python in mas_nsfw:
             return True
         else:
             return False
+
+    def calc_sexting_reqs(horny_max=50, horny_min=0, hot_req=10, sexy_req=30):
+        """
+        Calculates what the values of horny maximum, minimum, hot_req and sexy_req are, based on the player's endurance value
+
+        IN: 
+            horny_max - The maximum amount of horny Monika can withold before exploding in ecstasy
+                (Default: 50)
+            horny_min - The minimum horny value
+                (Default: 0)
+            hot_req - The horny_level requirement for hot dialogue
+                (Default: 10)
+            sexy_req - The horny_level requirement for sexy dialogue
+                (Default: 30)
+        
+        OUT:
+            The maximum, minimum, hot_req and sexy_req values
+        """
+        player_endurance = store.persistent._nsfw_player_endurance
+
+        new_horny_max = horny_max * player_endurance
+        new_horny_min = horny_min * player_endurance # It's always gonna be zero babyyy
+        new_hot_req = hot_req * player_endurance
+        new_sexy_req = sexy_req * player_endurance
+
+        return new_horny_max, new_horny_min, new_hot_req, new_sexy_req
 
     def return_sext_responses(response_category=0):
         """

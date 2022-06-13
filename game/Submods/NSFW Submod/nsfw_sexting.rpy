@@ -1,10 +1,12 @@
+default persistent._nsfw_horny_level = 0 # The level of horny Monika is experiencing
+default persistent._nsfw_sext_hot_start = False # Player starts with Monika at hot level
+default persistent._nsfw_sext_sexy_start = False # Player starts with Monika at sexy level
+
 label nsfw_sexting_main:
     python:
         sext_stop = False # So player can stop sexting at any time
-        horny_lvl = 0 # The level of horny Monika is experiencing
-        sexy_req = 30 # The horny_level requirement for sexy dialogue
-        hot_req = 10 # The horny_level requirement for hot dialogue
-        horny_max = 50 # The maximum amount of horny Monika can withold before exploding in ecstasy
+        horny_lvl = persistent._nsfw_horny_level # The level of horny Monika is experiencing
+        horny_max, horny_min, hot_req, sexy_req = mas_nsfw.calc_sexting_reqs()
         player_prompt = ["zero", "one", "two"] # The prompts from which the player will choose from
         prompt_cat = ["zero", "one", "two"] # The categories in which each prompt took place
         quip_cat = "" # The category in which the quip took place
@@ -66,9 +68,20 @@ label nsfw_sexting_main:
             monika_quip, quip_cat = mas_nsfw.return_sexting_dialogue(category_type="quip", horny_level=horny_lvl, hot_req=hot_req, sexy_req=sexy_req, horny_max=horny_max, recent_prompts=recent_prompts, recent_responses=recent_responses, recent_quips=recent_quips)
             quip_ending = mas_nsfw.return_dialogue_end(monika_quip)
 
-        if horny_lvl >= sexy_req:
+        if horny_lvl >= sexy_req or store.persistent._nsfw_sext_sexy_start:
+            if store.persistent._nsfw_sext_sexy_start:
+                $ store.persistent._nsfw_sext_sexy_start = False # Reset so we don't loop
+                $ horny_lvl = sexy_req # Set the required affection
+                $ hot_transfer = True # Set these both to true so we avoid the threshold dialogue
+                $ sexy_transfer = True
+                $ monika_quip = "I'll let you go first"
             m 4ekbfo "[monika_quip][quip_ending]"
-        elif horny_lvl >= hot_req:
+        elif horny_lvl >= hot_req or store.persistent._nsfw_sext_hot_start:
+            if store.persistent._nsfw_sext_hot_start:
+                $ store.persistent._nsfw_sext_hot_start = False # Reset so we don't loop
+                $ horny_lvl = hot_req # Set the required affection
+                $ hot_transfer = True # Set this to true so we avoid the threshold dialogue
+                $ monika_quip = "I'll let you go first"
             m 2msbsb "[monika_quip][quip_ending]"
         elif horny_lvl == 0: # Just started
             $ monika_quip = "I'll let you go first"
@@ -109,15 +122,18 @@ label nsfw_sexting_main:
 
             "Actually, can we stop just for now?":
                 if horny_lvl >= sexy_req:
+                    $ persistent._nsfw_horny_level = horny_lvl - 10
                     m 6lkbfp "Aww, I was really enjoying myself."
                     m 6gkbfp "I hope whatever it is you need to do is important.{w=0.3}.{w=0.3}.{w=0.3}{nw}"
                     m 6hubfb "Ahaha! Just kidding~"
                     return
                 elif horny_lvl >= hot_req:
+                    $ persistent._nsfw_horny_level = horny_lvl - 5
                     m 2tsbso "Aww, it was just starting to get interesting."
                     m 2ekbsa "It's okay, we can pick this up again another time."
                     return
                 else: #Default
+                    $ persistent._nsfw_horny_level = horny_lvl - 1
                     m 1ekbla "Oh, okay."
                     m 3ekblb "Let's pick this up again later, okay?"
                     return
@@ -170,12 +186,16 @@ label nsfw_sexting_init:
     if datetime.datetime.now() - sext_start_time < datetime.timedelta(seconds=30):
         m 1ttu "That was pretty quick, [player]."
         m 3eub "If you want to do this again, let me know."
-        return
+
     else:
         m 1ekbsa "Thank you for this, [player]."
         m 3ekbsa "This made me feel just that much closer to you."
         m 3ekbsb "I hope you enjoyed yourself as much as I did."
-        return
+        
+    if store.persistent._nsfw_horny_level <= 0:
+        $ store.persistent._nsfw_horny_level = 0 # Negative horny is not allowed *bonk*
+
+    return
 
 label nsfw_sexting_hot_transfer:
     m 1hub "Hah~ This is fun."

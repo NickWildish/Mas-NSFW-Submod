@@ -1,6 +1,6 @@
 init -990 python in mas_submod_utils:
     Submod(
-        author="NickWildish",
+        author="NickWildish, proxilvia, TheBlushingSoldier, mizuotanu-nirera, KittyTheCocksucker, TheOneandOnlyDargonite",
         name="NSFW Submod",
         description="A collection of NSFW topics and features for MAS.",
         version="1.1.0",
@@ -55,6 +55,10 @@ init python in mas_nsfw:
     def hour_check(set_hours=6):
         """
         Checks if six hours has passed since the player has seen the getting nude topic and also been away from the pc for at least six hours.
+
+        IN:
+            set_hours - The amount of time that has to have passed since the player last saw the getting nude topic.
+                (Default: 6)
 
         OUT: 
             True if the player has been away for six hours AND the getting nude topic hasn't been used for six hours, False if otherwise

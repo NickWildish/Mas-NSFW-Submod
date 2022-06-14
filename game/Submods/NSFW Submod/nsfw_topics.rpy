@@ -68,9 +68,7 @@ label nsfw_monika_nsfwmodinstall:
 
     return "derandom"
 
-default persistent._nsfw_genitalia = "P" # P: Penis, V: Vagina, U: Unknown
-# although persistant vars usually have a default of None, this follows the 
-# convention of how MAS initially assumes players are male (like the MC). 
+default persistent._nsfw_genitalia = None # P: Penis, V: Vagina, U: Unknown ; Default: None
 
 init 5 python:
     addEvent(

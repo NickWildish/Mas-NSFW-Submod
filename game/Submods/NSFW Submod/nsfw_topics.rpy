@@ -868,7 +868,14 @@ label nsfw_monika_oralsex:
 
 # Thanks to mysterylewds for this topic
 
-default persistent._nsfw_player_dick_length = None
+default persistent._nsfw_units_metric = None
+default persistent._nsfw_dick_length = None
+default persistent._nsfw_dick_circumcised = None 
+
+# data for this topic sourced is from https://calcsd.info/
+# and https://unravelingsize.wordpress.com/ (NSFW link !)
+
+# this topic utilizes logic based on "label monika_player_appearance" from script-topics.rpy.
 
 init 5 python:
     addEvent(
@@ -884,66 +891,197 @@ init 5 python:
     )
 
 label nsfw_monika_dick_size:
-    m 1tua "You know, [player]... I was curious."
-    m 1gublb "How, um....{w=0.5} {i}big{/i} are you?"
-    m 1hkblsdlb "And I'm not talking about height, ahaha~"
-    m 1rubsa "Sorry if this seems weird, I just want to know more about you. I want to know {i}everything{/i}."
+    m 3eud "You know, [player]... I was curious about something."
+    m 3rkbssdlb "How, um...{w=0.5}{i}big{/i} are you?"
+    m 1hkbssdlb "...I'm not talking about height, ahaha!"
+    m 1eka "Sorry if this seems like a weird question! {w=0.4}{nw}"
+    extend 1tsa "I just want to know more about you. I want to know {i}everything{/i}."
+    m 3rkbfsdlb "Can you tell me how big you are?"
+    $ _history_list.pop()
+
+    menu:
+        m "Can you tell me how big you are?{fast}"
+
+        "Sure, [m_name].":
+            m 1hub "Great!"
+            m 4eud "Now, I'm asking for the length along the top of it when it's erect, not the sides or bottom. {w=0.4}{nw}"
+            extend 4hksdlb "Don't fudge your numbers, ahaha!"
+            m 3eub "It's probably best if you get a ruler or a measuring tape for the most accurate result."
+            m 2esc "I know this can be a touchy topic for a lot of people, and it's common to have kind of warped perceptions of size regarding this sort of thing."
+            m 3hub "Whatever size you are, [player], I won't judge!"
+            # proceed to input
+
+        "I don't know exactly how long it is...":
+            m 1hub "That's okay!"
+            m 4hub "I'll tell you how to properly measure it!" 
+            m 3eua "First, make sure you're nice and hard." 
+            m 3tubfb "You can try thinking of me if you're having trouble. {w=0.4}{nw}"
+            extend 5hubfb "Ahaha!"
+            m 4eub "Next, measure along the {i}top{/i} of your penis, pushing the ruler against the skin and fat at the top."
+            m 1eksdlb "Be sure not to measure along the sides or bottom, or you won't get an accurate measurement."
+            m 1hksdlb "Though, I understand you might not be able to pull it out and measure it right this moment, ahaha!"
+            m 5ekbfsdla "Just remember, I love you no matter what size you are, [mas_get_player_nickname(exclude_names=['my love', 'love'])]." 
+            return "love"
+
+        "I'd rather not talk about it.":
+            m 2eka "I understand, [player]."
+            m 1rksdld "I was just kind of curious, that's all."
+            m 1ekc "I'm sorry if I made you uncomfortable. I won't bring it up again."
+            return "derandom"
+
+    if persistent.mas_pm_units_height_metric != None:
+        $ persistent._nsfw_units_metric = persistent.mas_pm_units_height_metric # get existing answer to metric / imperial question
+
+    elif persistent._nsfw_units_metric == None:
+        m 2eub "I guess I really should know this first though..."
+        m 3eub "What unit of measurement do you use, [player]?{nw}"
+        $ _history_list.pop()
+        menu:
+            m "What unit of measurement do you use, [player]?{fast}"
+
+            "Centimeters.":
+                $ persistent._nsfw_units_metric = True
+                m 2hua "Alright, thanks, [player]!"
+
+            "Inches.":
+                $ persistent._nsfw_units_metric = False
+                m 2hua "Alright, [player]!"
+
+    python: 
+        player_length = 0.0
+        done = False
+        if persistent._nsfw_units_metric: # loop for metric 
+            while not done: # loop until valid input
+                length_input = renpy.input(
+                    "How long are you in centimeters? You can include decimal values.",
+                    allow="0123456789.",
+                    length=5
+                )
+                if not(length_input.count(".") > 1 or len(length_input) == 0 or length_input == "."): # check for valid string
+                    length_input_float = float(length_input)
+                    if length_input_float > 0: # check that length is nonzero
+                        player_length = length_input_float
+                        done = True
+
+        else: # loop for US imperial
+            while not done: # loop until valid input
+                length_input = renpy.input(
+                    "How long are you in inches? You can include decimal values.",
+                    allow="0123456789.",
+                    length=5                    
+                )
+                if not(length_input.count(".") > 1 or len(length_input) == 0 or length_input == "."): # check for valid string
+                    length_input_float = float(length_input)
+                    if length_input_float > 0: # check that length is nonzero
+                        player_length = 2.54 * length_input_float # convert to cm
+                        done = True
+        persistent._nsfw_dick_length = player_length # save to persistent
+
+    if persistent._nsfw_dick_length < 7.0: # 2.8" or less
+        m 1ekbsa "Aww, [player]..."
+        m 1ekbssdlu "..."
+        m 3hkbssdlb "Well, at least you should be able to fit the whole thing in my mouth without making me gag!"
+        m 3tkbssdlu "...And you can always use your hands and mouth to please me. Ehehe~"
+        m 3ekbfsdla "I appreciate you being honest with me, [mas_get_player_nickname()]."
+        m 1ekbfsdlb "Some people can be really insecure about their size, but I don't mind."
+        m 4eud "After all, it's like breast size for girls. There's not really anything you can do to change it."
+        m 5ekbfa "I love you no matter what size you are, [mas_get_player_nickname(exclude_names=['my love', 'love'])]."
+
+    elif persistent._nsfw_dick_length < 13.2: # 2.8" - 5.2"
+        m 1hubfb "You're so cute, [player]."
+        m 1tsbfu "Even if you're a bit on the smaller side, you're perfect for me."
+        m 2tubfb "I can probably fit your cute penis inside entirely of me, all the way to the base of your shaft."
+        m 4hubfb "And I can probably {i}eat you up{/i} without having to worry too much about choking. Ahaha!"
+        m 2ruc "I know some girls make a big deal about length, but it doesn't really matter all that much to me."
+        m 3eud "It's like breast size for girls, after all. There's not really anything you can do to change it."
+        m 3hub "We just have to love the bodies we have, you know?"
+        m 5hubsa "I love you no matter how big you are, [mas_get_player_nickname(exclude_names=['my love', 'love'])]."
+
+    elif persistent._nsfw_dick_length < 14.7: # 5.2" - 5.8" 
+        python:
+            if persistent._nsfw_units_metric: 
+                average_length = "fourteen centimeters"
+            else: 
+                average_length = "five and a half inches"
+        m 1eubsb "Not bad at all, [player]! That sounds like a good size."
+        m 3eud "Supposedly, the average length for men is around [average_length]."
+        m 2eublb "Some people make a big deal out of penis length, but your size is great for me."
+        m 2tubfb "It means I won't have any trouble fitting you inside me when the time comes, ahaha!"
+
+    elif persistent._nsfw_dick_length < 21.0: # 5.8" - 8.3"
+        m 1subfo "Wow!"
+        m 3wubfb "That's pretty big, [player]! {w=0.4}{nw}"
+        extend 3tkbfu "You never cease to impress me, you know that?"
+        m 1eubsb "You shouldn't have any problems at all pleasing me with that {i}massive member{/i}. {w=0.4}{nw}"
+        extend 5hubsb "Ahaha!"
+        m 3rkbssdlb "Though, it might hurt a little if you try to fit the whole thing inside..."
+        m 1tubssdlb "And I might choke a little if I try to {i}eat you up{/i}."
+        m 5tubsa "Let's take things nice and slow when the time comes, okay, [mas_get_player_nickname()]?"        
+        m 6gsbfa "...{w=0.7}{nw}"
+        m 6msbfa "..."
+        m 7hkbfsdlb "Sorry, I was just daydreaming for a moment..."
+        m 3dkbfb "Just thinking about your long, thick penis makes me a little wet. Ehehe~"
+        m 5hubfa "I love you so much, [mas_get_player_nickname(exclude_names=['my love', 'love'])]. {w=0.4}{nw}"
+        extend 5dubfa "I can't wait until I cross over and we can press our bodies together for real."
+
+    elif persistent._nsfw_dick_length < 48.0: # 8.3" - 18.9"
+        m 1wubssdlo "Oh jeez, [player]..."
+        m 1hkbssdlb "That's pretty tremendous. I can only imagine how impressive you must look."
+        m 3eud "I read that only a very small percentage of people actually have penises that large."
+        m 4rkbfsdlb "You'll have to be really gentle with me, otherwise I might get hurt!"
+        m 6ekbfsdla "I don't think I'd be able to fit the whole thing inside. In my mouth nor my...{w=0.4}{nw}"
+        extend 6rkbfsdla "you know..."
+        m 5hubsa "I'm sure we'll find a way to make things work, [mas_get_player_nickname()]. Ahaha!"
+
+    else: # 18.9" or greater (larger than world record) 
+        m 1hkbssdlb "You're so silly, [player]!"
+        m 3rkbssdlb "I don't know if {i}anyone{/i} in the world is that big..."
+        m 3hkbssdlb "If you're really not joking with me, then you could probably make it into a world record book. Ahaha!"
+        m 1ekbssdla "I just hope it doesn't inconvenience you in everyday life."
+        m 4eubsc "After all, it's like breast size for girls. Some people are just naturally really small or really large."
+        m 4hkbssdlb "Some girls with big chests tend to have problems too. Remember how much back pain Yuri had?"
+        m 2hkbssdlb "Ahaha..."
+        m 5tubfu "Anyway, I love you no matter how you look, [mas_get_player_nickname(exclude_names=['my love', 'love'])]. Big or small."        
+        return "derandom|love"
+
+    m 3eub "While we're on this topic, I have another question..."
+    m 2rubssdlc "..."
+    m 2rkbssdlb "Oh gosh, this is so awkward..."
+    m 1ekbfsdlb "[player], are you circumcised?"
     $ _history_list.pop()
     menu:
-        m "How big are you?"
-        
-        "Less than 3 Inches":
-            m 1eubsa "So you're on the smaller side, nice!"
-            m 1rubsc "You know some girls have an issue with anything under average, but I never understood it."
-            m 1ekbsa "The size of your member is something you can't change, just like breast size."
-            m 3eubsa "There's benefits to every size in my opinion."
-            m 3tubsb "For example, with your size, I could fit the whole thing in my mouth without gagging. Mmmmm~"
-            m 3gkbsa ".{w=0.7}.{w=0.7}.{w=0.7}"
-            m 3hkbssdlb "Sorry [player], I got a little carried away there ahaha~."
-            m 5ekbsa "But just remember, [player], I love you for who you are. Both physically and mentally. Never forget that, okay?"
-            return
-        "Around 3 Inches":
-            m 1eubsa "Little under average, nice!"
-            m 1rubsc "You know some girls have an issue with anything under average, but I never understood it."
-            m 1ekbsa "The size of your member is something you can't change, just like breast size."
-            m 3eubsa "There's benefits to every size in my opinion."
-            m 3tubsb "For example, with 3 inches, I could fit the whole thing in my mouth without gagging. Mmmmm~"
-            m 3gkbsa ".{w=0.7}.{w=0.7}.{w=0.7}"
-            m 3hkbssdlb "Sorry [player], I got a little carried away there ahaha~."
-            m 5ekbsa "But just remember, [player], I love you for who you are. Both physically and mentally. Never forget that, okay?"
-            return
-        "Around 4-6 Inches":
-            m 1eubsa "Ahh, so you're around average then."
-            m 3eubsb "Average tends to be a good sweet spot for most girls."
-            m 3hkbssdlb "Some don't like monster dongs you know? It can be incredibly painful and not much fun."
-            m 5ekbsa "Although even if you {i}were{/i} bigger or smaller than average, I wouldn't think any more or less of you."
-        "Around 7 Inches":
-            m 1wubsa "Ahh, so you're above average then."
-            m 3eubsb "Average and slightly above tends to be a sweet spot for most girls."
-            m 3rubsb "7 Inches is a bit big, but its manageable."
-            m 3hkbssdlb "Anything more, and It can be incredibly painful and not much fun for most girls."
-            m 5ekbsa "Although even if you {i}were{/i} bigger or smaller, I wouldn't think any more or less of you."
-        "Around 8 Inches":
-            m 1wubso "Wow! 8 Inches? Only a few percentage of guys in the world have one that big."
-            m 1hkbssdlb "8 Inches is a pretty big, not going to lie."
-            m 3rkbssdlb "Though impressive, it can be incredibly painful and not much fun for most girls if you don't know what you're doing."
-            m 2ekbsa "When we eventually do it, we'd have to take it slow."
-            m 5ekbsa "And just remember [player], even if you {i}were{/i} bigger/smaller, I wouldn't think any more or less of you."
-        "Around 9 Inches":
-            m 1tubsu "[player]..."
-            m 3tubsb "I don't want to call you a liar, but I {i}highly{/i} doubt you're that big. You don't have to lie to me."
-            m 3gubsb "But in the small chance you're being honest..."
-            extend 3kubsb " then I think that's quite a gift. "
-            m 3hkbssdlb "Although sex might be a tad painful ahaha~"
-            return
-        "I don't know...":
-            m 1ekbsa "Oh, that's okay [player]."
-            m 1rkbsa "I was just kind of curious, that's all."
-            m 3ekbsb "Don't feel the need to answer if you're not comfortable."
-            m 5tkbsa "I love you, no matter the size of your...{w=0.3} {i}member{/i}~"
-            return
+        m "[player], are you circumcised?{fast}"
 
-    m 5rubsb "After all, it's like breast size for girls. You can't control it."
-    m 5hubsb "There's benefits to all sizes in my opinion!"
-    m 5ekbsa "But just remember, [player], I love you for who you are. Both physically and mentally. Never forget that, okay?"
+        "Yes.":
+            $ persistent._nsfw_dick_circumcised = True
+            m 1hubfb "Ahaha!"
+            m 1eubsb "Whether it's for medical or religious reasons, or you had it done when you were a baby...{w=0.4}{nw}"
+            extend 3hubfb "I think that's really cute, [mas_get_player_nickname()]!"
+            m 4eubfb "I've read that some guys don't like the fact that they're circumcised, but personally, I think I like the 'streamlined' appearance!"
+            m 1hubsa "Ehehe~"
+
+        "No.":
+            $ persistent._nsfw_dick_circumcised = False
+            m 1eubfb "I see, [player]. So you're 'uncut', huh?"
+            m 3tubfu "I can just picture pulling back your cute foreskin..."
+            m 5hubsb "Just don't forget to keep it clean under there for me, [player]. Ahaha!"
+
+        "...":
+            m 1lkbssdlb "I'm sorry... That was a strange question of me to ask. {w=0.4}{nw}"
+            extend 1hkbssdlb "Ahaha!"
+            m 2dkbssdlc "I didn't mean to make you feel uncomfortable. It's a really personal question and you don't have to answer."
+            m 5ekbla "Just remember, I love you no matter how you look, [mas_get_player_nickname(exclude_names=['my love', 'love'])]."
+            return "derandom|love"
+    
+    m 1ekbsb "Thanks for being so patient with my questions, [mas_get_player_nickname()]."
+    m 3eubsd "I've never seen an actual penis before, but {w=0.4}{nw}"
+    extend 3dubsa "being able to picture yours really means a lot to me."
+    m 2ekbsa "And even if you {i}were{/i} bigger or smaller, I wouldn't think any more or less of you."
+    m 1eubsb "Whatever size you are, cut or uncut, I think it's perfect. I love everything about you, after all."
+    m 1dubsa "The fact that you were willing to share all of these really personal things about yourself makes me feel that much closer to you."
+    m 5hubfb "I love you, [player]~"
+
+    if persistent._mas_first_kiss:
+        call monika_kissing_motion_short
+
     return "love"

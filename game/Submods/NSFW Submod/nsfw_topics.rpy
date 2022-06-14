@@ -721,7 +721,7 @@ label nsfw_monika_favorite_position:
 
     $ _history_list.pop()
     menu:
-        m "So...What's your favorite sex position?"
+        m "So...What's your favorite sex position?{fast}"
 
         "Doggy style.":
             m 1etbfa "Oh? Really?"

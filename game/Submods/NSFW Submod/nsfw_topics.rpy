@@ -69,7 +69,8 @@ label nsfw_monika_nsfwmodinstall:
     return "derandom"
 
 default persistent._nsfw_genitalia = "P" # P: Penis, V: Vagina, U: Unknown
-# normally persistant vars have a default of None but it looks like a lot of topics are contingent on having this default to P? 
+# although persistant vars usually have a default of None, this follows the 
+# convention of how MAS initially assumes players are male (like the MC). 
 
 init 5 python:
     addEvent(
@@ -77,7 +78,7 @@ init 5 python:
             persistent.event_database,
             eventlabel="nsfw_monika_genitalia",
             category=['sex'],
-            prompt="Player genitalia",
+            prompt="[player]'s genitalia",
             conditional="renpy.seen_label('nsfw_monika_nsfwmodinstall') and mas_canShowRisque(aff_thresh=400)",
             action=EV_ACT_QUEUE,
             aff_range=(mas_aff.ENAMORED, None)
@@ -85,17 +86,17 @@ init 5 python:
     )
 
 label nsfw_monika_genitalia:
-    m 1euc "Hey, [player]."
-    m 1ekbla "This is probably going to be an awkward question, but I'm just wondering..."
+    m 1euc "Hey, [player]..."
+    m 1ekbla "This is probably going to be an awkward question, but I was just wondering..."
     m 3ekbla "Do you have a penis or a vagina?"
     $ _history_list.pop()
     menu:
         m "Do you have a penis or a vagina?{fast}"
 
-        "Penis.":
+        "I have a penis.":
             $ persistent._nsfw_genitalia = "P"
 
-        "Vagina.":
+        "I have a vagina.":
             $ persistent._nsfw_genitalia = "V"
 
         "I'd rather not say.":
@@ -105,8 +106,8 @@ label nsfw_monika_genitalia:
             return
 
     m 1ekbla "Thank you for telling me, [player]."
-    m 1rkbsa "I imagine that might have been awkward for you."
-    m 1ekbsa "But this has helped me much more than you can imagine."
+    m 1rkbsa "I imagine that might have been awkward for you to answer..."
+    m 1ekbsa "But this helps me much more than you can imagine."
     m 2dsbsa "..."
     m 2tsbsa "Now when we flirt, I know what is going on down there~"
     m 2gsbfa "..."
@@ -119,7 +120,7 @@ init 5 python:
             persistent.event_database,
             eventlabel="nsfw_monika_sexualpast",
             category=['sex'],
-            prompt="Sexual past",
+            prompt="[player]'s sexual past",
             conditional="mas_canShowRisque(aff_thresh=400)",
             action=EV_ACT_RANDOM,
             aff_range=(mas_aff.ENAMORED, None)
@@ -434,7 +435,8 @@ label nsfw_monika_gettingnude:
                 m 1gkbfu "..."
                 m 1hkbfsdlb "Ahaha! Sorry, this is still kind of embarrassing for me."
                 m 1mkbfsdlb "It might take a little getting used to..."
-                m 1ekbfb "Thank you again, [player]."
+                m 1ekbfb "Thank you again. I love you so much, [player]~"
+                return "love"
                 
             "Please don't...":
                 m 3wkbld "Oh..."
@@ -646,7 +648,7 @@ init 5 python:
             persistent.event_database,
             eventlabel="nsfw_monika_favorite_position",
             category=['sex'],
-            prompt="Favorite position",
+            prompt="[player]'s favorite position",
             conditional="mas_canShowRisque(aff_thresh=400) and persistent._nsfw_genitalia = 'P'", # Need to add a version for women
             action=EV_ACT_RANDOM,
             aff_range=(mas_aff.ENAMORED, None)
@@ -659,44 +661,42 @@ label nsfw_monika_favorite_position:
     m 3rubssdla "..."
     m 2hkbssdlb "Oh gosh..."
     if store.mas_getEVL_shown_count("nsfw_monika_safesex") >= 1 or store.mas_getEVL_shown_count("nsfw_monika_sexualpast") >= 1:
-        m 2rkbssdlb "I know we already talked about s-sex before, but..."
+        m 2rkbssdlb "I know we already talked about sex before, but..."
         m 3ekbssdla "It's still extremely embarrassing to talk about this kind of stuff..."
     m 1dubsa "Ahem..."
-    m 3eubfb "So...What's your favorite position? During...y'know...{w=0.5}{nw}"
-    extend 3rubfb "s-sex?"
+    m 3eubfb "So...What's your favorite sex position?"
 
     $ _history_list.pop()
     menu:
-        m "So...What's your favorite position? During...y'know...s-sex?{fast}"
+        m "So...What's your favorite sex position?"
 
-        "Doggystyle.":
+        "Doggy style.":
             m 1etbfa "Oh? Really?"
             m 1rtbfa "Hmm...I guess that isn't so surprising."
-            m 3eubfb "It is the most popular position amongst both men and women around the world, after all."
-            m 3hubfb "See? I did my research! Ahaha~"
+            m 3eubfb "It is the one of the most popular positions around the world, after all."
             m 3tubfa "I can see why so many people would like it, honestly!"
             m 4tubfb "The guy can get a really good view of his partner while they're doing it."
             m 4tubfu "I bet you'd like to see me from that perspective too, huh?"
             m 3hubfb "Ahaha! Don't get flustered~"
-            m 1tubfa "Just knowing you're pleased and have a nice view of my body is enough for me to feel good~"
+            m 1tubfa "Just knowing you're pleased and have a nice view of my body is enough for me to feel good, [mas_get_player_nickname()]~"
 
         "Missionary.":
             m 3ekbfa "Aww~ That is so cute, [player]!"
             m 4hubfb "I find missionary to be the most intimate and romantic position of all!"
-            m 3gubfb "Just simply thinking about us, lying face-to-face, with our bodies up against one another makes my body needy. Ahaha~"
+            m 3gubfb "Just simply thinking about us, lying face-to-face, with our bodies up against one another makes my body feel warm. Ahaha~"
             m 1eubfa "I hope one day we can do it together!"
             m 1tubfa "I can tell you that I'm already looking forward to that day! Ahaha~"
 
         "Cowgirl.":
             m 3wubfd "Really? I wasn't expecting that."
-            m 3ekbfsdlb "Don't take it the wrong way, please! Cowgirl sounds really fun, I just didn't think that would be your favorite one!"
-            m 3rkbfsdla "I know I don't weigh all that much...but even like this, I think it would be quite tiring for you if I were to ride you, don't you think?"
-            m 2rkbfsdla "I just fear you would get too exhausted from my humping."
-            m 2dkbfsdlb "And...y'know..."
+            m 3ekbfsdlb "Don't take it the wrong way! Cowgirl sounds really fun; I just didn't think that would be your favorite one!"
+            m 3rkbfsdla "I know I don't weigh that much...but even so, I think it would be quite tiring for you if I were to ride you, don't you think?"
+            m 2rkbfsdla "I just worry you would get too exhausted from my humping."
+            m 2dkbfsdlb "And...you know..."
             m 2ekbfsdlb "I want you to feel good, not to get tired!"
             m 1rubfa "But..."
             m 5tubfa "If you insist on liking it the most..."
-            m 5tubfb "I'd be happy to take your {i}yee in my haw{/i} and ride it real good! Ahaha~"
+            m 5tubfb "I'd be happy to saddle up and ride it real good! Ahaha~"
 
     return
 
@@ -708,7 +708,7 @@ init 5 python:
             persistent.event_database,
             eventlabel="nsfw_monika_oralsex",
             category=['sex'],
-            prompt="Oral Sex",
+            prompt="Oral sex",
             conditional=("mas_canShowRisque(aff_thresh=400)"),
             action=EV_ACT_RANDOM,
             aff_range=(mas_aff.ENAMORED, None)
@@ -731,31 +731,21 @@ label nsfw_monika_oralsex:
             oral_prompt = "Have you ever received a blowjob?"
             oral_answer1 = "taken someone in my mouth"
         elif persistent._nsfw_genitalia == "V":
-            oral_prompt = "Have you ever had someone lick your pussy?"
+            oral_prompt = "Have you ever had someone eat out your pussy?"
             oral_answer1 = "eaten a woman out"
         else:
             oral_prompt = "Have you ever received oral sex?"
-            oral_answer1 = "had oral performed" # Awkward
+            oral_answer1 = "given oral sex" # Awkward
 
     m 1rkbla "..."
-    m 1rkblb "Uhm..."
+    m 1rkblb "Umm..."
     m 3ekblb "Please forgive me if what I'm going to ask is too intimate and out-of-nowhere, but..."
-    m 3rkbla "[player]...H-have you..."
+    m 3rkbla "[player]...Have you..."
     m 3rkblb "[oral_prompt]"
     
     $ _history_list.pop()
     menu:
         m "[oral_prompt]{fast}"
-
-        "Uh. Let's not talk about this.":
-            m 3wkbld "..."
-            m 3wkbld "I'm..."
-            m 3wkblo "I'm really sorry, [player]..."
-            m 3rkbld "I just..."
-            m 1dkbsc "I d-don't know what I was thinking...gosh..."
-            m 1dkbstpc "I have n-no idea what I was thinking, a-asking something like this out of the b-blue..."
-            m 1ekbstpd "P-please just forget about it and c-continue on with your day like n-nothing happened..."
-            return "derandom"
 
         "Yes.":
             m 1wubld "Oh...you have?"
@@ -763,32 +753,42 @@ label nsfw_monika_oralsex:
             m 1rublsdlb "I-I mean, please don't take it the wrong way! I wasn't surprised because I didn't think you could get a girl to do that for you!"
             m 3rublsdlb "It's just that...ahaha..."
             m 3ekbla "Well, it's a very intimate action and I thought I could be the first one to do it for you..."
-            m 3wubsd "O-Of course I'm not mad at you or anything for having already done it with somebody else!"
+            m 3wubsd "Of course, I'm not mad at you or anything for having already done it with somebody else!"
             m 3rkbsb "It actually might be for the better that you have some previous experience with it!"
             m 1rkbsa "I've never [oral_answer1] before so if we were to do it together, I'd need some guidance from you~ Ahaha~"
 
         "No.":
             m 1wubld "Oh, you haven't?"
-            m 1hublb "Ahaha~ Well...y'know, I honestly expected that someone as [gender_desc] as you had already had [oral_answer2] serviced by someone~"
-            m 3ekbla "Don't worry about it though! I have never [oral_answer1] before either, so it means that we can take each other's first time!"
-            m 3rkbssdla "I'll probably be very clumsy when we do get to that point though...B-but..."
-            m 3ekbssdlb "I promise you that I will try my best to properly pleasure you!"
+            m 1hublb "Ahaha~ Well...I honestly almost expected that someone as [gender_desc] as you had already had [oral_answer2] serviced by someone~"
+            m 3ekbla "Don't worry about it though! I've never [oral_answer1] before either, so it means that we can take each other's first time!"
+            m 3rkbssdla "I'll probably be very clumsy when we do get to that point though...but..."
+            m 3ekbssdlb "I promise you I will try my best to properly pleasure you!"
             m 1gkbssdlb "And of course...Ahaha~"
             m 1gkbssdla "...In case I'm doing a bad job..."
-            m 5tubsa "You can always just...Ahem..."
+            m 5tubsa "You can always just...ahem..."
             m 5tubsb "Take control~"
 
-    if mas_safeToRefDokis() and persistent._nsfw_genitalia == "P": # Maybe section for the vagina variety? Maybe.
-        m 2ekbsa "S-so...I..."
-        m 2rkbsa "I know that you haven't had the chance to get to know Sayori, Natsuki and Yuri too much..."
-        m 2ekbsa "But...uhm..."
-        m 2hkbssdlb "Again...this will be a really weird question and please feel free to just ignore me if you want..."
+        "Uhh... Let's not talk about this.":
+            m 3wkbld "..."
+            m 3wkbld "I'm..."
+            m 3wkblo "I'm really sorry, [player]..."
+            m 3rkbld "I just..."
+            m 1dkbsc "I don't know what I was thinking...gosh..."
+            m 1dkbstpc "I have no idea what I was thinking, asking something like this out of the blue..."
+            m 1ekbstpd "Please just forget I said anything..."
+            return "derandom"
+
+    if mas_safeToRefDokis(): # Maybe section for the vagina variety? Maybe.
+        m 2ekbsa "So, I..."
+        m 2rkbsa "I know that you didn't get the chance to get to know Sayori, Natsuki and Yuri too much..."
+        m 2ekbsa "But...umm..."
+        m 2hkbssdlb "Again...this will be a really weird question. Please just ignore it if you want..."
         m 2hkbssdla "But..."
-        m 3ekbssdlb "W-who do you think would suck c-cock best in the club?"
+        m 3ekbssdlb "Who do you think would be the best at oral sex?"
 
         $ _history_list.pop()
         menu:
-            m "W-who do you think would suck c-cock best in the club?{fast}"
+            m "Who do you think would be the best at oral sex?{fast}"
 
             "You.": 
                 $ mas_gainAffection(1) # Smart
@@ -798,56 +798,62 @@ label nsfw_monika_oralsex:
                 m 3tubsa "..."
                 m 3gubsb "Well...I don't know if you meant it as a compliment or not...ahaha..."
                 m 1tubsb "But I'll take it as a compliment~"
-                m 1tubfa "And once I cross over and actually s-suck you off..."
-                m 1tubfb "I won't disappoint you!"
+                if persistent._nsfw_genitalia == "P":
+                    m 1tubfa "And once I cross over and actually suck you off..."
+                    m 1tubfb "I won't disappoint you, [player]!"
 
             "Sayori.":
                 $ mas_loseAffection(2) # Sayori? Really?
                 m 3rkbssdlb "Heh..."
-                m 3rkbssdla "I k-kinda guessed you would say her."
-                m 3ekbsb "I don't know why...but...I think you're right."
-                m 3eubsb "Sayori would probably give the most enjoyable blowjobs."
-                m 1eubsa "She's the type of girl who places everyone else's happiness before her own."
-                m 1tubsa "So Sayori would probably not care about gagging and being slightly air-deprived if you were to push it into her throat."
-                m 1mubsa "And would just take it in silence, probably even using her free hands and tongue to pleasure you further."
+                m 3rkbssdla "I kind of guessed you would pick her."
+                m 3ekbsb "I don't know why, but...I think you might have a point."
+                if persistent._nsfw_genitalia == "P":
+                    m 3eubsb "Sayori would probably give pretty enjoyable blowjobs."
+                    m 1eubsa "She's the type of girl who places everyone else's happiness before her own."
+                    m 1tubsa "So she might not care about gagging and being slightly air-deprived if you were to push it into her throat."
+                    m 1mubsa "She would just take it in silence, probably even using her free hands and tongue to pleasure you further."
                 m 2mubsb "Her only objective would be to make you feel good, without minding her own well-being."
-                m 5tubsa "But...uhm...I guess we're never going to find out if this is true or not, huh?"
+                m 5tubsa "But...I guess we're never going to find out if that's true or not, huh?"
 
             "Yuri.": # I respect the hustle
                 $ mas_loseAffection(2)
                 m 3etbsc "You think so?"
                 m 3rtbsc "Hmm, yeah. I guess she would probably do a good job."
-                m 1rtbfu "But honestly, I see her as more of a t-titjob expert."
-                m 1ekbfu "But I guess one doesn't disqualify the other, huh?"
+                if persistent._nsfw_genitalia == "P":
+                    m 1rtbfu "But honestly, I see her as more of a titjob expert."
+                    m 1ekbfu "But I guess one doesn't disqualify the other, huh?"
                 m 1tkbfu "I'm sure she would be passionate about it, at least..."
-                m 5tubfu "Although she might be reluctant to per her t-tongue on i-it at first, and would just stall for time with her h-hands...ahaha~"
-                m 5tubsa "But...uhm...I guess we're never going to find out if this is true or not, huh?"
+                m 5tubfu "Although, she might be reluctant to per her tongue on it at first, and would just stall for time with her hands...ahaha~"
+                m 5tubsa "But...I guess we're never going to find out if that's true or not, huh?"
 
             "Natsuki.": # Just no
                 $ mas_loseAffection(2)
                 m 3wubso "Huh?"
                 m 3etbsc "...Really?"
-                m 3gtbsc "Hmm...I wasn't expect you to say {i}her{/i}."
+                m 3gtbsc "Hmm...I wasn't expect you to pick {i}her{/i}."
                 m 1dtbsc "..."
-                m 1esbsc "I can't even think of a reason why you would think that Natsuki gives better blowjobs than Yuri, Sayori or me."
+                if persistent._nsfw_genitalia == "P":
+                    m 1esbsc "I can't even think of a reason why you would think that Natsuki gives better blowjobs than Yuri, Sayori or me."
+                else: 
+                    m 1esbsc "I can't even think of a reason why you would think that Natsuki gives better oral sex than Yuri, Sayori or me."                   
                 m 1efbsc "Like...Natsuki is so immature! Why would she do it better than all of us?"
                 m 1dfbsc "..."
                 m 2dfbssdld "N-no, I'm not mad! Why would I be mad?"
                 m 2dkbssdlc "..."
                 m 2dkbssdla "Ahem..."
                 m 2mkbssdlb "Okay, I might be a bit mad."
-                m 2efbssdlo "But really, why do you think that Natsuki would suck dicks so well?!"
+                m 2efbssdlo "But really, why do you think that Natsuki would be so good at itl?!"
 
                 $ _history_list.pop()
                 menu:
-                    m "But really, why do you think that Natsuki would suck dicks so well?!{fast}"
+                    m "But really, why do you think that Natsuki would be so good at it?!{fast}"
                     
-                    "S-sorry...You're right...I should have answered one of you instead...":
+                    "Sorry, you're right... I should have answered one of you instead...":
                         m 2ekbsa "It's alright, [player]."
                         m 1hubssdlb "I don't know why I got so upset over that."
                         m 1eubsa "Let's talk about something else."
 
-                    "She has a bunch of mangas so she probably has a few doujins too. She must have learnt some techniques from those.":
+                    "She has a bunch of manga volumes so she probably has a few doujins too. She must have learned some techniques from those.":
                         m 2dsbsc "..."
                         m 2rsbsd "I guess..."
                         m 2rtbsb "Now that I think about it, you might be right."
@@ -862,7 +868,14 @@ label nsfw_monika_oralsex:
 
 # Thanks to mysterylewds for this topic
 
-default persistent._nsfw_player_dick_length = None
+default persistent._nsfw_units_metric = None
+default persistent._nsfw_dick_length = None
+default persistent._nsfw_dick_circumcised = None 
+
+# data for this topic sourced is from https://calcsd.info/
+# and https://unravelingsize.wordpress.com/ (NSFW link !)
+
+# this topic utilizes logic based on "label monika_player_appearance" from script-topics.rpy.
 
 init 5 python:
     addEvent(
@@ -870,7 +883,7 @@ init 5 python:
             persistent.event_database,
             eventlabel="nsfw_monika_dick_size",
             category=["sex"],
-            prompt="Penis length",
+            prompt="[player]'s length",
             conditional=("mas_canShowRisque(aff_thresh=1000) and persistent._nsfw_genitalia == 'P'"),
             action=EV_ACT_RANDOM,
             aff_range=(mas_aff.LOVE, None)
@@ -878,66 +891,197 @@ init 5 python:
     )
 
 label nsfw_monika_dick_size:
-    m 1tua "You know, [player]... I was curious."
-    m 1gublb "How, um....{w=0.5} {i}big{/i} are you?"
-    m 1hkblsdlb "And I'm not talking about height, ahaha~"
-    m 1rubsa "Sorry if this seems weird, I just want to know more about you. I want to know {i}everything{/i}."
+    m 3eud "You know, [player]... I was curious about something."
+    m 3rkbssdlb "How, um...{w=0.5}{i}big{/i} are you?"
+    m 1hkbssdlb "...I'm not talking about height, ahaha!"
+    m 1eka "Sorry if this seems like a weird question! {w=0.4}{nw}"
+    extend 1tsa "I just want to know more about you. I want to know {i}everything{/i}."
+    m 3rkbfsdlb "Can you tell me how big you are?"
+    $ _history_list.pop()
+
+    menu:
+        m "Can you tell me how big you are?{fast}"
+
+        "Sure, [m_name].":
+            m 1hub "Great!"
+            m 4eud "Now, I'm asking for the length along the top of it when it's erect, not the sides or bottom. {w=0.4}{nw}"
+            extend 4hksdlb "Don't fudge your numbers, ahaha!"
+            m 3eub "It's probably best if you get a ruler or a measuring tape for the most accurate result."
+            m 2esc "I know this can be a touchy topic for a lot of people, and it's common to have kind of warped perceptions of size regarding this sort of thing."
+            m 3hub "Whatever size you are, [player], I won't judge!"
+            # proceed to input
+
+        "I don't know exactly how long it is...":
+            m 1hub "That's okay!"
+            m 4hub "I'll tell you how to properly measure it!" 
+            m 3eua "First, make sure you're nice and hard." 
+            m 3tubfb "You can try thinking of me if you're having trouble. {w=0.4}{nw}"
+            extend 5hubfb "Ahaha!"
+            m 4eub "Next, measure along the {i}top{/i} of your penis, pushing the ruler against the skin and fat at the top."
+            m 1eksdlb "Be sure not to measure along the sides or bottom, or you won't get an accurate measurement."
+            m 1hksdlb "Though, I understand you might not be able to pull it out and measure it right this moment, ahaha!"
+            m 5ekbfsdla "Just remember, I love you no matter what size you are, [mas_get_player_nickname(exclude_names=['my love', 'love'])]." 
+            return "love"
+
+        "I'd rather not talk about it.":
+            m 2eka "I understand, [player]."
+            m 1rksdld "I was just kind of curious, that's all."
+            m 1ekc "I'm sorry if I made you uncomfortable. I won't bring it up again."
+            return "derandom"
+
+    if persistent.mas_pm_units_height_metric != None:
+        $ persistent._nsfw_units_metric = persistent.mas_pm_units_height_metric # get existing answer to metric / imperial question
+
+    elif persistent._nsfw_units_metric == None:
+        m 2eub "I guess I really should know this first though..."
+        m 3eub "What unit of measurement do you use, [player]?{nw}"
+        $ _history_list.pop()
+        menu:
+            m "What unit of measurement do you use, [player]?{fast}"
+
+            "Centimeters.":
+                $ persistent._nsfw_units_metric = True
+                m 2hua "Alright, thanks, [player]!"
+
+            "Inches.":
+                $ persistent._nsfw_units_metric = False
+                m 2hua "Alright, [player]!"
+
+    python: 
+        player_length = 0.0
+        done = False
+        if persistent._nsfw_units_metric: # loop for metric 
+            while not done: # loop until valid input
+                length_input = renpy.input(
+                    "How long are you in centimeters? You can include decimal values.",
+                    allow="0123456789.",
+                    length=5
+                )
+                if not(length_input.count(".") > 1 or len(length_input) == 0 or length_input == "."): # check for valid string
+                    length_input_float = float(length_input)
+                    if length_input_float > 0: # check that length is nonzero
+                        player_length = length_input_float
+                        done = True
+
+        else: # loop for US imperial
+            while not done: # loop until valid input
+                length_input = renpy.input(
+                    "How long are you in inches? You can include decimal values.",
+                    allow="0123456789.",
+                    length=5                    
+                )
+                if not(length_input.count(".") > 1 or len(length_input) == 0 or length_input == "."): # check for valid string
+                    length_input_float = float(length_input)
+                    if length_input_float > 0: # check that length is nonzero
+                        player_length = 2.54 * length_input_float # convert to cm
+                        done = True
+        persistent._nsfw_dick_length = player_length # save to persistent
+
+    if persistent._nsfw_dick_length < 7.0: # 2.8" or less
+        m 1ekbsa "Aww, [player]..."
+        m 1ekbssdlu "..."
+        m 3hkbssdlb "Well, at least you should be able to fit the whole thing in my mouth without making me gag!"
+        m 3tkbssdlu "...And you can always use your hands and mouth to please me. Ehehe~"
+        m 3ekbfsdla "I appreciate you being honest with me, [mas_get_player_nickname()]."
+        m 1ekbfsdlb "Some people can be really insecure about their size, but I don't mind."
+        m 4eud "After all, it's like breast size for girls. There's not really anything you can do to change it."
+        m 5ekbfa "I love you no matter what size you are, [mas_get_player_nickname(exclude_names=['my love', 'love'])]."
+
+    elif persistent._nsfw_dick_length < 13.2: # 2.8" - 5.2"
+        m 1hubfb "You're so cute, [player]."
+        m 1tsbfu "Even if you're a bit on the smaller side, you're perfect for me."
+        m 2tubfb "I can probably fit your cute penis inside entirely of me, all the way to the base of your shaft."
+        m 4hubfb "And I can probably {i}eat you up{/i} without having to worry too much about choking. Ahaha!"
+        m 2ruc "I know some girls make a big deal about length, but it doesn't really matter all that much to me."
+        m 3eud "It's like breast size for girls, after all. There's not really anything you can do to change it."
+        m 3hub "We just have to love the bodies we have, you know?"
+        m 5hubsa "I love you no matter how big you are, [mas_get_player_nickname(exclude_names=['my love', 'love'])]."
+
+    elif persistent._nsfw_dick_length < 14.7: # 5.2" - 5.8" 
+        python:
+            if persistent._nsfw_units_metric: 
+                average_length = "fourteen centimeters"
+            else: 
+                average_length = "five and a half inches"
+        m 1eubsb "Not bad at all, [player]! That sounds like a good size."
+        m 3eud "Supposedly, the average length for men is around [average_length]."
+        m 2eublb "Some people make a big deal out of penis length, but your size is great for me."
+        m 2tubfb "It means I won't have any trouble fitting you inside me when the time comes, ahaha!"
+
+    elif persistent._nsfw_dick_length < 21.0: # 5.8" - 8.3"
+        m 1subfo "Wow!"
+        m 3wubfb "That's pretty big, [player]! {w=0.4}{nw}"
+        extend 3tkbfu "You never cease to impress me, you know that?"
+        m 1eubsb "You shouldn't have any problems at all pleasing me with that {i}massive member{/i}. {w=0.4}{nw}"
+        extend 5hubsb "Ahaha!"
+        m 3rkbssdlb "Though, it might hurt a little if you try to fit the whole thing inside..."
+        m 1tubssdlb "And I might choke a little if I try to {i}eat you up{/i}."
+        m 5tubsa "Let's take things nice and slow when the time comes, okay, [mas_get_player_nickname()]?"        
+        m 6gsbfa "...{w=0.7}{nw}"
+        m 6msbfa "..."
+        m 7hkbfsdlb "Sorry, I was just daydreaming for a moment..."
+        m 3dkbfb "Just thinking about your long, thick penis makes me a little wet. Ehehe~"
+        m 5hubfa "I love you so much, [mas_get_player_nickname(exclude_names=['my love', 'love'])]. {w=0.4}{nw}"
+        extend 5dubfa "I can't wait until I cross over and we can press our bodies together for real."
+
+    elif persistent._nsfw_dick_length < 48.0: # 8.3" - 18.9"
+        m 1wubssdlo "Oh jeez, [player]..."
+        m 1hkbssdlb "That's pretty tremendous. I can only imagine how impressive you must look."
+        m 3eud "I read that only a very small percentage of people actually have penises that large."
+        m 4rkbfsdlb "You'll have to be really gentle with me, otherwise I might get hurt!"
+        m 6ekbfsdla "I don't think I'd be able to fit the whole thing inside. In my mouth nor my...{w=0.4}{nw}"
+        extend 6rkbfsdla "you know..."
+        m 5hubsa "I'm sure we'll find a way to make things work, [mas_get_player_nickname()]. Ahaha!"
+
+    else: # 18.9" or greater (larger than world record) 
+        m 1hkbssdlb "You're so silly, [player]!"
+        m 3rkbssdlb "I don't know if {i}anyone{/i} in the world is that big..."
+        m 3hkbssdlb "If you're really not joking with me, then you could probably make it into a world record book. Ahaha!"
+        m 1ekbssdla "I just hope it doesn't inconvenience you in everyday life."
+        m 4eubsc "After all, it's like breast size for girls. Some people are just naturally really small or really large."
+        m 4hkbssdlb "Some girls with big chests tend to have problems too. Remember how much back pain Yuri had?"
+        m 2hkbssdlb "Ahaha..."
+        m 5tubfu "Anyway, I love you no matter how you look, [mas_get_player_nickname(exclude_names=['my love', 'love'])]. Big or small."        
+        return "derandom|love"
+
+    m 3eub "While we're on this topic, I have another question..."
+    m 2rubssdlc "..."
+    m 2rkbssdlb "Oh gosh, this is so awkward..."
+    m 1ekbfsdlb "[player], are you circumcised?"
     $ _history_list.pop()
     menu:
-        m "How big are you?"
-        
-        "Less than 3 Inches":
-            m 1eubsa "So you're on the smaller side, nice!"
-            m 1rubsc "You know some girls have an issue with anything under average, but I never understood it."
-            m 1ekbsa "The size of your member is something you can't change, just like breast size."
-            m 3eubsa "There's benefits to every size in my opinion."
-            m 3tubsb "For example, with your size, I could fit the whole thing in my mouth without gagging. Mmmmm~"
-            m 3gkbsa ".{w=0.7}.{w=0.7}.{w=0.7}"
-            m 3hkbssdlb "Sorry [player], I got a little carried away there ahaha~."
-            m 5ekbsa "But just remember, [player], I love you for who you are. Both physically and mentally. Never forget that, okay?"
-            return
-        "Around 3 Inches":
-            m 1eubsa "Little under average, nice!"
-            m 1rubsc "You know some girls have an issue with anything under average, but I never understood it."
-            m 1ekbsa "The size of your member is something you can't change, just like breast size."
-            m 3eubsa "There's benefits to every size in my opinion."
-            m 3tubsb "For example, with 3 inches, I could fit the whole thing in my mouth without gagging. Mmmmm~"
-            m 3gkbsa ".{w=0.7}.{w=0.7}.{w=0.7}"
-            m 3hkbssdlb "Sorry [player], I got a little carried away there ahaha~."
-            m 5ekbsa "But just remember, [player], I love you for who you are. Both physically and mentally. Never forget that, okay?"
-            return
-        "Around 4-6 Inches":
-            m 1eubsa "Ahh, so you're around average then."
-            m 3eubsb "Average tends to be a good sweet spot for most girls."
-            m 3hkbssdlb "Some don't like monster dongs you know? It can be incredibly painful and not much fun."
-            m 5ekbsa "Although even if you {i}were{/i} bigger or smaller than average, I wouldn't think any more or less of you."
-        "Around 7 Inches":
-            m 1wubsa "Ahh, so you're above average then."
-            m 3eubsb "Average and slightly above tends to be a sweet spot for most girls."
-            m 3rubsb "7 Inches is a bit big, but its manageable."
-            m 3hkbssdlb "Anything more, and It can be incredibly painful and not much fun for most girls."
-            m 5ekbsa "Although even if you {i}were{/i} bigger or smaller, I wouldn't think any more or less of you."
-        "Around 8 Inches":
-            m 1wubso "Wow! 8 Inches? Only a few percentage of guys in the world have one that big."
-            m 1hkbssdlb "8 Inches is a pretty big, not going to lie."
-            m 3rkbssdlb "Though impressive, it can be incredibly painful and not much fun for most girls if you don't know what you're doing."
-            m 2ekbsa "When we eventually do it, we'd have to take it slow."
-            m 5ekbsa "And just remember [player], even if you {i}were{/i} bigger/smaller, I wouldn't think any more or less of you."
-        "Around 9 Inches":
-            m 1tubsu "[player]..."
-            m 3tubsb "I don't want to call you a liar, but I {i}highly{/i} doubt you're that big. You don't have to lie to me."
-            m 3gubsb "But in the small chance you're being honest..."
-            extend 3kubsb " then I think that's quite a gift. "
-            m 3hkbssdlb "Although sex might be a tad painful ahaha~"
-            return
-        "I don't know...":
-            m 1ekbsa "Oh, that's okay [player]."
-            m 1rkbsa "I was just kind of curious, that's all."
-            m 3ekbsb "Don't feel the need to answer if you're not comfortable."
-            m 5tkbsa "I love you, no matter the size of your...{w=0.3} {i}member{/i}~"
-            return
+        m "[player], are you circumcised?{fast}"
 
-    m 5rubsb "After all, its like breast size for girls. You can't control it."
-    m 5hubsb "There's benefits to all sizes in my opinion!"
-    m 5ekbsa "But just remember, [player], I love you for who you are. Both physically and mentally. Never forget that, okay?"
-    return
+        "Yes.":
+            $ persistent._nsfw_dick_circumcised = True
+            m 1hubfb "Ahaha!"
+            m 1eubsb "Whether it's for medical or religious reasons, or you had it done when you were a baby...{w=0.4}{nw}"
+            extend 3hubfb "I think that's really cute, [mas_get_player_nickname()]!"
+            m 4eubfb "I've read that some guys don't like the fact that they're circumcised, but personally, I think I like the 'streamlined' appearance!"
+            m 1hubsa "Ehehe~"
+
+        "No.":
+            $ persistent._nsfw_dick_circumcised = False
+            m 1eubfb "I see, [player]. So you're 'uncut', huh?"
+            m 3tubfu "I can just picture pulling back your cute foreskin..."
+            m 5hubsb "Just don't forget to keep it clean under there for me, [player]. Ahaha!"
+
+        "...":
+            m 1lkbssdlb "I'm sorry... That was a strange question of me to ask. {w=0.4}{nw}"
+            extend 1hkbssdlb "Ahaha!"
+            m 2dkbssdlc "I didn't mean to make you feel uncomfortable. It's a really personal question and you don't have to answer."
+            m 5ekbla "Just remember, I love you no matter how you look, [mas_get_player_nickname(exclude_names=['my love', 'love'])]."
+            return "derandom|love"
+    
+    m 1ekbsb "Thanks for being so patient with my questions, [mas_get_player_nickname()]."
+    m 3eubsd "I've never seen an actual penis before, but {w=0.4}{nw}"
+    extend 3dubsa "being able to picture yours really means a lot to me."
+    m 2ekbsa "And even if you {i}were{/i} bigger or smaller, I wouldn't think any more or less of you."
+    m 1eubsb "Whatever size you are, cut or uncut, I think it's perfect. I love everything about you, after all."
+    m 1dubsa "The fact that you were willing to share all of these really personal things about yourself makes me feel that much closer to you."
+    m 5hubfb "I love you, [player]~"
+
+    if persistent._mas_first_kiss:
+        call monika_kissing_motion_short
+
+    return "love"

@@ -118,48 +118,6 @@ init 5 python:
     addEvent(
         Event(
             persistent.event_database,
-            eventlabel="nsfw_monika_genitalia",
-            category=['sex'],
-            prompt="Player genitalia",
-            conditional="renpy.seen_label('nsfw_monika_nsfwmodinstall') and mas_canShowRisque(aff_thresh=400)",
-            action=EV_ACT_QUEUE,
-            aff_range=(mas_aff.ENAMORED, None)
-        )
-    )
-
-label nsfw_monika_genitalia:
-    m 1euc "Hey, [player]."
-    m 1ekbla "This is probably going to be an awkward question, but I'm just wondering..."
-    m 3ekbla "Do you have a penis, or a vagina?"
-
-    menu:
-        m "Do you have a penis, or a vagina?{fast}"
-
-        "Penis.":
-            $ persistent._nsfw_genitalia = "P"
-
-        "Vagina.":
-            $ persistent._nsfw_genitalia = "V"
-
-        "I'd rather not say.":
-            $ persistent._nsfw_genitalia = "U"
-            m 1ekbla "That's okay, [player]. I understand."
-            m 1hubla "If you change your mind, let me know."
-            return
-
-    m 1ekbla "Thank you for telling me, [player]."
-    m 1rkbsa "I imagine that might have been awkward for you."
-    m 1ekbsa "But this has helped me much more than you can imagine."
-    m 2dsbsa "..."
-    m 2tsbsa "Now when we flirt, I know what is going on down there~"
-    m 2gsbfa "..."
-    m 1hubfb "Ahaha~ Sorry. I just wanted to tease you a little."
-    return
-
-init 5 python:
-    addEvent(
-        Event(
-            persistent.event_database,
             eventlabel="nsfw_monika_sexualpast",
             category=['sex'],
             prompt="[player]'s sexual past",

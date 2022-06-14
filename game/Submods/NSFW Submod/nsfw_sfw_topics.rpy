@@ -3,7 +3,7 @@ init 5 python:
         Event(
             persistent.event_database,
             eventlabel="nsfw_monika_always_here",
-            category=['sex', 'monika'],
+            category=['monika'],
             prompt="Always here",
             random=True,
             aff_range=(mas_aff.ENAMORED, None)

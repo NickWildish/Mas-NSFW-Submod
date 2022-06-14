@@ -3,7 +3,7 @@ init 5 python:
     addEvent(
         Event(
             persistent.event_database,
-            eventlabel="monika_brb_nsfw_masturbate",
+            eventlabel="nsfw_monika_brb_masturbate",
             prompt="I'm going to go masturbate",
             category=['be right back'],
             conditional="mas_is18Over()",

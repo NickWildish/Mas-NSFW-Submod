@@ -118,6 +118,48 @@ init 5 python:
     addEvent(
         Event(
             persistent.event_database,
+            eventlabel="nsfw_monika_genitalia",
+            category=['sex'],
+            prompt="Player genitalia",
+            conditional="renpy.seen_label('nsfw_monika_nsfwmodinstall') and mas_canShowRisque(aff_thresh=400)",
+            action=EV_ACT_QUEUE,
+            aff_range=(mas_aff.ENAMORED, None)
+        )
+    )
+
+label nsfw_monika_genitalia:
+    m 1euc "Hey, [player]."
+    m 1ekbla "This is probably going to be an awkward question, but I'm just wondering..."
+    m 3ekbla "Do you have a penis, or a vagina?"
+
+    menu:
+        m "Do you have a penis, or a vagina?{fast}"
+
+        "Penis.":
+            $ persistent._nsfw_genitalia = "P"
+
+        "Vagina.":
+            $ persistent._nsfw_genitalia = "V"
+
+        "I'd rather not say.":
+            $ persistent._nsfw_genitalia = "U"
+            m 1ekbla "That's okay, [player]. I understand."
+            m 1hubla "If you change your mind, let me know."
+            return
+
+    m 1ekbla "Thank you for telling me, [player]."
+    m 1rkbsa "I imagine that might have been awkward for you."
+    m 1ekbsa "But this has helped me much more than you can imagine."
+    m 2dsbsa "..."
+    m 2tsbsa "Now when we flirt, I know what is going on down there~"
+    m 2gsbfa "..."
+    m 1hubfb "Ahaha~ Sorry. I just wanted to tease you a little."
+    return
+
+init 5 python:
+    addEvent(
+        Event(
+            persistent.event_database,
             eventlabel="nsfw_monika_sexualpast",
             category=['sex'],
             prompt="[player]'s sexual past",
@@ -197,7 +239,7 @@ label nsfw_monika_sexualpast:
             m 1hkb "I'm sorry, [player]."
             m 1ektdb "Don't mind me."
 
-    return   
+    return
 
 init 5 python:
     addEvent(
@@ -211,7 +253,7 @@ init 5 python:
             aff_range=(mas_aff.ENAMORED, None)
         )
     )
-    
+
 # Thankyou for the fixes Proxilvia
 label nsfw_monika_safesex:
     m 3euc "Hey, [player]. I've been thinking about something..."
@@ -231,7 +273,7 @@ label nsfw_monika_safesex:
         m 2lkbsb "It prevents any kind of fluid swapping during sex, which is supposed to prevent pregnancy and STDs."
     elif persistent._nsfw_genitalia == "F":
         m 4eubla "I've read that there are condoms available for women, but they aren't as popular as the men's version."
-        m 4eub "The most popular form of contraception seems to be 'The Pill'...{w=0.4}{nw}" 
+        m 4eub "The most popular form of contraception seems to be 'The Pill'...{w=0.4}{nw}"
         extend 4hksdlb "which sounds kind of ominous if you ask me."
         m 4eub "It is exactly what it says it is, a pill you take to prevent pregnancy."
         m 3eub "There are different kinds of pills, too!"
@@ -241,7 +283,7 @@ label nsfw_monika_safesex:
     else:
         m 4eubla "I've read that there are a whole bunch of different contraception methods, for both men and women."
         m 3eubla "Some are more popular than others, such as condoms for men, and oral contraceptives for women." #TODO - Add pose
-    
+
     m 3lkblc "They aren't exactly flawless though..."
     m 4ekbld "There is still a chance of accidents happening in spite of all the precautions."
     m 4efbld "Especially with stupid contraceptive methods like the 'p{w=0.4}{nw}"
@@ -252,7 +294,7 @@ label nsfw_monika_safesex:
     m 2efbsd "And that's to not have sex at all!"
     m 2dsbsc "..."
     m 2hkbfsdlb "Ahaha! Sorry, I lost my temper there..."
-    
+
     if store.mas_is18Over():
         m 2ekbsb "I guess I just want you to know that when the time comes where I come to your world, and we are together..."
         m 2tkbsu "We can worry about what contraceptives to use, then."
@@ -405,7 +447,7 @@ label nsfw_monika_gettingnude:
     m 2tkc "Some people are ashamed or disheartened by their appearance, which is really sad when you think about it."
     m 2ekc "You only have one body, so the least you can do is take care of it and love it, you know?"
     m 2eka "Having pride in what you look like is the best thing you can do for your confidence!"
-    
+
     if mas_nsfw.canShow_birthdaySuit():
         m 2rkbla "..."
         m 2rkblb "Hey, [player]..."
@@ -421,7 +463,7 @@ label nsfw_monika_gettingnude:
         $ _history_list.pop()
         menu:
             m "Can I be n-naked while you're here?{fast}"
-            
+
             "Of course, [m_name].":
                 m 1ekbfa "Thank you, [player]."
                 m 1dkbfa "It puts my mind at ease that you don't mind me doing this."
@@ -437,7 +479,6 @@ label nsfw_monika_gettingnude:
                 m 1mkbfsdlb "It might take a little getting used to..."
                 m 1ekbfb "Thank you again. I love you so much, [player]~"
                 return "love"
-                
             "Please don't...":
                 m 3wkbld "Oh..."
                 m 2rkbld "That's okay, [player]."
@@ -502,7 +543,7 @@ label nsfw_monika_gettingnude:
         extend 2hubssdlb " Sorry, my mind was starting to wander..."
         m 1rublsdlb "Gosh, don't mind me."
         return "love"
-    
+
     else:
         m 2hksdlb "Ahaha! Even though I talk about being naked and loving your body..."
         m 2mksdlb "I am still really embarrassed about the idea of being nude, even when alone."
@@ -513,7 +554,7 @@ label nsfw_monika_gettingnude:
         extend 1wubso "N-{w=0.2}Not right now though!"
         m 1hubssdlb "I mean like, later when you're not here!"
         m 1rubssdlb "Ahaha! It would be too embarrassing if you saw me in my underwear, let alone when I'm naked."
-        
+
     return
 
 # Thankyou for the addition, Blushing!
@@ -638,6 +679,62 @@ label nsfw_player_sextingsession:
     m 1hua "Sure!"
 
     call nsfw_sexting_init
+
+    return
+
+# Masturbation Benefits - Unlocked if you use the "I'm going to masturbate" topic Once
+init 5 python:
+    addEvent(
+        Event(
+            persistent.event_database,
+            eventlabel="nsfw_monika_masturbation_benefits",
+            category=['sex'],
+            prompt="Masturbation Benefits",
+            action=EV_ACT_RANDOM,
+            aff_range=(mas_aff.ENAMORED, None)
+        )
+    )
+
+label nsfw_monika_masturbation_benefits:
+    m 1rubsd "Umm... [player]?"
+    m 1eubsc "I have something I want to talk to you about. "
+    extend 3eubsc "I promise you that I'm being completely serious here..."
+    m 1rubsd "This is about masturbation."
+    m 1ekblb "Specifically... {w=1}It's about the {i}benefits{/i} of regular masturbation!"
+    $ _history_list.pop()
+    menu:
+        m "Are you okay with me talking about this?"
+
+        "Yes.":
+            m 2eub "Really? Okay!"
+            m 1eua "You see, [player], I didn't give it much thought until recently."
+            m 3eubla "Like a lot of people, I always thought masturbation was a... {w=0.5}{i}dirty habit{/i}, and nothing more."
+            m 3eub "But I've done a bit of research, and it seems that masturbating now and again can actually be beneficial!"
+            m 3rub "Among other things, it can of course reduce your stress..."
+            m 3eua "The release of serotonin and dopamine can reduce anxiety, and ease muscle tension."
+            m 3hksdlb "For women, it can even help ease period pains... {w=0.5}Ahaha..."
+            m 3eub "For men, studies have shown that it reduces the risk of prostate cancer in certain cases."
+            m 4eub "The reasons for this aren't fully known, but there {i}is{/i} a connection between the two."
+            m 3eublb "The working theory seems to be that a regular release helps to keep the prostate healthy."
+            m 4eua "For men and women alike, it can lead to better sexual satisfaction. {w=0.5}It makes sense, if you think about it!"
+            m 3eubla "If you know your own body, then you'll have an easier time conveying to your partner what you like..."
+            m 2efc "Now, with all that in mind...!"
+            m 3efd "Masturbation addiction can be a serious issue."
+            m 3efd "The benefits I mentioned... the dopamine release... chasing that high too often {i}is{/i} bad for you."
+            m 4efd "People who masturbate {i}too{/i} frequently can have a harder time getting off with a partner..."
+            m 1eud "Not to mention, if you use porn to get off, especially visual media...{w=0.5} You can become desensitized to more vanilla experiences."
+            m 1eud "Masturbating more than once a day..."
+            m 1tud "Is probably a little too much."
+            m 2hsc "..."
+            m 1eua "Thank you for letting me talk about this, [player]."
+            m 3eubfb "Talking about masturbation like this is surprisingly fun!"
+            m 5tubfu "It's a natural part of human sexuality, after all."
+            m 5kublu "There's nothing wrong with having a bit of {i}fun{/i} by yourself now and again~"
+
+        "Not right now.":
+            m 2eubsb "Ah. I understand."
+            m 1lkblb "I promise you I wasn't going to tell you off, or anything, but..."
+            m 1eubsb "Maybe some other time, then!"
 
     return
 
@@ -866,7 +963,7 @@ label nsfw_monika_oralsex:
 
     return
 
-# Thanks to mysterylewds for this topic
+# Thanks to mizuotanu-nirera for this topic
 
 default persistent._nsfw_units_metric = None
 default persistent._nsfw_dick_length = None

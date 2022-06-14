@@ -52,7 +52,7 @@ label nsfw_monika_brb_masturbate:
     # the callback label
     $ mas_idle_mailbox.send_idle_cb("monika_brb_nsfw_masturbate_callback")
     # The idle data
-    $ persistent._mas_idle_data["monika_idle_brb"] = True
+    $ persistent._mas_idle_data["monika_idle_masturbate"] = True
     # unlock masturbation random topics
         # $ mas_unlockEventLabel("nsfw_monika_masturbation_benefits")
     $ mas_showEVL("nsfw_monika_masturbation_benefits", "EVE", _random=True)
@@ -64,23 +64,23 @@ label monika_brb_nsfw_masturbate_callback:
 
     # Expansion - add in choices for added interaction, e.g. "I came" "I didnt get off" etc
     if mas_isMoniEnamored(higher=True):
-        if mas_brbs.was_idle_for_at_least(datetime.timedelta(minutes=30), "monika_brb_nsfw_masturbate"):
+        if mas_brbs.was_idle_for_at_least(datetime.timedelta(minutes=30), "monika_idle_masturbate"):
             m 2eubf "There you are, [player]!"
             m 2eubf "I was worried something had happened to you."
             m 1hubfb "Did you have time to... you know... get off? Gosh, I hope so."
             m 2eua "Anyway..."
             m 1eua "[wb_quip]"
-        elif mas_brbs.was_idle_for_at_least(datetime.timedelta(minutes=15), "monika_brb_nsfw_masturbate"):
+        elif mas_brbs.was_idle_for_at_least(datetime.timedelta(minutes=15), "monika_idle_masturbate"):
             m 1hubfb "Welcome back, [player]. Took you long enough!{w=0.2} {nw}"
             m 1eubfb "I'm guessing you had plenty of time to... do the deed?"
             m 1eubfb "I hope it didn't take you too longer to get into things...{w=0.5} Or to clean up, ehehe~"
             m 1eua "[wb_quip]"
-        elif mas_brbs.was_idle_for_at_least(datetime.timedelta(minutes=5), "monika_brb_nsfw_masturbate"):
+        elif mas_brbs.was_idle_for_at_least(datetime.timedelta(minutes=5), "monika_idle_masturbate"):
             m 1hubfb "Welcome back, [player]. Hehe~{w=0.2} {nw}"
             m 1eubfb "I'm guessing you had enough time to... do the deed?"
             m 1eubfb "I hope you had a bit of {i}fun{/i} by yourself, there..."
             m 1eua "[wb_quip]"
-        elif mas_brbs.was_idle_for_at_least(datetime.timedelta(minutes=1), "monika_brb_nsfw_masturbate"):
+        elif mas_brbs.was_idle_for_at_least(datetime.timedelta(minutes=1), "monika_idle_masturbate"):
             m 1hubfb "Welcome back, [player]. Hehe~{w=0.2} {nw}"
             m 2hubfb "That was fast... Ehehe~"
             m 2eub "I hope you didn't rush yourself, there..."

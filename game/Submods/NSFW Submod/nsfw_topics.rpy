@@ -703,7 +703,7 @@ init 5 python:
             eventlabel="nsfw_monika_favorite_position",
             category=['sex'],
             prompt="[player]'s favorite position",
-            conditional="mas_canShowRisque(aff_thresh=400) and persistent._nsfw_genitalia = 'P'", # Need to add a version for women
+            conditional="mas_canShowRisque(aff_thresh=400) and persistent._nsfw_genitalia == 'P'", # Need to add a version for women
             action=EV_ACT_RANDOM,
             aff_range=(mas_aff.ENAMORED, None)
         )

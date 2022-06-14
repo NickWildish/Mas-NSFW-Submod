@@ -646,7 +646,7 @@ init 5 python:
             eventlabel="nsfw_monika_masturbation_benefits",
             category=['sex'],
             prompt="Masturbation Benefits",
-            conditional="mas_canShowRisque(aff_thresh=400) and store.mas_getEVL_shown_count('nsfw_monika_brb_masturbate')"
+            conditional="mas_canShowRisque(aff_thresh=400) and store.mas_getEVL_shown_count('nsfw_monika_brb_masturbate')",
             action=EV_ACT_RANDOM,
             aff_range=(mas_aff.ENAMORED, None)
         )

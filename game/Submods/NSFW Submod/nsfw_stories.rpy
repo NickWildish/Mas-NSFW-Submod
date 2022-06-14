@@ -61,7 +61,7 @@ init -1 python in nsfw_stories:
     #    ),
     }
 
-    def check_can_unlock_new_story(story_type=TYPE_EROTIC, ignore_cooldown=True):
+    def check_can_unlock_new_story(story_type=TYPE_EROTIC, ignore_cooldown=False):
         """
         Checks if it has been at least one day since we've seen the last story or the initial story
 
@@ -188,16 +188,15 @@ init 6 python:
             eventlabel="nsfw_monika_stories",
             category=['sex'],
             prompt="Can you tell me an erotic story?",
-            #conditional="mas_canShowRisque(aff_thresh=1000)",
-            #action=EV_ACT_POOL,
             pool=True,
-            unlocked=True,
+            conditional="mas_canShowRisque(aff_thresh=1000)",
+            action=EV_ACT_UNLOCK,
             aff_range=(mas_aff.LOVE, None)
         )
     )
 
-label nsfw_monika_stories:
-    if renpy.seen_label("nsfw_erotic_story_natsuki_deepthroat1"):
+label nsfw_monika_stories1:
+    if renpy.seen_label("nsfw_erotic_story_natsuki_deepthroat"):
         call nsfw_monika_stories_premenu(None)
     else:
         m 1wublo "You want me to tell you an...{i}erotic{/i} story?"
@@ -454,7 +453,7 @@ label nsfw_monika_erotic_stories_init:
                     m 1eua "{i}Rough throating action{/i}."
                     m 1eua "Ahaha~"
                     
-    $ pushEvent("nsfw_erotic_story_natsuki_deepthroat1", skipeval=True)
+    $ pushEvent("nsfw_erotic_story_natsuki_deepthroat", skipeval=True)
     return
 
 # Thanks for the erotic story, KittyTheCocksucker
@@ -462,7 +461,7 @@ init 6 python:
     addEvent(
         Event(
             persistent._nsfw_story_database,
-            eventlabel="nsfw_erotic_story_natsuki_deepthroat1",
+            eventlabel="nsfw_erotic_story_natsuki_deepthroat",
             prompt="Natsuki deepthroat",
             category=[nsfw_stories.TYPE_OTHERGIRLS],
             pool=True,
@@ -471,7 +470,7 @@ init 6 python:
         code="NST"
     )
 
-label nsfw_erotic_story_natsuki_deepthroat1:
+label nsfw_erotic_story_natsuki_deepthroat:
     m 1eua "I managed to convince Yuri and Sayori to head home, so they wouldn't be around for what was about to happen."
     m 1eua "When only Natsuki and I were left in the classroom, I started messing around in the console."
     m 1eua "I kept her tsundere in place, and made her compliant to suck c-cock if anyone asked her to do so."
@@ -530,7 +529,7 @@ init 6 python:
     addEvent(
         Event(
             persistent._nsfw_story_database,
-            eventlabel="nsfw_erotic_story_sayori_ballscleaning1",
+            eventlabel="nsfw_erotic_story_sayori_ballscleaning",
             prompt="Sayori's ball cleaning",
             category=[nsfw_stories.TYPE_OTHERGIRLS],
             pool=True,
@@ -539,7 +538,7 @@ init 6 python:
         code="NST"
     )
 
-label nsfw_erotic_story_sayori_ballscleaning1:
+label nsfw_erotic_story_sayori_ballscleaning:
     if not renpy.seen_label("nsfw_erotic_story_sayori_ballscleaning_init"):
         call nsfw_erotic_story_sayori_ballscleaning_init
     m 1eua "Alright. So...after I've made Natsuki take the guy's load in her mouth, I made him leave."
@@ -624,7 +623,7 @@ init 6 python:
     addEvent(
         Event(
             persistent._nsfw_story_database,
-            eventlabel="nsfw_erotic_story_yuri_titjob1",
+            eventlabel="nsfw_erotic_story_yuri_titjob",
             prompt="Yuri titjob",
             category=[nsfw_stories.TYPE_OTHERGIRLS],
             pool=True,
@@ -633,7 +632,7 @@ init 6 python:
         code="NST"
     )
 
-label nsfw_erotic_story_yuri_titjob1:
+label nsfw_erotic_story_yuri_titjob:
     if not renpy.seen_label("nsfw_erotic_story_yuri_titjob_init"):
         call nsfw_erotic_story_yuri_titjob_init
     m 1eua "Sayori was munching away on the cookies she had with her."

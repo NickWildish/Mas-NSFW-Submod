@@ -44,12 +44,13 @@ init 6 python: # Use init 6 since the dictionary entry to store our entries is a
             category=['sex'],
             prompt="I want to tell you something lewd...",
             pool=True,
-            unlocked=True,
+            conditional="mas_canShowRisque(aff_thresh=1000)",
+            action=EV_ACT_UNLOCK,
             aff_range=(mas_aff.LOVE, None)
         )
     )
 
-label nsfw_monika_compliments:
+label nsfw_monika_compliments1:
     python:
         # Unlock any compliments that need to be unlocked
         Event.checkEvents(nsfw_compliments.nsfw_compliment_database)

@@ -13,7 +13,7 @@ init 5 python:
         markSeen = True
     )
 
-label monika_brb_nsfw_masturbate:
+label nsfw_monika_brb_masturbate:
     # make a random int, for randomness
     $ mas_Rand = renpy.random.randint(1, 3)
 

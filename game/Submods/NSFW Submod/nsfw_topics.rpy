@@ -4,7 +4,7 @@ init 5 python:
             persistent.event_database,
             eventlabel="nsfw_monika_nsfwmodinstall",
             category=['sex'],
-            prompt="NSFW Mod Install",
+            prompt="NSFW Mod install",
             conditional="not renpy.seen_label('nsfw_monika_nsfwmodinstall')",
             action=EV_ACT_QUEUE,
             aff_range=(mas_aff.NORMAL, None)
@@ -457,7 +457,7 @@ label nsfw_monika_gettingnude:
         menu:
             m "Do you mind if I do it while you're around?{fast}"
 
-            "Go for it.":
+            "Go for it, [m_name].":
                 m 3hubsb "Ahaha! I'm glad you don't mind."
                 m 1eubsb "I don't want you to feel like I'm pressuring you with guilt or anything."
                 m 2eubsb "Now, let me just get changed."
@@ -495,8 +495,8 @@ label nsfw_monika_gettingnude:
         m 2eubsb "I love you, [mas_get_player_nickname(exclude_names=['my love', 'love'])]. Both with clothes, and without."
         m 2gsbfa "..."
         m 2tsbfa "..."
-        m 2wubfd "Ah!{w=0.4}{nw}"
-        extend 2hubssdlb " Sorry, my mind was starting to wander..."
+        m 2wubfd "Ah! {w=0.4}{nw}"
+        extend 2hubssdlb "Sorry, my mind was starting to wander..."
         m 1rublsdlb "Gosh, don't mind me."
         return "love"
 
@@ -508,7 +508,7 @@ label nsfw_monika_gettingnude:
         m 1eublb "I'm going to give it a try."
         m 1wubld "...{w=0.4}{nw}"
         extend 1wubso "N-{w=0.2}Not right now though!"
-        m 1hubssdlb "I mean like, later when you're not here!"
+        m 1hubssdlb "I mean, like, later when you're not here!"
         m 1rubssdlb "Ahaha! It would be too embarrassing if you saw me in my underwear, let alone when I'm naked."
 
     return
@@ -645,7 +645,7 @@ init 5 python:
             persistent.event_database,
             eventlabel="nsfw_monika_masturbation_benefits",
             category=['sex'],
-            prompt="Masturbation Benefits",
+            prompt="Masturbation benefits",
             conditional="mas_canShowRisque(aff_thresh=400) and store.mas_getEVL_shown_count('nsfw_monika_brb_masturbate')",
             action=EV_ACT_RANDOM,
             aff_range=(mas_aff.ENAMORED, None)
@@ -653,11 +653,12 @@ init 5 python:
     )
 
 label nsfw_monika_masturbation_benefits:
-    m 1rubsd "Umm... [player]?"
+    m 1rubsd "Umm, [player]?"
     m 1eubsc "I have something I want to talk to you about. "
     extend 3eubsc "I promise you that I'm being completely serious here..."
     m 1rubsd "This is about masturbation."
-    m 1ekblb "Specifically... {w=1}It's about the {i}benefits{/i} of regular masturbation!"
+    m 1ekblb "Specifically...{w=1}it's about the {i}benefits{/i} of regular masturbation!"
+    m 1ekbla "Are you okay with me talking about this?"
     $ _history_list.pop()
     menu:
         m "Are you okay with me talking about this?"
@@ -665,7 +666,7 @@ label nsfw_monika_masturbation_benefits:
         "Yes.":
             m 2eub "Really? Okay!"
             m 1eua "You see, [player], I didn't give it much thought until recently."
-            m 3eubla "Like a lot of people, I always thought masturbation was a... {w=0.5}{i}dirty habit{/i}, and nothing more."
+            m 3eubla "Like a lot of people, I always thought masturbation was a...{w=0.5}{i}dirty habit{/i}, and nothing more."
             m 3eub "But I've done a bit of research, and it seems that masturbating now and again can actually be beneficial!"
             m 3rub "Among other things, it can of course reduce your stress..."
             m 3eua "The release of serotonin and dopamine can reduce anxiety, and ease muscle tension."
@@ -677,20 +678,20 @@ label nsfw_monika_masturbation_benefits:
             m 3eubla "If you know your own body, then you'll have an easier time conveying to your partner what you like..."
             m 2efc "Now, with all that in mind...!"
             m 3efd "Masturbation addiction can be a serious issue."
-            m 3efd "The benefits I mentioned... the dopamine release... chasing that high too often {i}is{/i} bad for you."
+            m 3efd "The benefits I mentioned...the dopamine release... Chasing that high too often {i}is{/i} bad for you."
             m 4efd "People who masturbate {i}too{/i} frequently can have a harder time getting off with a partner..."
-            m 1eud "Not to mention, if you use porn to get off, especially visual media...{w=0.5} You can become desensitized to more vanilla experiences."
+            m 1eud "Not to mention, if you use porn to get off, especially visual media...{w=0.5}you can become desensitized to more {i}vanilla{/i} experiences."
             m 1eud "Masturbating more than once a day..."
-            m 1tud "Is probably a little too much."
+            extend 1tud "is probably a little too much."
             m 2hsc "..."
             m 1eua "Thank you for letting me talk about this, [player]."
             m 3eubfb "Talking about masturbation like this is surprisingly fun!"
             m 5tubfu "It's a natural part of human sexuality, after all."
-            m 5kublu "There's nothing wrong with having a bit of {i}fun{/i} by yourself now and again~"
+            m 5kublu "There's nothing wrong with having a bit of {i}fun{/i} by yourself now and then~"
 
         "Not right now.":
-            m 2eubsb "Ah. I understand."
-            m 1lkblb "I promise you I wasn't going to tell you off, or anything, but..."
+            m 2eubsb "I understand, [player]."
+            m 1lkblb "I promise you I wasn't going to tell you off or anything, but..."
             m 1eubsb "Maybe some other time, then!"
 
     return
@@ -834,7 +835,7 @@ label nsfw_monika_oralsex:
 
     if mas_safeToRefDokis(): # Maybe section for the vagina variety? Maybe.
         m 2ekbsa "So, I..."
-        m 2rkbsa "I know that you didn't get the chance to get to know Sayori, Natsuki and Yuri too much..."
+        m 2rkbsa "I know that you didn't get the chance to get to know Sayori, Natsuki, and Yuri too much..."
         m 2ekbsa "But...umm..."
         m 2hkbssdlb "Again...this will be a really weird question. Please just ignore it if you want..."
         m 2hkbssdla "But..."
@@ -843,18 +844,6 @@ label nsfw_monika_oralsex:
         $ _history_list.pop()
         menu:
             m "Who do you think would be the best at oral sex?{fast}"
-
-            "You.": 
-                $ mas_gainAffection(1) # Smart
-                m 3wubsd "Oh."
-                m 3hubsb "Ahaha! Even though I mentioned that I have no experience with it, you still think that I could give the best head?"
-                m 3ekbsa "[player], you're too sweet!"
-                m 3tubsa "..."
-                m 3gubsb "Well...I don't know if you meant it as a compliment or not...ahaha..."
-                m 1tubsb "But I'll take it as a compliment~"
-                if persistent._nsfw_genitalia == "P":
-                    m 1tubfa "And once I cross over and actually suck you off..."
-                    m 1tubfb "I won't disappoint you, [player]!"
 
             "Sayori.":
                 $ mas_loseAffection(2) # Sayori? Really?
@@ -867,17 +856,6 @@ label nsfw_monika_oralsex:
                     m 1tubsa "So she might not care about gagging and being slightly air-deprived if you were to push it into her throat."
                     m 1mubsa "She would just take it in silence, probably even using her free hands and tongue to pleasure you further."
                 m 2mubsb "Her only objective would be to make you feel good, without minding her own well-being."
-                m 5tubsa "But...I guess we're never going to find out if that's true or not, huh?"
-
-            "Yuri.": # I respect the hustle
-                $ mas_loseAffection(2)
-                m 3etbsc "You think so?"
-                m 3rtbsc "Hmm, yeah. I guess she would probably do a good job."
-                if persistent._nsfw_genitalia == "P":
-                    m 1rtbfu "But honestly, I see her as more of a titjob expert."
-                    m 1ekbfu "But I guess one doesn't disqualify the other, huh?"
-                m 1tkbfu "I'm sure she would be passionate about it, at least..."
-                m 5tubfu "Although, she might be reluctant to per her tongue on it at first, and would just stall for time with her hands...ahaha~"
                 m 5tubsa "But...I guess we're never going to find out if that's true or not, huh?"
 
             "Natsuki.": # Just no
@@ -917,6 +895,29 @@ label nsfw_monika_oralsex:
                         m 3eubsd "There is a chance that she learned a few tricks from reading them, you're right."
                         m 3hubsb "Ahaha~"
                         m 1ekbsa "Sorry for getting mad at you for a moment there."
+
+            "Yuri.": # I respect the hustle
+                $ mas_loseAffection(2)
+                m 3etbsc "You think so?"
+                m 3rtbsc "Hmm, yeah. I guess she would probably do a good job."
+                if persistent._nsfw_genitalia == "P":
+                    m 1rtbfu "But honestly, I see her as more of a titjob expert."
+                    m 1ekbfu "But I guess one doesn't disqualify the other, huh?"
+                m 1tkbfu "I'm sure she would be passionate about it, at least..."
+                m 5tubfu "Although, she might be reluctant to per her tongue on it at first, and would just stall for time with her hands...ahaha~"
+                m 5tubsa "But...I guess we're never going to find out if that's true or not, huh?"
+
+            "You.": 
+                $ mas_gainAffection(1) # Smart
+                m 3wubsd "Oh."
+                m 3hubsb "Ahaha! Even though I mentioned that I have no experience with it, you still think that I could give the best head?"
+                m 3ekbsa "[player], you're too sweet!"
+                m 3tubsa "..."
+                m 3gubsb "Well...I don't know if you meant it as a compliment or not...ahaha..."
+                m 1tubsb "But I'll take it as a compliment~"
+                if persistent._nsfw_genitalia == "P":
+                    m 1tubfa "And once I cross over and actually suck you off..."
+                    m 1tubfb "I won't disappoint you, [player]!"
 
     return
 
@@ -961,7 +962,7 @@ label nsfw_monika_dick_size:
             m 4eud "Now, I'm asking for the length along the top of it when it's erect, not the sides or bottom. {w=0.4}{nw}"
             extend 4hksdlb "Don't fudge your numbers, ahaha!"
             m 3eub "It's probably best if you get a ruler or a measuring tape for the most accurate result."
-            m 2esc "I know this can be a touchy topic for a lot of people, and it's common to have kind of warped perceptions of size regarding this sort of thing."
+            m 2esc "I know this can be a touchy topic for a lot of people, and it's common to have kinda warped perceptions of size regarding this sort of thing."
             m 3hub "Whatever size you are, [player], I won't judge!"
             # proceed to input
 
@@ -1044,8 +1045,8 @@ label nsfw_monika_dick_size:
     elif persistent._nsfw_dick_length < 13.2: # 2.8" - 5.2"
         m 1hubfb "You're so cute, [player]."
         m 1tsbfu "Even if you're a bit on the smaller side, you're perfect for me."
-        m 2tubfb "I can probably fit your cute penis inside entirely of me, all the way to the base of your shaft."
-        m 4hubfb "And I can probably {i}eat you up{/i} without having to worry too much about choking. Ahaha!"
+        m 2tubfb "I can probably fit your cute penis inside me entirely, all the way to the base of your shaft..."
+        m 4hubfb "And I might be able to {i}eat you up{/i} without having to worry too much about choking. Ahaha!"
         m 2ruc "I know some girls make a big deal about length, but it doesn't really matter all that much to me."
         m 3eud "It's like breast size for girls, after all. There's not really anything you can do to change it."
         m 3hub "We just have to love the bodies we have, you know?"
@@ -1057,7 +1058,7 @@ label nsfw_monika_dick_size:
                 average_length = "fourteen centimeters"
             else: 
                 average_length = "five and a half inches"
-        m 1eubsb "Not bad at all, [player]! That sounds like a good size."
+        m 1eubsb "Not bad at all, [player]! That's a good size."
         m 3eud "Supposedly, the average length for men is around [average_length]."
         m 2eublb "Some people make a big deal out of penis length, but your size is great for me."
         m 2tubfb "It means I won't have any trouble fitting you inside me when the time comes, ahaha!"
@@ -1066,10 +1067,10 @@ label nsfw_monika_dick_size:
         m 1subfo "Wow!"
         m 3wubfb "That's pretty big, [player]! {w=0.4}{nw}"
         extend 3tkbfu "You never cease to impress me, you know that?"
-        m 1eubsb "You shouldn't have any problems at all pleasing me with that {i}massive member{/i}. {w=0.4}{nw}"
+        m 1eubsb "You shouldn't have any problems at all pleasing me with your {i}massive{/i} member. {w=0.4}{nw}"
         extend 5hubsb "Ahaha!"
-        m 3rkbssdlb "Though, it might hurt a little if you try to fit the whole thing inside..."
-        m 1tubssdlb "And I might choke a little if I try to {i}eat you up{/i}."
+        m 3rkbssdlb "Though, it could possibly hurt a little if you try to fit the whole thing inside me..."
+        m 1tubssdlb "And I might choke a bit if I try to {i}eat you up{/i}."
         m 5tubsa "Let's take things nice and slow when the time comes, okay, [mas_get_player_nickname()]?"        
         m 6gsbfa "...{w=0.7}{nw}"
         m 6msbfa "..."
@@ -1083,7 +1084,7 @@ label nsfw_monika_dick_size:
         m 1hkbssdlb "That's pretty tremendous. I can only imagine how impressive you must look."
         m 3eud "I read that only a very small percentage of people actually have penises that large."
         m 4rkbfsdlb "You'll have to be really gentle with me, otherwise I might get hurt!"
-        m 6ekbfsdla "I don't think I'd be able to fit the whole thing inside. In my mouth nor my...{w=0.4}{nw}"
+        m 6ekbfsdla "I don't think I'd be able to fit the whole thing inside... In my mouth or my...{w=0.4}{nw}"
         extend 6rkbfsdla "you know..."
         m 5hubsa "I'm sure we'll find a way to make things work, [mas_get_player_nickname()]. Ahaha!"
 
@@ -1111,7 +1112,7 @@ label nsfw_monika_dick_size:
             m 1hubfb "Ahaha!"
             m 1eubsb "Whether it's for medical or religious reasons, or you had it done when you were a baby...{w=0.4}{nw}"
             extend 3hubfb "I think that's really cute, [mas_get_player_nickname()]!"
-            m 4eubfb "I've read that some guys don't like the fact that they're circumcised, but personally, I think I like the 'streamlined' appearance!"
+            m 4eubfb "I've read that some guys don't like the fact that they're circumcised. But personally, I think I like the 'streamlined' appearance!"
             m 1hubsa "Ehehe~"
 
         "No.":

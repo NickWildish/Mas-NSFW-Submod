@@ -196,6 +196,7 @@ init 6 python:
     )
 
 label nsfw_monika_stories1:
+label nsfw_monika_stories:
     if renpy.seen_label("nsfw_erotic_story_natsuki_deepthroat"):
         call nsfw_monika_stories_premenu(None)
     else:

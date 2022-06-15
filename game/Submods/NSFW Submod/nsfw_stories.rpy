@@ -260,6 +260,7 @@ init 6 python:
     )
 
 label nsfw_erotic_story_thepen:
+    $ inspired_monika = False
     if persistent.playthrough >= 2:
         $ inspired_monika = True
     

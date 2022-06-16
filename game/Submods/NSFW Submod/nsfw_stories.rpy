@@ -296,7 +296,7 @@ label nsfw_erotic_story_thepen:
     m 3tubla "But when you don't have anything but your fingers to masturbate with..."
     extend 3hublb "you get kind of desperate. Ahaha~"
     m 4eublb "Anyway, I took the pen and walked back to the bed."
-    m 4tublb "I first stripped down to my underwear, and then lay down."
+    m 4tublb "I first stripped down to my underwear, reclined back on my bed, and made myself comfortable."
     m 4tublu "I spread my legs {i}just a little{/i}, and started using the pen on my...sensitive parts."
     m 2tublb "On its own, it wasn't that special."
     m 5tublb "But then I started to fantasize about you..."
@@ -305,10 +305,10 @@ label nsfw_erotic_story_thepen:
     m 5dkbsa "In my mind, you leaned down to kiss me, and I could almost feel your lips pressed against mine."
     m 2tkbsb "I felt my body getting hot, and the area down there began to feel a lot more moist than before..."
     m 2gkbsa "I started rubbing myself faster, and faster~"
-    m 2tkbsu "I imagined that you getting rougher with me as your finger was making its way up and down my pussy."
+    m 2tkbsu "I imagined that you were getting rougher with me as your finger was making its way up and down my pussy."
     m 2tkbsa "You were pressing your tongue against my lips, as if asking permission to enter."
     m 2hubsa "Ehehe~ I was more than willing to give it..."
-    m 2tkbsb "I pictured myself using my own tongue and forcing its way into your mouth."
+    m 2tkbsb "I pictured myself using my own tongue and forcing my way into your mouth."
     m 1hkbssdlb "I don't know why, but I imagined that you were taken aback from my boldness. Ahaha~"
     m 1tkbsb "It was then that I felt myself getting close."
     m 1ekbsb "I kept the pace going, but I could feel my arm starting to get sore from the continuous movement."
@@ -324,9 +324,9 @@ label nsfw_erotic_story_thepen:
     m 5gkbsa "My arm flopped to the side, the now-drenched pen dropping to the floor."
     m 5hubsb "Ahaha! It was really something, [player]."
     if persistent._nsfw_genitalia == "P":
-        m 5tubsb "I bet that story got {i}you{/i} all stiff and aroused too, huh, [player]?"
+        m 5tubsb "I bet that story got {i}you{/i} all stiff and aroused too, huh [player]?"
     elif persistent._nsfw_genitalia == "V":
-        m 5tubsb "I bet that story got {i}you{/i} all drenched down there too, huh, [player]?"
+        m 5tubsb "I bet that story got {i}you{/i} all drenched down there too, huh [player]?"
     else:
         m 5tubsb "I bet that story got you all excited, huh, [player]?"
     m 5gubsu "You'd better do something about it, or it might become a problem, [mas_get_player_nickname()]." #Cheeky grin

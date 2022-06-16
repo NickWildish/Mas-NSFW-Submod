@@ -220,14 +220,14 @@ label nsfw_monika_safesex:
     m 3ekbsd "Sexually transmitted diseases, or STDs, are scary to think about!"
     m 3wubso "And pregnancy, as well!"
 
-    if persistent.gender == "M":
+    if persistent._nsfw_genitalia == "P":
         m 4eubla "I've read that condoms are the most preferable form of protection for men."
         m 4eublb "It's a latex-rubber 'sheath' that you put around..."
         m 4wsbsd "..."
         m 2dfbsa "{i}Ahem{/i}..."
         m 2lkbfa "...You get the idea."
         m 2lkbsb "It prevents any kind of fluid swapping during sex, which is supposed to prevent pregnancy and STDs."
-    elif persistent.gender == "F":
+    elif persistent._nsfw_genitalia == "V":
         m 4eubla "I've read that there are condoms available for women, but they aren't as popular as the men's version."
         m 4eub "The most popular form of contraception seems to be 'The Pill'...{w=0.4}{nw}"
         extend 4hksdlb " which sounds kind of ominous if you ask me."

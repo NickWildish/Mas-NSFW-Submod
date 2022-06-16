@@ -362,8 +362,10 @@ label nsfw_compliment_tits_3:
     python:
         tits_quips = [
             _("You can look at them all you want~"), # Ahaha~ I'm glad you do, [player]! 
-            _("I can't wait for you to fondle them~"), # Mhm~ 
-            _("I hope my outfit isn't too revealing. Ahaha~"),
+            _("I can't wait for you to fondle them~"), # Mhm~
+            _("Want to rest your head on them? Ahaha~"), 
+            # _("I hope my outfit isn't too revealing. Ahaha~"),
+            # this last one is good but needs a bit of code so it only triggers when her clothing has a lingerie exprop
         ]
         tits_quip = random.choice(tits_quips)
     m 1tubla "Ehehe~"

@@ -53,7 +53,7 @@ init 5 python:
         Event(
             persistent._mas_windowreacts_database,
             eventlabel="mas_nsfw_wrs_spnati",
-            category=["- Strip Poker Night at the Inventory"],
+            category=["Strip Poker Night at the Inventory"],
             aff_range=(mas_aff.AFFECTIONATE, None),
             rules={
                 "notif-group": "Window Reactions",
@@ -72,7 +72,7 @@ label mas_nsfw_wrs_spnati:
             mas_display_notif(m_name,
                 [
                     "Did you know that there's a version of me in this game? You could play wiht me! ;)",
-                    "Apparently all the characters in this game were made by people as a hobby. Interesting..."
+                    "Apparently all the characters in this game were made by people as a hobby. Interesting...",
                     "Gosh, there are so many characters...but you only need me, right? ;)",
                     "Strip poker with five card draw...What a silly game! ;)"
                 ],'Window Reactions'
@@ -113,7 +113,8 @@ label mas_nsfw_wrs_pornhub:
         mas_display_notif(m_name,
             [
                 "[player]...really? Hmph.",
-                "[player], I'm right here you know. Hmph."
+                "[player], I'm right here you know. Hmph.",
+                "[player]...I'm sitting right here..."
             ],'Window Reactions'
         )
 

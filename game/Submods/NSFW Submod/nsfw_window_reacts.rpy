@@ -53,7 +53,7 @@ init 5 python:
         Event(
             persistent._mas_windowreacts_database,
             eventlabel="mas_nsfw_wrs_spnati",
-            category=["- SPNatI"],
+            category=["- Strip Poker Night at the Inventory"],
             aff_range=(mas_aff.AFFECTIONATE, None),
             rules={
                 "notif-group": "Window Reactions",
@@ -109,15 +109,16 @@ init 5 python:
 
 label mas_nsfw_wrs_pornhub:
     # this can be expanded later if someone wants to tackle a "watch porn together" topic
-    mas_display_notif(m_name,
-        [
-            "[player]...really? Hmph.",
-            "[player], I'm right here you know. Hmph."
-        ]
-    )
+    python:
+        mas_display_notif(m_name,
+            [
+                "[player]...really? Hmph.",
+                "[player], I'm right here you know. Hmph."
+            ],'Window Reactions'
+        )
 
-    exp_to_force = "1gfbfsdlc"
-    # force her sprite to do a specific expression
-    mas_moni_idle_disp.force_by_code(exp_to_force, duration=10)
+        exp_to_force = "1gfbfsdlc"
+        # force her sprite to do a specific expression
+        mas_moni_idle_disp.force_by_code(exp_to_force, duration=10)
 
     return

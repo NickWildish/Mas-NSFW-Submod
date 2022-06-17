@@ -260,9 +260,11 @@ init 6 python:
     )
 
 label nsfw_erotic_story_thepen:
-    $ inspired_monika = False
-    if persistent.playthrough >= 2:
-        $ inspired_monika = True
+    python:
+        if persistent.playthrough >= 2:
+            inspired_monika = True
+        else:
+            inspired_monika = False
     
     if not mas_getEVL_shown_count("nsfw_erotic_story_thepen") >= 1:
         m 1etb "An erotic story?"
@@ -271,7 +273,7 @@ label nsfw_erotic_story_thepen:
     else:
         call nsfw_story_begin
 
-    if inspired_monika == True:
+    if inspired_monika:
         m 3eub "Do you remember when Yuri mentioned how she took the main character's pen and did some...ahem..."
         extend 1rkblsdlb "questionable things with it?"
         m 3eubla "Well, that's the inspiration for this story."
@@ -286,7 +288,7 @@ label nsfw_erotic_story_thepen:
     m 2esbla "I wanted to try something {i}different{/i}, you know?"
     m 2eub "So...I was in my room, searching for something that would make it more exciting..."
     extend 3eua "when I found my pen sitting on the desk."
-    if inspired_monika == True:
+    if inspired_monika:
         m 3rkblb "My mind immediately went back to when I overheard that Yuri had used the main character's pen to stimulate herself."
         m 3rtblu "I wondered if it was that good of a feeling, or if she was just so obsessed with him that anything would have done it."
     else:

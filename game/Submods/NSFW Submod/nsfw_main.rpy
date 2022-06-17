@@ -58,6 +58,7 @@ screen nsfw_submod_screen():
 init 5 python: # init 5 as the modified dictionary (mas_all_ev_db_map) is using priority 4, and we want it to be around before adding anything.
     mas_all_ev_db_map.update({"NCP" : store.nsfw_compliments.nsfw_compliment_database})
     mas_all_ev_db_map.update({"NST" : store.nsfw_stories.nsfw_story_database})
+    mas_all_ev_db_map.update({"NFH" : store.nsfw_fetish.nsfw_fetish_database})
 
 init python in mas_nsfw:
     """

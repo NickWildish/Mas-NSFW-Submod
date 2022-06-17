@@ -103,8 +103,8 @@ label nsfw_player_fetishes:
 # Noting that the current approach is intended to be both informative and descriptive, allowing you to make a decision of whether or not it's something you're into.
 
 
-default persistant.mas_pm_bondage = False
-default persistant.mas_pm_bondage_context = "U" #G for Giving, R for Recieving, B for both, U for Undefined
+default persistent.nsfw_pm_bondage = False
+default persistent.nsfw_pm_bondage_context = "U" #G for Giving, R for Recieving, B for both, U for Undefined
 
 init 6 python:
     addEvent(
@@ -128,7 +128,7 @@ label nsfw_fetish_bondage:
     menu:
         m "Though with that well and done, what do you think, [player]? Do you think you'd like to try it out?{fast}"
         "Yes":
-            $ persistent._mas_pm_bondage = True
+            $ persistent._nsfw_pm_bondage = True
             m 2tkbsb "Okay!"
             
             m 1eua "Would you prefer giving, recieving, or both?"
@@ -136,21 +136,21 @@ label nsfw_fetish_bondage:
             menu:
                     m "Would you prefer giving, recieving, or both?{fast}"
                     "Giving":
-                        $ persistent._mas_pm_bondage_context = "G"
+                        $ persistent._nsfw_pm_bondage_context = "G"
                         m 1eua "Okay!"
                         m 1eua "While I'd love to respond in an appropriate manner, the Dev can't think of anything good right now."
                         m 1eua "Maybe another time."
 
                     "Recieving":
-                        $ persistent._mas_pm_bondage_context = "R"
+                        $ persistent._nsfw_pm_bondage_context = "R"
                         m 1eua "Oh?"
                         m 1eua "Then I guess I'd better start practicing my knots~"
 
                     "Both":
-                        $ persistent._mas_pm_bondage_context = "B"
+                        $ persistent._nsfw_pm_bondage_context = "B"
                         m 1eua "Guess we'd better start practicing our knots in the meantime, huh?"
         "No":
-            $ persistent._mas_pm_bondage = False
+            $ persistent._nsfw_pm_bondage = False
             m 1hubsb "Alright, [player]."
             m 1eua "Guess I'll put away these handcuffs for now." #Smirk
     m 1eua "Ahaha~"
@@ -181,7 +181,7 @@ label nsfw_fetish_bondage:
             m 1eua "That's okay. Let me know if you change your mind."
     return
 
-default persistant.mas_pm_hand_holding = False
+default persistant.nsfw_pm_hand_holding = False
 
 init 6 python:
     addEvent(
@@ -205,11 +205,11 @@ label nsfw_fetish_hand_holding:
     menu:
         m "Though I gotta ask, are you into something like that?{fast}"
         "Yes":
-            $ persistent._mas_pm_hand_holding = True
+            $ persistent._nsfw_pm_hand_holding = True
             m 2tkbsb "It's a pretty big jump...but I suppose I'm okay with it as long as it's with you."
 
         "No":
-            $ persistent._mas_pm_hand_holding = False
+            $ persistent._nsfw_pm_hand_holding = False
             m 1hubsb "I completely agree, [player]. {nw}"
             extend 1eua "How could I even consider such a heinous act!"
 
@@ -221,8 +221,8 @@ label nsfw_fetish_hand_holding:
     m 1eua "Though if you {i}are{/i} into hand holding, I wouldn't mind [player]~"
     return
 
-default persistant.mas_pm_anal = False
-default persistant.mas_pm_anal_context = "U" #G for Giving, R for Recieving, B for both, U for Undefined
+default persistent.nsfw_pm_anal = False
+default persistent.nsfw_pm_anal_context = "U" #G for Giving, R for Recieving, B for both, U for Undefined
 
 init 6 python:
     addEvent(
@@ -241,26 +241,26 @@ label nsfw_fetish_anal:
     menu:
         m "AnalTest{fast}"
         "Yes":
-            $ persistent._mas_pm_anal = True
+            $ persistent._nsfw_pm_anal = True
 
             m 2tkbsb "YesConfirm"
             $ _history_list.pop()
             menu:
                 m "YesConfirm"
                 "Giving":
-                    $ persistent._mas_pm_anal_context = "G"
+                    $ persistent._nsfw_pm_anal_context = "G"
 
                 "Recieving":
-                    $ persistent._mas_pm_anal_context = "R"
+                    $ persistent._nsfw_pm_anal_context = "R"
 
                 "Both":
-                    $ persistent._mas_pm_anal_context = "B"
+                    $ persistent._nsfw_pm_anal_context = "B"
 
         "No":
             m 1hubsb "NoConfirm"
     return
 
-default persistant.mas_pm_dominance = "U" #D for Dom, S for Sub, B for Switch, U for Undefined
+default persistent.nsfw_pm_dominance = "U" #D for Dom, S for Sub, B for Switch, U for Undefined
 
 init 6 python:
     addEvent(
@@ -279,15 +279,15 @@ label nsfw_fetish_dominance:
     menu:
         m "DominanceTest{fast}"
         "Dominance":
-            $ persistent._mas_pm_dominance = "D"
+            $ persistent._nsfw_pm_dominance = "D"
             m 2tkbsb "DomConfirm"
 
         "Submission":
-            $ persistent._mas_pm_dominance = "S"
+            $ persistent._nsfw_pm_dominance = "S"
             m 1hubsb "SubConfirm"
 
         "Both":
-            $ persistent._mas_pm_dominance = "B"
+            $ persistent._nsfw_pm_dominance = "B"
             m 1hubsb "SwitchConfirm"
 
     m "As for me?"

@@ -71,10 +71,10 @@ label mas_nsfw_wrs_spnati:
         if mas_isMoniLove(higher=True): #1000 aff
             mas_display_notif(m_name,
                 [
-                    "Did you know that there's a version of me in this game? ;)",
-                    "Hey, [player], you could play with me in this game! ;)",
+                    "Did you know that there's a version of me in this game? You could play wiht me! ;)",
+                    "Apparently all the characters in this game were made by people as a hobby. Interesting..."
                     "Gosh, there are so many characters...but you only need me, right? ;)",
-                    "Strip Poker with five card draw...What a silly game! ;)"
+                    "Strip poker with five card draw...What a silly game! ;)"
                 ],'Window Reactions'
             )
             exp_to_force = "1tsbsu"
@@ -111,7 +111,7 @@ label mas_nsfw_wrs_pornhub:
     # this can be expanded later if someone wants to tackle a "watch porn together" topic
     mas_display_notif(m_name,
         [
-            "[player]...really? Hmph",
+            "[player]...really? Hmph.",
             "[player], I'm right here you know. Hmph."
         ]
     )

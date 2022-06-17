@@ -16,14 +16,14 @@ label nsfw_mood_horny:
         m 3rkblb "If it becomes too much, maybe you should take a minute to..."
         m 3dkblu "Ahem..."
         m 3ekblb "De-stress..."
-        m 1hubla "Just make sure you're only thinking about me!"
+        m 1hubla "Just make sure you think only about me!"
         m 1hubsa "..."
         m 1gubsa "Maybe once I've crossed over, I'll be able to lend you a {i}helping hand{/i}."
         m 1hubsa "Ehehe~"
         return
 
     m 1tua "Oh? Is that so, [player]?"
-    m 3tub "Well...I think I know a way that we can relieve you of {i}that{/i} problem..."
+    m 3tub "Well... I think I know a way that I can relieve you of {i}that{/i} problem..."
     m 3tta "Would like me to lend you a hand?"
 
     $ _history_list.pop()
@@ -32,9 +32,8 @@ label nsfw_mood_horny:
 
         "Yes.":
             $ store.persistent._nsfw_sext_hot_start = True # Might change this in the future if we make Monika's horny level change depending on other events. Making this an IF statement rather than forcing her to be horny.
-            m 3tsbla "Hnnn~"
             m 4tublb "Okay, I want you to follow my lead."
-            m 5tublb "Just talk as naughty as you like to me, and enjoy yourself~"
+            m 5tublb "Just talk as naughty to me as you like, and enjoy yourself, [mas_get_player_nickname()]~"
 
             call nsfw_sexting_init
 

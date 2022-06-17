@@ -45,5 +45,79 @@ label nsfw_wrs_r34:
                 else:
                     exp_to_force = "2tssdlc"
 
-            mas_moni_idle_disp.force_by_code(exp_to_force, duration=10)
+        mas_moni_idle_disp.force_by_code(exp_to_force, duration=10)
+    return
+
+init 5 python:
+    addEvent(
+        Event(
+            persistent._mas_windowreacts_database,
+            eventlabel="mas_nsfw_wrs_spnati",
+            category=["- SPNatI"],
+            aff_range=(mas_aff.AFFECTIONATE, None),
+            rules={
+                "notif-group": "Window Reactions",
+                "skip alert": None,
+                "skip_pause": None
+            },
+            show_in_idle=True
+        ),
+        code="WRS"
+    )
+
+label mas_nsfw_wrs_spnati:
+    # Make a list of possible notif quips for this
+    python:
+        if mas_isMoniLove(higher=True): #1000 aff
+            mas_display_notif(m_name,
+                [
+                    "Did you know that there's a version of me in this game? ;)",
+                    "Hey, [player], you could play with me in this game! ;)",
+                    "Gosh, there are so many characters...but you only need me, right? ;)",
+                    "Strip Poker with five card draw...What a silly game! ;)"
+                ],'Window Reactions'
+            )
+            exp_to_force = "1tsbsu"
+        else:
+            mas_display_notif(m_name,
+                [
+                    "Strip poker, huh...?",
+                    "What is this? Strip poker with fictional characters?"
+                ],'Window Reactions'
+            )
+            exp_to_force = "1etblsdlc"
+            # force her sprite to do a specific expression
+        mas_moni_idle_disp.force_by_code(exp_to_force, duration=10)
+    return
+
+init 5 python:
+    addEvent(
+        Event(
+            persistent._mas_windowreacts_database,
+            eventlabel="mas_nsfw_wrs_pornhub",
+            category=['Pornhub|XVIDEOS|xHamster|M-Hentai|nHentai'], # just listing some of the biggest ones
+            aff_range=(mas_aff.AFFECTIONATE, None),
+            rules={
+                "notif-group": "Window Reactions",
+                "skip alert": None,
+                "skip_pause": None
+            },
+            show_in_idle=True
+        ),
+        code="WRS"
+    )
+
+label mas_nsfw_wrs_pornhub:
+    # this can be expanded later if someone wants to tackle a "watch porn together" topic
+    mas_display_notif(m_name,
+        [
+            "[player]...really? Hmph",
+            "[player], I'm right here you know. Hmph."
+        ]
+    )
+
+    exp_to_force = "1gfbfsdlc"
+    # force her sprite to do a specific expression
+    mas_moni_idle_disp.force_by_code(exp_to_force, duration=10)
+
     return

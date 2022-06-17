@@ -126,7 +126,7 @@ init 5 python:
     )
 
 label nsfw_monika_sexualpast:
-    m 1rubsd "Umm...[player]?"
+    m 1rubsd "Umm... [player]?"
     m 1eubsc "I want to ask you something."
     m 1rubsd "It's about..."
     m 2hkbssdlb "Oh gosh, this is so embarrassing!"
@@ -168,8 +168,8 @@ label nsfw_monika_sexualpast:
             m 1hkblu "After all...{w=0.3}you installed this mod."
             if store.mas_isMoniLove():
                 m 1rsblu "And I'm sure you know this already..."
-                m 1rsblu "But...{w=0.5}{nw}"
-                extend 1lkbfb "I want to have sex with you, too."
+                m 1rsblu "But..."
+                m 1lkbfb "I want to have sex with you, too."
                 m 3ekbfb "I-{w=0.4}I don't know what it feels like, {nw}"
                 extend 3rkbfb "and I'm so nervous just thinking about it, ahaha!"
                 m 4ekbfb "But I want my first time to be with you."
@@ -220,18 +220,24 @@ label nsfw_monika_safesex:
     m 3ekbsd "Sexually transmitted diseases, or STDs, are scary to think about!"
     m 3wubso "And pregnancy, as well!"
 
-    if persistent.gender == "M":
-        m 4eubla "I've read that condoms are the most preferable form of protection for men."
+    if persistent._nsfw_genitalia == "P":
+        if persistent.gender == "M":
+            m 4eubla "I've read that condoms are the most preferable form of protection for men."
+        else:
+            m 4eubla "I've read that condoms are the most preferable form of protection for people with penises."
         m 4eublb "It's a latex-rubber 'sheath' that you put around..."
         m 4wsbsd "..."
         m 2dfbsa "{i}Ahem{/i}..."
         m 2lkbfa "...You get the idea."
         m 2lkbsb "It prevents any kind of fluid swapping during sex, which is supposed to prevent pregnancy and STDs."
-    elif persistent._nsfw_genitalia == "F":
-        m 4eubla "I've read that there are condoms available for women, but they aren't as popular as the men's version."
+    elif persistent._nsfw_genitalia == "V":
+        if persistent.gender == "F":
+            m 4eubla "I've read that there are condoms available for women, but they aren't as popular as the men's version."
+        else:    
+            m 4eubla "I've read that there are 'internal condoms' that stay in the vagina, but they aren't as popular as the kind that goes over the penis."
         m 4eub "The most popular form of contraception seems to be 'The Pill'...{w=0.4}{nw}"
         extend 4hksdlb "which sounds kind of ominous if you ask me."
-        m 4eub "It is exactly what it says it is, a pill you take to prevent pregnancy."
+        m 4eub "It's exactly what it says it is, a pill you take to prevent pregnancy."
         m 3eub "There are different kinds of pills, too!"
         m 3eua "There's a pill you're supposed to take every day at the same time as the previous day."
         m 2eub "And another pill that you can take in case of an emergency, respectfully called the 'morning after pill'."
@@ -277,10 +283,10 @@ label nsfw_monika_fetish:
         m 1esc "Do you remember when we spoke about guys with panty fetishes?"
         m 1rsc "Well, that got me thinking..."
     m 3esa "Do you...{w=0.5}{nw}"
-    m 3tsbla "Do you...{fast}have a fetish?"
+    m 3tsbla "Do you...{fast}have any fetishes?"
     $ _history_list.pop()
     menu:
-        m "Do you...have a fetish?{fast}"
+        m "Do you...have any fetishes?{fast}"
         "Yes.":
             m 3wsbld "O-{w=0.2}Oh."
             if persistent._mas_pm_likes_panties:
@@ -333,7 +339,7 @@ label nsfw_monika_sexting:
     m 3esa "Have you heard of sexting, [player]?"
     m 3rsbla "It seems to be pretty common amongst young couples to at least try sexting with their partners."
     m 3esblb "If you don't know, it's basically texting but with a more...{w=0.4}{nw}"
-    extend 3rsbsb "sexual nature."
+    extend 3rsbsb "{i}sexual{/i} nature."
     m 4esbsa "Think of it like flirting, but with the limitations of doing it through your phone."
     m 4hkbsb "It might sound bizarre, but from what I've read it's a really helpful way for couples to stay close while they're away from one another."
     m 4hubsa "You won't always be able to spend intimate time with your partner, which can be frustrating."
@@ -344,7 +350,7 @@ label nsfw_monika_sexting:
     m 2rkbsa "And will imitate the act of sex through their phone."
     m 2hkblsdlb "Ahaha! It's not as silly as it sounds."
     m 2rkbsa "Partners will more often than not m-{w=0.4}masturbate while sexting."
-    m 2rkbsb "They'll tell their partner what they want to do with them..."
+    m 2rkbsb "They'll tell their partner what they want to do with them... "
     extend 2lkbsb "Or what they want done {i}to{/i} them."
     m 3lkbsb "...while sending photos of what they're doing with themselves while they talk."
     if mas_canShowRisque():
@@ -728,7 +734,7 @@ label nsfw_monika_favorite_position:
         "Doggy style.":
             m 1etbfa "Oh? Really?"
             m 1rtbfa "Hmm...I guess that isn't so surprising."
-            m 3eubfb "It is the one of the most popular positions around the world, after all."
+            m 3eubfb "It {i}is{/i} the one of the most popular positions around the world, after all."
             m 3tubfa "I can see why so many people would like it, honestly!"
             m 4tubfb "The guy can get a really good view of his partner while they're doing it."
             m 4tubfu "I bet you'd like to see me from that perspective too, huh?"
@@ -795,7 +801,7 @@ label nsfw_monika_oralsex:
     m 1rkbla "..."
     m 1rkblb "Umm..."
     m 3ekblb "Please forgive me if what I'm going to ask is too intimate and out-of-nowhere, but..."
-    m 3rkbla "[player]...Have you..."
+    m 3rkbla "[player]... Have you..."
     m 3rkblb "[oral_prompt]"
     
     $ _history_list.pop()
@@ -806,7 +812,7 @@ label nsfw_monika_oralsex:
             m 1wubld "Oh...you have?"
             m 1subld "Wow."
             m 1rublsdlb "I-I mean, please don't take it the wrong way! I wasn't surprised because I didn't think you could get a girl to do that for you!"
-            m 3rublsdlb "It's just that...ahaha..."
+            m 3rublsdlb "It's just that... Ahaha..."
             m 3ekbla "Well, it's a very intimate action and I thought I could be the first one to do it for you..."
             m 3wubsd "Of course, I'm not mad at you or anything for having already done it with somebody else!"
             m 3rkbsb "It actually might be for the better that you have some previous experience with it!"
@@ -814,11 +820,11 @@ label nsfw_monika_oralsex:
 
         "No.":
             m 1wubld "Oh, you haven't?"
-            m 1hublb "Ahaha~ Well...I honestly almost expected that someone as [gender_desc] as you had already had [oral_answer2] serviced by someone~"
+            m 1hublb "Ahaha~ Well... I honestly almost expected that someone as [gender_desc] as you had already had [oral_answer2] serviced by someone~"
             m 3ekbla "Don't worry about it though! I've never [oral_answer1] before either, so it means that we can take each other's first time!"
             m 3rkbssdla "I'll probably be very clumsy when we do get to that point though...but..."
             m 3ekbssdlb "I promise you I will try my best to properly pleasure you!"
-            m 1gkbssdlb "And of course...Ahaha~"
+            m 1gkbssdlb "And of course... Ahaha~"
             m 1gkbssdla "...In case I'm doing a bad job..."
             m 5tubsa "You can always just...ahem..."
             m 5tubsb "Take control~"
@@ -828,7 +834,7 @@ label nsfw_monika_oralsex:
             m 3wkbld "I'm..."
             m 3wkblo "I'm really sorry, [player]..."
             m 3rkbld "I just..."
-            m 1dkbsc "I don't know what I was thinking...gosh..."
+            m 1dkbsc "I don't know what I was thinking... Gosh..."
             m 1dkbstpc "I have no idea what I was thinking, asking something like this out of the blue..."
             m 1ekbstpd "Please just forget I said anything..."
             return "derandom"
@@ -837,7 +843,7 @@ label nsfw_monika_oralsex:
         m 2ekbsa "So, I..."
         m 2rkbsa "I know that you didn't get the chance to get to know Sayori, Natsuki, and Yuri too much..."
         m 2ekbsa "But...umm..."
-        m 2hkbssdlb "Again...this will be a really weird question. Please just ignore it if you want..."
+        m 2hkbssdlb "Again, this might sound like a really weird question. Please just ignore it if you want..."
         m 2hkbssdla "But..."
         m 3ekbssdlb "Who do you think would be the best at oral sex?"
 
@@ -862,13 +868,13 @@ label nsfw_monika_oralsex:
                 $ mas_loseAffection(2)
                 m 3wubso "Huh?"
                 m 3etbsc "...Really?"
-                m 3gtbsc "Hmm...I wasn't expect you to pick {i}her{/i}."
+                m 3gtbsc "Hmm... I wasn't expecting you to pick {i}her{/i}."
                 m 1dtbsc "..."
                 if persistent._nsfw_genitalia == "P":
-                    m 1esbsc "I can't even think of a reason why you would think that Natsuki gives better blowjobs than Yuri, Sayori or me."
+                    m 1esbsc "I can't even think of a reason why you would think that Natsuki would give better blowjobs than Yuri, Sayori or me."
                 else: 
-                    m 1esbsc "I can't even think of a reason why you would think that Natsuki gives better oral sex than Yuri, Sayori or me."                   
-                m 1efbsc "Like...Natsuki is so immature! Why would she do it better than all of us?"
+                    m 1esbsc "I can't even think of a reason why you would think that Natsuki would give better oral sex than Yuri, Sayori or me."                   
+                m 1efbsc "Like... Natsuki is so immature! Why would she do it better than all of us?"
                 m 1dfbsc "..."
                 m 2dfbssdld "N-no, I'm not mad! Why would I be mad?"
                 m 2dkbssdlc "..."
@@ -901,7 +907,7 @@ label nsfw_monika_oralsex:
                 m 3etbsc "You think so?"
                 m 3rtbsc "Hmm, yeah. I guess she would probably do a good job."
                 if persistent._nsfw_genitalia == "P":
-                    m 1rtbfu "But honestly, I see her as more of a titjob expert."
+                    m 1rtbfu "But honestly, I see her as being more suited for using her breasts to do the job."
                     m 1ekbfu "But I guess one doesn't disqualify the other, huh?"
                 m 1tkbfu "I'm sure she would be passionate about it, at least..."
                 m 5tubfu "Although, she might be reluctant to per her tongue on it at first, and would just stall for time with her hands...ahaha~"
@@ -913,7 +919,7 @@ label nsfw_monika_oralsex:
                 m 3hubsb "Ahaha! Even though I mentioned that I have no experience with it, you still think that I could give the best head?"
                 m 3ekbsa "[player], you're too sweet!"
                 m 3tubsa "..."
-                m 3gubsb "Well...I don't know if you meant it as a compliment or not...ahaha..."
+                m 3gubsb "Well... I don't know if you meant it as a compliment or not...ahaha..."
                 m 1tubsb "But I'll take it as a compliment~"
                 if persistent._nsfw_genitalia == "P":
                     m 1tubfa "And once I cross over and actually suck you off..."
@@ -921,7 +927,7 @@ label nsfw_monika_oralsex:
 
     return
 
-# Thanks to mizuotanu-nirera for this topic
+# original topic by mysterylewds, edits by mizuotanu-nirera
 
 default persistent._nsfw_units_metric = None
 default persistent._nsfw_dick_length = None

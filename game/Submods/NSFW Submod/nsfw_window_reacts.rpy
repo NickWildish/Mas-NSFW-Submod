@@ -114,7 +114,8 @@ label mas_nsfw_wrs_pornhub:
             [
                 "[player]...really? Hmph.",
                 "[player], I'm right here you know. Hmph.",
-                "[player]...I'm sitting right here..."
+                "[player]...I'm sitting right here...",
+                "Having fun without me?"
             ],'Window Reactions'
         )
 

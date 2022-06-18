@@ -30,5 +30,5 @@ label greeting_nsfw_seductive:
         m 1tubsu "I thought things must be getting hotter, and now I know why. It's because you were nearby."
         m 6tkbsa "You're looking positively wonderful to[tod], [mas_get_player_nickname()]..."
         m 1tubsa "But I think you'd look even better with your clothes off."
-        m 4tubsu "Let's have a good time together [this day]. Ehehe~"
+        m 4tubsu "Let's have a good time together [this_day]. Ehehe~"
     return

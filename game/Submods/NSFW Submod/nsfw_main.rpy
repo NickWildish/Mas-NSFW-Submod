@@ -19,21 +19,33 @@ init -989 python:
         )
 
 default persistent._nsfw_player_endurance = 1
+default persistent._nsfw_firstinstalled_datetime = ""
+
+init 5 python:
+    # if the persistent is empty/blank/doesnt exist
+    if store.persistent._nsfw_firstinstalled_datetime is None:
+        # if you have seen the nsfw install label
+        if renpy.seen_label('nsfw_monika_nsfwmodinstall'):
+            # set the persistent to be the last seen
+            store.persistent._nsfw_firstinstalled_datetime = store.mas_getEVL_last_seen('nsfw_monika_nsfwmodinstall')
+        else:
+            # if it hasnt been seen then set it to the current time
+            store.persistent._nsfw_firstinstalled_datetime = datetime.datetime.now()
 
 screen nsfw_submod_screen():
     python:
         nsfw_submods_screen = store.renpy.get_screen("submods", "screens")
-        
+
         if nsfw_submods_screen:
             _tooltip = nsfw_submods_screen.scope.get("tooltip", None)
         else:
             _tooltip = None
-    
+
     vbox:
         box_wrap False
         xfill True
         xmaximum 700
-        
+
         hbox:
             style_prefix "check"
             box_wrap False
@@ -77,7 +89,7 @@ init python in mas_nsfw:
             set_hours - The amount of time that has to have passed since the player last saw the getting nude topic.
                 (Default: 6)
 
-        OUT: 
+        OUT:
             True if the player has been away for six hours AND the getting nude topic hasn't been used for six hours, False if otherwise
         """
         time_away_req = datetime.timedelta(hours=set_hours)
@@ -104,7 +116,7 @@ init python in mas_nsfw:
         """
         Checks to see if the player should be able to see Monika with no clothes yet.
 
-        OUT: 
+        OUT:
             True if the player has seen 'monika_gettingnude' topic twice AND risque is allowed AND the player hasn't seen the topic for at least 6 hours AND the player hasn't already unlocked her naked, false if otherwise
         """
         if store.mas_SELisUnlocked(store.mas_clothes_underwear_white) and store.mas_canShowRisque() and hour_check(set_hours=6) and not store.mas_SELisUnlocked(store.mas_clothes_birthday_suit):
@@ -116,7 +128,7 @@ init python in mas_nsfw:
         """
         Calculates what the values of horny maximum, minimum, hot_req and sexy_req are, based on the player's endurance value
 
-        IN: 
+        IN:
             horny_max - The maximum amount of horny Monika can withold before exploding in ecstasy
                 (Default: 50)
             horny_min - The minimum horny value
@@ -125,7 +137,7 @@ init python in mas_nsfw:
                 (Default: 10)
             sexy_req - The horny_level requirement for sexy dialogue
                 (Default: 30)
-        
+
         OUT:
             The maximum, minimum, hot_req and sexy_req values
         """
@@ -148,7 +160,7 @@ init python in mas_nsfw:
             response_no - The location in the category of a response
                 (Default: 0)
 
-        OUT: 
+        OUT:
             A string containing a particular response from Monika.
         """
 
@@ -269,7 +281,7 @@ init python in mas_nsfw:
             prompt_no - The location in the category of a prompt
                 (Default: 0)
 
-        OUT: 
+        OUT:
             A string containing a particular prompt for Monika.
         """
 
@@ -296,7 +308,7 @@ init python in mas_nsfw:
             _("You never fail to give me butterflies."), #18
             _("You make my heart happy."), #19
         )
-        
+
         # Sexting prompts for your more 'risque' options
         sext_prompts_hot = (
             _("You have a really sexy figure."), #0
@@ -348,7 +360,7 @@ init python in mas_nsfw:
         # Sexting prompts for the haha funnies
         sext_prompts_funny = (
             _("I put on my robe and wizard hat."), #0
-            _("It's not my fault that I fell for you... You tripped me!"), #1 
+            _("It's not my fault that I fell for you... You tripped me!"), #1
             _("Do you like my shirt? It's made out of boyfriend material."), #2
             _("I looked hot today, you missed out."), #3
             _("You like jazz?"), #4
@@ -362,13 +374,13 @@ init python in mas_nsfw:
             _("You want to know what I have that is massive?"), #12 - My college debt.
             _("Are you feeling good right now?"), #13 - Hi [text here], I'm Dad.
             _("What's one of you're fetishes?"), #14 - Proper grammar... Well then your in luck.
-            _("My wang is as hard as a prosthetic leg."), #15 - Change for women. I'm as wet as 
+            _("My wang is as hard as a prosthetic leg."), #15 - Change for women. I'm as wet as
             _("Would thou perchance wish to partake in coitus?"), #16
             _("You have big, beautiful nipples."), #17
             _("Do I make you horny baby?"), #18 - Do I make you randy?
             _("You're so cute."), #19 - You're stuch a stud / babe - You're a wizard, Harry.
         )
-        
+
         if prompt_category == 1:
             category_sel = sext_prompts_hot
         elif prompt_category == 2:
@@ -390,7 +402,7 @@ init python in mas_nsfw:
             response_no - The location in the category of a quip
                 (Default: 0)
 
-        OUT: 
+        OUT:
             A string containing a particular quip from Monika.
         """
 
@@ -402,7 +414,7 @@ init python in mas_nsfw:
                 eye_desc = store.persistent._mas_pm_eye_color
         else:
             eye_desc = "beautiful"
-        
+
 
         # Sexting quips for your average compliment
         sext_quips_cute = (
@@ -427,7 +439,7 @@ init python in mas_nsfw:
             _("Are you a loan? Because you sure have my interest"), #18
             _("If you were a vegetable, you'd be a 'cute-cumber'"), #19
         )
-        
+
         # Sexting quips for your more 'risque' options
         sext_quips_hot = (
             _("Who said that you could be this hot?"), #0
@@ -489,7 +501,7 @@ init python in mas_nsfw:
 
     def return_sexting_dialogue(category_type="response", horny_level=0, hot_req=10, sexy_req=30, horny_max=50, recent_prompts=[], recent_responses=[], recent_quips=[]):
         """
-        Returns a string from a dialogue list based on 
+        Returns a string from a dialogue list based on
 
         IN:
             category_type - The type of dialogue we want to pull (response = 0, prompt = 1, quip = 2)
@@ -502,14 +514,14 @@ init python in mas_nsfw:
                 (Default: 30)
             horny_max - The maximum possible horny level
                 (Default: 50)
-            recent_prompts - The recent prompts used in the 
+            recent_prompts - The recent prompts used in the
 
         OUT:
             An individual string randomly picked from the list, and the category (sexy,hot,cute) the string is from
         """
 
         # Grab list we will be drawing dialogue from, based on category_type and horny_level
-        if category_type == "quip": 
+        if category_type == "quip":
             selected_recentlist = recent_quips
             if horny_level >= sexy_req:
                 dialogue_list = return_sext_quips(quip_category=2)
@@ -623,7 +635,7 @@ init python in mas_nsfw:
         IN:
             category - The category in which we will pull the appropriate dialogue start from.
                 (Default: "cute")
-        
+
         OUT:
             The selected starting text for the dialogue
         """

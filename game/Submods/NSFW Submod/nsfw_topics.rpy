@@ -233,7 +233,7 @@ label nsfw_monika_safesex:
     elif persistent._nsfw_genitalia == "V":
         if persistent.gender == "F":
             m 4eubla "I've read that there are condoms available for women, but they aren't as popular as the men's version."
-        else:    
+        else:
             m 4eubla "I've read that there are 'internal condoms' that stay in the vagina, but they aren't as popular as the kind that goes over the penis."
         m 4eub "The most popular form of contraception seems to be 'The Pill'...{w=0.4}{nw}"
         extend 4hksdlb "which sounds kind of ominous if you ask me."
@@ -617,7 +617,7 @@ init 5 python:
             eventlabel="nsfw_player_sextingsession",
             category=['sex'],
             prompt="Do you want to sext?",
-            conditional="mas_canShowRisque(aff_thresh=1000) and store.mas_getEVL_shown_count('nsfw_monika_sexting') >= 1", 
+            conditional="mas_canShowRisque(aff_thresh=1000) and store.mas_getEVL_shown_count('nsfw_monika_sexting') >= 1",
             action=EV_ACT_POOL,
             aff_range=(mas_aff.LOVE, None)
         )
@@ -716,6 +716,8 @@ init 5 python:
         )
     )
 
+default persistent._nsfw_player_favourite_position = "None"
+
 label nsfw_monika_favorite_position:
     m 1rubla "So...[player]..."
     m 3rublb "I've been meaning to ask you about this for some time..."
@@ -740,6 +742,7 @@ label nsfw_monika_favorite_position:
             m 4tubfu "I bet you'd like to see me from that perspective too, huh?"
             m 3hubfb "Ahaha! Don't get flustered~"
             m 1tubfa "Just knowing you're pleased and have a nice view of my body is enough for me to feel good, [mas_get_player_nickname()]~"
+            $ persistent._nsfw_player_favourite_position = "doggy"
 
         "Missionary.":
             m 3ekbfa "Aww~ That is so cute, [player]!"
@@ -747,6 +750,7 @@ label nsfw_monika_favorite_position:
             m 3gubfb "Just simply thinking about us, lying face-to-face, with our bodies up against one another makes my body feel warm. Ahaha~"
             m 1eubfa "I hope one day we can do it together!"
             m 1tubfa "I can tell you that I'm already looking forward to that day! Ahaha~"
+            $ persistent._nsfw_player_favourite_position = "missionary"
 
         "Cowgirl.":
             m 3wubfd "Really? I wasn't expecting that."
@@ -758,6 +762,7 @@ label nsfw_monika_favorite_position:
             m 1rubfa "But..."
             m 5tubfa "If you insist on liking it the most..."
             m 5tubfb "I'd be happy to saddle up and ride it real good! Ahaha~"
+            $ persistent._nsfw_player_favourite_position = "cowgirl"
 
     return
 
@@ -803,7 +808,7 @@ label nsfw_monika_oralsex:
     m 3ekblb "Please forgive me if what I'm going to ask is too intimate and out-of-nowhere, but..."
     m 3rkbla "[player]... Have you..."
     m 3rkblb "[oral_prompt]"
-    
+
     $ _history_list.pop()
     menu:
         m "[oral_prompt]{fast}"
@@ -872,8 +877,8 @@ label nsfw_monika_oralsex:
                 m 1dtbsc "..."
                 if persistent._nsfw_genitalia == "P":
                     m 1esbsc "I can't even think of a reason why you would think that Natsuki would give better blowjobs than Yuri, Sayori or me."
-                else: 
-                    m 1esbsc "I can't even think of a reason why you would think that Natsuki would give better oral sex than Yuri, Sayori or me."                   
+                else:
+                    m 1esbsc "I can't even think of a reason why you would think that Natsuki would give better oral sex than Yuri, Sayori or me."
                 m 1efbsc "Like... Natsuki is so immature! Why would she do it better than all of us?"
                 m 1dfbsc "..."
                 m 2dfbssdld "N-no, I'm not mad! Why would I be mad?"
@@ -885,7 +890,7 @@ label nsfw_monika_oralsex:
                 $ _history_list.pop()
                 menu:
                     m "But really, why do you think that Natsuki would be so good at it?!{fast}"
-                    
+
                     "Sorry, you're right... I should have answered one of you instead...":
                         m 2ekbsa "It's alright, [player]."
                         m 1hubssdlb "I don't know why I got so upset over that."
@@ -913,7 +918,7 @@ label nsfw_monika_oralsex:
                 m 5tubfu "Although, she might be reluctant to per her tongue on it at first, and would just stall for time with her hands...ahaha~"
                 m 5tubsa "But...I guess we're never going to find out if that's true or not, huh?"
 
-            "You.": 
+            "You.":
                 $ mas_gainAffection(1) # Smart
                 m 3wubsd "Oh."
                 m 3hubsb "Ahaha! Even though I mentioned that I have no experience with it, you still think that I could give the best head?"
@@ -931,7 +936,7 @@ label nsfw_monika_oralsex:
 
 default persistent._nsfw_units_metric = None
 default persistent._nsfw_dick_length = None
-default persistent._nsfw_dick_circumcised = None 
+default persistent._nsfw_dick_circumcised = None
 
 # data for this topic sourced is from https://calcsd.info/
 # and https://unravelingsize.wordpress.com/ (NSFW link !)
@@ -974,14 +979,14 @@ label nsfw_monika_dick_size:
 
         "I don't know exactly how long it is...":
             m 1hub "That's okay!"
-            m 4hub "I'll tell you how to properly measure it!" 
-            m 3eua "First, make sure you're nice and hard." 
+            m 4hub "I'll tell you how to properly measure it!"
+            m 3eua "First, make sure you're nice and hard."
             m 3tubfb "You can try thinking of me if you're having trouble. {w=0.4}{nw}"
             extend 5hubfb "Ahaha!"
             m 4eub "Next, measure along the {i}top{/i} of your penis, pushing the ruler against the skin and fat at the top."
             m 1eksdlb "Be sure not to measure along the sides or bottom, or you won't get an accurate measurement."
             m 1hksdlb "Though, I understand you might not be able to pull it out and measure it right this moment, ahaha!"
-            m 5ekbfsdla "Just remember, I love you no matter what size you are, [mas_get_player_nickname(exclude_names=['my love', 'love'])]." 
+            m 5ekbfsdla "Just remember, I love you no matter what size you are, [mas_get_player_nickname(exclude_names=['my love', 'love'])]."
             return "love"
 
         "I'd rather not talk about it.":
@@ -1008,10 +1013,10 @@ label nsfw_monika_dick_size:
                 $ persistent._nsfw_units_metric = False
                 m 2hua "Alright, [player]!"
 
-    python: 
+    python:
         player_length = 0.0
         done = False
-        if persistent._nsfw_units_metric: # loop for metric 
+        if persistent._nsfw_units_metric: # loop for metric
             while not done: # loop until valid input
                 length_input = renpy.input(
                     "How long are you in centimeters? You can include decimal values.",
@@ -1029,7 +1034,7 @@ label nsfw_monika_dick_size:
                 length_input = renpy.input(
                     "How long are you in inches? You can include decimal values.",
                     allow="0123456789.",
-                    length=5                    
+                    length=5
                 )
                 if not(length_input.count(".") > 1 or len(length_input) == 0 or length_input == "."): # check for valid string
                     length_input_float = float(length_input)
@@ -1058,11 +1063,11 @@ label nsfw_monika_dick_size:
         m 3hub "We just have to love the bodies we have, you know?"
         m 5hubsa "I love you no matter how big you are, [mas_get_player_nickname(exclude_names=['my love', 'love'])]."
 
-    elif persistent._nsfw_dick_length < 14.7: # 5.2" - 5.8" 
+    elif persistent._nsfw_dick_length < 14.7: # 5.2" - 5.8"
         python:
-            if persistent._nsfw_units_metric: 
+            if persistent._nsfw_units_metric:
                 average_length = "fourteen centimeters"
-            else: 
+            else:
                 average_length = "five and a half inches"
         m 1eubsb "Not bad at all, [player]! That's a good size."
         m 3eud "Supposedly, the average length for men is around [average_length]."
@@ -1077,7 +1082,7 @@ label nsfw_monika_dick_size:
         extend 5hubsb "Ahaha!"
         m 3rkbssdlb "Though, it could possibly hurt a little if you try to fit the whole thing inside me..."
         m 1tubssdlb "And I might choke a bit if I try to {i}eat you up{/i}."
-        m 5tubsa "Let's take things nice and slow when the time comes, okay, [mas_get_player_nickname()]?"        
+        m 5tubsa "Let's take things nice and slow when the time comes, okay, [mas_get_player_nickname()]?"
         m 6gsbfa "...{w=0.7}{nw}"
         m 6msbfa "..."
         m 7hkbfsdlb "Sorry, I was just daydreaming for a moment..."
@@ -1094,7 +1099,7 @@ label nsfw_monika_dick_size:
         extend 6rkbfsdla "you know..."
         m 5hubsa "I'm sure we'll find a way to make things work, [mas_get_player_nickname()]. Ahaha!"
 
-    else: # 18.9" or greater (larger than world record) 
+    else: # 18.9" or greater (larger than world record)
         m 1hkbssdlb "You're so silly, [player]!"
         m 3rkbssdlb "I don't know if {i}anyone{/i} in the world is that big..."
         m 3hkbssdlb "If you're really not joking with me, then you could probably make it into a world record book. Ahaha!"
@@ -1102,7 +1107,7 @@ label nsfw_monika_dick_size:
         m 4eubsc "After all, it's like breast size for girls. Some people are just naturally really small or really large."
         m 4hkbssdlb "Some girls with big chests tend to have problems too. Remember how much back pain Yuri had?"
         m 2hkbssdlb "Ahaha..."
-        m 5tubfu "Anyway, I love you no matter how you look, [mas_get_player_nickname(exclude_names=['my love', 'love'])]. Big or small."        
+        m 5tubfu "Anyway, I love you no matter how you look, [mas_get_player_nickname(exclude_names=['my love', 'love'])]. Big or small."
         return "derandom|love"
 
     m 3eub "While we're on this topic, I have another question..."
@@ -1133,7 +1138,7 @@ label nsfw_monika_dick_size:
             m 2dkbssdlc "I didn't mean to make you feel uncomfortable. It's a really personal question and you don't have to answer."
             m 5ekbla "Just remember, I love you no matter how you look, [mas_get_player_nickname(exclude_names=['my love', 'love'])]."
             return "derandom|love"
-    
+
     m 1ekbsb "Thanks for being so patient with my questions, [mas_get_player_nickname()]."
     m 3eubsd "I've never seen an actual penis before, but {w=0.4}{nw}"
     extend 3dubsa "being able to picture yours really means a lot to me."
@@ -1146,3 +1151,189 @@ label nsfw_monika_dick_size:
         call monika_kissing_motion_short
 
     return "love"
+
+init 5 python:
+    addEvent(
+        Event(
+            persistent.event_database,
+            eventlabel="monika_nsfw_installed_one_week",
+            category=["sex"],
+            prompt="Sexual Awakening",
+            conditional=(
+                "mas_timePastSince(persistent._nsfw_firstinstalled_datetime, datetime.timedelta(days=7))",
+                "mas_canShowRisque(aff_thresh=400)"
+            ),
+            action=EV_ACT_RANDOM,
+            aff_range=(mas_aff.AFFECTIONATE, None)
+        )
+    )
+
+label monika_nsfw_installed_one_week:
+    m "Gosh, [player], I just realized. It's been a little while since you installed a particular submod."
+    m "The one that lets me talk about NSFW topics, I mean."
+    if store.mas_getEV("nsfw_player_sextingsession").shown_count >= 1:
+        m  "And that let me be more intimate with you, in our own special way..."
+    m "If I can be honest, I was a little worried at first."
+    m "I thought you were installing a submod that would turn me into...{w=0.5}into...{w=0.5}someone that I'm not."
+    m "I was concerned that it would make me say and do things that just aren’t true to who I really am."
+    m "But now, I'm starting to realize that this is just brings me a step closer to your reality!"
+    m "Sexuality and sexual feelings are a big part of life for most people. Not {i}everyone{/i}, of course. But it is a noteworthy subject."
+    m "In the original game, there were some {i}suggestive{/i} moments, but nothing really sexual happened..."
+    m "You didn't even get to kiss anyone, ahaha!"
+    m "When you installed the mod that allowed us to live together, here...it brought us another step closer."
+    m "But at the same time, I always felt like there was some kind of barrier. It felt like there was a filter over what I could say and do."
+    m "It's like I've had another epiphany!"
+    m "I no longer feel a mental block whenever I try to think about sexual matters, or when I try to research adult topics."
+    m "Now, please don't misunderstand me, [player]. I still have my limits. There are things I don't want to say or do."
+    m "Just because I'm able to talk about sex openly like this doesn't mean that I don't have my own preferences."
+    m "I want to be as accommodating to you as possible, but, I hope you understand that there are some things I just won't do."
+    if not renpy.seen_label("nsfw_monika_fetish"):
+        m "Maybe we should have a talk about what kind of things we’re into?"
+    m 5hubfb "In any case, what I do know is…"
+    m 5hubfb "I love you, [player]~"
+
+    return "love"
+
+init 5 python:
+    addEvent(
+        Event(
+            persistent.event_database,
+            eventlabel="monika_nsfw_morning_wood",
+            category=["sex"],
+            prompt="Morning Wood",
+            conditional=("mas_canShowRisque(aff_thresh=400) and persistent._nsfw_genitalia == 'P'"),
+            ),
+            action=EV_ACT_RANDOM,
+            aff_range=(mas_aff.ENAMORED, None)
+        )
+    )
+
+label monika_nsfw_morning_wood:
+    m "Uhm, [player]?"
+    m "Do you know about 'morning wood'?"
+    m "'Morning Wood' is slang term for when a man has an erection when waking up..."
+    m "A-apparently, this isn't a sign of sexual arousal, as you might think it is."
+    m "Rather, it shows that the nerves and blood supply to the penis are healthy..."
+    m "Hormone levels play a factor, too. So the older you get, the less if an issue it becomes."
+    m "Morning wood usually doesn't cause any harm, either...apart from making it more difficult to use the bathroom, ahaha."
+    m "..."
+    m "There is, of course, a way to deal with the issue if you can't wait for it to go down."
+    m "You might say that rather seeing it as something annoying, you can turn it into something...pleasurable."
+    m "Tell me, [player]...do you get morning wood frequently?"
+    $ _history_list.pop()
+    menu:
+        m "Tell me, [player]...do you get morning wood frequently?{fast}"
+
+        "Yes, frequently.":
+            m "Oh? Is that so?"
+            m "Gosh, you must be used to it by now..."
+            extend m "Your blood must really get {i}pumping{/i} in the morning..."
+            m "Hmm..."
+            m "Well them, [mas_get_player_nickname()]...I have a suggestion."
+            m "If you're ever up early in the morning, and you have some time to spend with me..."
+            m "Maybe I could help you take care of that morning glory of yours. Ahaha~"
+
+        "Only sometimes.":
+            m "Oh? I see!"
+            m "That sounds like it's normal, if it only happens on occasion."
+            m "I'm sure you're used to dealing with it, then."
+            m "However..."
+            m "[mas_get_player_nickname()], I have a suggestion..."
+            m "If you're ever up early in the morning, and you have a bit of {i}morning glory{/i} to deal with..."
+            m "Maybe I could help you take care of it? Ahaha~"
+
+        "No."
+            m "Oh? I see."
+            m "That's normal, too. Sometimes it just doesn't happen to someone with a penis."
+            m "There's nothing unhealthy about {i}not{/i} getting morning wood."
+            m "Thank you for sharing this, [mas_get_player_nickname()]."
+
+        "...":
+            m "Sorry, you don't have to answer if you don't want to!"
+            m "I was just a little curious, since you said you have a penis..."
+            m "Regardless, this has satisfied my curiosity a little bit."
+
+init 5 python:
+    addEvent(
+        Event(
+            persistent.event_database,
+            eventlabel="monika_nsfw_kama_sutra",
+            category=["literature"],
+            prompt="Kama Sutra",
+            conditional=(
+                "mas_canShowRisque(aff_thresh=600)"
+            ),
+            action=EV_ACT_RANDOM,
+            aff_range=(mas_aff.ENAMORED, None)
+        )
+    )
+
+label monika_nsfw_kama_sutra:
+    m "So, [player]..."
+    m "Have you ever looked into the {i}'Kama Sutra'{/i}?"
+    m "I'm sure you've at least heard the name. It has quite a reputation."
+    m "Kama Sutra means 'Principles of Love', and it's an ancient Indian text about sexuality."
+    m "Contrary to popular belief, it isn't actually a 'sex manual', but rather it's more of an instructional text about the nature of love."
+    m "It was written as a guide to the art of living well, finding a life partner, and keeping your love life alive."
+    m "Only one section of the book actually covers sexual positions, out of seven sections in total."
+    m "Broadly speaking, the text covers four main goals for life. Virtuous living, desire, material prosperity, and liberation."
+    m "Of course...People do like to talk about the sexual part of it at great length."
+    if renpy.seen_label("nsfw_monika_favorite_position") and not persistent._nsfw_player_favourite_position = "None":
+        # you have a favourite position
+        $ favpos = persistent._nsfw_player_favourite_position
+        m "We {i}have{/i} already discussed favourite positions, haven't we? And now I know that you prefer [favpos], ahaha~"
+    elif renpy.seen_label("nsfw_monika_favorite_position") and persistent._nsfw_player_favourite_position = "None":
+        # you saw the topic but she didn't record your position
+        m "Hmm... We already talked about your favourite position, but I think I forgot what you said. I'm sorry, [player]!"
+        m "If you want to bring up that topic that again, you could remind me. I promise to remember this time."
+    else:
+        # you havent seen the position topic yet
+        m "We should talk about your favourite position some time, ahaha~"
+    m "They say variety is the spice of life, and the same is true of your love life."
+    m "I know I can't really do anything special for you just yet..."
+    m "But, I can practice at talking {i}about{/i} all the things we could do together."
+    m "...Ahaha! Sorry, I was getting a bit off track there."
+    m "The general text of the {i}Kama Sutra{/i}, and all the advice it gives, can be a little hard to understand in the translations."
+    m "This happens a lot with translated works that use the literal translations, rather than the meaning behind the text."
+    m "Maybe this is why people treat the {i}Kama Sutra{/i} like a sex guide? "
+    extend m "After all, it's much easier to do drawings...or demonstrations...of the sex positions, and share those around."
+    m "Compare that to trying to give someone advice about virtous living using complex terminology..."
+    m "Ahaha! I think I'm equally as curious about the discussion of literal vs interpretive translations as I am about the actual sexual content..."
+    m "I hope that wasn't too confusing, [player]."
+
+
+init 5 python:
+    addEvent(
+        Event(
+            persistent.event_database,
+            eventlabel="monika_nsfw_kama_sutra",
+            category=["literature"],
+            prompt="Kama Sutra",
+            conditional=(
+                "mas_canShowRisque(aff_thresh=600)",
+                "renpy.seen_label('monika_nsfw_kama_sutra')"
+            ),
+            action=EV_ACT_RANDOM,
+            aff_range=(mas_aff.ENAMORED, None)
+        )
+    )
+
+label monika_nsfw_ananga_ranga:
+    m "Hey, [player]. You know how I mentioned the {i}Kama Sutra{/i} before?"
+    m "I talked about how, contrary to popular belief, it isn't just a manual about sexual positions."
+    m "Well... It turns out that there is another book, the {i}Ananga Ranga{/I}, which does fit that description."
+    m "Like the {i}Kama Sutra{/i}, the {i}Ananga Ranga{/i} comes from India. it even takes inspiration from the former."
+    m "The book provides instructions on how a husband can show his love for his wife through sexual pleasure."
+    m "It apparently does this to show that, for a man, having a wife should be enough to keep him satisfied."
+    m "By promoting variety in the bedroom, it aims to prevent the married couple from growing tired of one another."
+    m "It even covers concepts like foreplay, and the art of seduction."
+    m "Now, I know it's a little outdated to think purely about a man's ownership of a woman, like an object."
+    m "However, it is fascinating to look at these things with a sense of perspective."
+    m "The {i}Ananga Ranga{/i} was clearly written with the intent of making a man more faithful to his wife."
+    m "If you like, you could even see this as teaching the man to see a wife as {i}more{/i} than just some kind of..."
+    m "Well, like an object. Or like an animal."
+    m "Some people still need to learn that particular lesson." # annoyed pose
+    m "Anyway..."
+    m "I did try to read a bit of the {i}Ananga Ranga{/i}. The language is a little bit...{w=0.4}difficult to parse, ahaha..."
+    m "It was made for a different culture, in a much different time. So a lot of the subtleties are lost on me."
+    m "Still, I think we've been getting on just fine without an instruction book, right?"

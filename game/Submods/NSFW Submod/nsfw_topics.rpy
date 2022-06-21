@@ -1283,7 +1283,7 @@ label monika_nsfw_kama_sutra:
     m "Only one section of the book actually covers sexual positions, out of seven sections in total."
     m "Broadly speaking, the text covers four main goals for life. Virtuous living, desire, material prosperity, and liberation."
     m "Of course...People do like to talk about the sexual part of it at great length."
-    if renpy.seen_label("nsfw_monika_favorite_position") and not persistent._nsfw_player_favourite_position = "None":
+    if renpy.seen_label("nsfw_monika_favorite_position") and persistent._nsfw_player_favourite_position != "None":
         # you have a favourite position
         $ favpos = persistent._nsfw_player_favourite_position
         m "We {i}have{/i} already discussed favourite positions, haven't we? And now I know that you prefer [favpos], ahaha~"

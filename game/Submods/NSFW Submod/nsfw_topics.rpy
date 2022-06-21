@@ -1213,12 +1213,12 @@ init 5 python:
 
 label monika_nsfw_morning_wood:
     m "Uhm, [player]?"
-    m "Do you know about 'morning wood'?"
-    m "'Morning Wood' is slang term for when a man has an erection when waking up..."
-    m "A-apparently, this isn't a sign of sexual arousal, as you might think it is."
+    m "Do you know about the term 'Morning Wood'?"
+    m "'Morning Wood', or 'Morning Glory', are slang terms for when a man has an erection when waking up..."
+    m "A-apparently, this isn't a sign of sexual arousal, as I first thought it was..."
     m "Rather, it shows that the nerves and blood supply to the penis are healthy..."
     m "Hormone levels play a factor, too. So the older you get, the less if an issue it becomes."
-    m "Morning wood usually doesn't cause any harm, either...apart from making it more difficult to use the bathroom, ahaha."
+    m "Morning wood usually doesn't cause any harm, either...apart from making it more difficult to use the bathroom. A uniquely male issue, ahaha!"
     m "..."
     m "There is, of course, a way to deal with the issue if you can't wait for it to go down."
     m "You might say that rather seeing it as something annoying, you can turn it into something...pleasurable."
@@ -1241,7 +1241,7 @@ label monika_nsfw_morning_wood:
             m "That sounds like it's normal, if it only happens on occasion."
             m "I'm sure you're used to dealing with it, then."
             m "However..."
-            m "[mas_get_player_nickname()], I have a suggestion..."
+            m "[mas_get_player_nickname(capitalize=True)], I have a suggestion..."
             m "If you're ever up early in the morning, and you have a bit of {i}morning glory{/i} to deal with..."
             m "Maybe I could help you take care of it? Ahaha~"
 
@@ -1255,6 +1255,8 @@ label monika_nsfw_morning_wood:
             m "Sorry, you don't have to answer if you don't want to!"
             m "I was just a little curious, since you said you have a penis..."
             m "Regardless, this has satisfied my curiosity a little bit."
+
+    return
 
 init 5 python:
     addEvent(
@@ -1304,14 +1306,15 @@ label monika_nsfw_kama_sutra:
     m "Ahaha! I think I'm equally as curious about the discussion of literal vs interpretive translations as I am about the actual sexual content..."
     m "I hope that wasn't too confusing, [player]."
 
+    return
 
 init 5 python:
     addEvent(
         Event(
             persistent.event_database,
-            eventlabel="monika_nsfw_kama_sutra",
+            eventlabel="monika_nsfw_ananga_ranga",
             category=["literature"],
-            prompt="Kama Sutra",
+            prompt="Ananga Ranga",
             conditional=(
                 "mas_canShowRisque(aff_thresh=600)",
                 "renpy.seen_label('monika_nsfw_kama_sutra')"
@@ -1340,3 +1343,5 @@ label monika_nsfw_ananga_ranga:
     m "I did try to read a bit of the {i}Ananga Ranga{/i}. The language is a little bit...{w=0.4}difficult to parse, ahaha..."
     m "It was made for a different culture, in a much different time. So a lot of the subtleties are lost on me."
     m "Still, I think we've been getting on just fine without an instruction book, right?"
+
+    return

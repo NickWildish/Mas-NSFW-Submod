@@ -308,7 +308,7 @@ label nsfw_sexting_finale:
                 # store the time when you last had a successful/complete sexting session
             $ store.persistent.nsfw_sexting_success_last = datetime.datetime.now()
                 # stop her from being horny now that she has finished
-            persistent._nsfw_horny_level = 0;
+            $ persistent._nsfw_horny_level = 0
 
             return
 

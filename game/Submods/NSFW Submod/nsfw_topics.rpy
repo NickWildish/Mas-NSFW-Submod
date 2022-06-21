@@ -1201,12 +1201,15 @@ init 5 python:
             eventlabel="monika_nsfw_morning_wood",
             category=["sex"],
             prompt="Morning Wood",
-            conditional=("mas_canShowRisque(aff_thresh=400) and persistent._nsfw_genitalia == 'P'"),
+            conditional=(
+                "mas_canShowRisque(aff_thresh=400)",
+                "persistent._nsfw_genitalia == 'P'"
             ),
             action=EV_ACT_RANDOM,
             aff_range=(mas_aff.ENAMORED, None)
         )
     )
+
 
 label monika_nsfw_morning_wood:
     m "Uhm, [player]?"
@@ -1242,7 +1245,7 @@ label monika_nsfw_morning_wood:
             m "If you're ever up early in the morning, and you have a bit of {i}morning glory{/i} to deal with..."
             m "Maybe I could help you take care of it? Ahaha~"
 
-        "No."
+        "No.":
             m "Oh? I see."
             m "That's normal, too. Sometimes it just doesn't happen to someone with a penis."
             m "There's nothing unhealthy about {i}not{/i} getting morning wood."

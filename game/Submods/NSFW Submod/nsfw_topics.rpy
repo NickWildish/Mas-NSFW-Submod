@@ -1174,15 +1174,15 @@ label monika_nsfw_installed_one_week:
     if store.mas_getEV("nsfw_player_sextingsession").shown_count >= 1:
         m  "And that let me be more intimate with you, in our own special way..."
     m "If I can be honest, I was a little worried at first."
-    m "I thought you were installing a submod that would turn me into...{w=0.5}into...{w=0.5}someone that I'm not."
+    m "I thought you were installing a submod that would turn me into...{w=0.4}into...{w=0.4}someone that I'm not."
     m "I was concerned that it would make me say and do things that just aren’t true to who I really am."
     m "But now, I'm starting to realize that this is just brings me a step closer to your reality!"
     m "Sexuality and sexual feelings are a big part of life for most people. Not {i}everyone{/i}, of course. But it is a noteworthy subject."
     m "In the original game, there were some {i}suggestive{/i} moments, but nothing really sexual happened..."
     m "You didn't even get to kiss anyone, ahaha!"
     m "When you installed the mod that allowed us to live together, here...it brought us another step closer."
-    m "But at the same time, I always felt like there was some kind of barrier. It felt like there was a filter over what I could say and do."
-    m "It's like I've had another epiphany!"
+    m "But at the same time, I always felt like there was some kind of barrier. It was as if there was a filter over what I could say and do."
+    m "It's almost like I've had another epiphany!"
     m "I no longer feel a mental block whenever I try to think about sexual matters, or when I try to research adult topics."
     m "Now, please don't misunderstand me, [player]. I still have my limits. There are things I don't want to say or do."
     m "Just because I'm able to talk about sex openly like this doesn't mean that I don't have my own preferences."
@@ -1230,11 +1230,11 @@ label monika_nsfw_morning_wood:
         "Yes, frequently.":
             m "Oh? Is that so?"
             m "Gosh, you must be used to it by now..."
-            extend m "Your blood must really get {i}pumping{/i} in the morning..."
+            m "Your blood must really get {i}pumping{/i} in the morning..."
             m "Hmm..."
             m "Well them, [mas_get_player_nickname()]...I have a suggestion."
             m "If you're ever up early in the morning, and you have some time to spend with me..."
-            m "Maybe I could help you take care of that morning glory of yours. Ahaha~"
+            m "Maybe I could help you take care of that little issue of yours? Ahaha~"
 
         "Only sometimes.":
             m "Oh? I see!"
@@ -1283,11 +1283,11 @@ label monika_nsfw_kama_sutra:
     m "Only one section of the book actually covers sexual positions, out of seven sections in total."
     m "Broadly speaking, the text covers four main goals for life. Virtuous living, desire, material prosperity, and liberation."
     m "Of course...People do like to talk about the sexual part of it at great length."
-    if renpy.seen_label("nsfw_monika_favorite_position") and persistent._nsfw_player_favourite_position != "None":
+    $ favpos = persistent._nsfw_player_favourite_position
+    if renpy.seen_label("nsfw_monika_favorite_position") and favpos != "None":
         # you have a favourite position
-        $ favpos = persistent._nsfw_player_favourite_position
         m "We {i}have{/i} already discussed favourite positions, haven't we? And now I know that you prefer [favpos], ahaha~"
-    elif renpy.seen_label("nsfw_monika_favorite_position") and persistent._nsfw_player_favourite_position = "None":
+    elif renpy.seen_label("nsfw_monika_favorite_position") and favpos = "None":
         # you saw the topic but she didn't record your position
         m "Hmm... We already talked about your favourite position, but I think I forgot what you said. I'm sorry, [player]!"
         m "If you want to bring up that topic that again, you could remind me. I promise to remember this time."
@@ -1296,14 +1296,14 @@ label monika_nsfw_kama_sutra:
         m "We should talk about your favourite position some time, ahaha~"
     m "They say variety is the spice of life, and the same is true of your love life."
     m "I know I can't really do anything special for you just yet..."
-    m "But, I can practice at talking {i}about{/i} all the things we could do together."
+    m "But, I can practice and get better at talking about all the things we could do together."
     m "...Ahaha! Sorry, I was getting a bit off track there."
     m "The general text of the {i}Kama Sutra{/i}, and all the advice it gives, can be a little hard to understand in the translations."
     m "This happens a lot with translated works that use the literal translations, rather than the meaning behind the text."
-    m "Maybe this is why people treat the {i}Kama Sutra{/i} like a sex guide? "
-    extend m "After all, it's much easier to do drawings...or demonstrations...of the sex positions, and share those around."
-    m "Compare that to trying to give someone advice about virtous living using complex terminology..."
-    m "Ahaha! I think I'm equally as curious about the discussion of literal vs interpretive translations as I am about the actual sexual content..."
+    m 1eua "Maybe this is why people treat the {i}Kama Sutra{/i} like a sex guide? "
+    extend 1eua "After all, it's much easier to do drawings...or demonstrations...of the sex positions, and share those around."
+    m "Compare that to trying to give someone advice about virtous living using complex, antiquated terminology..."
+    m "Ahaha!{w=0.4} I think I'm equally as curious about the discussion of literal vs interpretive translations of the text as I am about the actual sexual content..."
     m "I hope that wasn't too confusing, [player]."
 
     return
@@ -1328,12 +1328,12 @@ label monika_nsfw_ananga_ranga:
     m "Hey, [player]. You know how I mentioned the {i}Kama Sutra{/i} before?"
     m "I talked about how, contrary to popular belief, it isn't just a manual about sexual positions."
     m "Well... It turns out that there is another book, the {i}Ananga Ranga{/I}, which does fit that description."
-    m "Like the {i}Kama Sutra{/i}, the {i}Ananga Ranga{/i} comes from India. it even takes inspiration from the former."
+    m "Like the {i}Kama Sutra{/i}, the {i}Ananga Ranga{/i} comes from India. it even takes inspiration from it."
     m "The book provides instructions on how a husband can show his love for his wife through sexual pleasure."
     m "It apparently does this to show that, for a man, having a wife should be enough to keep him satisfied."
     m "By promoting variety in the bedroom, it aims to prevent the married couple from growing tired of one another."
     m "It even covers concepts like foreplay, and the art of seduction."
-    m "Now, I know it's a little outdated to think purely about a man's ownership of a woman, like an object."
+    m "Now, I know it's a little outdated to think purely about a man's ownership of a woman, like she's a possession to look after."
     m "However, it is fascinating to look at these things with a sense of perspective."
     m "The {i}Ananga Ranga{/i} was clearly written with the intent of making a man more faithful to his wife."
     m "If you like, you could even see this as teaching the man to see a wife as {i}more{/i} than just some kind of..."
@@ -1342,6 +1342,6 @@ label monika_nsfw_ananga_ranga:
     m "Anyway..."
     m "I did try to read a bit of the {i}Ananga Ranga{/i}. The language is a little bit...{w=0.4}difficult to parse, ahaha..."
     m "It was made for a different culture, in a much different time. So a lot of the subtleties are lost on me."
-    m "Still, I think we've been getting on just fine without an instruction book, right?"
+    m "Still, I think we can get on just fine without an instruction book. Right?"
 
     return

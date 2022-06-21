@@ -19,7 +19,7 @@ init -989 python:
         )
 
 default persistent._nsfw_player_endurance = 1
-default persistent._nsfw_firstinstalled_datetime = ""
+default persistent._nsfw_firstinstalled_datetime = None
 
 init 5 python:
     # if the persistent is empty/blank/doesnt exist

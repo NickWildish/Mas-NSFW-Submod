@@ -261,6 +261,9 @@ label nsfw_sexting_finale:
             m 6wkbfo "Oh~{w=2}{nw}"
             m 6skbfw "Come with me, [player]!{w=3}{nw}"
             m 6hkbfw "Haaaaaaaaah~{w=2}"
+
+            $ persistent._nsfw_horny_level = 0 # This is roughly where it happens in the real thing right? ... right?
+
             m 6hkbfsdlc "..."
             m 6hkbfsdld "..."
             m 6ekbfsdlo "Hah...hah..."

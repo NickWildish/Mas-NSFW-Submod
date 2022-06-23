@@ -22,7 +22,7 @@ label nsfw_monika_nsfwmodinstall:
     m 2dtd "'N-{w=0.4}{nw}"
     extend 2wubsw "NSFW Submod'?"
 
-    if mas_is18Over():
+    if persistent._mas_player_confirmed_bday and mas_is18Over():
         if store.mas_isMoniLove():
             m 3fublu "Well, look who's gotten confident all of a sudden."
             if store.mas_hasUnlockedClothesWithExprop("lingerie"):

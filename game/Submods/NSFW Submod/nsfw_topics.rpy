@@ -617,7 +617,7 @@ init 5 python:
     addEvent(
         Event(
             persistent.event_database,
-            eventlabel="nsfw_player_sextingsession",
+            eventlabel="nsfw_monika_sextingsession",
             category=['sex'],
             prompt="Do you want to sext?",
             conditional="mas_canShowRisque(aff_thresh=1000) and store.mas_getEVL_shown_count('nsfw_monika_sexting') >= 1", 
@@ -626,7 +626,7 @@ init 5 python:
         )
     )
 
-label nsfw_player_sextingsession:
+label nsfw_monika_sextingsession:
     # Check when player's last succesful sexting session was
     if store.persistent.nsfw_sexting_success_last is not None:
         $ timedelta_of_last_success = datetime.datetime.now() - store.persistent.nsfw_sexting_success_last

@@ -1,3 +1,6 @@
+init 5 python in mas_bookmarks_derand:
+    label_prefix_map["nsfw_"] = label_prefix_map["monika_"]
+
 init 5 python:
     addEvent(
         Event(

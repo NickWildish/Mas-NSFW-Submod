@@ -71,7 +71,7 @@ label mas_nsfw_wrs_spnati:
         if mas_isMoniLove(higher=True): #1000 aff
             mas_display_notif(m_name,
                 [
-                    "Did you know that there's a version of me in this game? You could play wiht me! ;)",
+                    "Did you know that there's a version of me in this game? You could play with me! ;)",
                     "Apparently all the characters in this game were made by people as a hobby. Interesting...",
                     "Gosh, there are so many characters...but you only need me, right? ;)",
                     "Strip poker with five card draw...What a silly game! ;)"

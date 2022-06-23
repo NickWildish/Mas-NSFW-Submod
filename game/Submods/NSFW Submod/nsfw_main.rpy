@@ -69,19 +69,19 @@ init python in mas_nsfw:
     import random
     import os
 
-    def hour_check(set_hours=6):
+    def hour_check(set_hours=6, topic_label="nsfw_monika_gettingnude"):
         """
-        Checks if six hours has passed since the player has seen the getting nude topic and also been away from the pc for at least six hours.
+        Checks if six hours has passed since the player has seen a topic and also been away from the pc for a set amount of hours.
 
         IN:
-            set_hours - The amount of time that has to have passed since the player last saw the getting nude topic.
+            set_hours - The amount of time that has to have passed since the player last saw a specified topic.
                 (Default: 6)
 
         OUT: 
-            True if the player has been away for six hours AND the getting nude topic hasn't been used for six hours, False if otherwise
+            True if the player has been away for the set hours AND the topic hasn't been used for the set hours, False if otherwise
         """
         time_away_req = datetime.timedelta(hours=set_hours)
-        time_since_last_seen = datetime.datetime.now() - store.mas_getEVL_last_seen("nsfw_monika_gettingnude")
+        time_since_last_seen = datetime.datetime.now() - store.mas_getEVL_last_seen(topic_label)
 
         if store.mas_getAbsenceLength() >= time_away_req and time_since_last_seen >= time_away_req:
             return True

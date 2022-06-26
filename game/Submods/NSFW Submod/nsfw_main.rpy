@@ -698,3 +698,42 @@ init python in mas_nsfw:
             return sexting_hot_poses[random.randint(0, len(sexting_hot_poses) - 1)], None
         else: # Default
             return sexting_cute_poses[random.randint(0, len(sexting_cute_poses) - 1)], None
+
+
+# random underwear picker
+
+    import random
+    underwear = 0
+    options = range(2)
+    global underwear
+    try:
+        underwear = store.persistent._nsfw_previous_underwear # sets underwear to the same as before if there is a before
+    except:
+        underwear = 0 # sets to white if not a before
+    if store.mas_getAbsenceLength() >= datetime.timedelta(6) and store.mas_SELisUnlocked(store.mas_clothes_underwear_white): #hour_check came up with an error but this does same thing and checks white has been seen so white always first seen.
+        while underwear == store.persistent._nsfw_previous_underwear:
+            underwear = random.choice(options)
+    store.persistent._nsfw_previous_underwear = underwear #stores todays underwear as a persistent value.
+
+    def white_underwear():
+        global underwear  # uses previously defined underwear value
+        if underwear == 0:
+            return True
+        else:
+            return False
+
+    def pink_underwear():
+        global underwear
+        if (underwear == 1):
+            return True
+        else:
+            return False
+
+    def black_underwear():
+        global underwear
+        if (underwear == 2):
+            return True
+        else:
+            return False
+
+# more can be added in a similar way if more underwear sprites get added.

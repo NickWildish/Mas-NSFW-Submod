@@ -470,7 +470,7 @@ label nsfw_monika_gettingnude:
                 m 2kublu "No peeking! {w=0.5}{nw}"
                 extend 2dsbla "Ehehe~"
 
-                call mas_clothes_change(outfit=mas_clothes_underwear_white, outfit_mode=False, exp="2dsbla", restore_zoom=False, unlock=True)
+                call monika_showunderwear
 
                 m 2ekbsa "So, [player]..."
                 m 2ekbsa "What do you think?"
@@ -1146,3 +1146,13 @@ label nsfw_monika_dick_size:
         call monika_kissing_motion_short
 
     return "love"
+
+
+label monika_showunderwear:
+    if mas_nsfw.white_underwear():
+        call mas_clothes_change(outfit=mas_clothes_underwear_white, outfit_mode=False, exp="2dsbla", restore_zoom=False, unlock=True)
+    elif mas_nsfw.pink_underwear():
+        call mas_clothes_change(outfit=mas_clothes_underwear_pink, outfit_mode=False, exp="2dsbla", restore_zoom=False, unlock=True)
+    elif mas_nsfw.black_underwear():
+        call mas_clothes_change(outfit=mas_clothes_underwear_black, outfit_mode=False, exp="2dsbla", restore_zoom=False, unlock=True)
+    return

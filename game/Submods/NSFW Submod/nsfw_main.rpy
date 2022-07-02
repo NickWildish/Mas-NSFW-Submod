@@ -710,7 +710,7 @@ init python in mas_nsfw:
         underwear = store.persistent._nsfw_previous_underwear # sets underwear to the same as before if there is a before
     except:
         underwear = 0 # sets to white if not a before
-    if store.mas_getAbsenceLength() >= datetime.timedelta(6) and not store.mas_SELisUnlocked(store.mas_clothes_underwear_white): #hour_check came up with an error but this does same thing and checks white has been seen so white always first seen.
+    if store.mas_getAbsenceLength() >= datetime.timedelta(hours=6) and not store.mas_SELisUnlocked(store.mas_clothes_underwear_white): #hour_check came up with an error but this does same thing and checks white has been seen so white always first seen.
         while underwear == store.persistent._nsfw_previous_underwear:
             underwear = random.choice(options)
     store.persistent._nsfw_previous_underwear = underwear #stores todays underwear as a persistent value.

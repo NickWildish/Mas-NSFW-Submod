@@ -129,6 +129,12 @@ label nsfw_sexting_main:
                     m 6lkbfp "Aww, I was really enjoying myself."
                     m 6gkbfp "I hope whatever it is you need to do is important.{w=0.3}.{w=0.3}.{w=0.3}{nw}"
                     m 6hubfb "Ahaha! Just kidding~"
+                    m 6lubfsdlb "Now, I need to go get changed. Ahaha!"  #    \/
+                    m 7lubfsdlb "I'm a wet mess right now."              # Copy pasted from when you finish. Could do with different text but needed somthing for when she puts her clothes back on.
+                    m 7hubfsdla "Be right back, [player]."               #    /\
+
+                    call mas_clothes_change(outfit=clothes) # has monika swap back to the clothes she was wearing before the session.
+
                     return
                 elif horny_lvl >= hot_req:
                     $ persistent._nsfw_horny_level = horny_lvl - 5
@@ -215,7 +221,7 @@ label nsfw_sexting_sexy_transfer:
         if store.mas_SELisUnlocked(store.mas_clothes_birthday_suit):
             call mas_clothes_change(outfit=mas_clothes_birthday_suit, outfit_mode=False, exp="6hubfb", restore_zoom=False)
         else:
-            call mas_clothes_change(outfit=mas_clothes_underwear_white, outfit_mode=False, exp="6hubfb", restore_zoom=False)
+            call mas_clothes_change(outfit=mas_clothes_underwear_white, outfit_mode=False, exp="6hubfb", restore_zoom=False) # this also needs a change with my previous contribution.
 
         m 6hubfb "Hah~ That feels better."
         m 7tubfb "Don't think that I'm letting you off the hook now, [player]."

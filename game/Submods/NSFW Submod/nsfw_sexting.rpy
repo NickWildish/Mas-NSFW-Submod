@@ -18,6 +18,9 @@ label nsfw_sexting_main:
         sexy_transfer = False # True if Monika has reached the requirement for sexy dialogue only
         did_finish = True # False if the player did not finish
 
+
+    $ clothes = store.monika_chr.clothes # stores the clothes Monika is currently wearing.
+
     if store.mas_getEV("nsfw_player_sextingsession").shown_count >= 1:
         m 3eub "I remember the last time we did this; it was so much fun!"
         m 3tublb "So [player]... Let's get started, shall we?"
@@ -295,7 +298,7 @@ label nsfw_sexting_finale:
             m 7lubfsdlb "I'm a wet mess right now."
             m 7hubfsdla "Be right back, [player]."    
 
-            call mas_clothes_change(outfit=mas_clothes_def, outfit_mode=False, exp="1hub", restore_zoom=False)
+            call mas_clothes_change(outfit=clothes) # has monika swap back to the clothes she was wearing before the session.
 
             m 1hub "Hah~ Much better!"
             m 3eub "You should have a shower, [player]."

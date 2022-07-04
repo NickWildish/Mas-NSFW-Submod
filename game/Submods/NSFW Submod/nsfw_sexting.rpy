@@ -221,7 +221,7 @@ label nsfw_sexting_sexy_transfer:
         if store.mas_SELisUnlocked(store.mas_clothes_birthday_suit):
             call mas_clothes_change(outfit=mas_clothes_birthday_suit, outfit_mode=False, exp="6hubfb", restore_zoom=False)
         else:
-            call mas_clothes_change(outfit=mas_clothes_underwear_white, outfit_mode=False, exp="6hubfb", restore_zoom=False) # this also needs a change with my previous contribution.
+            call monika_showunderwear # this also needed a change with my previous contribution. Didn't see underwear is called here.
 
         m 6hubfb "Hah~ That feels better."
         m 7tubfb "Don't think that I'm letting you off the hook now, [player]."

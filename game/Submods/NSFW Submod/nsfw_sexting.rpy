@@ -20,7 +20,7 @@ label nsfw_sexting_main:
         sexy_transfer = False # True if Monika has reached the requirement for sexy dialogue only
         did_finish = True # False if the player did not finish
 
-    if store.mas_getEV("nsfw_player_sextingsession").shown_count >= 1:
+    if renpy.seen_label("nsfw_sexting_finale"):
         m 3eub "I remember the last time we did this; it was so much fun!"
         m 3tublb "So [player]... Let's get started, shall we?"
     else:

@@ -463,7 +463,7 @@ label nsfw_compliment_naughty_flirting_3:
 
         naughty_flirting_quips = [
             _("I'm really glad you enjoy it so much! I'm always practicing for you~"),
-            _("[naughty_bits]"),
+            _(naughty_bits),
             _("I wish I could lay in bed with you and whisper naughty things in your ears~"),
         ]
         naughty_flirting_quip = random.choice(naughty_flirting_quips)

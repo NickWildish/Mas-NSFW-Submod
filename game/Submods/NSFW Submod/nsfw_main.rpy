@@ -94,7 +94,7 @@ init python in mas_nsfw:
         OUT:
             True if the player has seen 'monika_gettingnude' topic AND risque is allowed AND the player hasn't seen the topic for at least 6 hours AND the player hasn't already unlocked her underwear, False if otherwise
         """
-        if store.mas_getEV("nsfw_monika_gettingnude").shown_count >= 1 and store.mas_canShowRisque(aff_thresh=1000) and hour_check(set_hours=6) and not store.mas_SELisUnlocked(store.mas_clothes_underwear_white):
+        if store.mas_getEV("nsfw_monika_gettingnude").shown_count >= 1 and store.mas_canShowRisque(aff_thresh=1000) and hour_check(set_hours=6) and not store.persistent._nsfw_seen_underwear:
             return True
         else:
             return False
@@ -106,7 +106,7 @@ init python in mas_nsfw:
         OUT: 
             True if the player has seen 'monika_gettingnude' topic twice AND risque is allowed AND the player hasn't seen the topic for at least 6 hours AND the player hasn't already unlocked her naked, false if otherwise
         """
-        if store.mas_SELisUnlocked(store.mas_clothes_underwear_white) and store.mas_canShowRisque() and hour_check(set_hours=6) and not store.mas_SELisUnlocked(store.mas_clothes_birthday_suit):
+        if store.persistent._nsfw_seen_underwear and store.mas_canShowRisque() and hour_check(set_hours=6) and not store.mas_SELisUnlocked(store.mas_clothes_birthday_suit):
             return True
         else:
             return False
@@ -318,6 +318,7 @@ init python in mas_nsfw:
             _("You're all I can think about."), #17
             _("When we're together, I want to have you lie back and let me take care of you."), #18
             _("I'm wearing something you might like right now."), #19
+            _("*Kiss her*"), #20
         )
 
         # Sexting prompts for your most 'risque' options
@@ -342,6 +343,7 @@ init python in mas_nsfw:
             _("When you and I are finally together, I want to make you cum so hard."), #17
             _("I want to brings sex toys into the bedroom with us and use them on you."), #18
             _("I want to watch you masturbate for me."), #19
+            _("*Kiss her*"), #20
         )
 
         # Sexting prompts for the haha funnies
@@ -710,7 +712,7 @@ init python in mas_nsfw:
         underwear = store.persistent._nsfw_previous_underwear # sets underwear to the same as before if there is a before
     except:
         underwear = 0 # sets to white if not a before
-    if store.mas_getAbsenceLength() >= datetime.timedelta(hours=6) and not store.mas_SELisUnlocked(store.mas_clothes_underwear_white): #hour_check came up with an error but this does same thing and checks white has been seen so white always first seen.
+    if (store.mas_getAbsenceLength() >= datetime.timedelta(hours=6)): #hour_check came up with an error but this does same thing.
         while underwear == store.persistent._nsfw_previous_underwear:
             underwear = random.choice(options)
     store.persistent._nsfw_previous_underwear = underwear #stores todays underwear as a persistent value.
@@ -735,5 +737,8 @@ init python in mas_nsfw:
             return True
         else:
             return False
-
+    
+    def seen_underwear():
+        store.persistent._nsfw_seen_underwear = True
+        return True
 # more can be added in a similar way if more underwear sprites get added.

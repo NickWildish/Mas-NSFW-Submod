@@ -471,6 +471,8 @@ label nsfw_monika_gettingnude:
                 extend 2dsbla "Ehehe~"
 
                 call monika_showunderwear
+                if mas_nsfw.seen_underwear():
+                    m " "
 
                 m 2ekbsa "So, [player]..."
                 m 2ekbsa "What do you think?"
@@ -494,7 +496,7 @@ label nsfw_monika_gettingnude:
                 m 1ekblc "I won't talk about it anymore."
                 return "derandom"
 
-    elif mas_SELisUnlocked(mas_clothes_underwear_white) or mas_SELisUnlocked(mas_clothes_birthday_suit):
+    elif store.persistent._nsfw_seen_underwear or mas_SELisUnlocked(mas_clothes_birthday_suit):
         m 3ekb "You're already familar with how I've been doing this while you've been away."
         m 3eublb "And I've got to say, it's been great!"
         m 3eublc "It's not for everyone though, so don't feel like I'm pressuring you..."
@@ -635,7 +637,6 @@ label nsfw_player_sextingsession:
     if time_since_last_success >= datetime.datetime.today() - datetime.timedelta(hours=3):
         m 1eka "I'm sorry [player], but I'm still tired from the last time we sexted."
         m 3eka "Could you give me a little more time, please?"
-        m 3hub "I love you~"
         return "love"
 
     m 1hua "Sure!"
@@ -1146,7 +1147,6 @@ label nsfw_monika_dick_size:
         call monika_kissing_motion_short
 
     return "love"
-
 
 label monika_showunderwear:
     if mas_nsfw.white_underwear():

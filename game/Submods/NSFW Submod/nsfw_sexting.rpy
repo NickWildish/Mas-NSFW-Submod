@@ -228,7 +228,7 @@ label nsfw_sexting_sexy_transfer:
         if store.mas_SELisUnlocked(store.mas_clothes_birthday_suit):
             call monika_showunderwear
         else:
-            call shwounderwear
+            call monika_showunderwear # this also needed a change with my previous contribution. Didn't see underwear is called here.
         m 6hubfb "Hah~ That feels better."
         m 7tubfb "Don't think that I'm letting you off the hook now, [player]."
         m 7tubfu "I want you to enjoy the view after all, so I expect one of your hands will be busy for a little while."

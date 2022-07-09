@@ -18,6 +18,9 @@ label nsfw_sexting_main:
         sexy_transfer = False # True if Monika has reached the requirement for sexy dialogue only
         did_finish = True # False if the player did not finish
 
+
+    $ clothes = store.monika_chr.clothes # stores the clothes Monika is currently wearing.
+
     if store.mas_getEV("nsfw_player_sextingsession").shown_count >= 1:
         m 3eub "I remember the last time we did this; it was so much fun!"
         m 3tublb "So [player]... Let's get started, shall we?"
@@ -100,6 +103,8 @@ label nsfw_sexting_main:
                     $ horny_lvl += 3
                 else: # Default
                     $ horny_lvl += 1
+                if player_prompt[0] == "*Kiss her*":
+                    call monika_kissing_motion
                 $ response_start = mas_nsfw.return_dialogue_start(horny_level=horny_lvl, hot_req=hot_req, sexy_req=sexy_req)
 
             "[player_prompt[1]]":
@@ -109,6 +114,8 @@ label nsfw_sexting_main:
                     $ horny_lvl += 3
                 else: # Default
                     $ horny_lvl += 1
+                if player_prompt[1] == "*Kiss her*":
+                    call monika_kissing_motion
                 $ response_start = mas_nsfw.return_dialogue_start(horny_level=horny_lvl, hot_req=hot_req, sexy_req=sexy_req)
 
             "[player_prompt[2]]":
@@ -118,6 +125,8 @@ label nsfw_sexting_main:
                     $ horny_lvl += 3
                 else: # Default
                     $ horny_lvl += 1
+                if player_prompt[2] == "*Kiss her*":
+                    call monika_kissing_motion
                 $ response_start = mas_nsfw.return_dialogue_start(horny_level=horny_lvl, hot_req=hot_req, sexy_req=sexy_req)
 
             "Actually, can we stop just for now?":
@@ -126,6 +135,13 @@ label nsfw_sexting_main:
                     m 6lkbfp "Aww, I was really enjoying myself."
                     m 6gkbfp "I hope whatever it is you need to do is important.{w=0.3}.{w=0.3}.{w=0.3}{nw}"
                     m 6hubfb "Ahaha! Just kidding~"
+
+                    m 6lubfsdlb "Now, I need to go get changed. Ahaha!"  #    \/
+                    m 7lubfsdlb "I'm a wet mess right now."              # Copy pasted from when you finish. Could do with different text but needed somthing for when she puts her clothes back on.
+                    m 7hubfsdla "Be right back, [player]."               #    /\
+
+                    call mas_clothes_change(outfit=clothes) # has monika swap back to the clothes she was wearing before the session.
+
                     return
                 elif horny_lvl >= hot_req:
                     $ persistent._nsfw_horny_level = horny_lvl - 5
@@ -210,10 +226,9 @@ label nsfw_sexting_sexy_transfer:
         m 6hkbfsdlo "Hnn~ I can't take it anymore!"
 
         if store.mas_SELisUnlocked(store.mas_clothes_birthday_suit):
-            call mas_clothes_change(outfit=mas_clothes_birthday_suit, outfit_mode=False, exp="6hubfb", restore_zoom=False)
+            call monika_showunderwear
         else:
-            call mas_clothes_change(outfit=mas_clothes_underwear_white, outfit_mode=False, exp="6hubfb", restore_zoom=False)
-
+            call monika_showunderwear # this also needed a change with my previous contribution. Didn't see underwear is called here.
         m 6hubfb "Hah~ That feels better."
         m 7tubfb "Don't think that I'm letting you off the hook now, [player]."
         m 7tubfu "I want you to enjoy the view after all, so I expect one of your hands will be busy for a little while."
@@ -295,7 +310,7 @@ label nsfw_sexting_finale:
             m 7lubfsdlb "I'm a wet mess right now."
             m 7hubfsdla "Be right back, [player]."    
 
-            call mas_clothes_change(outfit=mas_clothes_def, outfit_mode=False, exp="1hub", restore_zoom=False)
+            call mas_clothes_change(outfit=clothes) # has monika swap back to the clothes she was wearing before the session.
 
             m 1hub "Hah~ Much better!"
             m 3eub "You should have a shower, [player]."

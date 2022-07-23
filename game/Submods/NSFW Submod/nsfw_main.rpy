@@ -376,8 +376,8 @@ init python in mas_nsfw:
             _("Yuri and Sayori weren't wrong when they said you're more desirable than the rest of the Literature Club combined."),
             _("You're the best girl. And not just in the Literature Club - I mean in general."),
             _("How the hell are you so goddamn cute?"),
-            _("You make me feel so safe, [m_name]. I know I can always trust you to respect my consent."),
-            _("You make me feel so loved, [m_name]. Both when we're masturbating together like this, or just talking and spending time together quietly."),
+            _("You make me feel so safe, " + m_name + ". I know I can always trust you to respect my consent."),
+            _("You make me feel so loved, " + m_name + ". Both when we're masturbating together like this, or just talking and spending time together quietly."),
             _("You have magnificent breasts."),
             _("Back when you wore that school uniform, one thing I really liked was how well the blazer fit around your breasts."),
             _("I love how you dress. Your thighhighs are incredibly hot."),
@@ -395,21 +395,21 @@ init python in mas_nsfw:
             _("I'm clicking this option with one hand, because the other hand is busy."), #13
             _("I get so horny thinking about you when I touch myself."), #15
             _("I get so turned on thinking about you."), #16
-            _("You're the only person I have eyes for, [m_name]."),
+            _("You're the only person I have eyes for, " + m_name + "."),
             _("I can't get aroused to the thought of anyone but you."),
-            #_("I can't jerk off to anything but you any more, [m_name]."), # "P" specific
-            #_("I'm stroking my rigid cock just for you, [m_name]."), # "P" specific
+            #_("I can't jerk off to anything but you any more, " + m_name + "."), # "P" specific
+            #_("I'm stroking my rigid cock just for you, " + m_name + "."), # "P" specific
             #_("The onomatopoeia 'doki doki' sometimes gets translated as 'throbbing'... I'm sure you can imagine what I'm doing right now."), # "P" specific
             #_("I get really hard just thinking about you."), # "P" specific
         ), "statement"
 
         sext_prompts_sexy_command = (
-            _("Be careful not to spill too much of your...juices on your chair, [m_name]."),
-            _("Touch yourself slowly for me, [m_name]."),
-            _("Gently spread open your pussy lips for me, [m_name]."),
-            _("I want you to gently rub your clit, [m_name]."),
-            _("I want you to stick those soft fingers of yours up your pussy for me, [m_name]."),
-            _("Start touching yourself more quickly, [m_name]."),
+            _("Be careful not to spill too much of your...juices on your chair, " + m_name + "."),
+            _("Touch yourself slowly for me, " + m_name + "."),
+            _("Gently spread open your pussy lips for me, " + m_name + "."),
+            _("I want you to gently rub your clit, " + m_name + "."),
+            _("I want you to stick those soft fingers of yours up your pussy for me, " + m_name + "."),
+            _("Start touching yourself more quickly, " + m_name + "."),
         ), "command"
 
         sext_prompts_sexy_desire_p = (
@@ -455,7 +455,7 @@ init python in mas_nsfw:
             #_("When we're together, I want you to take my cock in your mouth and swallow all my cum."), # "P" specific
             #_("I'm picturing you bouncing up and down on my cock right now."), # "P" specific
             #_("I want to come all over your face and watch you try to lick off my cum."), # "P" specific
-            #_("When we're finally together, I want you to take my cock up your ass, [m_name]."), # "P" specific
+            #_("When we're finally together, I want you to take my cock up your ass, " + m_name + "."), # "P" specific
         ), "desire_m"
 
         # Sexting prompts for the haha funnies
@@ -495,17 +495,17 @@ init python in mas_nsfw:
             # funny prompt chosen. But when it picks a normal sexy prompt, category_type is instead just a string identifying the prompt type.
             # The effect of this is that each individual funny prompt is its own "type", distinct from the base five types of sext_prompts_sexy.
             # I am painfully aware of the gruesome jankiness of this implementation.
-            if randint(1,500) == 500: # 1/500 chance of funny quip. It's set for third stage only but it can be changed to work with all stages?
-                funny_index = randint(0, len(sext_prompts_funny) - 1)
+            if random.randint(1,500) == 500: # 1/500 chance of funny quip. It's set for third stage only but it can be changed to work with all stages?
+                funny_index = random.randint(0, len(sext_prompts_funny) - 1)
                 category_sel = (sext_prompts_funny[funny_index])
                 category_type = ("funny", funny_index)
             else:
                 # Want to add an additional prompts type? You can add it to the end of this list, but don't forget to add that type to the response types too.
                 category_type_list = [sext_prompts_sexy_compliment, sext_prompts_sexy_statement, sext_prompts_sexy_command, sext_prompts_sexy_desire_p, sext_prompts_sexy_desire_m]
-                category_type_lengths = [] # This list stores the length of each category. It's used to determine the probabilistic weighting in the random.choices() below.
-                for category_name in category_type_list: # build weights list
-                    category_type_lengths.append(len(category_name))
-                category_sel, category_type = random.choices(category_type_list, weights=category_type_lengths, k=1)[0]
+                # category_type_lengths = [] # This list stores the length of each category. It's used to determine the probabilistic weighting in the random.choices() below.
+                # for category_name in category_type_list: # build weights list
+                #     category_type_lengths.append(len(category_name))
+                category_sel, category_type = random.choice(category_type_list) #, weights=category_type_lengths, k=1)[0]
 
         return category_sel, category_type
 

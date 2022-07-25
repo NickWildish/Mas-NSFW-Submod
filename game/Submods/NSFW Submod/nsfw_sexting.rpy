@@ -8,21 +8,25 @@ label nsfw_sexting_main:
         horny_lvl = persistent._nsfw_horny_level # The level of horny Monika is experiencing
         horny_max, horny_min, hot_req, sexy_req = mas_nsfw.calc_sexting_reqs()
         player_prompt = ["zero", "one", "two"] # The prompts from which the player will choose from
-        prompt_cat = ["zero", "one", "two"] # The categories in which each prompt took place
+        prompt_cat = ["zero", "one", "two"] # The categories (stage cute, hot, or sexy) in which each prompt took place
         prompt_type = ["zero", "one", "two"] # The types for each prompt. Only relevant in third stage.
+        prompt_subtype = ["zero", "one", "two"] # The subtypes for each prompt. Only relevant in third stage.
         quip_cat = "" # The category in which the quip took place
         response_cat = "" # The category in which the response took place
         recent_prompts = [] # The recent prompts used
         recent_responses = [] # The recent responses used
         recent_quips = [] # The recent quips used
         previous_type = None # The "type" of the last prompt used. Only relevant in third stage.
+        previous_subtype = None # The "subtype" of the last prompt used. Only relevant in third stage.
+        shouldkiss = False #
+        shouldkiss_cooldown = 0 #
         hot_transfer = False # True if Monika has reached the requirement for hot dialogue or more
         sexy_transfer = False # True if Monika has reached the requirement for sexy dialogue only
         did_finish = True # False if the player did not finish
 
     if renpy.seen_label("nsfw_sexting_finale"):
         m 3eub "I remember the last time we did this; it was so much fun!"
-        m 3tublb "So [player]... Let's get started, shall we?"
+        m 3tublb "So [player]...let's get started, shall we?"
     else:
         m 1rka "I'm kind of nervous, if I'm honest."
         m 3rkb "I don't know what to expect from this..."
@@ -56,18 +60,18 @@ label nsfw_sexting_main:
         python:
             # Make 3 player prompts
             for x in range(3):
-                player_prompt[x], prompt_cat[x], prompt_type[x] = mas_nsfw.return_sexting_dialogue(category_type="prompt", horny_level=horny_lvl, hot_req=hot_req, sexy_req=sexy_req, horny_max=horny_max, recent_prompts=recent_prompts, recent_responses=recent_responses, recent_quips=recent_quips, previous_type=previous_type)
+                player_prompt[x], prompt_cat[x], prompt_type[x], prompt_subtype[x] = mas_nsfw.return_sexting_dialogue(category_type="prompt", horny_level=horny_lvl, hot_req=hot_req, sexy_req=sexy_req, horny_max=horny_max, recent=recent_prompts)
 
             # While loop to prevent duplicates
             while player_prompt[1] == player_prompt[0]:
                 # Grab second random prompt from list
-                player_prompt[1], prompt_cat[1], prompt_type[1] = mas_nsfw.return_sexting_dialogue(category_type="prompt", horny_level=horny_lvl, hot_req=hot_req, sexy_req=sexy_req, horny_max=horny_max, recent_prompts=recent_prompts, recent_responses=recent_responses, recent_quips=recent_quips, previous_type=previous_type)
+                player_prompt[1], prompt_cat[1], prompt_type[1], prompt_subtype[1] = mas_nsfw.return_sexting_dialogue(category_type="prompt", horny_level=horny_lvl, hot_req=hot_req, sexy_req=sexy_req, horny_max=horny_max, recent=recent_prompts)
             while player_prompt[2] == player_prompt[0] or player_prompt[2] == player_prompt[1]:
                 # Grab third random prompt from list
-                player_prompt[2], prompt_cat[2], prompt_type[2] = mas_nsfw.return_sexting_dialogue(category_type="prompt", horny_level=horny_lvl, hot_req=hot_req, sexy_req=sexy_req, horny_max=horny_max, recent_prompts=recent_prompts, recent_responses=recent_responses, recent_quips=recent_quips, previous_type=previous_type)
+                player_prompt[2], prompt_cat[2], prompt_type[2], prompt_subtype[2] = mas_nsfw.return_sexting_dialogue(category_type="prompt", horny_level=horny_lvl, hot_req=hot_req, sexy_req=sexy_req, horny_max=horny_max, recent=recent_prompts)
 
             # Grab random line of dialogue from list
-            monika_quip = mas_nsfw.return_sexting_dialogue(category_type="quip", horny_level=horny_lvl, hot_req=hot_req, sexy_req=sexy_req, horny_max=horny_max, recent_prompts=recent_prompts, recent_responses=recent_responses, recent_quips=recent_quips, previous_type=previous_type)[0]
+            monika_quip = mas_nsfw.return_sexting_dialogue(category_type="quip", horny_level=horny_lvl, hot_req=hot_req, sexy_req=sexy_req, horny_max=horny_max, recent=recent_quips)[0]
             quip_ending = mas_nsfw.return_dialogue_end(monika_quip)
 
         if horny_lvl >= sexy_req or store.persistent._nsfw_sext_sexy_start:
@@ -92,12 +96,26 @@ label nsfw_sexting_main:
             m 3hubsb "[monika_quip][quip_ending]"
 
         $ _history_list.pop()
+
+        python:
+            if shouldkiss_cooldown > 0:
+                shouldkiss_cooldown -= 1
+            if "kiss" in monika_quip or random.randint(1,50) == 1:
+                if shouldkiss_cooldown == 0:
+                    shouldkiss = True
+
+        if shouldkiss and persistent._mas_first_kiss:
+            call monika_kissing_motion_short
+            $ shouldkiss = False
+            $ shouldkiss_cooldown = 5
+
         menu:
             m "[monika_quip][quip_ending]{fast}"
 
             "[player_prompt[0]]":
                 if prompt_cat[0] == "sexy":
                     $ previous_type = prompt_type[0]
+                    $ previous_subtype = prompt_subtype[0]
                     $ horny_lvl += 5
                 elif prompt_cat[0] == "hot":
                     $ horny_lvl += 3
@@ -108,6 +126,7 @@ label nsfw_sexting_main:
             "[player_prompt[1]]":
                 if prompt_cat[1] == "sexy":
                     $ previous_type = prompt_type[1]
+                    $ previous_subtype = prompt_subtype[1]
                     $ horny_lvl += 5
                 elif prompt_cat[1] == "hot":
                     $ horny_lvl += 3
@@ -118,6 +137,7 @@ label nsfw_sexting_main:
             "[player_prompt[2]]":
                 if prompt_cat[2] == "sexy":
                     $ previous_type = prompt_type[2]
+                    $ previous_subtype = prompt_subtype[2]
                     $ horny_lvl += 5
                 elif prompt_cat[2] == "hot":
                     $ horny_lvl += 3
@@ -143,7 +163,19 @@ label nsfw_sexting_main:
                     m 3ekblb "Let's pick this up again later, okay?"
                     return
 
-        $ monika_response = mas_nsfw.return_sexting_dialogue(category_type="response", horny_level=horny_lvl, hot_req=hot_req, sexy_req=sexy_req, horny_max=horny_max, recent_prompts=recent_prompts, recent_responses=recent_responses, recent_quips=recent_quips, previous_type=previous_type)[0]
+        python:
+            if shouldkiss_cooldown > 0:
+                shouldkiss_cooldown -= 1
+            if previous_subtype == "KIS": # Override cooldown and kiss right away if the player picks a prompt that asks for a kiss
+                shouldkiss = True
+
+        if shouldkiss and persistent._mas_first_kiss:
+            call monika_kissing_motion_short
+            $ shouldkiss = False
+            $ shouldkiss_cooldown = 5
+
+
+        $ monika_response = mas_nsfw.return_sexting_dialogue(category_type="response", horny_level=horny_lvl, hot_req=hot_req, sexy_req=sexy_req, horny_max=horny_max, recent=recent_responses, previous_type=previous_type, previous_subtype=previous_subtype)[0]
         $ response_ending = mas_nsfw.return_dialogue_end(monika_response)
 
         if horny_lvl >= sexy_req:
@@ -154,6 +186,18 @@ label nsfw_sexting_main:
             show monika sexting_cute_poses
 
         m "[response_start][monika_response][response_ending]"
+
+        python:
+            if shouldkiss_cooldown > 0:
+                shouldkiss_cooldown -= 1
+            if "kiss" in monika_response or random.randint(1,50) == 1:
+                if shouldkiss_cooldown == 0:
+                    shouldkiss = True
+
+        if shouldkiss and persistent._mas_first_kiss:
+            call monika_kissing_motion_short
+            $ shouldkiss = False
+            $ shouldkiss_cooldown = 5
 
         python:
             # Add the prompts, responses and quips used by the player to a 'recently used' list, remove oldest ones from list when going above 10 items
@@ -206,7 +250,7 @@ label nsfw_sexting_hot_transfer:
     m 1hub "Hah~ This is fun."
     m 3eua "I hope you're enjoying yourself as much as I am, [player]. Ehehe~"
     m 3tua "..."
-    m 2tub "So.{w=0.1}.{w=0.1}.{w=0.1} Are we going to keep going, or what?"
+    m 2tub "So.{w=0.1}.{w=0.1}.{w=0.1}are we going to keep going, or what?"
     m 1hublb "Ahaha! Just teasing you, [player]."
     return
 
@@ -271,11 +315,12 @@ label nsfw_sexting_finale:
             m 6ekbfsdlo "Hah...hah..."
             m 6skbfsdlu "That...was..."
             m 6skbfsdlb "Amazing..."
-            m 6hkbfsdla "I can't believe...hah...I've been missing out on this..."
-            m 6dkbfsdlb "If it feels this good in my world..."
-            m 6ekbfsdlb "I can only imagine...hah...how good it feels..."
-            m 6tkbfsdlb "For you..."
-            m 6hkbfsdlb "Sorry, that really took it out of me..."
+            if not renpy.seen_label("nsfw_sexting_finale"):
+                m 6hkbfsdla "I can't believe...hah...I've been missing out on this..."
+                m 6dkbfsdlb "If it feels this good in my world..."
+                m 6ekbfsdlb "I can only imagine...hah...how good it feels..."
+                m 6tkbfsdlb "For you..."
+                m 6hkbfsdlb "Sorry, that really took it out of me..."
             m 6ekbfsdlb "Did you manage to come with me?"
 
             $ _history_list.pop()
@@ -310,7 +355,8 @@ label nsfw_sexting_finale:
                 m 3tubla "Maybe you can think of me in the shower and...{i}finish up.{/i}"
                 m 3mubsa "I want you to feel as good as I did too~"
 
-            $ store.persistent.nsfw_sexting_success_last = datetime.datetime.now()
+            $ store.persistent._nsfw_sexting_success_last = datetime.datetime.now()
+            $ store.persistent._nsfw_horny_level = 0
 
             return
 

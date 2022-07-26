@@ -153,155 +153,110 @@ init python in mas_nsfw:
             A list of response strings from Monika appropriate to the response category.
             If the response category is 2 ("sexy"), then it shall also be appropriate to the response type.
         """
+        player_nickname = store.persistent.playername
+        return_responses = [] # start building from this list
 
-        # Sexting responses for your average compliment
-        sext_responses_cute = [
-            _("Thank you"), #0
-            _("Thanks"), #1
-            _("That's very cheesy"), #2
-            _("That's cheesy"), #3
-            _("That's so cheesy"), #4
-            _("You're the sweetest"), #5
-            _("You're so sweet"), #6
-            _("That's so nice of you to say"), #7
-            _("You're so cheesy"), #8
-            _("You are just the cutest"), #9
-            _("You always know exactly what to say"), #10
-            _("You always bring a smile to my face"), #11
-            _("..."), #12
-            _("That's so sweet"), #13
-            _("You're so sweet, you know that?"), #14
-            _("Stop it, you're making me blush"), #15
-            _("You make me so happy"), #16
-            _("You're so kind"), #17
-            _("That's so sweet"), #18
-            _("That's sweet"), #19
-        ]
+        if response_type == "funny": # if the player picks a "funny" prompt, skip automatically to appropriate response and return
+            sext_responses_funny = [
+                _("Ahaha! What are you talking about, " + player_nickname + "?"), #0
+                _("Pfft! That's so cheesy, " + player_nickname + "."), #1
+                _("Oh my god! You did not just make that joke, ahaha~"), #2
+                _("Ahaha~ Is that right?"), #3
+                _("Oh. That's very out-of-the-blue, " + player_nickname + "."), #4
+                _("I just want to tear your clothes off."), #5
+                _("I'm only this naughty for you~"), #6
+                _("Oh? Try away, " + player_nickname + "."), #7
+                _("No."), #8
+                _("I think that you scratching my back while we make love would be so hot..."), #9
+                _("Where is your hand, " + player_nickname + "?"), #10
+                _("Oh, I want to do even naughtier things to you..."), #11
+                _("Mmm...and what would that be, " + player_nickname + "?"), #12
+                _("I'm feeling so good, " + player_nickname + "..."), #13
+                _("Proper grammar..."), #14
+                _("Uh... Did you want to try that again, " + player_nickname + "? Ahaha~"), #15
+                _("Ahaha~ You're so funny, " + player_nickname + "."), #16
+                _("Ahaha~ Thank you... I guess?"), #17
+                _("Mmm, you do~"), #18
+                _("You're such a stud."), #19
+            ]
+            return_responses.append(sext_responses_funny[int(response_subtype)])
+            return return_responses
 
-        # Sexting responses for the more 'risque' options
-        sext_responses_hot = [
-            _("What else?"), #0
-            _("I like the sound of that"), #1
-            _("You know exactly what to say"), #2
-            _("I've never felt this way before"), #3
-            _("You're making me feel all tingly"), #4
-            _("You're getting me all riled up"), #5
-            _("Don't tempt me to try and break the screen to get to you"), #6
-            _("Please keep going"), #7
-            _("You're so hot when you talk like that"), #8
-            _("That is so hot"), #9
-            _("I feel so good when you talk like that"), #10
-            _("..."), #11
-            _("You're making me all flustered"), #12
-            _("You know just what to say to get me all flustered..."), #13
-            _("You don't hold back, do you?"), #14
-            _("That's so hot"), #15
-            _("That's hot"), #16
-            _("Is that so?"), #17
-            _("Is that right?"), #18
-            _("You make me so happy talking like that"), #19
-        ]
+        if response_category == 0: # cute
+            sext_responses_cute = [
+                _("Thank you"), #0
+                _("Thanks"), #1
+                _("That's very cheesy"), #2
+                _("That's cheesy"), #3
+                _("That's so cheesy"), #4
+                _("You're the sweetest"), #5
+                _("You're so sweet"), #6
+                _("That's so nice of you to say"), #7
+                _("You're so cheesy"), #8
+                _("You are just the cutest"), #9
+                _("You always know exactly what to say"), #10
+                _("You always bring a smile to my face"), #11
+                _("You're such a cutie"), #12
+                _("That's so sweet"), #13
+                _("You're so sweet, you know that?"), #14
+                _("Stop it, you're making me blush"), #15
+                _("You make me so happy"), #16
+                _("You're so kind"), #17
+                _("That's so sweet"), #18
+                _("That's sweet"), #19
+            ]
+            return_responses.extend(sext_responses_cute)
+        elif response_category == 1: # hot
+            sext_responses_hot = [
+                _("What else?"), #0
+                _("I like the sound of that"), #1
+                _("You know exactly what to say"), #2
+                _("I've never felt this way before"), #3
+                _("You're making me feel all tingly"), #4
+                _("You're getting me all riled up"), #5
+                _("Don't tempt me to try and break the screen to get to you"), #6
+                _("Please keep going"), #7
+                _("You're so hot when you talk like that"), #8
+                _("That is so hot"), #9
+                _("I feel so good when you talk like that"), #10
+                _("You make my body feel warm"), #11
+                _("You're making me all flustered"), #12
+                _("You know just what to say to get me all flustered..."), #13
+                _("You don't hold back, do you?"), #14
+                _("That's so hot"), #15
+                _("That's hot"), #16
+                _("Is that so?"), #17
+                _("Is that right?"), #18
+                _("You make me so happy talking like that"), #19
+            ]
+            return_responses.extend(sext_responses_hot)
 
-        # Sexting responses for the most 'risque' options
+        else: # elif response_category == 2: # sexy
+            sext_responses_sexy = [
+                _("You're so sexy when you talk like that"), #0
+                _("That is so sexy"), #1
+                _("Is that right?"), #2
+                _("Is that so?"), #3
+                _("Keep going"), #4
+                _("Please don't stop"), #5
+                _("You're getting me so turned on"), #6
+                _("Tell me what else you want to do to me"), #7
+                _("You're getting me so worked up"), #8
+                _("This feels too good"), #9
+                _("Whatever you're doing...it's working"), #10
+                _("You just have a way with words, don't you?"), #11
+                _("Keep talking like that"), #12
+                _("More"), #13
+                _("Please keep going"), #14
+                _("When did you learn to talk like that?"), #15
+                _("Have you always been this sexy?"), #16
+                _("I am so wet right now"), #17
+                _("You really know how to please a woman"), #18
+                _("Say that again"), #19
+            ]
+            return_responses.extend(sext_responses_sexy)
 
-        # See the comment in return_sext_prompts() for an explanation of the five categories (compliment, statement, command, desire_p, desire_m) and the various subtypes.
-
-        # This is the list we build upon and return for third stage responses.
-        sext_responses_sexy = [
-            _("Please don't stop"), #5
-            _("You're getting me so turned on"), #6
-            _("You're getting me so worked up"), #8
-            _("Whatever you're doing...it's working"), #10
-            _("You just have a way with words, don't you?"), #11
-            _("Keep talking like that"), #12
-            _("You really know how to please a woman"), #18
-            _("That is so sexy"), #1
-            _("Have you always been this sexy?"), #16
-            _("You're so sexy when you talk like that"), #0
-            _("This feels too good"), #9
-            _("When did you learn to talk like that?"), #15
-            _("Is that right?"), #2
-            _("Is that so?"), #3
-            _("Keep going"), #4
-            _("Tell me what else you want to do to me"), #7
-            _("More"), #13
-            _("Please keep going"), #14
-            _("I am so wet right now"), #17
-            _("Say that again"), #19
-        ]
-
-        # These five lists will require further sorting and expansion.
-        # sext_responses_sexy_compliment = [
-        #     _("Please don't stop"), #5
-        #     _("You're getting me so turned on"), #6
-        #     _("You're getting me so worked up"), #8
-        #     _("Whatever you're doing...it's working"), #10
-        #     _("You just have a way with words, don't you?"), #11
-        #     _("Keep talking like that"), #12
-        #     _("You really know how to please a woman"), #18
-        # ]
-#
-        # sext_responses_sexy_statement = [
-        #     _("That is so sexy"), #1
-        #     _("Have you always been this sexy?"), #16
-        # ]
-#
-        # sext_responses_sexy_command = [
-        #     _("You're so sexy when you talk like that"), #0
-        #     _("This feels too good"), #9
-        #     _("When did you learn to talk like that?"), #15
-        # ]
-#
-        # sext_responses_sexy_desire_p = [
-        #     _("Is that right?"), #2
-        #     _("Is that so?"), #3
-        #     _("Keep going"), #4
-        #     _("Tell me what else you want to do to me"), #7
-        # ]
-#
-        # sext_responses_sexy_desire_m = [
-        #     _("More"), #13
-        #     _("Please keep going"), #14
-        #     _("I am so wet right now"), #17
-        #     _("Say that again"), #19
-        # ]
-
-        # Sexting responses for the haha funnies
-        sext_responses_funny = [
-            _("Ahaha! What are you talking about, [player]?"), #0
-            _("Pfft! That's so cheesy, [player]."), #1
-            _("Oh my god! You did not just make that joke, ahaha~"), #2
-            _("Ahaha~ Is that right?"), #3
-            _("Oh. That's very out-of-the-blue, [player]."), #4
-            _("I just want to tear your clothes off."), #5
-            _("I'm only this naughty for you~."), #6
-            _("Oh? Try away, [player]."), #7
-            _("No."), #8
-            _("I think that you scratching my back while we make love would be so hot..."), #9
-            _("Where is your hand, [player]?"), #10
-            _("Oh, I want to do even naughtier things to you..."), #11
-            _("Mmm...and what would that be, [player]?"), #12
-            _("I'm feeling so good, [player]..."), #13
-            _("Proper grammar..."), #14
-            _("Uh... Did you want to try that again, [player]? Ahaha~"), #15
-            _("Ahaha~ You're so funny, [player]."), #16
-            _("Ahaha~ Thank you... I guess?"), #17
-            _("Mmm, you do~"), #18
-            _("You're such a stud."), #19
-        ]
-
-        if response_category == 0:
-            category_sel = sext_responses_cute
-        elif response_category == 1:
-            category_sel = sext_responses_hot
-        else: # if response_category == 2:
-            if response_type == "funny":
-                response_index = int(response_subtype)
-                category_sel = [sext_responses_funny[response_index]] # create a list containing only the correct response
-            else: # if response_type == "desire_m":
-                category_sel = sext_responses_sexy
-
-        return category_sel
+        return return_responses
 
     def return_sext_prompts(prompt_category=0):
         """
@@ -321,6 +276,7 @@ init python in mas_nsfw:
                 [2] The string containing the prompt text.
         """
 
+        monika_nickname = store.persistent._mas_monika_nickname
         # Sexting prompts for your average compliment
         sext_prompts_cute = [
             ("", "", _("I guess your parents are bakers, because they made you such a cutie pie!")), #0
@@ -452,8 +408,6 @@ init python in mas_nsfw:
         # C - Player's semen. All of these subtypes are only applicable for players with penises.
         # The second letter is A or X if the subtype has to do with "butt stuff".
         # The third letter is M if Monika receives it, and P if the player receives it.
-
-        monika_nickname = store.persistent._mas_monika_nickname
 
         sext_prompts_sexy = [
             ("compliment", "MFS", _("I bet you have a really hot orgasm face.")),
@@ -661,7 +615,7 @@ init python in mas_nsfw:
         # Sexting quips for your more 'risque' options
         sext_quips_hot = [
             _("Who said that you could be this hot?"), #0
-            _("I would love to kiss you right now... Among other things~"), #1
+            _("I would love to kiss you right now...among other things~"), #1
             _("You know, I was daydreaming about you today. It was hot"), #2
             _("I could just eat you up"), #3
             _("I want to feel you touching me all over"), #4
@@ -717,7 +671,7 @@ init python in mas_nsfw:
 
         return category_sel
 
-    def return_sexting_dialogue(category_type="response", horny_level=0, hot_req=10, sexy_req=30, horny_max=50, recent=[], previous_type=None, previous_subtype=None):
+    def return_sexting_dialogue(category_type="response", horny_level=0, hot_req=10, sexy_req=30, horny_max=50, recent=[], previous_cat=None, previous_type=None, previous_subtype=None):
         """
         Returns a string from a dialogue list based on
 
@@ -734,6 +688,8 @@ init python in mas_nsfw:
                 (Default: 50)
             recent - The recent_quips, recent_prompts, or recent_responses used - should match category_type.
                 (Default: [])
+            previous_cat - the "category" ("cute", "hot", "sexy") of the last prompt used
+                (Optional, used only when category_type == "response")
             previous_type - The "type" of the last prompt used
                 (Optional, used only when category_type == "response")
             previous_subtype - The "subtype" of the last prompt used
@@ -804,16 +760,18 @@ init python in mas_nsfw:
                     return_cat = "cute"
 
         else: # We assume it's the response category here, but in case of incorrect input we set it as default
+            # Responses should match the category / stage as the last prompt picked in order to make sense.
             selected_recentlist = recent
-            if horny_level >= sexy_req:
-                dialogue_list = return_sext_responses(response_category=2, response_type=previous_type, response_subtype=previous_subtype)
-                return_cat = "sexy"
-            elif horny_level >= hot_req:
-                dialogue_list = return_sext_responses(response_category=1)
-                return_cat = "hot"
-            else: # Default
-                dialogue_list = return_sext_responses(response_category=0)
-                return_cat = "cute"
+
+            if previous_cat == "cute":
+                category_number = 0
+            elif previous_cat == "hot":
+                category_number = 1
+            else: # if previous_cat == "sexy":
+                category_number = 2
+
+            dialogue_list = return_sext_responses(response_category=category_number, response_type=previous_type, response_subtype=previous_subtype)
+            return_cat = previous_cat
 
         # Grab length of acquired list
         list_length = len(dialogue_list)
@@ -821,19 +779,29 @@ init python in mas_nsfw:
         # Grab random dialogue from list
         dialogue_no = random.randint(0, list_length - 1)
 
+        # Break out of recentlist check after 100 failed attempts to find dialogue not in recent list.
+
+        # Ideally this is never needed but it covers possible edge cases where the system may get
+        # caught in a runaway while loop when searching through a dialogue list that is too short.
+        recentlist_breakout = 0
+
         if category_type == "prompt": # if it's a prompt, dialogue_list is a list of tuples.
-            while dialogue_list[dialogue_no][2] in selected_recentlist:
+            while dialogue_list[dialogue_no][2] in selected_recentlist and recentlist_breakout < 100:
                 dialogue_no = random.randint(0, list_length - 1)
+                recentlist_breakout += 1
 
             return_dialogue = dialogue_list[dialogue_no][2]
             if return_cat == "sexy": # if it's a third stage prompt return also the "type" and "subtype".
                 return_type = dialogue_list[dialogue_no][0]
                 return_subtype = dialogue_list[dialogue_no][1]
-        else: # if it's a response or quip, dialogue_list is a list of strings.
+        elif previous_type != "funny": # if it's a response or quip, dialogue_list is a list of strings.
             # Do loop to check if selected dialogue was used recently
-            while dialogue_list[dialogue_no] in selected_recentlist:
+            while dialogue_list[dialogue_no] in selected_recentlist and recentlist_breakout < 100:
                 dialogue_no = random.randint(0, list_length - 1)
+                recentlist_breakout += 1
 
+            return_dialogue = dialogue_list[dialogue_no]
+        else: # do not run any recentness checks for funny responses because only one option is possible
             return_dialogue = dialogue_list[dialogue_no]
 
         return return_dialogue, return_cat, return_type, return_subtype

@@ -83,16 +83,23 @@ label nsfw_sexting_main:
                 $ hot_transfer = True # Set these both to true so we avoid the threshold dialogue
                 $ sexy_transfer = True
                 $ monika_quip = "I'll let you go first"
-            m 4ekbfo "[monika_quip][quip_ending]"
+                $ quip_ending = mas_nsfw.return_dialogue_end(monika_quip)
+
+            show monika sexting_sexy_quip_poses
+            m "[monika_quip][quip_ending]"
         elif horny_lvl >= hot_req or store.persistent._nsfw_sext_hot_start:
             if store.persistent._nsfw_sext_hot_start:
                 $ store.persistent._nsfw_sext_hot_start = False # Reset so we don't loop
                 $ horny_lvl = hot_req # Set the required affection
                 $ hot_transfer = True # Set this to true so we avoid the threshold dialogue
                 $ monika_quip = "I'll let you go first"
+                $ quip_ending = mas_nsfw.return_dialogue_end(monika_quip)
+
             m 2msbsb "[monika_quip][quip_ending]"
         elif horny_lvl == 0: # Just started
             $ monika_quip = "I'll let you go first"
+            $ quip_ending = mas_nsfw.return_dialogue_end(monika_quip)
+
             m 1eubla "[monika_quip][quip_ending]"
         else:
             m 3hubsb "[monika_quip][quip_ending]"
@@ -102,7 +109,7 @@ label nsfw_sexting_main:
         python:
             if shouldkiss_cooldown > 0:
                 shouldkiss_cooldown -= 1
-            if "kiss" in monika_quip or random.randint(1,50) == 1:
+            if ("kiss" in monika_quip and random.randint(1,5) == 1) or random.randint(1,50) == 1:
                 if shouldkiss_cooldown == 0:
                     shouldkiss = True
 
@@ -141,10 +148,12 @@ label nsfw_sexting_main:
                     m 3ekblb "Let's pick this up again later, okay?"
                     return
 
-        $ previous_cat = prompt_cat[prompt_choice]
+        python:
+            previous_cat = prompt_cat[prompt_choice]
+            previous_type = prompt_type[prompt_choice]
+            previous_subtype = prompt_subtype[prompt_choice]
+
         if previous_cat == "sexy":
-            $ previous_type = prompt_type[prompt_choice]
-            $ previous_subtype = prompt_subtype[prompt_choice]
             $ horny_lvl += 5
         elif previous_cat == "hot":
             $ horny_lvl += 3
@@ -154,13 +163,22 @@ label nsfw_sexting_main:
         python:
             if shouldkiss_cooldown > 0:
                 shouldkiss_cooldown -= 1
-            if previous_subtype == "KIS" or "kiss" in player_prompt[prompt_choice]: # Override cooldown and kiss right away if the player picks a prompt that asks for a kiss
+            if previous_subtype == "KIS": # Override cooldown and kiss right away if the player picks a prompt that asks for a kiss
                 shouldkiss = True
+            elif "kiss" in player_prompt[prompt_choice] and random.randint(1,5) == 1:
+                if shouldkiss_cooldown == 0:
+                    shouldkiss = True
 
         if shouldkiss and persistent._mas_first_kiss:
             call monika_kissing_motion_short
             $ shouldkiss = False
             $ shouldkiss_cooldown = 5
+
+        # undress if asked by player
+        if store.mas_SELisUnlocked(store.mas_clothes_birthday_suit) and previous_subtype == "UND" and not sexy_transfer:
+            call mas_clothes_change(outfit=mas_clothes_birthday_suit, outfit_mode=False, exp="6hubfb", restore_zoom=False)
+            m 6hubfb "Hah~ That feels better."
+            $ sexy_transfer = True
 
         $ response_start = mas_nsfw.return_dialogue_start(horny_level=horny_lvl, hot_req=hot_req, sexy_req=sexy_req)
         $ monika_response = mas_nsfw.return_sexting_dialogue(category_type="response", horny_level=horny_lvl, hot_req=hot_req, sexy_req=sexy_req, horny_max=horny_max, recent=recent_responses, previous_cat=previous_cat, previous_type=previous_type, previous_subtype=previous_subtype)[0]
@@ -169,18 +187,23 @@ label nsfw_sexting_main:
         if previous_type == "funny":
             show monika sexting_funny_poses
         elif horny_lvl >= sexy_req:
-            show monika sexting_sexy_poses
+            show monika sexting_sexy_response_poses
+        elif horny_lvl >= hot_req and previous_type == "command":
+            show monika sexting_hot_mast_poses
         elif horny_lvl >= hot_req:
-            show monika sexting_hot_poses
+            show monika sexting_hot_mast_poses
         else:
             show monika sexting_cute_poses
 
-        m "[response_start][monika_response][response_ending]"
+        if previous_type == "funny":
+            m "[monika_response][response_ending]"
+        else:
+            m "[response_start][monika_response][response_ending]"
 
         python:
             if shouldkiss_cooldown > 0:
                 shouldkiss_cooldown -= 1
-            if "kiss" in monika_response or random.randint(1,50) == 1:
+            if ("kiss" in monika_response and random.randint(1,5) == 1) or random.randint(1,50) == 1:
                 if shouldkiss_cooldown == 0:
                     shouldkiss = True
 
@@ -364,6 +387,10 @@ image monika sexting_funny_poses:
     block:
         choice:
             "monika 4hksdlb"
+        choice:
+            "monika 2gkbfsdlb"
+        choice:
+            "monika 6ttbfsdla"
 
 image monika sexting_cute_poses:
     block:
@@ -391,15 +418,177 @@ image monika sexting_hot_poses:
         choice:
             "monika 2ttbfu"
 
-image monika sexting_sexy_poses:
+image monika sexting_hot_mast_poses:
     block:
+        choice:
+            "monika 6gubsa"
+        choice:
+            "monika 6mubfu"
+        choice:
+            "monika 6tsbfu"
+        choice:
+            "monika 6lsbfu"
+        choice:
+            "monika 6ttbfu"
+
+image monika sexting_sexy_quip_poses:
+    block:
+        choice:
+            "monika 4ekbfsdlb"
+        choice:
+            "monika 4ekbfsdlu"
+        choice:
+            "monika 4tkbfsdla"
+        choice:
+            "monika 4tkbfsdlb"
+        choice:
+            "monika 4tsbfsdla"
+        choice:
+            "monika 4tsbfsdlb"
+        choice:
+            "monika 4tubfsdlb"
+        choice:
+            "monika 4tubfsdlu"
+        choice:
+            "monika 6ekbfsdlb"
+        choice:
+            "monika 6ekbfsdlu"
+        choice:
+            "monika 6tkbfsdla"
+        choice:
+            "monika 6tkbfsdlb"
+        choice:
+            "monika 6tsbfsdla"
+        choice:
+            "monika 6tsbfsdlb"
+        choice:
+            "monika 6tubfsdlb"
+        choice:
+            "monika 6tubfsdlu"
+        choice:
+            "monika 7ekbfsdlb"
+        choice:
+            "monika 7ekbfsdlu"
+        choice:
+            "monika 7tkbfsdla"
+        choice:
+            "monika 7tkbfsdlb"
+        choice:
+            "monika 7tsbfsdla"
+        choice:
+            "monika 7tsbfsdlb"
+        choice:
+            "monika 7tubfsdlb"
+        choice:
+            "monika 7tubfsdlu"
+
+image monika sexting_sexy_response_poses:
+    block:
+        choice:
+            "monika 4dkbfsdlo"
+        choice:
+            "monika 4ekbfsdlo"
+        choice:
+            "monika 4eubfsdlo"
+        choice:
+            "monika 4eubfsdlb"
+        choice:
+            "monika 4hkbfsdld"
         choice:
             "monika 4hkbfsdlo"
         choice:
-            "monika 6lkbfsdlo"
+            "monika 4kkbfsdlb"
+        choice:
+            "monika 4kkbfsdld"
+        choice:
+            "monika 4lkbfsdlo"
+        choice:
+            "monika 4mkbfsdlo"
+        choice:
+            "monika 4skbfsdlw"
+        choice:
+            "monika 4tkbfsdlo"
+        choice:
+            "monika 4tkbfsdlu"
+        choice:
+            "monika 4tsbfsdlb"
+        choice:
+            "monika 4tsbfsdlu"
+        choice:
+            "monika 4tubfsdlb"
+        choice:
+            "monika 4tubfsdld"
+        choice:
+            "monika 4tubfsdlo"
+        choice:
+            "monika 6dkbfsdlo"
+        choice:
+            "monika 6ekbfsdlo"
+        choice:
+            "monika 6eubfsdlo"
+        choice:
+            "monika 6eubfsdlb"
         choice:
             "monika 6hkbfsdld"
         choice:
-            "monika 6skbfsdlw"
+            "monika 6hkbfsdlo"
+        choice:
+            "monika 6kkbfsdlb"
+        choice:
+            "monika 6kkbfsdld"
+        choice:
+            "monika 6lkbfsdlo"
         choice:
             "monika 6mkbfsdlo"
+        choice:
+            "monika 6skbfsdlw"
+        choice:
+            "monika 6tkbfsdlo"
+        choice:
+            "monika 6tkbfsdlu"
+        choice:
+            "monika 6tsbfsdlb"
+        choice:
+            "monika 6tsbfsdlu"
+        choice:
+            "monika 6tubfsdlb"
+        choice:
+            "monika 6tubfsdld"
+        choice:
+            "monika 6tubfsdlo"
+        choice:
+            "monika 7dkbfsdlo"
+        choice:
+            "monika 7ekbfsdlo"
+        choice:
+            "monika 7eubfsdlo"
+        choice:
+            "monika 7eubfsdlb"
+        choice:
+            "monika 7hkbfsdld"
+        choice:
+            "monika 7hkbfsdlo"
+        choice:
+            "monika 7kkbfsdlb"
+        choice:
+            "monika 7kkbfsdld"
+        choice:
+            "monika 7lkbfsdlo"
+        choice:
+            "monika 7mkbfsdlo"
+        choice:
+            "monika 7skbfsdlw"
+        choice:
+            "monika 7tkbfsdlo"
+        choice:
+            "monika 7tkbfsdlu"
+        choice:
+            "monika 7tsbfsdlb"
+        choice:
+            "monika 7tsbfsdlu"
+        choice:
+            "monika 7tubfsdlb"
+        choice:
+            "monika 7tubfsdld"
+        choice:
+            "monika 7tubfsdlo"

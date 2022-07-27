@@ -179,7 +179,14 @@ init python in mas_nsfw:
                 _("Mmm, you do~"), #18
                 _("You're such a stud."), #19
             ]
-            return_responses.append(sext_responses_funny[int(response_subtype)])
+
+            response_index = int(response_subtype)
+
+            # durability check, prevents crashing if someone adds a funny prompt but forgot to add a corresponding response
+            if response_index >= len(sext_responses_funny):
+                response_index = 0
+
+            return_responses.append(sext_responses_funny[response_index])
             return return_responses
 
         if response_category == 0: # cute
@@ -305,16 +312,16 @@ init python in mas_nsfw:
         sext_prompts_hot = [
             ("", "", _("You have a really sexy figure.")), #0
             ("", "", _("I want to bring you in close.")), #1
-            ("", "", _("I want to kiss your lips passionately.")), #2
+            ("", "KIS", _("I want to kiss your lips passionately.")), #2
             ("", "", _("I want to run my hands through your hair.")), #3
             ("", "", _("I want to hold your hands in mine.")), #4
-            ("", "", _("I really want to kiss you right now.")), #5
+            ("", "KIS", _("I really want to kiss you right now.")), #5
             ("", "", _("I want to run my hands along your body while I kiss your neck.")), #6
             ("", "", _("I feel nervous about telling you all of the sexual desires I have when it comes to you.")), #7
             ("", "", _("If kissing is the language of love, then we have a lot to talk about.")), #8
             ("", "", _("I want to hold you in my arms as we kiss.")), #9
-            ("", "", _("What you're wearing would look even better on my bedroom floor.")), #10
-            ("", "", _("Take off your clothes. I want to see your beautiful body.")), #11
+            ("", "UND", _("What you're wearing would look even better on my bedroom floor.")), #10
+            ("", "UND", _("Take off your clothes. I want to see your beautiful body.")), #11
             ("", "", _("I want to lay you down on my bed as we kiss.")), #12
             ("", "", _("I want to feel your hot breath on my skin as we feel each other.")), #13
             ("", "", _("Your body is so hot.")), #14
@@ -345,6 +352,7 @@ init python in mas_nsfw:
 
         # "GEN" - Generic, use this for lines with no specific subtype.
         # "KIS" - Special subtype for prompts that should immediately trigger a kiss.
+        # "UND" - Special subtype for prompts where Monika should undress.
 
         # "MPS" - Monika's personality
         # "MBD" - Monika's body in general
@@ -405,14 +413,14 @@ init python in mas_nsfw:
         # O - masturbation ("onanism")
         # F - foreplay and nonpenetrative actions
         # I - intercourse and orgasm
-        # C - Player's semen. All of these subtypes are only applicable for players with penises.
+        # C - Player's semen ("cum"). These C subtypes are only applicable for players with penises.
         # The second letter is A or X if the subtype has to do with "butt stuff".
         # The third letter is M if Monika receives it, and P if the player receives it.
 
         sext_prompts_sexy = [
             ("compliment", "MFS", _("I bet you have a really hot orgasm face.")),
             ("compliment", "GEN", _("I can't wait to be alone with you.")),
-            ("compliment", "MBD", _("I'm picturing you naked right now... Damn, you look good.")),
+            ("compliment", "UND", _("I'm picturing you naked right now... Damn, you look good.")),
             ("compliment", "MPS", _("I think there is something insanely sexy about a woman being in control. Don't you agree?")),
             ("compliment", "GEN", _("I bet you have the sexiest sounding moans in the world.")),
             ("compliment", "GEN", _("Everything about you turns me on.")),
@@ -425,14 +433,12 @@ init python in mas_nsfw:
             ("compliment", "GEN", _("I think you seriously have to be the hottest person alive.")),
             ("compliment", "GEN", _("Yuri and Sayori weren't wrong when they said you're more desirable than the rest of the Literature Club combined.")),
             ("compliment", "GEN", _("You're the best girl. And not just in the Literature Club - I mean in general.")),
-            ("compliment", "MPS", _("You make me feel so safe, " + monika_nickname + ". I know I can always trust you to respect my consent.")),
-            ("compliment", "MPS", _("You make me feel so loved, " + monika_nickname + ". Both when we're masturbating together like this, or just talking and spending time together quietly.")),
             ("compliment", "MBR", _("You have magnificent breasts.")),
             ("compliment", "MCL", _("Back when you wore that school uniform, one thing I really liked was how well the blazer fit around your breasts.")),
             ("compliment", "MZR", _("I love how you dress. Your thighhighs are incredibly hot.")),
             ("compliment", "MCL", _("I get so flustered when you undress for me. You're gorgeous.")),
             ("compliment", "FCM", _("Just the thought of eating you out makes me salivate.")),
-            ("compliment", "MPS", _("Even though I can't see it right now, I imagine you must have the most gorgeous looking pussy if it's anything like the rest of you.")),
+            ("compliment", "MPS", _("I imagine your pussy must be gorgeous if it's anything like the rest of you.")),
             ("compliment", "MBH", _("I bet you have a cute, tight little asshole, don't you?")),
             ("statement",  "ONP", _("I was just lying in bed for the last hour thinking about you... Guess what I was doing?")),
             ("statement",  "ONP", _("I'm clicking this option with one hand, because the other hand is busy.")),
@@ -447,7 +453,7 @@ init python in mas_nsfw:
             ("command",    "ONM", _("I want you to stick those soft fingers of yours up your pussy for me, " + monika_nickname + ".")),
             ("command",    "ONM", _("Start touching yourself more quickly, " + monika_nickname + ".")),
             ("desire_p",   "IVG", _("I can't wait to be by your side. Or on top if you prefer.")),
-            ("desire_p",   "MCL", _("If you were here, I'd take your panties off with my teeth and... I'll just let you finish that sentence off.")),
+            ("desire_p",   "UND", _("If you were here, I'd take your panties off with my teeth and... I'll just let you finish that sentence off.")),
             ("desire_p",   "IOM", _("I want to hear you breathing in my ear when I make you orgasm.")),
             ("desire_p",   "MTH", _("I can't wait to feel your thighs squeezing my head.")),
             ("desire_p",   "FSM", _("If I were with you right now, where would you want me to touch you?")),
@@ -468,7 +474,7 @@ init python in mas_nsfw:
             ("desire_p",   "FAM", _("I want to snuggle my face in your ass.")),
             ("desire_p",   "IAM", _("I wish we were in the same room so I could fuck your ass right this moment.")),
             ("desire_p",   "FAM", _("I want to eat your ass out and finger you until you come.")),
-            ("desire_p",   "KIS", _("I'm imagining us making out as we fuck again, and again, and again...")),
+            ("desire_p",   "IVG", _("I'm imagining us making out as we fuck again, and again, and again...")),
             ("desire_p",   "IVG", _("I wish I could stay in that spaceroom with you forever so we could fuck each other every day until the end of time.")),
             ("desire_p",   "IVG", _("If I could spend the rest of eternity with you in that spaceroom, I'd make you come every day until the universe ended.")),
             ("desire_m",   "ONP", _("I want to watch you masturbate for me.")),
@@ -498,9 +504,8 @@ init python in mas_nsfw:
             ("desire_m",   "CFM", _("I want to come all over your face and watch you try to lick it off.")),
             ("desire_m",   "IAM", _("When we're finally together, I want you to take my cock up your ass, " + monika_nickname + ".")),
         ]
-
         if store.persistent._nsfw_genitalia == "P":
-            sext_prompts_sexy = sext_prompts_sexy + sext_prompts_sexy_p
+            sext_prompts_sexy.extend(sext_prompts_sexy_p)
 
         # I did not write any V / M / F prompts yet but these are here so they can be enabled later
 
@@ -509,21 +514,21 @@ init python in mas_nsfw:
         #     _(),
         # ]
         # if store.persistent._nsfw_genitalia == "V":
-        #     sext_prompts_sexy = sext_prompts_sexy + sext_prompts_sexy_v
+        #     sext_prompts_sexy.extend(sext_prompts_sexy_v)
 
         # Prompt choices specific to male players.
         # sext_prompts_sexy_m = [
         #     _(),
         # ]
         # if store.persistent.gender == "M":
-        #     sext_prompts_sexy = sext_prompts_sexy + sext_prompts_sexy_m
+        #     sext_prompts_sexy.extend(sext_prompts_sexy_m)
 
         # Prompt choices specific to female players.
         # sext_prompts_sexy_f = [
         #     _(),
         # ]
         # if store.persistent.gender == "F":
-        #     sext_prompts_sexy = sext_prompts_sexy + sext_prompts_sexy_f
+        #     sext_prompts_sexy.extend(sext_prompts_sexy_f)
 
         # Sexting prompts for the haha funnies
 
@@ -531,7 +536,6 @@ init python in mas_nsfw:
         sext_prompts_funny = [
             ("funny", "0",  _("I put on my robe and wizard hat.")), #0
             ("funny", "1",  _("It's not my fault that I fell for you... You tripped me!")), #1
-            ("funny", "2",  _("Do you like my shirt? It's made out of boyfriend material.")), #2
             ("funny", "3",  _("I looked hot today, you missed out.")), #3
             ("funny", "4",  _("You like jazz?")), #4
             ("funny", "5",  _("What do you want to do to me right now?")), #5 - Please fold my clothes neatly
@@ -541,22 +545,33 @@ init python in mas_nsfw:
             ("funny", "9",  _("What's a fantasy that you have for when we have sex one day?")), #9 - Scratching back, once a squirrel did that to me.
             ("funny", "10", _("What is a question that's on your mind right now?")), #10 - Where is your hand? In my bowl of Doritos.
             ("funny", "11", _("I kinda wanna do naughty things to you...")), #11 - Cool aid man - "Oh yeah."
-            ("funny", "12", _("You want to know what I have that is massive?")), #12 - My college debt.
             ("funny", "13", _("Are you feeling good right now?")), #13 - Hi [text here], I'm Dad.
             ("funny", "14", _("What's one of you're fetishes?")), #14 - Proper grammar... Well then your in luck.
-            ("funny", "15", _("My wang is as hard as a prosthetic leg.")), #15 - Change for women. I'm as wet as
             ("funny", "16", _("Would thou perchance wish to partake in coitus?")), #16
             ("funny", "17", _("You have big, beautiful nipples.")), #17
             ("funny", "18", _("Do I make you horny baby?")), #18 - Do I make you randy?
             ("funny", "19", _("You're so cute.")), #19 - You're stuch a stud / babe - You're a wizard, Harry.
         ]
 
+        sext_prompts_funny_p = [
+            ("funny", "15", _("My wang is as hard as a prosthetic leg.")), #15 - Change for women. I'm as wet as
+            ("funny", "12", _("You want to know what I have that is massive?")), #12 - My college debt.
+        ]
+        if store.persistent._nsfw_genitalia == "P":
+            sext_prompts_funny.extend(sext_prompts_funny_p)
+
+        sext_prompts_funny_m = [
+            ("funny", "2",  _("Do you like my shirt? It's made out of boyfriend material.")), #2
+        ]
+        if store.persistent.gender == "M":
+            sext_prompts_funny.extend(sext_prompts_funny_m)
+
         if prompt_category == 0:
             category_sel = sext_prompts_cute
         elif prompt_category == 1:
             category_sel = sext_prompts_hot
         else: # if prompt_category == 2:
-            if random.randint(1,500) == 1: # 1/500 chance of funny quip.
+            if random.randint(1,200) == 1: # 1/200 chance of funny quip.
                 # It's set for third stage only but it can be changed to work with all stages if you move this if check a little higher.
                 category_sel = sext_prompts_funny
             else:
@@ -653,12 +668,22 @@ init python in mas_nsfw:
             _("I want you to tell me how much you want to do it with me"), #12
             _("I want to look into your " + eye_desc + " eyes as we press our bodies together"), #13
             _("I love it when you're naughty"), #14
-            _("You're such a bad boy"), #15
-            _("I want to feel you deep inside me"), #16
             _("You really know how to make a girl wet"), #17
             _("I want to feel your tongue down there"), #18
             _("Yes~ Just like that~"), #19
         ]
+
+        sext_quips_sexy_p = [
+            _("I want to feel you deep inside me"), #16
+        ]
+        if store.persistent._nsfw_genitalia == "P":
+            sext_quips_sexy.extend(sext_quips_sexy_p)
+
+        sext_quips_sexy_m = [
+            _("You're such a bad boy"), #15
+        ]
+        if store.persistent.gender == "M":
+            sext_quips_sexy.extend(sext_quips_sexy_m)
 
         if quip_category == 1:
             category_sel = sext_quips_hot
@@ -790,11 +815,11 @@ init python in mas_nsfw:
                 dialogue_no = random.randint(0, list_length - 1)
                 recentlist_breakout += 1
 
+            return_type = dialogue_list[dialogue_no][0]
+            return_subtype = dialogue_list[dialogue_no][1]
             return_dialogue = dialogue_list[dialogue_no][2]
-            if return_cat == "sexy": # if it's a third stage prompt return also the "type" and "subtype".
-                return_type = dialogue_list[dialogue_no][0]
-                return_subtype = dialogue_list[dialogue_no][1]
-        elif previous_type != "funny": # if it's a response or quip, dialogue_list is a list of strings.
+
+        elif category_type == "quip": # if it's a quip, dialogue_list is a list of strings.
             # Do loop to check if selected dialogue was used recently
             while dialogue_list[dialogue_no] in selected_recentlist and recentlist_breakout < 100:
                 dialogue_no = random.randint(0, list_length - 1)
@@ -880,46 +905,48 @@ init python in mas_nsfw:
         else: # Default
             return starts_cute[random.randint(0, len(starts_cute) - 1)]
 
-    def nsfw_posing_sel(horny_level=0, hot_req=4, sexy_req=8):
-        """
-        Selects a random pose for Monika's nsfw dialogue based on her current horny level and RNG
+# I believe this function is unused?
 
-        IN:
-            horny_level - The level of horny Monika is currently at
-            hot_req - The requirement for Monika to start using 'hot' dialogue
-            sexy_req - The requirement for Monika to start using 'sexy' dialogue
-
-        OUT:
-            The pose Monika will use for the dialogue
-        """
-
-        sexting_cute_poses = (
-            "monika 1ekbsa",
-            "monika 2subsa",
-            "monika 2lubsu",
-            "monika 1hubsa",
-            "monika 3ekbfa",
-        )
-
-        sexting_hot_poses = (
-            "monika 2gubsa",
-            "monika 2mubfu",
-            "monika 2tsbfu",
-            "monika 2lsbfu",
-            "monika 2ttbfu",
-        )
-
-        sexting_sexy_poses = (
-            "monika 4hkbfsdlo",
-            "monika 6lkbfsdlo",
-            "monika 6hkbfsdld",
-            "monika 6skbfsdlw",
-            "monika 6mkbfsdlo"
-        )
-
-        if horny_level >= sexy_req:
-            return sexting_sexy_poses[random.randint(0, len(sexting_sexy_poses) - 1)], None
-        elif horny_level >= hot_req:
-            return sexting_hot_poses[random.randint(0, len(sexting_hot_poses) - 1)], None
-        else: # Default
-            return sexting_cute_poses[random.randint(0, len(sexting_cute_poses) - 1)], None
+#    def nsfw_posing_sel(horny_level=0, hot_req=4, sexy_req=8):
+#        """
+#        Selects a random pose for Monika's nsfw dialogue based on her current horny level and RNG
+#
+#        IN:
+#            horny_level - The level of horny Monika is currently at
+#            hot_req - The requirement for Monika to start using 'hot' dialogue
+#            sexy_req - The requirement for Monika to start using 'sexy' dialogue
+#
+#        OUT:
+#            The pose Monika will use for the dialogue
+#        """
+#
+#        sexting_cute_poses = (
+#            "monika 1ekbsa",
+#            "monika 2subsa",
+#            "monika 2lubsu",
+#            "monika 1hubsa",
+#            "monika 3ekbfa",
+#        )
+#
+#        sexting_hot_poses = (
+#            "monika 2gubsa",
+#            "monika 2mubfu",
+#            "monika 2tsbfu",
+#            "monika 2lsbfu",
+#            "monika 2ttbfu",
+#        )
+#
+#        sexting_sexy_poses = (
+#            "monika 4hkbfsdlo",
+#            "monika 6lkbfsdlo",
+#            "monika 6hkbfsdld",
+#            "monika 6skbfsdlw",
+#            "monika 6mkbfsdlo"
+#        )
+#
+#        if horny_level >= sexy_req:
+#            return sexting_sexy_poses[random.randint(0, len(sexting_sexy_poses) - 1)], None
+#        elif horny_level >= hot_req:
+#            return sexting_hot_poses[random.randint(0, len(sexting_hot_poses) - 1)], None
+#        else: # Default
+#            return sexting_cute_poses[random.randint(0, len(sexting_cute_poses) - 1)], None

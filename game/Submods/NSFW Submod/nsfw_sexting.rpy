@@ -20,8 +20,9 @@ label nsfw_sexting_main:
         previous_cat = None # The category of the last prompt used ("cute", "hot", or "sexy")
         previous_type = None # The "type" of the last prompt used. Only relevant in third stage.
         previous_subtype = None # The "subtype" of the last prompt used. Only relevant in third stage.
-        shouldkiss = False #
-        shouldkiss_cooldown = 0 #
+        shouldkiss = False # Used in handling of kissing logic
+        shouldkiss_cooldown = 0 # Used in handling of kissing logic
+        shouldchange = False # Used in handling of clothes change logic
         hot_transfer = False # True if Monika has reached the requirement for hot dialogue or more
         sexy_transfer = False # True if Monika has reached the requirement for sexy dialogue only
         did_finish = True # False if the player did not finish
@@ -175,7 +176,40 @@ label nsfw_sexting_main:
             $ shouldkiss_cooldown = 5
 
         # undress if asked by player
-        if store.mas_SELisUnlocked(store.mas_clothes_birthday_suit) and previous_subtype == "UND" and not sexy_transfer:
+        if store.mas_SELisUnlocked(store.mas_clothes_underwear_white) and previous_subtype == "UND" and not hot_transfer:
+
+            python:
+                if store.mas_submod_utils.isSubmodInstalled("Auto Outfit Change"):
+                    if store.ahc_utils.hasUnlockedClothesOfExprop("lingerie") and not store.ahc_utils.isWearingClothesOfExprop("lingerie"):
+                        shouldchange = 2
+                    elif store.mas_SELisUnlocked(store.mas_clothes_underwear_white): # unlikely case where player has AHC but no lingerie unlocked
+                        shouldchange = 1
+                elif store.mas_SELisUnlocked(store.mas_clothes_underwear_white): # player doesn't have AHC but does have submod underwear
+                    shouldchange = 1
+
+            if shouldchange == 1:
+                call mas_clothes_change(outfit=mas_clothes_underwear_white, outfit_mode=False, exp="6hubfb", restore_zoom=False)
+            elif shouldchange == 2:
+
+                window hide
+                call mas_transition_to_emptydesk
+
+                python:
+                    renpy.pause(1.0, hard=True)
+
+                    store.ahc_utils.changeClothesOfExprop("lingerie")
+
+                    renpy.pause(4.0, hard=True)
+
+                call mas_transition_from_emptydesk("monika 6hubfb")
+                window hide
+
+            $ shouldchange = 0
+
+            m 6hubfb "Hah~ That feels better."
+            $ hot_transfer = True
+
+        elif store.mas_SELisUnlocked(store.mas_clothes_birthday_suit) and previous_subtype == "UND" and not sexy_transfer:
             call mas_clothes_change(outfit=mas_clothes_birthday_suit, outfit_mode=False, exp="6hubfb", restore_zoom=False)
             m 6hubfb "Hah~ That feels better."
             $ sexy_transfer = True
@@ -262,19 +296,38 @@ label nsfw_sexting_init:
 label nsfw_sexting_hot_transfer:
     m 1hub "Hah~ This is fun."
     m 3eua "I hope you're enjoying yourself as much as I am, [player]. Ehehe~"
+
+    python:
+        if store.mas_submod_utils.isSubmodInstalled("Auto Outfit Change"):
+            if store.ahc_utils.hasUnlockedClothesOfExprop("lingerie") and not store.ahc_utils.isWearingClothesOfExprop("lingerie"):
+                shouldchange = 2
+            elif store.mas_SELisUnlocked(store.mas_clothes_underwear_white): # unlikely case where player has AHC but no lingerie unlocked
+                shouldchange = 1
+        elif store.mas_SELisUnlocked(store.mas_clothes_underwear_white): # player doesn't have AHC but does have submod underwear
+            shouldchange = 1
+    if shouldchange == 1:
+        call mas_clothes_change(outfit=mas_clothes_underwear_white, outfit_mode=False, exp="6hubfb", restore_zoom=False)
+    elif shouldchange == 2:
+        window hide
+        call mas_transition_to_emptydesk
+        python:
+            renpy.pause(1.0, hard=True)
+            store.ahc_utils.changeClothesOfExprop("lingerie")
+            renpy.pause(4.0, hard=True)
+        call mas_transition_from_emptydesk("monika 6hubfb")
+        window hide
+    $ shouldchange = 0
+
     m 3tua "..."
     m 2tub "So.{w=0.1}.{w=0.1}.{w=0.1}are we going to keep going, or what?"
     m 1hublb "Ahaha! Just teasing you, [player]."
     return
 
 label nsfw_sexting_sexy_transfer:
-    if store.mas_SELisUnlocked(store.mas_clothes_underwear_white):
+    if store.mas_SELisUnlocked(store.mas_clothes_birthday_suit):
         m 6hkbfsdlo "Hnn~ I can't take it anymore!"
 
-        if store.mas_SELisUnlocked(store.mas_clothes_birthday_suit):
-            call mas_clothes_change(outfit=mas_clothes_birthday_suit, outfit_mode=False, exp="6hubfb", restore_zoom=False)
-        else:
-            call mas_clothes_change(outfit=mas_clothes_underwear_white, outfit_mode=False, exp="6hubfb", restore_zoom=False)
+        call mas_clothes_change(outfit=mas_clothes_birthday_suit, outfit_mode=False, exp="6hubfb", restore_zoom=False)
 
         m 6hubfb "Hah~ That feels better."
         m 7tubfb "Don't think that I'm letting you off the hook now, [player]."

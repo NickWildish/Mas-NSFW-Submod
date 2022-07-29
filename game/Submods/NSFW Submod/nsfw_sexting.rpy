@@ -411,7 +411,42 @@ label nsfw_sexting_finale:
             m 7lubfsdlb "I'm a wet mess right now."
             m 7hubfsdla "Be right back, [player]."
 
-            call mas_clothes_change(outfit=mas_clothes_def, outfit_mode=False, exp="1hub", restore_zoom=False)
+            python:
+                if store.mas_submod_utils.isSubmodInstalled("Auto Outfit Change"):
+                    shouldchange = 2
+
+            if shouldchange == 2:
+
+                window hide
+                call mas_transition_to_emptydesk
+
+                python:
+                    if store.mas_isDayNow():
+                        _day_cycle = "day"
+                    else:
+                        _day_cycle = "night"
+
+                    _hair_random_chance = renpy.random.randint(1,2)
+                    _clothes_random_chance = 2
+                    _clothes_exprop = store.ahc_utils.getClothesExpropForTemperature()
+
+                    renpy.pause(1.0, hard=True)
+
+                    store.ahc_utils.changeHairAndClothes(
+                        _day_cycle=_day_cycle,
+                        _hair_random_chance=_hair_random_chance,
+                        _clothes_random_chance=_clothes_random_chance,
+                        _exprop=_clothes_exprop
+                    )
+
+                    renpy.pause(4.0, hard=True)
+
+                window hide
+                call mas_transition_from_emptydesk("monika 3hub")
+            else:
+                call mas_clothes_change(outfit=mas_clothes_def, outfit_mode=False, exp="1hub", restore_zoom=False)
+
+            $ shouldchange = 0
 
             m 1hub "Hah~ Much better!"
             m 3eub "You should have a shower, [player]."

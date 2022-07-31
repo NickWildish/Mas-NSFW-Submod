@@ -153,16 +153,18 @@ init python in mas_nsfw:
             A list of response strings from Monika appropriate to the response category.
             If the response category is 2 ("sexy"), then it shall also be appropriate to the response type.
         """
-        player_nickname = store.persistent.playername
+        player_name = store.persistent.playername
+        player_nickname = store.mas_get_player_nickname()
+
         return_responses = [] # start building from this list
 
         if response_type == "funny": # if the player picks a "funny" prompt, skip automatically to appropriate response and return
             sext_responses_funny = [
-                _("Ahaha! What are you talking about, " + player_nickname + "?"), #0
-                _("Pfft! That's so cheesy, " + player_nickname + "."), #1
+                _("Ahaha! What are you talking about, " + player_name + "?"), #0
+                _("Pfft! That's so cheesy, " + player_name + "."), #1
                 _("Oh my god! You did not just make that joke, ahaha~"), #2
                 _("Ahaha~ Is that right?"), #3
-                _("Oh. That's very out-of-the-blue, " + player_nickname + "."), #4
+                _("Oh. That's very out-of-the-blue, " + player_name + "."), #4
                 _("I just want to tear your clothes off."), #5
                 _("I'm only this naughty for you~"), #6
                 _("Oh? Try away, " + player_nickname + "."), #7
@@ -170,11 +172,11 @@ init python in mas_nsfw:
                 _("I think that you scratching my back while we make love would be so hot..."), #9
                 _("Where is your hand, " + player_nickname + "?"), #10
                 _("Oh, I want to do even naughtier things to you..."), #11
-                _("Mmm...and what would that be, " + player_nickname + "?"), #12
-                _("I'm feeling so good, " + player_nickname + "..."), #13
+                _("Mmm...and what would that be, " + player_name + "?"), #12
+                _("I'm feeling so good, " + player_name + "..."), #13
                 _("Proper grammar..."), #14
-                _("Uh... Did you want to try that again, " + player_nickname + "? Ahaha~"), #15
-                _("Ahaha~ You're so funny, " + player_nickname + "."), #16
+                _("Uh... Did you want to try that again, " + player_name + "? Ahaha~"), #15
+                _("Ahaha~ You're so funny, " + player_name + "."), #16
                 _("Ahaha~ Thank you... I guess?"), #17
                 _("Mmm, you do~"), #18
                 _("You're such a stud."), #19
@@ -319,7 +321,7 @@ init python in mas_nsfw:
             ("", "", _("I want to run my hands along your body while I kiss your neck.")), #6
             ("", "", _("I feel nervous about telling you all of the sexual desires I have when it comes to you.")), #7
             ("", "", _("If kissing is the language of love, then we have a lot to talk about.")), #8
-            ("", "", _("I want to hold you in my arms as we kiss.")), #9
+            ("", "KIS", _("I want to hold you in my arms as we kiss.")), #9
             ("", "UND", _("What you're wearing would look even better on my bedroom floor.")), #10
             ("", "UND", _("Take off your clothes. I want to see your beautiful body.")), #11
             ("", "", _("I want to lay you down on my bed as we kiss.")), #12
@@ -495,7 +497,7 @@ init python in mas_nsfw:
             ("statement",  "PPN", _("I get really hard just thinking about you.")),
             ("desire_p",   "FHJ", _("I wish you could feel my throbbing cock right now.")),
             ("desire_p",   "FHJ", _("I wish it was your hand jerking me off right now.")),
-            ("desire_p",   "FBJ", _("I'm just imagining my thick cock filling you your mouth.")),
+            ("desire_p",   "FBJ", _("I'm just imagining my thick cock filling your mouth.")),
             ("desire_p",   "FBJ", _("I can't wait to you see you drooling all over my cock.")),
             ("desire_p",   "FBJ", _("I want to see you swallow my thick, creamy load after blowing me.")),
             ("desire_p",   "CBM", _("I wish I could blow my load all over your thighs right now.")),
@@ -532,7 +534,8 @@ init python in mas_nsfw:
 
         # Sexting prompts for the haha funnies
 
-        # Type must be "funny", and subtype must be the index of the prompt so the correct matched response will be chosen.
+        # Each prompt requires a corresponding response in the return_sext_responses() function.
+        # The subtype must be a string matching with the index of the prompt under the sext_responses_funny list to work properly.
         sext_prompts_funny = [
             ("funny", "0",  _("I put on my robe and wizard hat.")), #0
             ("funny", "1",  _("It's not my fault that I fell for you... You tripped me!")), #1
@@ -565,6 +568,13 @@ init python in mas_nsfw:
         ]
         if store.persistent.gender == "M":
             sext_prompts_funny.extend(sext_prompts_funny_m)
+
+        # needs matching response
+
+        # if store.mas_submod_utils.isSubmodInstalled("Custom Room Furnished Spaceroom V3"):
+        #    sext_prompts_funny.extend([
+        #        ("funny", "20", _("I want to fuck you on top of the piano.")),
+        #    ])
 
         if prompt_category == 0:
             category_sel = sext_prompts_cute
@@ -602,6 +612,8 @@ init python in mas_nsfw:
         else:
             eye_desc = "beautiful"
 
+        player_name = store.persistent.playername
+        player_nickname = store.mas_get_player_nickname()
 
         # Sexting quips for your average compliment
         sext_quips_cute = [
@@ -843,16 +855,23 @@ init python in mas_nsfw:
             dialogue_end - The ending randomly chosen for the dialogue, or an empty string
         """
 
-        endings = (
+        common_endings = (
             "~",
-            ", " + store.persistent.playername + ".",
             ".",
+        )
+
+        rare_endings = (
+            ", " + store.persistent.playername + ".",
+            ", " + store.mas_get_player_nickname() + ".",
+            ", " + store.persistent.playername + "~",
+            ", " + store.mas_get_player_nickname() + "~",
         )
 
         existing_endings = (
             "~",
             ".",
             "?",
+            "!",
         )
 
         # If the dialogue already has an ending, return an empty string
@@ -861,7 +880,10 @@ init python in mas_nsfw:
                 return ""
 
         # Otherwise, create a new ending
-        dialogue_end = endings[random.randint(0, len(endings) - 1)]
+        if random.randint(1,3) >= 2: # 2/3 chance to end the sentence simply with "." or "~"
+            dialogue_end = random.choice(common_endings)
+        else: # otherwise, end the sentence with player name or nickname
+            dialogue_end = random.choice(rare_endings)
 
         return dialogue_end
 
@@ -904,49 +926,3 @@ init python in mas_nsfw:
             return starts_hot[random.randint(0, len(starts_hot) - 1)]
         else: # Default
             return starts_cute[random.randint(0, len(starts_cute) - 1)]
-
-# I believe this function is unused?
-
-#    def nsfw_posing_sel(horny_level=0, hot_req=4, sexy_req=8):
-#        """
-#        Selects a random pose for Monika's nsfw dialogue based on her current horny level and RNG
-#
-#        IN:
-#            horny_level - The level of horny Monika is currently at
-#            hot_req - The requirement for Monika to start using 'hot' dialogue
-#            sexy_req - The requirement for Monika to start using 'sexy' dialogue
-#
-#        OUT:
-#            The pose Monika will use for the dialogue
-#        """
-#
-#        sexting_cute_poses = (
-#            "monika 1ekbsa",
-#            "monika 2subsa",
-#            "monika 2lubsu",
-#            "monika 1hubsa",
-#            "monika 3ekbfa",
-#        )
-#
-#        sexting_hot_poses = (
-#            "monika 2gubsa",
-#            "monika 2mubfu",
-#            "monika 2tsbfu",
-#            "monika 2lsbfu",
-#            "monika 2ttbfu",
-#        )
-#
-#        sexting_sexy_poses = (
-#            "monika 4hkbfsdlo",
-#            "monika 6lkbfsdlo",
-#            "monika 6hkbfsdld",
-#            "monika 6skbfsdlw",
-#            "monika 6mkbfsdlo"
-#        )
-#
-#        if horny_level >= sexy_req:
-#            return sexting_sexy_poses[random.randint(0, len(sexting_sexy_poses) - 1)], None
-#        elif horny_level >= hot_req:
-#            return sexting_hot_poses[random.randint(0, len(sexting_hot_poses) - 1)], None
-#        else: # Default
-#            return sexting_cute_poses[random.randint(0, len(sexting_cute_poses) - 1)], None

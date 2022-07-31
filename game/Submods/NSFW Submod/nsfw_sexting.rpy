@@ -449,7 +449,7 @@ label nsfw_sexting_finale:
             $ shouldchange = 0
 
             m 1hub "Hah~ Much better!"
-            m 3eub "You should have a shower, [player]."
+            m 3eub "You should have a shower, [mas_get_player_nickname()]."
             m 3ekbla "I want to make sure you maintain good hygiene."
 
             if did_finish == False:

@@ -370,8 +370,8 @@ label nsfw_compliment_tits_3:
         tits_quip = random.choice(tits_quips)
     m 1tubla "Ehehe~"
     m 1tublb "[nsfw_compliments.thanks_quip]"
-    show monika 3tubsb at t11 zorder MAS_MONIKA_Z with dissolve_monika
-    m 3tubsb "[tits_quip]"
+    show monika 2tubsb at t11 zorder MAS_MONIKA_Z with dissolve_monika
+    m 2tubsb "[tits_quip]"
     return
 
 # Thanks for the compliment addition, KittyTheCocksucker

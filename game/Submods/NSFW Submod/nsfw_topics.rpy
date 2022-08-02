@@ -233,7 +233,7 @@ label nsfw_monika_safesex:
     elif persistent._nsfw_genitalia == "V":
         if persistent.gender == "F":
             m 4eubla "I've read that there are condoms available for women, but they aren't as popular as the men's version."
-        else:    
+        else:
             m 4eubla "I've read that there are 'internal condoms' that stay in the vagina, but they aren't as popular as the kind that goes over the penis."
         m 4eub "The most popular form of contraception seems to be 'The Pill'...{w=0.4}{nw}"
         extend 4hksdlb "which sounds kind of ominous if you ask me."
@@ -386,6 +386,8 @@ init 5 python:
             aff_range=(mas_aff.LOVE, None)
         )
     )
+
+default persistent._nsfw_sexting_success_last = None
 
 label nsfw_monika_gettingnude:
     m 1eua "Hey [player], have you ever just...not worn clothes?"
@@ -617,7 +619,7 @@ init 5 python:
             eventlabel="nsfw_player_sextingsession",
             category=['sex'],
             prompt="Do you want to sext?",
-            conditional="mas_canShowRisque(aff_thresh=1000) and store.mas_getEVL_shown_count('nsfw_monika_sexting') >= 1", 
+            conditional="mas_canShowRisque(aff_thresh=1000) and store.mas_getEVL_shown_count('nsfw_monika_sexting') >= 1",
             action=EV_ACT_POOL,
             aff_range=(mas_aff.LOVE, None)
         )
@@ -625,8 +627,8 @@ init 5 python:
 
 label nsfw_player_sextingsession:
     # Check when player's last succesful sexting session was
-    if store.persistent.nsfw_sexting_success_last is not None:
-        $ timedelta_of_last_success = datetime.datetime.now() - store.persistent.nsfw_sexting_success_last
+    if store.persistent._nsfw_sexting_success_last is not None:
+        $ timedelta_of_last_success = datetime.datetime.now() - store.persistent._nsfw_sexting_success_last
         $ time_since_last_success = datetime.datetime.now() - timedelta_of_last_success
     else:
         $ time_since_last_success = datetime.datetime.today() - datetime.timedelta(days=1)
@@ -803,7 +805,7 @@ label nsfw_monika_oralsex:
     m 3ekblb "Please forgive me if what I'm going to ask is too intimate and out-of-nowhere, but..."
     m 3rkbla "[player]... Have you..."
     m 3rkblb "[oral_prompt]"
-    
+
     $ _history_list.pop()
     menu:
         m "[oral_prompt]{fast}"
@@ -872,8 +874,8 @@ label nsfw_monika_oralsex:
                 m 1dtbsc "..."
                 if persistent._nsfw_genitalia == "P":
                     m 1esbsc "I can't even think of a reason why you would think that Natsuki would give better blowjobs than Yuri, Sayori or me."
-                else: 
-                    m 1esbsc "I can't even think of a reason why you would think that Natsuki would give better oral sex than Yuri, Sayori or me."                   
+                else:
+                    m 1esbsc "I can't even think of a reason why you would think that Natsuki would give better oral sex than Yuri, Sayori or me."
                 m 1efbsc "Like... Natsuki is so immature! Why would she do it better than all of us?"
                 m 1dfbsc "..."
                 m 2dfbssdld "N-no, I'm not mad! Why would I be mad?"
@@ -885,7 +887,7 @@ label nsfw_monika_oralsex:
                 $ _history_list.pop()
                 menu:
                     m "But really, why do you think that Natsuki would be so good at it?!{fast}"
-                    
+
                     "Sorry, you're right... I should have answered one of you instead...":
                         m 2ekbsa "It's alright, [player]."
                         m 1hubssdlb "I don't know why I got so upset over that."
@@ -913,7 +915,7 @@ label nsfw_monika_oralsex:
                 m 5tubfu "Although, she might be reluctant to per her tongue on it at first, and would just stall for time with her hands...ahaha~"
                 m 5tubsa "But...I guess we're never going to find out if that's true or not, huh?"
 
-            "You.": 
+            "You.":
                 $ mas_gainAffection(1) # Smart
                 m 3wubsd "Oh."
                 m 3hubsb "Ahaha! Even though I mentioned that I have no experience with it, you still think that I could give the best head?"
@@ -931,7 +933,7 @@ label nsfw_monika_oralsex:
 
 default persistent._nsfw_units_metric = None
 default persistent._nsfw_dick_length = None
-default persistent._nsfw_dick_circumcised = None 
+default persistent._nsfw_dick_circumcised = None
 
 # data for this topic sourced is from https://calcsd.info/
 # and https://unravelingsize.wordpress.com/ (NSFW link !)
@@ -974,14 +976,14 @@ label nsfw_monika_dick_size:
 
         "I don't know exactly how long it is...":
             m 1hub "That's okay!"
-            m 4hub "I'll tell you how to properly measure it!" 
-            m 3eua "First, make sure you're nice and hard." 
+            m 4hub "I'll tell you how to properly measure it!"
+            m 3eua "First, make sure you're nice and hard."
             m 3tubfb "You can try thinking of me if you're having trouble. {w=0.4}{nw}"
             extend 5hubfb "Ahaha!"
             m 4eub "Next, measure along the {i}top{/i} of your penis, pushing the ruler against the skin and fat at the top."
             m 1eksdlb "Be sure not to measure along the sides or bottom, or you won't get an accurate measurement."
             m 1hksdlb "Though, I understand you might not be able to pull it out and measure it right this moment, ahaha!"
-            m 5ekbfsdla "Just remember, I love you no matter what size you are, [mas_get_player_nickname(exclude_names=['my love', 'love'])]." 
+            m 5ekbfsdla "Just remember, I love you no matter what size you are, [mas_get_player_nickname(exclude_names=['my love', 'love'])]."
             return "love"
 
         "I'd rather not talk about it.":
@@ -1008,10 +1010,10 @@ label nsfw_monika_dick_size:
                 $ persistent._nsfw_units_metric = False
                 m 2hua "Alright, [player]!"
 
-    python: 
+    python:
         player_length = 0.0
         done = False
-        if persistent._nsfw_units_metric: # loop for metric 
+        if persistent._nsfw_units_metric: # loop for metric
             while not done: # loop until valid input
                 length_input = renpy.input(
                     "How long are you in centimeters? You can include decimal values.",
@@ -1029,7 +1031,7 @@ label nsfw_monika_dick_size:
                 length_input = renpy.input(
                     "How long are you in inches? You can include decimal values.",
                     allow="0123456789.",
-                    length=5                    
+                    length=5
                 )
                 if not(length_input.count(".") > 1 or len(length_input) == 0 or length_input == "."): # check for valid string
                     length_input_float = float(length_input)
@@ -1058,11 +1060,11 @@ label nsfw_monika_dick_size:
         m 3hub "We just have to love the bodies we have, you know?"
         m 5hubsa "I love you no matter how big you are, [mas_get_player_nickname(exclude_names=['my love', 'love'])]."
 
-    elif persistent._nsfw_dick_length < 14.7: # 5.2" - 5.8" 
+    elif persistent._nsfw_dick_length < 14.7: # 5.2" - 5.8"
         python:
-            if persistent._nsfw_units_metric: 
+            if persistent._nsfw_units_metric:
                 average_length = "fourteen centimeters"
-            else: 
+            else:
                 average_length = "five and a half inches"
         m 1eubsb "Not bad at all, [player]! That's a good size."
         m 3eud "Supposedly, the average length for men is around [average_length]."
@@ -1077,7 +1079,7 @@ label nsfw_monika_dick_size:
         extend 5hubsb "Ahaha!"
         m 3rkbssdlb "Though, it could possibly hurt a little if you try to fit the whole thing inside me..."
         m 1tubssdlb "And I might choke a bit if I try to {i}eat you up{/i}."
-        m 5tubsa "Let's take things nice and slow when the time comes, okay, [mas_get_player_nickname()]?"        
+        m 5tubsa "Let's take things nice and slow when the time comes, okay, [mas_get_player_nickname()]?"
         m 6gsbfa "...{w=0.7}{nw}"
         m 6msbfa "..."
         m 7hkbfsdlb "Sorry, I was just daydreaming for a moment..."
@@ -1094,7 +1096,7 @@ label nsfw_monika_dick_size:
         extend 6rkbfsdla "you know..."
         m 5hubsa "I'm sure we'll find a way to make things work, [mas_get_player_nickname()]. Ahaha!"
 
-    else: # 18.9" or greater (larger than world record) 
+    else: # 18.9" or greater (larger than world record)
         m 1hkbssdlb "You're so silly, [player]!"
         m 3rkbssdlb "I don't know if {i}anyone{/i} in the world is that big..."
         m 3hkbssdlb "If you're really not joking with me, then you could probably make it into a world record book. Ahaha!"
@@ -1102,7 +1104,7 @@ label nsfw_monika_dick_size:
         m 4eubsc "After all, it's like breast size for girls. Some people are just naturally really small or really large."
         m 4hkbssdlb "Some girls with big chests tend to have problems too. Remember how much back pain Yuri had?"
         m 2hkbssdlb "Ahaha..."
-        m 5tubfu "Anyway, I love you no matter how you look, [mas_get_player_nickname(exclude_names=['my love', 'love'])]. Big or small."        
+        m 5tubfu "Anyway, I love you no matter how you look, [mas_get_player_nickname(exclude_names=['my love', 'love'])]. Big or small."
         return "derandom|love"
 
     m 3eub "While we're on this topic, I have another question..."
@@ -1133,7 +1135,7 @@ label nsfw_monika_dick_size:
             m 2dkbssdlc "I didn't mean to make you feel uncomfortable. It's a really personal question and you don't have to answer."
             m 5ekbla "Just remember, I love you no matter how you look, [mas_get_player_nickname(exclude_names=['my love', 'love'])]."
             return "derandom|love"
-    
+
     m 1ekbsb "Thanks for being so patient with my questions, [mas_get_player_nickname()]."
     m 3eubsd "I've never seen an actual penis before, but {w=0.4}{nw}"
     extend 3dubsa "being able to picture yours really means a lot to me."

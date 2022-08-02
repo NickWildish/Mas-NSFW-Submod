@@ -8,19 +8,28 @@ label nsfw_sexting_main:
         horny_lvl = persistent._nsfw_horny_level # The level of horny Monika is experiencing
         horny_max, horny_min, hot_req, sexy_req = mas_nsfw.calc_sexting_reqs()
         player_prompt = ["zero", "one", "two"] # The prompts from which the player will choose from
-        prompt_cat = ["zero", "one", "two"] # The categories in which each prompt took place
-        quip_cat = "" # The category in which the quip took place
-        response_cat = "" # The category in which the response took place
+        prompt_cat = ["zero", "one", "two"] # The categories (stage cute, hot, or sexy) in which each prompt took place
+        prompt_type = ["zero", "one", "two"] # The types for each prompt. Only relevant in third stage.
+        prompt_subtype = ["zero", "one", "two"] # The subtypes for each prompt. Only relevant in third stage.
+        prompt_choice = 0 # Choice of the last prompt picked (0, 1, or 2).
+        quip_cat = "" # The category in which the quip took place (unused)
+        response_cat = "" # The category in which the response took place (unused)
         recent_prompts = [] # The recent prompts used
         recent_responses = [] # The recent responses used
         recent_quips = [] # The recent quips used
+        previous_cat = None # The category of the last prompt used ("cute", "hot", or "sexy")
+        previous_type = None # The "type" of the last prompt used. Only relevant in third stage.
+        previous_subtype = None # The "subtype" of the last prompt used. Only relevant in third stage.
+        shouldkiss = False # Used in handling of kissing logic
+        shouldkiss_cooldown = 0 # Used in handling of kissing logic
+        shouldchange = False # Used in handling of clothes change logic
         hot_transfer = False # True if Monika has reached the requirement for hot dialogue or more
         sexy_transfer = False # True if Monika has reached the requirement for sexy dialogue only
         did_finish = True # False if the player did not finish
 
     if renpy.seen_label("nsfw_sexting_finale"):
         m 3eub "I remember the last time we did this; it was so much fun!"
-        m 3tublb "So [player]... Let's get started, shall we?"
+        m 3tublb "So [player]...let's get started, shall we?"
     else:
         m 1rka "I'm kind of nervous, if I'm honest."
         m 3rkb "I don't know what to expect from this..."
@@ -54,18 +63,18 @@ label nsfw_sexting_main:
         python:
             # Make 3 player prompts
             for x in range(3):
-                player_prompt[x], prompt_cat[x] = mas_nsfw.return_sexting_dialogue(category_type="prompt", horny_level=horny_lvl, hot_req=hot_req, sexy_req=sexy_req, horny_max=horny_max, recent_prompts=recent_prompts, recent_responses=recent_responses, recent_quips=recent_quips)
+                player_prompt[x], prompt_cat[x], prompt_type[x], prompt_subtype[x] = mas_nsfw.return_sexting_dialogue(category_type="prompt", horny_level=horny_lvl, hot_req=hot_req, sexy_req=sexy_req, horny_max=horny_max, recent=recent_prompts)
 
             # While loop to prevent duplicates
             while player_prompt[1] == player_prompt[0]: 
                 # Grab second random prompt from list
-                player_prompt[1], prompt_cat[1] = mas_nsfw.return_sexting_dialogue(category_type="prompt", horny_level=horny_lvl, hot_req=hot_req, sexy_req=sexy_req, horny_max=horny_max, recent_prompts=recent_prompts, recent_responses=recent_responses, recent_quips=recent_quips)
+                player_prompt[1], prompt_cat[1], prompt_type[1], prompt_subtype[1] = mas_nsfw.return_sexting_dialogue(category_type="prompt", horny_level=horny_lvl, hot_req=hot_req, sexy_req=sexy_req, horny_max=horny_max, recent=recent_prompts)
             while player_prompt[2] == player_prompt[0] or player_prompt[2] == player_prompt[1]:
                 # Grab third random prompt from list
-                player_prompt[2], prompt_cat[2] = mas_nsfw.return_sexting_dialogue(category_type="prompt", horny_level=horny_lvl, hot_req=hot_req, sexy_req=sexy_req, horny_max=horny_max, recent_prompts=recent_prompts, recent_responses=recent_responses, recent_quips=recent_quips)
+                player_prompt[2], prompt_cat[2], prompt_type[2], prompt_subtype[2] = mas_nsfw.return_sexting_dialogue(category_type="prompt", horny_level=horny_lvl, hot_req=hot_req, sexy_req=sexy_req, horny_max=horny_max, recent=recent_prompts)
 
             # Grab random line of dialogue from list
-            monika_quip, quip_cat = mas_nsfw.return_sexting_dialogue(category_type="quip", horny_level=horny_lvl, hot_req=hot_req, sexy_req=sexy_req, horny_max=horny_max, recent_prompts=recent_prompts, recent_responses=recent_responses, recent_quips=recent_quips)
+            monika_quip = mas_nsfw.return_sexting_dialogue(category_type="quip", horny_level=horny_lvl, hot_req=hot_req, sexy_req=sexy_req, horny_max=horny_max, recent=recent_quips)[0]
             quip_ending = mas_nsfw.return_dialogue_end(monika_quip)
 
         if horny_lvl >= sexy_req or store.persistent._nsfw_sext_sexy_start:
@@ -75,50 +84,52 @@ label nsfw_sexting_main:
                 $ hot_transfer = True # Set these both to true so we avoid the threshold dialogue
                 $ sexy_transfer = True
                 $ monika_quip = "I'll let you go first"
-            m 4ekbfo "[monika_quip][quip_ending]"
+                $ quip_ending = mas_nsfw.return_dialogue_end(monika_quip)
+
+            show monika sexting_sexy_quip_poses
+            m "[monika_quip][quip_ending]"
         elif horny_lvl >= hot_req or store.persistent._nsfw_sext_hot_start:
             if store.persistent._nsfw_sext_hot_start:
                 $ store.persistent._nsfw_sext_hot_start = False # Reset so we don't loop
                 $ horny_lvl = hot_req # Set the required affection
                 $ hot_transfer = True # Set this to true so we avoid the threshold dialogue
                 $ monika_quip = "I'll let you go first"
+                $ quip_ending = mas_nsfw.return_dialogue_end(monika_quip)
+
             m 2msbsb "[monika_quip][quip_ending]"
         elif horny_lvl == 0: # Just started
             $ monika_quip = "I'll let you go first"
+            $ quip_ending = mas_nsfw.return_dialogue_end(monika_quip)
+
             m 1eubla "[monika_quip][quip_ending]"
         else:
             m 3hubsb "[monika_quip][quip_ending]"
 
         $ _history_list.pop()
+
+        python:
+            if shouldkiss_cooldown > 0:
+                shouldkiss_cooldown -= 1
+            if ("kiss" in monika_quip and random.randint(1,5) == 1) or random.randint(1,50) == 1:
+                if shouldkiss_cooldown == 0:
+                    shouldkiss = True
+
+        if shouldkiss and persistent._mas_first_kiss:
+            call monika_kissing_motion_short
+            $ shouldkiss = False
+            $ shouldkiss_cooldown = 5
+
         menu:
             m "[monika_quip][quip_ending]{fast}"
 
             "[player_prompt[0]]":
-                if prompt_cat[0] == "sexy":
-                    $ horny_lvl += 5
-                elif prompt_cat[0] == "hot":
-                    $ horny_lvl += 3
-                else: # Default
-                    $ horny_lvl += 1
-                $ response_start = mas_nsfw.return_dialogue_start(horny_level=horny_lvl, hot_req=hot_req, sexy_req=sexy_req)
+                $ prompt_choice = 0
 
             "[player_prompt[1]]":
-                if prompt_cat[1] == "sexy":
-                    $ horny_lvl += 5
-                elif prompt_cat[1] == "hot":
-                    $ horny_lvl += 3
-                else: # Default
-                    $ horny_lvl += 1
-                $ response_start = mas_nsfw.return_dialogue_start(horny_level=horny_lvl, hot_req=hot_req, sexy_req=sexy_req)
+                $ prompt_choice = 1
 
             "[player_prompt[2]]":
-                if prompt_cat[2] == "sexy":
-                    $ horny_lvl += 5
-                elif prompt_cat[2] == "hot":
-                    $ horny_lvl += 3
-                else: # Default
-                    $ horny_lvl += 1
-                $ response_start = mas_nsfw.return_dialogue_start(horny_level=horny_lvl, hot_req=hot_req, sexy_req=sexy_req)
+                $ prompt_choice = 2
 
             "Actually, can we stop just for now?":
                 if horny_lvl >= sexy_req:
@@ -137,18 +148,103 @@ label nsfw_sexting_main:
                     m 1ekbla "Oh, okay."
                     m 3ekblb "Let's pick this up again later, okay?"
                     return
-        
-        $ monika_response, response_cat = mas_nsfw.return_sexting_dialogue(category_type="response", horny_level=horny_lvl, hot_req=hot_req, sexy_req=sexy_req, horny_max=horny_max, recent_prompts=recent_prompts, recent_responses=recent_responses, recent_quips=recent_quips)
+
+        python:
+            previous_cat = prompt_cat[prompt_choice]
+            previous_type = prompt_type[prompt_choice]
+            previous_subtype = prompt_subtype[prompt_choice]
+
+        if previous_cat == "sexy":
+            $ horny_lvl += 5
+        elif previous_cat == "hot":
+            $ horny_lvl += 3
+        else: # Default
+            $ horny_lvl += 1
+
+        python:
+            if shouldkiss_cooldown > 0:
+                shouldkiss_cooldown -= 1
+            if previous_subtype == "KIS": # Override cooldown and kiss right away if the player picks a prompt that asks for a kiss
+                shouldkiss = True
+            elif "kiss" in player_prompt[prompt_choice] and random.randint(1,5) == 1:
+                if shouldkiss_cooldown == 0:
+                    shouldkiss = True
+
+        if shouldkiss and persistent._mas_first_kiss:
+            call monika_kissing_motion_short
+            $ shouldkiss = False
+            $ shouldkiss_cooldown = 5
+
+        # undress if asked by player
+        if store.mas_SELisUnlocked(store.mas_clothes_underwear_white) and previous_subtype == "UND" and not hot_transfer:
+
+            python:
+                if store.mas_submod_utils.isSubmodInstalled("Auto Outfit Change"):
+                    if store.ahc_utils.hasUnlockedClothesOfExprop("lingerie") and not store.ahc_utils.isWearingClothesOfExprop("lingerie"):
+                        shouldchange = 2
+                    elif store.mas_SELisUnlocked(store.mas_clothes_underwear_white): # unlikely case where player has AHC but no lingerie unlocked
+                        shouldchange = 1
+                elif store.mas_SELisUnlocked(store.mas_clothes_underwear_white): # player doesn't have AHC but does have submod underwear
+                    shouldchange = 1
+
+            if shouldchange == 1:
+                call mas_clothes_change(outfit=mas_clothes_underwear_white, outfit_mode=False, exp="6hubfb", restore_zoom=False)
+            elif shouldchange == 2:
+
+                window hide
+                call mas_transition_to_emptydesk
+
+                python:
+                    renpy.pause(1.0, hard=True)
+
+                    store.ahc_utils.changeClothesOfExprop("lingerie")
+
+                    renpy.pause(4.0, hard=True)
+
+                call mas_transition_from_emptydesk("monika 6hubfb")
+                window hide
+
+            $ shouldchange = 0
+
+            m 6hubfb "Hah~ That feels better."
+            $ hot_transfer = True
+
+        elif store.mas_SELisUnlocked(store.mas_clothes_birthday_suit) and previous_subtype == "UND" and not sexy_transfer:
+            call mas_clothes_change(outfit=mas_clothes_birthday_suit, outfit_mode=False, exp="6hubfb", restore_zoom=False)
+            m 6hubfb "Hah~ That feels better."
+            $ sexy_transfer = True
+
+        $ response_start = mas_nsfw.return_dialogue_start(horny_level=horny_lvl, hot_req=hot_req, sexy_req=sexy_req)
+        $ monika_response = mas_nsfw.return_sexting_dialogue(category_type="response", horny_level=horny_lvl, hot_req=hot_req, sexy_req=sexy_req, horny_max=horny_max, recent=recent_responses, previous_cat=previous_cat, previous_type=previous_type, previous_subtype=previous_subtype)[0]
         $ response_ending = mas_nsfw.return_dialogue_end(monika_response)
 
-        if horny_lvl >= sexy_req:
-            show monika sexting_sexy_poses
+        if previous_type == "funny":
+            show monika sexting_funny_poses
+        elif horny_lvl >= sexy_req:
+            show monika sexting_sexy_response_poses
+        elif horny_lvl >= hot_req and previous_type == "command":
+            show monika sexting_hot_mast_poses
         elif horny_lvl >= hot_req:
-            show monika sexting_hot_poses
+            show monika sexting_hot_mast_poses
         else:
             show monika sexting_cute_poses
 
-        m "[response_start][monika_response][response_ending]"
+        if previous_type == "funny":
+            m "[monika_response][response_ending]"
+        else:
+            m "[response_start][monika_response][response_ending]"
+
+        python:
+            if shouldkiss_cooldown > 0:
+                shouldkiss_cooldown -= 1
+            if ("kiss" in monika_response and random.randint(1,5) == 1) or random.randint(1,50) == 1:
+                if shouldkiss_cooldown == 0:
+                    shouldkiss = True
+
+        if shouldkiss and persistent._mas_first_kiss:
+            call monika_kissing_motion_short
+            $ shouldkiss = False
+            $ shouldkiss_cooldown = 5
 
         python:
             # Add the prompts, responses and quips used by the player to a 'recently used' list, remove oldest ones from list when going above 10 items
@@ -200,19 +296,38 @@ label nsfw_sexting_init:
 label nsfw_sexting_hot_transfer:
     m 1hub "Hah~ This is fun."
     m 3eua "I hope you're enjoying yourself as much as I am, [player]. Ehehe~"
+
+    python:
+        if store.mas_submod_utils.isSubmodInstalled("Auto Outfit Change"):
+            if store.ahc_utils.hasUnlockedClothesOfExprop("lingerie") and not store.ahc_utils.isWearingClothesOfExprop("lingerie"):
+                shouldchange = 2
+            elif store.mas_SELisUnlocked(store.mas_clothes_underwear_white): # unlikely case where player has AHC but no lingerie unlocked
+                shouldchange = 1
+        elif store.mas_SELisUnlocked(store.mas_clothes_underwear_white): # player doesn't have AHC but does have submod underwear
+            shouldchange = 1
+    if shouldchange == 1:
+        call mas_clothes_change(outfit=mas_clothes_underwear_white, outfit_mode=False, exp="6hubfb", restore_zoom=False)
+    elif shouldchange == 2:
+        window hide
+        call mas_transition_to_emptydesk
+        python:
+            renpy.pause(1.0, hard=True)
+            store.ahc_utils.changeClothesOfExprop("lingerie")
+            renpy.pause(4.0, hard=True)
+        call mas_transition_from_emptydesk("monika 6hubfb")
+        window hide
+    $ shouldchange = 0
+
     m 3tua "..."
-    m 2tub "So.{w=0.1}.{w=0.1}.{w=0.1} Are we going to keep going, or what?"
+    m 2tub "So.{w=0.1}.{w=0.1}.{w=0.1}are we going to keep going, or what?"
     m 1hublb "Ahaha! Just teasing you, [player]."
     return
 
 label nsfw_sexting_sexy_transfer:
-    if store.mas_SELisUnlocked(store.mas_clothes_underwear_white):
+    if store.mas_SELisUnlocked(store.mas_clothes_birthday_suit):
         m 6hkbfsdlo "Hnn~ I can't take it anymore!"
 
-        if store.mas_SELisUnlocked(store.mas_clothes_birthday_suit):
-            call mas_clothes_change(outfit=mas_clothes_birthday_suit, outfit_mode=False, exp="6hubfb", restore_zoom=False)
-        else:
-            call mas_clothes_change(outfit=mas_clothes_underwear_white, outfit_mode=False, exp="6hubfb", restore_zoom=False)
+        call mas_clothes_change(outfit=mas_clothes_birthday_suit, outfit_mode=False, exp="6hubfb", restore_zoom=False)
 
         m 6hubfb "Hah~ That feels better."
         m 7tubfb "Don't think that I'm letting you off the hook now, [player]."
@@ -266,11 +381,12 @@ label nsfw_sexting_finale:
             m 6ekbfsdlo "Hah...hah..."
             m 6skbfsdlu "That...was..."
             m 6skbfsdlb "Amazing..."
-            m 6hkbfsdla "I can't believe...hah...I've been missing out on this..."
-            m 6dkbfsdlb "If it feels this good in my world..."
-            m 6ekbfsdlb "I can only imagine...hah...how good it feels..."
-            m 6tkbfsdlb "For you..."
-            m 6hkbfsdlb "Sorry, that really took it out of me..."
+            if not renpy.seen_label("nsfw_sexting_finale"):
+                m 6hkbfsdla "I can't believe...hah...I've been missing out on this..."
+                m 6dkbfsdlb "If it feels this good in my world..."
+                m 6ekbfsdlb "I can only imagine...hah...how good it feels..."
+                m 6tkbfsdlb "For you..."
+                m 6hkbfsdlb "Sorry, that really took it out of me..."
             m 6ekbfsdlb "Did you manage to come with me?"
 
             $ _history_list.pop()
@@ -295,17 +411,53 @@ label nsfw_sexting_finale:
             m 7lubfsdlb "I'm a wet mess right now."
             m 7hubfsdla "Be right back, [player]."    
 
-            call mas_clothes_change(outfit=mas_clothes_def, outfit_mode=False, exp="1hub", restore_zoom=False)
+            python:
+                if store.mas_submod_utils.isSubmodInstalled("Auto Outfit Change"):
+                    shouldchange = 2
+
+            if shouldchange == 2:
+
+                window hide
+                call mas_transition_to_emptydesk
+
+                python:
+                    if store.mas_isDayNow():
+                        _day_cycle = "day"
+                    else:
+                        _day_cycle = "night"
+
+                    _hair_random_chance = renpy.random.randint(1,2)
+                    _clothes_random_chance = 2
+                    _clothes_exprop = store.ahc_utils.getClothesExpropForTemperature()
+
+                    renpy.pause(1.0, hard=True)
+
+                    store.ahc_utils.changeHairAndClothes(
+                        _day_cycle=_day_cycle,
+                        _hair_random_chance=_hair_random_chance,
+                        _clothes_random_chance=_clothes_random_chance,
+                        _exprop=_clothes_exprop
+                    )
+
+                    renpy.pause(4.0, hard=True)
+
+                window hide
+                call mas_transition_from_emptydesk("monika 3hub")
+            else:
+                call mas_clothes_change(outfit=mas_clothes_def, outfit_mode=False, exp="1hub", restore_zoom=False)
+
+            $ shouldchange = 0
 
             m 1hub "Hah~ Much better!"
-            m 3eub "You should have a shower, [player]."
+            m 3eub "You should have a shower, [mas_get_player_nickname()]."
             m 3ekbla "I want to make sure you maintain good hygiene."
 
             if did_finish == False:  
                 m 3tubla "Maybe you can think of me in the shower and...{i}finish up.{/i}"
                 m 3mubsa "I want you to feel as good as I did too~"
 
-            $ store.persistent.nsfw_sexting_success_last = datetime.datetime.now()
+            $ store.persistent._nsfw_sexting_success_last = datetime.datetime.now()
+            $ store.persistent._nsfw_horny_level = 0
 
             return
 
@@ -313,10 +465,20 @@ label nsfw_sexting_finale:
             m 6ekbfp "Okay, [player]."
             m 6mkbfp "I'll hold on a little longer for you."
             m 6tkbfb "I want us to come together~"
-            $ horny_lvl = horny_lvl - 15
+            $ player_endurance = store.persistent._nsfw_player_endurance
+            $ horny_lvl = horny_lvl - (15 * player_endurance)
             return
 
 # Images to be used for sexting purposes
+
+image monika sexting_funny_poses:
+    block:
+        choice:
+            "monika 4hksdlb"
+        choice:
+            "monika 2gkbfsdlb"
+        choice:
+            "monika 6ttbfsdla"
 
 image monika sexting_cute_poses:
     block:
@@ -344,15 +506,177 @@ image monika sexting_hot_poses:
         choice:
             "monika 2ttbfu"
 
-image monika sexting_sexy_poses:
+image monika sexting_hot_mast_poses:
     block:
+        choice:
+            "monika 6gubsa"
+        choice:
+            "monika 6mubfu"
+        choice:
+            "monika 6tsbfu"
+        choice:
+            "monika 6lsbfu"
+        choice:
+            "monika 6ttbfu"
+
+image monika sexting_sexy_quip_poses:
+    block:
+        choice:
+            "monika 4ekbfsdlb"
+        choice:
+            "monika 4ekbfsdlu"
+        choice:
+            "monika 4tkbfsdla"
+        choice:
+            "monika 4tkbfsdlb"
+        choice:
+            "monika 4tsbfsdla"
+        choice:
+            "monika 4tsbfsdlb"
+        choice:
+            "monika 4tubfsdlb"
+        choice:
+            "monika 4tubfsdlu"
+        choice:
+            "monika 6ekbfsdlb"
+        choice:
+            "monika 6ekbfsdlu"
+        choice:
+            "monika 6tkbfsdla"
+        choice:
+            "monika 6tkbfsdlb"
+        choice:
+            "monika 6tsbfsdla"
+        choice:
+            "monika 6tsbfsdlb"
+        choice:
+            "monika 6tubfsdlb"
+        choice:
+            "monika 6tubfsdlu"
+        choice:
+            "monika 7ekbfsdlb"
+        choice:
+            "monika 7ekbfsdlu"
+        choice:
+            "monika 7tkbfsdla"
+        choice:
+            "monika 7tkbfsdlb"
+        choice:
+            "monika 7tsbfsdla"
+        choice:
+            "monika 7tsbfsdlb"
+        choice:
+            "monika 7tubfsdlb"
+        choice:
+            "monika 7tubfsdlu"
+
+image monika sexting_sexy_response_poses:
+    block:
+        choice:
+            "monika 4dkbfsdlo"
+        choice:
+            "monika 4ekbfsdlo"
+        choice:
+            "monika 4eubfsdlo"
+        choice:
+            "monika 4eubfsdlb"
+        choice:
+            "monika 4hkbfsdld"
         choice:
             "monika 4hkbfsdlo"
         choice:
-            "monika 6lkbfsdlo"
+            "monika 4kkbfsdlb"
+        choice:
+            "monika 4kkbfsdld"
+        choice:
+            "monika 4lkbfsdlo"
+        choice:
+            "monika 4mkbfsdlo"
+        choice:
+            "monika 4skbfsdlw"
+        choice:
+            "monika 4tkbfsdlo"
+        choice:
+            "monika 4tkbfsdlu"
+        choice:
+            "monika 4tsbfsdlb"
+        choice:
+            "monika 4tsbfsdlu"
+        choice:
+            "monika 4tubfsdlb"
+        choice:
+            "monika 4tubfsdld"
+        choice:
+            "monika 4tubfsdlo"
+        choice:
+            "monika 6dkbfsdlo"
+        choice:
+            "monika 6ekbfsdlo"
+        choice:
+            "monika 6eubfsdlo"
+        choice:
+            "monika 6eubfsdlb"
         choice:
             "monika 6hkbfsdld"
         choice:
-            "monika 6skbfsdlw"
+            "monika 6hkbfsdlo"
+        choice:
+            "monika 6kkbfsdlb"
+        choice:
+            "monika 6kkbfsdld"
+        choice:
+            "monika 6lkbfsdlo"
         choice:
             "monika 6mkbfsdlo"
+        choice:
+            "monika 6skbfsdlw"
+        choice:
+            "monika 6tkbfsdlo"
+        choice:
+            "monika 6tkbfsdlu"
+        choice:
+            "monika 6tsbfsdlb"
+        choice:
+            "monika 6tsbfsdlu"
+        choice:
+            "monika 6tubfsdlb"
+        choice:
+            "monika 6tubfsdld"
+        choice:
+            "monika 6tubfsdlo"
+        choice:
+            "monika 7dkbfsdlo"
+        choice:
+            "monika 7ekbfsdlo"
+        choice:
+            "monika 7eubfsdlo"
+        choice:
+            "monika 7eubfsdlb"
+        choice:
+            "monika 7hkbfsdld"
+        choice:
+            "monika 7hkbfsdlo"
+        choice:
+            "monika 7kkbfsdlb"
+        choice:
+            "monika 7kkbfsdld"
+        choice:
+            "monika 7lkbfsdlo"
+        choice:
+            "monika 7mkbfsdlo"
+        choice:
+            "monika 7skbfsdlw"
+        choice:
+            "monika 7tkbfsdlo"
+        choice:
+            "monika 7tkbfsdlu"
+        choice:
+            "monika 7tsbfsdlb"
+        choice:
+            "monika 7tsbfsdlu"
+        choice:
+            "monika 7tubfsdlb"
+        choice:
+            "monika 7tubfsdld"
+        choice:
+            "monika 7tubfsdlo"

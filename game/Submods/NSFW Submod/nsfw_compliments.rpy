@@ -165,7 +165,7 @@ label nsfw_compliment_thighs_3:
 # Thanks for the compliment addition, KittyTheCocksucker
 
 # "I remember wanting to have one character wear higher stockings – I thought
-# Yuri might be a good fit, but we decided that she isn’t the type to draw
+# Yuri might be a good fit, but we decided that she isn’t the type to draw 
 # attention to herself. Monika, being the confident one who cares about her
 # impression, was the obvious choice after that."
 #                                                   - DDLC Concept Art Booklet
@@ -202,7 +202,7 @@ label nsfw_compliment_thighhighs_2:
             naughty_bits = " I'd love if you gave me a thighjob while wearing them."
         else:
             naughty_bits = ""
-
+    
     m 1tubla "Oh geez..."
     m 1tublb "Going for my thighs again, [player]?"
     m 3tublb "Well...I'm glad you like how my thighhighs look!"
@@ -260,7 +260,7 @@ label nsfw_compliment_thighhighs_2:
 label nsfw_compliment_thighhighs_3:
     python:
         thighhighs_quips = [
-            _("They're really comfy too!"), #Thank you, [player]!
+            _("They're really comfy too!"), #Thank you, [player]! 
             _("I can't wait for you to make a mess over them. Ehehe~"),
             _("I wear them mainly to stand out, but they can also come in handy when it's cold outside!"),
         ]
@@ -361,9 +361,9 @@ label nsfw_compliment_tits_2:
 label nsfw_compliment_tits_3:
     python:
         tits_quips = [
-            _("You can look at them all you want~"), # Ahaha~ I'm glad you do, [player]!
+            _("You can look at them all you want~"), # Ahaha~ I'm glad you do, [player]! 
             _("I can't wait for you to fondle them~"), # Mhm~
-            _("Want to rest your head on them? Ahaha~"),
+            _("Want to rest your head on them? Ahaha~"), 
             # _("I hope my outfit isn't too revealing. Ahaha~"),
             # this last one is good but needs a bit of code so it only triggers when her clothing has a lingerie exprop
         ]
@@ -401,7 +401,7 @@ label nsfw_compliment_naughty_flirting_2:
             naughty_bits = "I'd love to hear you talk naughty while you're eating out my pussy~"
         else:
             naughty_bits = "I'd love to hear you talk naughty while I'm eating out your pussy~"
-
+    
     m 1hublb "Ahaha~"
     m 1hublsdla "Well..."
     m 1rkbssdlb "Gosh... I can't believe I'm getting so red just from you saying that...Ahaha~"

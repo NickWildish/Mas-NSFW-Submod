@@ -388,6 +388,7 @@ init 5 python:
     )
 
 default persistent._nsfw_sexting_success_last = None
+default persistent._nsfw_has_unlocked_birthdaysuit = False
 
 label nsfw_monika_gettingnude:
     m 1eua "Hey [player], have you ever just...not worn clothes?"
@@ -435,6 +436,7 @@ label nsfw_monika_gettingnude:
                 m 2dsbsa "Give me one second, I'm just going to get out of these clothes."
 
                 call mas_clothes_change(outfit=mas_clothes_birthday_suit, outfit_mode=False, exp="2dsbla", restore_zoom=False, unlock=False)
+                $ persistent._nsfw_has_unlocked_birthdaysuit = True
 
                 m 4hubsb "Ah~! That's much better."
                 m 6tubsb "Ehehe~ Do you like what you see, [mas_get_player_nickname()]?"
@@ -496,7 +498,9 @@ label nsfw_monika_gettingnude:
                 m 1ekblc "I won't talk about it anymore."
                 return "derandom"
 
-    elif mas_SELisUnlocked(mas_clothes_underwear_white) or mas_SELisUnlocked(mas_clothes_birthday_suit):
+    elif mas_SELisUnlocked(mas_clothes_underwear_white):
+        if mas_nsfw.hour_check() and persistent._nsfw_has_unlocked_birthdaysuit == False:
+            $ persistent._nsfw_has_unlocked_birthdaysuit = True
         m 3ekb "You're already familar with how I've been doing this while you've been away."
         m 3eublb "And I've got to say, it's been great!"
         m 3eublc "It's not for everyone though, so don't feel like I'm pressuring you..."

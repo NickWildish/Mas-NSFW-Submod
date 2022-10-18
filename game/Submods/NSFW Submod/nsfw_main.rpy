@@ -68,19 +68,32 @@ init python in mas_nsfw:
     import random
     import os
 
-    def hour_check(set_hours=6):
+    def hour_check(set_time=6, time_scale="hours", topic="nsfw_monika_gettingnude"):
         """
         Checks if six hours has passed since the player has seen the getting nude topic and also been away from the pc for at least six hours.
 
         IN:
-            set_hours - The amount of time that has to have passed since the player last saw the getting nude topic.
+            set_time - The amount of time that has to have passed since the player last saw the getting nude topic.
                 (Default: 6)
+            time_scale - The time scale used with the set_time figure. Currently "seconds", "minutes", "hours" and "days" are used.
+                (Default: "hours")
+            topic - The topic targeted by the hour check.
+                (Default: "nsfw_monika_gettingnude")
 
         OUT: 
-            True if the player has been away for six hours AND the getting nude topic hasn't been used for six hours, False if otherwise
+            True if the player has been away for set_time using time_scale AND the specified topic hasn't been used for that time either.
+            False if otherwise.
         """
-        time_away_req = datetime.timedelta(hours=set_hours)
-        time_since_last_seen = datetime.datetime.now() - store.mas_getEVL_last_seen("nsfw_monika_gettingnude")
+        if time_scale == "seconds":
+            time_away_req = datetime.timedelta(seconds=set_time)
+        elif time_scale == "minutes":
+            time_away_req = datetime.timedelta(minutes=set_time)
+        elif time_scale == "days":
+            time_away_req = datetime.timedelta(days=set_time)
+        else:
+            time_away_req = datetime.timedelta(hours=set_time) # It is assumed to be "hours" if something else is found.
+
+        time_since_last_seen = datetime.datetime.now() - store.mas_getEVL_last_seen(topic)
 
         if store.mas_getAbsenceLength() >= time_away_req and time_since_last_seen >= time_away_req:
             return True
@@ -94,7 +107,7 @@ init python in mas_nsfw:
         OUT:
             True if the player has seen 'monika_gettingnude' topic AND risque is allowed AND the player hasn't seen the topic for at least 6 hours AND the player hasn't already unlocked her underwear, False if otherwise
         """
-        if store.mas_getEV("nsfw_monika_gettingnude").shown_count >= 1 and store.mas_canShowRisque(aff_thresh=1000) and hour_check(set_hours=6) and not store.mas_SELisUnlocked(store.mas_clothes_underwear_white):
+        if store.mas_getEV("nsfw_monika_gettingnude").shown_count >= 1 and store.mas_canShowRisque(aff_thresh=1000) and hour_check() and not store.mas_SELisUnlocked(store.mas_clothes_underwear_white):
             return True
         else:
             return False
@@ -106,7 +119,7 @@ init python in mas_nsfw:
         OUT: 
             True if the player has seen 'monika_gettingnude' topic twice AND risque is allowed AND the player hasn't seen the topic for at least 6 hours AND the player hasn't already unlocked her naked, false if otherwise
         """
-        if store.mas_SELisUnlocked(store.mas_clothes_underwear_white) and store.mas_canShowRisque() and hour_check(set_hours=6) and not store.mas_SELisUnlocked(store.mas_clothes_birthday_suit):
+        if store.mas_SELisUnlocked(store.mas_clothes_underwear_white) and store.mas_canShowRisque() and hour_check() and not store.mas_SELisUnlocked(store.mas_clothes_birthday_suit):
             return True
         else:
             return False

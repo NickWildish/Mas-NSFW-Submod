@@ -324,7 +324,7 @@ label nsfw_sexting_hot_transfer:
     return
 
 label nsfw_sexting_sexy_transfer:
-    if store.mas_SELisUnlocked(store.mas_clothes_birthday_suit):
+    if persistent._nsfw_has_unlocked_birthdaysuit:
         m 6hkbfsdlo "Hnn~ I can't take it anymore!"
 
         call mas_clothes_change(outfit=mas_clothes_birthday_suit, outfit_mode=False, exp="6hubfb", restore_zoom=False)

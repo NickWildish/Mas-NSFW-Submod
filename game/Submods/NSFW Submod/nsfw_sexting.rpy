@@ -336,14 +336,26 @@ label nsfw_sexting_hot_transfer:
     m 1hub "Hah~ This is fun."
     m 3eua "I hope you're enjoying yourself as much as I am, [player]. Ehehe~"
 
-    python:
-        if store.mas_submod_utils.isSubmodInstalled("Auto Outfit Change"):
-            if store.ahc_utils.hasUnlockedClothesOfExprop("lingerie") and not store.ahc_utils.isWearingClothesOfExprop("lingerie"):
-                shouldchange = 2
-            elif store.mas_SELisUnlocked(store.mas_clothes_underwear_white): # unlikely case where player has AHC but no lingerie unlocked
+    $ new_underwear = mas_nsfw.try_unlock_new_underwear()
+    if new_underwear != None:
+        m 3tub "Hey, [player]..."
+        m 3tublb "I have a surprise for you..."
+
+        call mas_clothes_change(outfit=new_underwear, outfit_mode=False, exp="2eublu", restore_zoom=False, unlock=True)
+
+        m 2eubla "Ehehe~ I got a new pair of underwear!"
+        m 2hublb "What do you think?"
+        m 3eub "I think they're really cute!"
+    else:
+        python:
+            if store.mas_submod_utils.isSubmodInstalled("Auto Outfit Change"):
+                if store.ahc_utils.hasUnlockedClothesOfExprop("lingerie") and not store.ahc_utils.isWearingClothesOfExprop("lingerie"):
+                    shouldchange = 2
+                elif store.mas_SELisUnlocked(store.mas_clothes_underwear_white): # unlikely case where player has AHC but no lingerie unlocked
+                    shouldchange = 1
+            elif store.mas_SELisUnlocked(store.mas_clothes_underwear_white): # player doesn't have AHC but does have submod underwear
                 shouldchange = 1
-        elif store.mas_SELisUnlocked(store.mas_clothes_underwear_white): # player doesn't have AHC but does have submod underwear
-            shouldchange = 1
+
     if shouldchange == 1:
         call mas_clothes_change(outfit=mas_clothes_underwear_white, outfit_mode=False, exp="6hubfb", restore_zoom=False)
     elif shouldchange == 2:

@@ -28,8 +28,43 @@ label nsfw_sexting_main:
         did_finish = True # False if the player did not finish
 
     if renpy.seen_label("nsfw_sexting_finale"):
-        m 3eub "I remember the last time we did this; it was so much fun!"
-        m 3tublb "So [player]...let's get started, shall we?"
+        if persistent._nsfw_sext_sexy_start == True:
+            m 1hkb "Ahaha~ I was worried you were going to leave me out to dry..."
+            m 1tsblu "I hope you're prepared to make amends for making me wait~"
+
+            call mas_clothes_change(outfit=mas_clothes_birthday_suit, outfit_mode=False, exp="3tublb", restore_zoom=False)
+
+            m 3tublb "Now [player]...where were we?"
+        elif persistent._nsfw_sext_hot_start == True:
+            m 1hub "Hah~ I'm so glad that we're getting back to it."
+            m 1tua "It was just getting good too~"
+
+            python:
+                if store.mas_submod_utils.isSubmodInstalled("Auto Outfit Change"):
+                    if store.ahc_utils.hasUnlockedClothesOfExprop("lingerie") and not store.ahc_utils.isWearingClothesOfExprop("lingerie"):
+                        shouldchange = 2
+                    elif store.mas_SELisUnlocked(store.mas_clothes_underwear_white): # unlikely case where player has AHC but no lingerie unlocked
+                        shouldchange = 1
+                elif store.mas_SELisUnlocked(store.mas_clothes_underwear_white): # player doesn't have AHC but does have submod underwear
+                    shouldchange = 1
+
+            if shouldchange == 1:
+                call mas_clothes_change(outfit=mas_clothes_underwear_white, outfit_mode=False, exp="6hubfb", restore_zoom=False)
+            elif shouldchange == 2:
+                window hide
+                call mas_transition_to_emptydesk
+                python:
+                    renpy.pause(1.0, hard=True)
+                    store.ahc_utils.changeClothesOfExprop("lingerie")
+                    renpy.pause(4.0, hard=True)
+                call mas_transition_from_emptydesk("monika 6hubfb")
+                window hide
+            $ shouldchange = 0
+
+            m 3tublb "Now then, [player]...where were we?"
+        else:
+            m 3eub "I remember the last time we did this; it was so much fun!"
+            m 3tublb "So [player]...let's get started, shall we?"
     else:
         m 1rka "I'm kind of nervous, if I'm honest."
         m 3rkb "I don't know what to expect from this..."

@@ -169,14 +169,18 @@ label nsfw_sexting_main:
             "Actually, can we stop just for now?":
                 if horny_lvl >= sexy_req:
                     $ persistent._nsfw_horny_level = horny_lvl - 10
+                    $ persistent._nsfw_sext_sexy_start = True
                     m 6lkbfp "Aww, I was really enjoying myself."
                     m 6gkbfp "I hope whatever it is you need to do is important.{w=0.3}.{w=0.3}.{w=0.3}{nw}"
                     m 6hubfb "Ahaha! Just kidding~"
+                    call nsfw_sexting_early_cleanup
                     return
                 elif horny_lvl >= hot_req:
                     $ persistent._nsfw_horny_level = horny_lvl - 5
+                    $ persistent._nsfw_sext_hot_start = True
                     m 2tsbso "Aww, it was just starting to get interesting."
                     m 2ekbsa "It's okay, we can pick this up again another time."
+                    call nsfw_sexting_early_cleanup
                     return
                 else: #Default
                     $ persistent._nsfw_horny_level = horny_lvl - 1

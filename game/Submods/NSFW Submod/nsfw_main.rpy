@@ -124,6 +124,36 @@ init python in mas_nsfw:
         else:
             return False
 
+    def try_unlock_new_underwear():
+        """
+        Checks if the player has underwear that has not previously been unlocked, and unlocks them at random.
+
+        OUT:
+            True if the player unlocks new underwear, False if otherwise
+            The value of the underwear unlocked for topic purposes
+        """
+        unlockable_underwear = []
+
+        if not store.mas_SELisUnlocked(store.mas_clothes_underwear_black):
+            unlockable_underwear.append(store.mas_clothes_underwear_black)
+
+        if not store.mas_SELisUnlocked(store.mas_clothes_underwear_pink):
+            unlockable_underwear.append(store.mas_clothes_underwear_pink)
+
+        # Add more underwear here
+
+        if store.mas_SELisUnlocked(store.mas_clothes_underwear_white):
+            if random.randint(1,3) == 1: # 1/3 chance of unlocking new underwear
+                if unlockable_underwear:         
+                    new_underwear_no = random.randint(0,len(unlockable_underwear)-1)               
+                    store.mas_SELisUnlocked(unlockable_underwear[new_underwear_no])
+
+                    return unlockable_underwear[new_underwear_no]
+
+        return None
+                    
+
+
     def calc_sexting_reqs(horny_max=50, horny_min=0, hot_req=10, sexy_req=30):
         """
         Calculates what the values of horny maximum, minimum, hot_req and sexy_req are, based on the player's endurance value

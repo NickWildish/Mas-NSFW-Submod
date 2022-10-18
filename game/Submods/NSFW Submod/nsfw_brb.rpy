@@ -65,8 +65,8 @@ label monika_brb_nsfw_masturbate_callback:
     # Expansion - add in choices for added interaction, e.g. "I came" "I didnt get off" etc
     if mas_isMoniEnamored(higher=True):
         if mas_brbs.was_idle_for_at_least(datetime.timedelta(minutes=30), "nsfw_monika_brb_masturbate"):
-            m 2eubf "There you are, [player]!"
-            m 2eubf "You had been gone for a little while."
+            m 2eubfb "There you are, [player]!"
+            m 2eubfa "You had been gone for a little while."
             m 1hubfb "Were you able to...you know...get off? I hope so. Ahaha~"
             m 2eua "Anyway..."
             m 1eua "[wb_quip]"

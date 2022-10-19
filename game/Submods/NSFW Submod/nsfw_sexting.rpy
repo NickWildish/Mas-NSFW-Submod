@@ -560,6 +560,10 @@ label nsfw_sexting_finale:
                 m 3tubla "Maybe you can think of me in the shower and...{i}finish up.{/i}"
                 m 3mubsa "I want you to feel as good as I did too~"
 
+            m 1ekbsa "Thank you for this, [player]."
+            m 3ekbsa "This made me feel just that much closer to you."
+            m 3ekbsb "I hope you enjoyed yourself as much as I did."
+
             $ store.persistent._nsfw_sexting_success_last = datetime.datetime.now()
             $ store.persistent._nsfw_horny_level = 0
 

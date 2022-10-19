@@ -28,40 +28,93 @@ label nsfw_sexting_main:
         did_finish = True # False if the player did not finish
 
     if renpy.seen_label("nsfw_sexting_finale"):
+        $ last_sexted = datetime.datetime.now() - store.mas_getEVL_last_seen("nsfw_player_sextingsession")
         if persistent._nsfw_sext_sexy_start == True:
-            m 1hkb "Ahaha~ I was worried you were going to leave me out to dry..."
-            m 1tsblu "I hope you're prepared to make amends for making me wait~"
+            if last_sexted < datetime.timedelta(hours=1):
+                m 1hkb "Ahaha~ I was worried you were going to leave me out to dry..."
+                m 1tsblu "I hope you're prepared to make amends for making me wait~"
 
-            call mas_clothes_change(outfit=mas_clothes_birthday_suit, outfit_mode=False, exp="3tublb", restore_zoom=False)
+                call mas_clothes_change(outfit=mas_clothes_birthday_suit, outfit_mode=False, exp="3tublb", restore_zoom=False)
 
-            m 3tublb "Now [player]...where were we?"
-        elif persistent._nsfw_sext_hot_start == True:
-            m 1hub "Hah~ I'm so glad that we're getting back to it."
-            m 1tua "It was just getting good too~"
+                m 3tublb "Now [player]...where were we?"
+            elif last_sexted < datetime.timedelta(hours=2):
+                $ persistent._nsfw_sext_sexy_start = False
+                $ persistent._nsfw_sext_hot_start = True
+                m 1tub "Ehehe~ Took you long enough, [player]."
+                m 3tua "I hope you're prepared to make amends for making me wait."
 
-            python:
-                if store.mas_submod_utils.isSubmodInstalled("Auto Outfit Change"):
-                    if store.ahc_utils.hasUnlockedClothesOfExprop("lingerie") and not store.ahc_utils.isWearingClothesOfExprop("lingerie"):
-                        shouldchange = 2
-                    elif store.mas_SELisUnlocked(store.mas_clothes_underwear_white): # unlikely case where player has AHC but no lingerie unlocked
-                        shouldchange = 1
-                elif store.mas_SELisUnlocked(store.mas_clothes_underwear_white): # player doesn't have AHC but does have submod underwear
-                    shouldchange = 1
-
-            if shouldchange == 1:
-                call mas_clothes_change(outfit=mas_clothes_underwear_white, outfit_mode=False, exp="6hubfb", restore_zoom=False)
-            elif shouldchange == 2:
-                window hide
-                call mas_transition_to_emptydesk
                 python:
-                    renpy.pause(1.0, hard=True)
-                    store.ahc_utils.changeClothesOfExprop("lingerie")
-                    renpy.pause(4.0, hard=True)
-                call mas_transition_from_emptydesk("monika 6hubfb")
-                window hide
-            $ shouldchange = 0
+                    if store.mas_submod_utils.isSubmodInstalled("Auto Outfit Change"):
+                        if store.ahc_utils.hasUnlockedClothesOfExprop("lingerie") and not store.ahc_utils.isWearingClothesOfExprop("lingerie"):
+                            shouldchange = 2
+                        elif store.mas_SELisUnlocked(store.mas_clothes_underwear_white): # unlikely case where player has AHC but no lingerie unlocked
+                            shouldchange = 1
+                    elif store.mas_SELisUnlocked(store.mas_clothes_underwear_white): # player doesn't have AHC but does have submod underwear
+                        shouldchange = 1
 
-            m 3tublb "Now then, [player]...where were we?"
+                if shouldchange == 1:
+                    call mas_clothes_change(outfit=mas_clothes_underwear_white, outfit_mode=False, exp="2tublb", restore_zoom=False)
+                elif shouldchange == 2:
+                    window hide
+                    call mas_transition_to_emptydesk
+                    python:
+                        renpy.pause(1.0, hard=True)
+                        store.ahc_utils.changeClothesOfExprop("lingerie")
+                        renpy.pause(4.0, hard=True)
+                    call mas_transition_from_emptydesk("monika 2tublb")
+                    window hide
+                $ shouldchange = 0
+
+                m 2tublb "Shall we get back to it?"
+            else:
+                $ persistent._nsfw_sext_sexy_start = False
+                $ persistent._nsfw_horny_level = 0
+                $ horny_lvl = 0
+                m 1euc "You were gone for a while though..."
+                # Could have a section here where she asks what kept you
+                m 1etc "Did something happen?"
+                m 1dsu "..."
+                m 3duu "On a naughtier note...{w=0.3}"
+                extend 3eublu "I haven't been able to stop thinking about you since we stopped..."
+                m 3tubla "So I hope you're prepared to make amends for making me wait."
+                m 1hubla "Ehehe~"
+        elif persistent._nsfw_sext_hot_start == True:
+            if last_sexted < datetime.timedelta(hours=1):
+                $ persistent._nsfw_sext_sexy_start = False
+                $ persistent._nsfw_sext_hot_start = True
+                m 1hub "Hah~ I'm so glad that we're getting back to it."
+                m 1tua "It was just getting good too~"
+
+                python:
+                    if store.mas_submod_utils.isSubmodInstalled("Auto Outfit Change"):
+                        if store.ahc_utils.hasUnlockedClothesOfExprop("lingerie") and not store.ahc_utils.isWearingClothesOfExprop("lingerie"):
+                            shouldchange = 2
+                        elif store.mas_SELisUnlocked(store.mas_clothes_underwear_white): # unlikely case where player has AHC but no lingerie unlocked
+                            shouldchange = 1
+                    elif store.mas_SELisUnlocked(store.mas_clothes_underwear_white): # player doesn't have AHC but does have submod underwear
+                        shouldchange = 1
+
+                if shouldchange == 1:
+                    call mas_clothes_change(outfit=mas_clothes_underwear_white, outfit_mode=False, exp="3tublb", restore_zoom=False)
+                elif shouldchange == 2:
+                    window hide
+                    call mas_transition_to_emptydesk
+                    python:
+                        renpy.pause(1.0, hard=True)
+                        store.ahc_utils.changeClothesOfExprop("lingerie")
+                        renpy.pause(4.0, hard=True)
+                    call mas_transition_from_emptydesk("monika 3tublb")
+                    window hide
+                $ shouldchange = 0
+
+                m 3tublb "Now then, [player]...where were we?"
+            else:
+                $ persistent._nsfw_sext_hot_start = False
+                $ persistent._nsfw_horny_level = 0
+                $ horny_lvl = 0
+                m 1eka "Since we stopped earlier, I hope you don't mind if we start again."
+                m 3tkblb "This can be your punishment for making me wait after getting me excited."
+                m 3hubla "Ehehe~"
         else:
             m 3eub "I remember the last time we did this; it was so much fun!"
             m 3tublb "So [player]...let's get started, shall we?"

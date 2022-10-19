@@ -499,8 +499,8 @@ label nsfw_monika_gettingnude:
                 return "derandom"
 
     elif mas_SELisUnlocked(mas_clothes_underwear_white):
-        if mas_nsfw.hour_check() and persistent._nsfw_has_unlocked_birthdaysuit == False:
-            $ persistent._nsfw_has_unlocked_birthdaysuit = True
+        #if mas_nsfw.hour_check() and persistent._nsfw_has_unlocked_birthdaysuit == False:
+        #    $ persistent._nsfw_has_unlocked_birthdaysuit = True
         m 3ekb "You're already familar with how I've been doing this while you've been away."
         m 3eublb "And I've got to say, it's been great!"
         m 3eublc "It's not for everyone though, so don't feel like I'm pressuring you..."

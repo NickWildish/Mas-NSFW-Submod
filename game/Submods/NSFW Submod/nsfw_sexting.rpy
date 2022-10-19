@@ -371,14 +371,14 @@ label nsfw_sexting_init:
 
     call nsfw_sexting_main
 
-    if datetime.datetime.now() - sext_start_time < datetime.timedelta(seconds=30):
-        m 1ttu "That was pretty quick, [player]."
-        m 3eub "If you want to do this again, let me know."
+    #if datetime.datetime.now() - sext_start_time < datetime.timedelta(seconds=30):
+    #    m 1ttu "That was pretty quick, [player]."
+    #    m 3eub "If you want to do this again, let me know."
 
-    else:
-        m 1ekbsa "Thank you for this, [player]."
-        m 3ekbsa "This made me feel just that much closer to you."
-        m 3ekbsb "I hope you enjoyed yourself as much as I did."
+    #else:
+    #    m 1ekbsa "Thank you for this, [player]."
+    #    m 3ekbsa "This made me feel just that much closer to you."
+    #    m 3ekbsb "I hope you enjoyed yourself as much as I did."
         
     if store.persistent._nsfw_horny_level < 0:
         $ store.persistent._nsfw_horny_level = 0 # Negative horny is not allowed *bonk*

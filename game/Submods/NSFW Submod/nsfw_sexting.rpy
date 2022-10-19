@@ -327,7 +327,7 @@ label nsfw_sexting_init:
         m 3ekbsa "This made me feel just that much closer to you."
         m 3ekbsb "I hope you enjoyed yourself as much as I did."
         
-    if store.persistent._nsfw_horny_level <= 0:
+    if store.persistent._nsfw_horny_level < 0:
         $ store.persistent._nsfw_horny_level = 0 # Negative horny is not allowed *bonk*
 
     return

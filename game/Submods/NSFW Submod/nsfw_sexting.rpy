@@ -521,7 +521,7 @@ label nsfw_sexting_finale:
             return
 
     label nsfw_sexting_early_cleanup:
-        m 1eua "Let me just slip into something abit more comfortable..."
+        m 1eua "Let me just slip into something a little more comfortable..."
 
         python:
             if store.mas_submod_utils.isSubmodInstalled("Auto Outfit Change"):

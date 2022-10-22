@@ -44,13 +44,14 @@ label nsfw_sexting_main:
                 m 3tua "I hope you're prepared to make amends for making me wait."
 
                 python:
-                    if store.mas_submod_utils.isSubmodInstalled("Auto Outfit Change"):
-                        if store.ahc_utils.hasUnlockedClothesOfExprop("lingerie") and not store.ahc_utils.isWearingClothesOfExprop("lingerie"):
-                            shouldchange = 2
-                        elif store.mas_SELisUnlocked(store.mas_clothes_underwear_white): # unlikely case where player has AHC but no lingerie unlocked
+                    if "lingerie" not in store.monika_chr.clothes.ex_props:
+                        if store.mas_submod_utils.isSubmodInstalled("Auto Outfit Change"):
+                            if store.ahc_utils.hasUnlockedClothesOfExprop("lingerie") and not store.ahc_utils.isWearingClothesOfExprop("lingerie"):
+                                shouldchange = 2
+                            elif store.mas_SELisUnlocked(store.mas_clothes_underwear_white): # unlikely case where player has AHC but no lingerie unlocked
+                                shouldchange = 1
+                        elif store.mas_SELisUnlocked(store.mas_clothes_underwear_white): # player doesn't have AHC but does have submod underwear
                             shouldchange = 1
-                    elif store.mas_SELisUnlocked(store.mas_clothes_underwear_white): # player doesn't have AHC but does have submod underwear
-                        shouldchange = 1
 
                 if shouldchange == 1:
                     call mas_clothes_change(outfit=mas_clothes_underwear_white, outfit_mode=False, exp="2tublb", restore_zoom=False)
@@ -86,13 +87,14 @@ label nsfw_sexting_main:
                 m 1tua "It was just getting good too~"
 
                 python:
-                    if store.mas_submod_utils.isSubmodInstalled("Auto Outfit Change"):
-                        if store.ahc_utils.hasUnlockedClothesOfExprop("lingerie") and not store.ahc_utils.isWearingClothesOfExprop("lingerie"):
-                            shouldchange = 2
-                        elif store.mas_SELisUnlocked(store.mas_clothes_underwear_white): # unlikely case where player has AHC but no lingerie unlocked
+                    if "lingerie" not in store.monika_chr.clothes.ex_props:
+                        if store.mas_submod_utils.isSubmodInstalled("Auto Outfit Change"):
+                            if store.ahc_utils.hasUnlockedClothesOfExprop("lingerie") and not store.ahc_utils.isWearingClothesOfExprop("lingerie"):
+                                shouldchange = 2
+                            elif store.mas_SELisUnlocked(store.mas_clothes_underwear_white): # unlikely case where player has AHC but no lingerie unlocked
+                                shouldchange = 1
+                        elif store.mas_SELisUnlocked(store.mas_clothes_underwear_white): # player doesn't have AHC but does have submod underwear
                             shouldchange = 1
-                    elif store.mas_SELisUnlocked(store.mas_clothes_underwear_white): # player doesn't have AHC but does have submod underwear
-                        shouldchange = 1
 
                 if shouldchange == 1:
                     call mas_clothes_change(outfit=mas_clothes_underwear_white, outfit_mode=False, exp="3tublb", restore_zoom=False)

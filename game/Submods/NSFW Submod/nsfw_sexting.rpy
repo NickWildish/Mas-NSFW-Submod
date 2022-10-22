@@ -1,6 +1,7 @@
 default persistent._nsfw_horny_level = 0 # The level of horny Monika is experiencing
 default persistent._nsfw_sext_hot_start = False # Player starts with Monika at hot level
 default persistent._nsfw_sext_sexy_start = False # Player starts with Monika at sexy level
+default persistent._nsfw_lingerie_on_start = False # Monika was wearing lingerie when sexting started
 
 label nsfw_sexting_main:
     python:
@@ -580,48 +581,51 @@ label nsfw_sexting_finale:
             return
 
     label nsfw_sexting_early_cleanup:
-        m 1eua "Let me just slip into something a little more comfortable..."
-
-        python:
-            if store.mas_submod_utils.isSubmodInstalled("Auto Outfit Change"):
-                shouldchange = 2
-
-        if shouldchange == 2:
-
-            window hide
-            call mas_transition_to_emptydesk
+        if persistent._nsfw_lingerie_on_start:
+            m 1eua "Let me just slip into something a little more comfortable..."
 
             python:
-                if store.mas_isDayNow():
-                    _day_cycle = "day"
-                else:
-                    _day_cycle = "night"
+                if store.mas_submod_utils.isSubmodInstalled("Auto Outfit Change"):
+                    shouldchange = 2
 
-                _hair_random_chance = renpy.random.randint(1,2)
-                _clothes_random_chance = 2
-                _clothes_exprop = store.ahc_utils.getClothesExpropForTemperature()
+            if shouldchange == 2:
 
-                renpy.pause(1.0, hard=True)
+                window hide
+                call mas_transition_to_emptydesk
 
-                store.ahc_utils.changeHairAndClothes(
-                    _day_cycle=_day_cycle,
-                    _hair_random_chance=_hair_random_chance,
-                    _clothes_random_chance=_clothes_random_chance,
-                    _exprop=_clothes_exprop
-                )
+                python:
+                    if store.mas_isDayNow():
+                        _day_cycle = "day"
+                    else:
+                        _day_cycle = "night"
 
-                renpy.pause(4.0, hard=True)
+                    _hair_random_chance = renpy.random.randint(1,2)
+                    _clothes_random_chance = 2
+                    _clothes_exprop = store.ahc_utils.getClothesExpropForTemperature()
 
-            window hide
-            call mas_transition_from_emptydesk("monika 3hub")
-        else:
-            call mas_clothes_change(outfit=mas_clothes_def, outfit_mode=False, exp="1hub", restore_zoom=False)
+                    renpy.pause(1.0, hard=True)
 
-        $ shouldchange = 0
+                    store.ahc_utils.changeHairAndClothes(
+                        _day_cycle=_day_cycle,
+                        _hair_random_chance=_hair_random_chance,
+                        _clothes_random_chance=_clothes_random_chance,
+                        _exprop=_clothes_exprop
+                    )
 
-        m 1hub "Hah~ Much better!"
+                    renpy.pause(4.0, hard=True)
+
+                window hide
+                call mas_transition_from_emptydesk("monika 3hub")
+            else:
+                call mas_clothes_change(outfit=mas_clothes_def, outfit_mode=False, exp="1hub", restore_zoom=False)
+
+            $ shouldchange = 0
+
+            m 1hub "Hah~ Much better!"
+            $ persistent._nsfw_lingerie_on_start = False
+
         m 3eub "Let me know when you want to continue, [mas_get_player_nickname()]."
-        m 1tub "I'll be waiting~."
+        m 1tub "I'll be waiting."
         m 1hua "Ehehe~"
         return
 

@@ -3,8 +3,8 @@ init 5 python:
 
 label nsfw_mood_horny:
     # Check when player's last succesful sexting session was
-    if store.persistent.nsfw_sexting_success_last is not None:
-        $ timedelta_of_last_success = datetime.datetime.now() - store.persistent.nsfw_sexting_success_last
+    if store.persistent._nsfw_sexting_success_last is not None:
+        $ timedelta_of_last_success = datetime.datetime.now() - store.persistent._nsfw_sexting_success_last
         $ time_since_last_success = datetime.datetime.now() - timedelta_of_last_success
     else:
         $ time_since_last_success = datetime.datetime.today() - datetime.timedelta(days=1)

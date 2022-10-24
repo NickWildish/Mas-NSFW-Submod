@@ -127,7 +127,7 @@ label nsfw_sexting_main:
     else:
         m 1rka "I'm kind of nervous, if I'm honest."
         m 3rkb "I don't know what to expect from this..."
-        
+
         $ _history_list.pop()
         menu:
             m "I don't know what to expect from this...{fast}"
@@ -160,7 +160,7 @@ label nsfw_sexting_main:
                 player_prompt[x], prompt_cat[x], prompt_type[x], prompt_subtype[x] = mas_nsfw.return_sexting_dialogue(category_type="prompt", horny_level=horny_lvl, hot_req=hot_req, sexy_req=sexy_req, horny_max=horny_max, recent=recent_prompts)
 
             # While loop to prevent duplicates
-            while player_prompt[1] == player_prompt[0]: 
+            while player_prompt[1] == player_prompt[0]:
                 # Grab second random prompt from list
                 player_prompt[1], prompt_cat[1], prompt_type[1], prompt_subtype[1] = mas_nsfw.return_sexting_dialogue(category_type="prompt", horny_level=horny_lvl, hot_req=hot_req, sexy_req=sexy_req, horny_max=horny_max, recent=recent_prompts)
             while player_prompt[2] == player_prompt[0] or player_prompt[2] == player_prompt[1]:
@@ -216,16 +216,16 @@ label nsfw_sexting_main:
         menu:
             m "[monika_quip][quip_ending]{fast}"
 
-            "[player_prompt[0]]":
+            "[player_prompt[0]] (sextchoice)":
                 $ prompt_choice = 0
 
-            "[player_prompt[1]]":
+            "[player_prompt[1]] (sextchoice)":
                 $ prompt_choice = 1
 
-            "[player_prompt[2]]":
+            "[player_prompt[2]] (sextchoice)":
                 $ prompt_choice = 2
 
-            "Actually, can we stop just for now?":
+            "Actually, can we stop just for now? (sextchoice)":
                 if horny_lvl >= sexy_req:
                     $ persistent._nsfw_horny_level = horny_lvl - 10
                     $ persistent._nsfw_sext_sexy_start = True
@@ -386,7 +386,7 @@ label nsfw_sexting_init:
     #    m 1ekbsa "Thank you for this, [player]."
     #    m 3ekbsa "This made me feel just that much closer to you."
     #    m 3ekbsb "I hope you enjoyed yourself as much as I did."
-        
+
     if store.persistent._nsfw_horny_level < 0:
         $ store.persistent._nsfw_horny_level = 0 # Negative horny is not allowed *bonk*
 
@@ -449,7 +449,20 @@ label nsfw_sexting_sexy_transfer:
 
 label nsfw_sexting_finale:
     m 6tkbfo "Hah~ [player]?"
-    m 6hkbfc "I'm getting really close."
+    ## Just a little bit of RNG to keep things interesting.
+    $ rng = renpy.random.randomint (1,6)
+    if rng == 1:
+        m 6hkbfc "I'm getting really close."
+    elif rng == 2:
+        m 6hkbfc "I'm getting really... really close..."
+    elif rng == 3:
+        m 6hkbfc "I'm nearly ready to... to finish..."
+    elif rng == 4:
+        m 6hkbfc "I think... I'm really close..."
+    elif rng == 5:
+        m 6hkbfc "I-I think I'm... I'm getting really close to..."
+    else:
+        m 6hkbfc "I-I'm getting really close. I-I can't last much longer."
     m 6ekbfd "Are you close too?"
 
     $ _history_list.pop()
@@ -524,7 +537,7 @@ label nsfw_sexting_finale:
 
             m 6lubfsdlb "Now, I need to go get changed. Ahaha!"
             m 7lubfsdlb "I'm a wet mess right now."
-            m 7hubfsdla "Be right back, [player]."    
+            m 7hubfsdla "Be right back, [player]."
 
             python:
                 if store.mas_submod_utils.isSubmodInstalled("Auto Outfit Change"):
@@ -567,7 +580,7 @@ label nsfw_sexting_finale:
             m 3eub "You should have a shower, [mas_get_player_nickname()]."
             m 3ekbla "I want to make sure you maintain good hygiene."
 
-            if did_finish == False:  
+            if did_finish == False:
                 m 3tubla "Maybe you can think of me in the shower and...{i}finish up.{/i}"
                 m 3mubsa "I want you to feel as good as I did too~"
 

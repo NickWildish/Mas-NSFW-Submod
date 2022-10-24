@@ -1,5 +1,14 @@
 init 5 python:
-    addEvent(Event(persistent._mas_mood_database,"nsfw_mood_horny",prompt="...horny.",category=[store.mas_moods.TYPE_NEUTRAL],unlocked=True,),code="MOO")
+    addEvent(
+        Event(
+            persistent._mas_mood_database,
+            "nsfw_mood_horny",
+            prompt="...horny.",
+            category=[store.mas_moods.TYPE_NEUTRAL],
+            unlocked=True,
+            ),
+        code="MOO"
+    )
 
 label nsfw_mood_horny:
     # Check when player's last succesful sexting session was
@@ -10,16 +19,17 @@ label nsfw_mood_horny:
         $ time_since_last_success = datetime.datetime.today() - datetime.timedelta(days=1)
 
     # If the player's last succesful sexting session was less than three hours ago
-    if time_since_last_success >= datetime.datetime.today() - datetime.timedelta(hours=3):
+    if time_since_last_success >= datetime.datetime.today() - datetime.timedelta(hours=3) or not mas_canShowRisque():
         m 2wubld "Oh!"
         m 2rkblc "I'm sorry, [player]. I can only guess how distracting that must be."
         m 3rkblb "If it becomes too much, maybe you should take a minute to..."
         m 3dkblu "Ahem..."
         m 3ekblb "De-stress..."
         m 1hubla "Just make sure you think only about me!"
-        m 1hubsa "..."
-        m 1gubsa "Maybe once I've crossed over, I'll be able to lend you a {i}helping hand{/i}."
-        m 1hubsa "Ehehe~"
+        if mas_canShowRisque():
+            m 1hubsa "..."
+            m 1gubsa "Maybe once I've crossed over, I'll be able to lend you a {i}helping hand{/i}."
+            m 1hubsa "Ehehe~"
         return
 
     m 1tua "Oh? Is that so, [player]?"

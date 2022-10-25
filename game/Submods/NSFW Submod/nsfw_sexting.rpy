@@ -289,8 +289,32 @@ label nsfw_sexting_init:
             if last_sexted_since < datetime.timedelta(hours=1):
                 m 1hkb "Ahaha~ I was worried you were going to leave me out to dry..."
                 m 1tsblu "I hope you're prepared to make amends for making me wait~"
+                
+                if persistent._nsfw_has_unlocked_birthdaysuit:
+                    call mas_clothes_change(outfit=mas_clothes_birthday_suit, outfit_mode=False, exp="3tublb", restore_zoom=False)
+                else:
+                    python:
+                        if persistent._nsfw_lingerie_on_start:
+                            if store.mas_submod_utils.isSubmodInstalled("Auto Outfit Change"):
+                                if store.ahc_utils.hasUnlockedClothesOfExprop("lingerie") and not store.ahc_utils.isWearingClothesOfExprop("lingerie"):
+                                    shouldchange = 2
+                                elif store.mas_SELisUnlocked(store.mas_clothes_underwear_white): # unlikely case where player has AHC but no lingerie unlocked
+                                    shouldchange = 1
+                            elif store.mas_SELisUnlocked(store.mas_clothes_underwear_white): # player doesn't have AHC but does have submod underwear
+                                shouldchange = 1
 
-                call mas_clothes_change(outfit=mas_clothes_birthday_suit, outfit_mode=False, exp="3tublb", restore_zoom=False)
+                    if shouldchange == 1:
+                        call mas_clothes_change(outfit=mas_clothes_underwear_white, outfit_mode=False, exp="3tublb", restore_zoom=False)
+                    elif shouldchange == 2:
+                        window hide
+                        call mas_transition_to_emptydesk
+                        python:
+                            renpy.pause(1.0, hard=True)
+                            store.ahc_utils.changeClothesOfExprop("lingerie")
+                            renpy.pause(4.0, hard=True)
+                        call mas_transition_from_emptydesk("monika 3tublb")
+                        window hide
+                    $ shouldchange = 0
 
                 m 3tublb "Now [player]...where were we?"
             elif last_sexted_since < datetime.timedelta(hours=2):

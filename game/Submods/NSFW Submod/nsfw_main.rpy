@@ -81,7 +81,7 @@ init python in mas_nsfw:
             topic - The topic targeted by the hour check.
                 (Default: "nsfw_monika_gettingnude")
 
-        OUT: 
+        OUT:
             True if the player has been away for set_time using time_scale AND the specified topic hasn't been used for that time either.
             False if otherwise.
         """
@@ -117,7 +117,7 @@ init python in mas_nsfw:
         """
         Checks to see if the player should be able to see Monika with no clothes yet.
 
-        OUT: 
+        OUT:
             True if the player has seen 'monika_gettingnude' topic twice AND risque is allowed AND the player hasn't seen the topic for at least 6 hours AND the player hasn't already unlocked her naked, false if otherwise
         """
         if store.mas_SELisUnlocked(store.mas_clothes_underwear_white) and store.mas_canShowRisque() and hour_check() and not store.persistent._nsfw_has_unlocked_birthdaysuit:
@@ -145,21 +145,21 @@ init python in mas_nsfw:
 
         if store.mas_SELisUnlocked(store.mas_clothes_underwear_white):
             if random.randint(1,3) == 1: # 1/3 chance of unlocking new underwear
-                if unlockable_underwear:         
-                    new_underwear_no = random.randint(0,len(unlockable_underwear)-1)               
+                if unlockable_underwear:
+                    new_underwear_no = random.randint(0,len(unlockable_underwear)-1)
                     store.mas_SELisUnlocked(unlockable_underwear[new_underwear_no])
 
                     return unlockable_underwear[new_underwear_no]
 
         return None
-                    
+
 
 
     def calc_sexting_reqs(horny_max=50, horny_min=0, hot_req=10, sexy_req=30):
         """
         Calculates what the values of horny maximum, minimum, hot_req and sexy_req are, based on the player's endurance value
 
-        IN: 
+        IN:
             horny_max - The maximum amount of horny Monika can withold before exploding in ecstasy
                 (Default: 50)
             horny_min - The minimum horny value
@@ -168,7 +168,7 @@ init python in mas_nsfw:
                 (Default: 10)
             sexy_req - The horny_level requirement for sexy dialogue
                 (Default: 30)
-        
+
         OUT:
             The maximum, minimum, hot_req and sexy_req values
         """
@@ -195,7 +195,7 @@ init python in mas_nsfw:
             response_type - The subtype of the response. Used only if the response_category is 2 (sexy).
                 (Default: None)
 
-        OUT: 
+        OUT:
             A string containing a particular response from Monika.
         """
         player_name = store.persistent.playername
@@ -354,7 +354,7 @@ init python in mas_nsfw:
             ("", "", _("You never fail to give me butterflies.")), #18
             ("", "", _("You make my heart happy.")), #19
         ]
-        
+
         # Sexting prompts for your more 'risque' options
         sext_prompts_hot = [
             ("", "", _("You have a really sexy figure.")), #0
@@ -644,7 +644,7 @@ init python in mas_nsfw:
             response_no - The location in the category of a quip
                 (Default: 0)
 
-        OUT: 
+        OUT:
             A string containing a particular quip from Monika.
         """
 
@@ -755,7 +755,7 @@ init python in mas_nsfw:
 
     def return_sexting_dialogue(category_type="response", horny_level=0, hot_req=10, sexy_req=30, horny_max=50, recent=[], previous_cat=None, previous_type=None, previous_subtype=None):
         """
-        Returns a string from a dialogue list based on 
+        Returns a string from a dialogue list based on
 
         IN:
             category_type - The loop component ("quip", "prompt", or "response") of dialogue we want to pull
@@ -939,7 +939,7 @@ init python in mas_nsfw:
         IN:
             category - The category in which we will pull the appropriate dialogue start from.
                 (Default: "cute")
-        
+
         OUT:
             The selected starting text for the dialogue
         """

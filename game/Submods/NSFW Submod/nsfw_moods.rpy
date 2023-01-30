@@ -27,9 +27,9 @@ label nsfw_mood_horny:
         m 3ekblb "De-stress..."
         m 1hubla "Just make sure you think only about me!"
         if mas_canShowRisque(aff_thresh=1000):
-        m 1hubsa "..."
-        m 1gubsa "Maybe once I've crossed over, I'll be able to lend you a {i}helping hand{/i}."
-        m 1hubsa "Ehehe~"
+            m 1hubsa "..."
+            m 1gubsa "Maybe once I've crossed over, I'll be able to lend you a {i}helping hand{/i}."
+            m 1hubsa "Ehehe~"
         return
 
     m 1tua "Oh? Is that so, [player]?"

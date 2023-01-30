@@ -1,5 +1,14 @@
 init 5 python:
-    addEvent(Event(persistent._mas_mood_database,"nsfw_mood_horny",prompt="...horny.",category=[store.mas_moods.TYPE_NEUTRAL],unlocked=True,),code="MOO")
+    addEvent(
+        Event(
+            persistent._mas_mood_database,
+            "nsfw_mood_horny",
+            prompt="...horny.",
+            category=[store.mas_moods.TYPE_NEUTRAL],
+            unlocked=True,
+            ),
+        code="MOO"
+    )
 
 label nsfw_mood_horny:
     # Check when player's last succesful sexting session was

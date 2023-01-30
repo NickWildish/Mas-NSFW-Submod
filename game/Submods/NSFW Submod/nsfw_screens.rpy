@@ -20,7 +20,7 @@ screen choice(items):
             textbutton caption:
                 if opt=="sextchoice":
                     style "sextchoice_button"
-               # if no opt, defaults to choice_button
+                # if no opt, defaults to choice_button
                 action i.action
 
 style sextchoice_button is choice_button is generic_button_light:

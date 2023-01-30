@@ -23,17 +23,17 @@ default persistent._nsfw_player_endurance = 1
 screen nsfw_submod_screen():
     python:
         nsfw_submods_screen = store.renpy.get_screen("submods", "screens")
-        
+
         if nsfw_submods_screen:
             _tooltip = nsfw_submods_screen.scope.get("tooltip", None)
         else:
             _tooltip = None
-    
+
     vbox:
         box_wrap False
         xfill True
         xmaximum 700
-        
+
         hbox:
             style_prefix "check"
             box_wrap False

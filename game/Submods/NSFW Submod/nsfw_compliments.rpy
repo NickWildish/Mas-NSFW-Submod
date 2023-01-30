@@ -472,3 +472,50 @@ label nsfw_compliment_naughty_flirting_3:
     show monika 3tubsb at t11 zorder MAS_MONIKA_Z with dissolve_monika
     m 3tubsb "[naughty_flirting_quip]"
     return
+
+init 6 python:
+    addEvent(
+        Event(
+            persistent._nsfw_compliments_database,
+            eventlabel="nsfw_compliment_moaning",
+            prompt="I love making you moan!",
+            conditional="store.persistent._nsfw_sexting_success_last is not None",
+            action=EV_ACT_UNLOCK
+        ),
+        code="NCP"
+    )
+
+label nsfw_compliment_moaning:
+    m 1eua "NOT COMPLETE"
+    if not renpy.seen_label("nsfw_compliment_moaning_2"):
+        call nsfw_compliment_moaning_2
+    else:
+        call nsfw_compliment_moaning_3
+    return
+
+label nsfw_compliment_moaning_2:
+    m 1eua "FIRST-TIME COMPLIMENT"
+
+label nsfw_compliment_moaning_3:
+    m 1eua "Compliment has been said at least once"
+
+init 6 python:
+    addEvent(
+        Event(
+            persistent._nsfw_compliments_database,
+            eventlabel="nsfw_compliment_wet",
+            prompt="I love making you wet!",
+            unlocked=True
+        ),
+        code="NCP"
+    )
+
+label nsfw_compliment_wet:
+    m 1eua "NOT COMPLETE"
+    return
+
+label nsfw_compliment_wet_2:
+    m 1eua "FIRST-TIME COMPLIMENT"
+
+label nsfw_compliment_wet_3:
+    m 1eua "Compliment has been said at least once"

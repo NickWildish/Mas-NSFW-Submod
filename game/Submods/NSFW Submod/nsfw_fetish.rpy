@@ -120,7 +120,7 @@ init 6 python:
 
 label nsfw_fetish_bondage: #TODO: Finish adding expressions
     m 1eua "Bondage is essentially at it's core, a matter of restraint through various means. Whether that's ribbon, rope, or even handcuffs."
-    m 1eua "As far as I know, it was initially developed in the early 1900's, and in paralell in two different locations - bringing us the styles we have today: western and western, but that's slightly different."
+    m 1eua "As far as I know, it was initially developed in the early 1900's, and in paralell in two different locations - bringing us the styles we have today: western and eastern, but that's slightly different."
     m 1eua "They each have different ideas at their core, but are superficially the same and have even taken inspiration from one another. I can explain more about the history later if you want."
     m 1eua "There are a variety of reasons someone might be into it, ranging from the sense of security it brings, the change in power dynamic, how it looks, or even the sense of trust needed to do it with another."
 

@@ -53,6 +53,7 @@ init 6 python: # Use init 6 since the dictionary entry to store our entries is a
             eventlabel="nsfw_player_fetishes",
             category=['sex'],
             prompt="Let's talk about fetishes.",
+            pool=True,
             conditional="store.mas_getEVL_shown_count('nsfw_player_fetishintro') >= 1",
             action=EV_ACT_UNLOCK,
             aff_range=(mas_aff.LOVE, None)

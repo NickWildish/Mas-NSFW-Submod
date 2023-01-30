@@ -155,9 +155,9 @@ label nsfw_fetish_bondage: #TODO: Finish adding expressions
             m 1hubsb "Alright, [player]."
             m 1eua "Guess I'll put away these handcuffs for now." #Smirk
     m 1eua "Ahaha~"
-    m 1eua "You look so cure when you're flustered."
+    m 1eua "You look so cute when you're flustered."
 
-    m 1eua "Would you like to hear more about the it? "
+    m 1eua "Would you like to hear more about it? "
     extend "Though I don't mind if you say no, it's a lot to go through." #Big ol' smile.
     $ _history_list.pop()
     menu:

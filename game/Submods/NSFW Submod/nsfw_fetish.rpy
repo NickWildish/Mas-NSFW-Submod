@@ -33,7 +33,7 @@ init 6 python: # Use init 6 since the dictionary entry to store our entries is a
         )
     )
 
-label nsfw_player_fetishintro:
+label nsfw_player_fetishintro: # TODO
     m 1eua "Hey, [player]. I just wanted to tell you about some work I've done!"
     m 1eua "You remember talking with me about fetishes?"
     m 1eua "...Well I made something so that we could talk about them."
@@ -117,7 +117,7 @@ init 6 python:
         code="NFH"
     )
 
-label nsfw_fetish_bondage:
+label nsfw_fetish_bondage: # TODO
     m 1eua "Bondage is essentially at it's core, a matter of restraint through various means. Whether that's ribbon, rope, or even handcuffs."
     m 1eua "As far as I know, it was initially developed in the early 1900's, and in paralell in two different locations - bringing us the styles we have today: western and western, but that's slightly different."
     m 1eua "They each have different ideas at their core, but are superficially the same and have even taken inspiration from one another. I can explain more about the history later if you want."
@@ -194,7 +194,7 @@ init 6 python:
         code="NFH"
     )
 
-label nsfw_fetish_hand_holding:
+label nsfw_fetish_hand_holding: # TODO
     m 1eua "Alright!"
     m 1eua "Hand holding is essentially one of the more...out there fetishes."
     m 1eua "It's when two people {i}clasp their hands around one another{/i}."
@@ -235,7 +235,7 @@ init 6 python:
         code="NFH"
     )
 
-label nsfw_fetish_anal:
+label nsfw_fetish_anal: # TODO
     m 1hkblsdlb "AnalTest"
     $ _history_list.pop()
     menu:
@@ -273,7 +273,7 @@ init 6 python:
         code="NFH"
     )
 
-label nsfw_fetish_dominance:
+label nsfw_fetish_dominance: # TODO
     m 1hkblsdlb "DominanceTest"
     $ _history_list.pop()
     menu:

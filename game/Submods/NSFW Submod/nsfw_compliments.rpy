@@ -485,7 +485,7 @@ init 6 python:
         code="NCP"
     )
 
-label nsfw_compliment_moaning:
+label nsfw_compliment_moaning: # TODO
     m 1eua "NOT COMPLETE"
     if not renpy.seen_label("nsfw_compliment_moaning_2"):
         call nsfw_compliment_moaning_2
@@ -493,11 +493,11 @@ label nsfw_compliment_moaning:
         call nsfw_compliment_moaning_3
     return
 
-label nsfw_compliment_moaning_2:
+label nsfw_compliment_moaning_2: # TODO
     m 1eua "FIRST-TIME COMPLIMENT"
 
 label nsfw_compliment_moaning_3:
-    m 1eua "Compliment has been said at least once"
+    m 1eua "Compliment has been said at least once" # TODO
 
 init 6 python:
     addEvent(
@@ -510,12 +510,12 @@ init 6 python:
         code="NCP"
     )
 
-label nsfw_compliment_wet:
+label nsfw_compliment_wet: # TODO
     m 1eua "NOT COMPLETE"
     return
 
-label nsfw_compliment_wet_2:
+label nsfw_compliment_wet_2: # TODO
     m 1eua "FIRST-TIME COMPLIMENT"
 
 label nsfw_compliment_wet_3:
-    m 1eua "Compliment has been said at least once"
+    m 1eua "Compliment has been said at least once" # TODO

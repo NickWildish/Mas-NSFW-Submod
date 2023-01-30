@@ -2,6 +2,7 @@ default persistent._nsfw_horny_level = 0 # The level of horny Monika is experien
 default persistent._nsfw_sext_hot_start = False # Player starts with Monika at hot level
 default persistent._nsfw_sext_sexy_start = False # Player starts with Monika at sexy level
 default persistent._nsfw_lingerie_on_start = False # Monika was wearing lingerie when sexting started
+default persistent._nsfw_last_sexted = datetime.datetime.now() # The last time you and Monika sexted
 
 label nsfw_sexting_main:
     python:

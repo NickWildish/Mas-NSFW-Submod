@@ -165,7 +165,7 @@ label nsfw_compliment_thighs_3:
 # Thanks for the compliment addition, KittyTheCocksucker
 
 # "I remember wanting to have one character wear higher stockings – I thought
-# Yuri might be a good fit, but we decided that she isn’t the type to draw 
+# Yuri might be a good fit, but we decided that she isn’t the type to draw
 # attention to herself. Monika, being the confident one who cares about her
 # impression, was the obvious choice after that."
 #                                                   - DDLC Concept Art Booklet

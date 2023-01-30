@@ -315,7 +315,7 @@ label nsfw_erotic_story_thepen:
     m 1tkbsb "It was then that I felt myself getting close."
     m 1ekbsb "I kept the pace going, but I could feel my arm starting to get sore from the continuous movement."
     m 1tkbsa "I ignored it. After all, in my mind it was your arm doing the work~"
-    m 1tsbsa "I got that feeling in my lower half that told me I about to come..."
+    m 1tsbsa "I got that feeling in my lower half that told me I was about to come..."
     m 2tsbsb "I imagined my arms wrapping around your head and pulling you in as you finished me off."
     m 2ekbsb "As I orgasmed, I felt my body jolt from the pleasure."
     m 3rkbsa "It felt like there was a swirling buildup in my lower half..."

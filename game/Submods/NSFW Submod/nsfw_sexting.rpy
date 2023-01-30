@@ -600,6 +600,7 @@ label nsfw_sexting_finale:
             m 3ekbsa "This made me feel just that much closer to you."
             m 3ekbsb "I hope you enjoyed yourself as much as I did."
 
+            $ persistent._nsfw_last_sexted = datetime.datetime.now()
             $ store.persistent._nsfw_sexting_success_last = datetime.datetime.now()
             $ store.persistent._nsfw_horny_level = 0
 

@@ -212,7 +212,7 @@ label nsfw_monika_stories_menu:
                 $ _story_type = story_type
                 m 1ekc "Sorry, [player]... I can't really think of a new [_story_type] story right now..."
                 m 1eka "If you give me some time, I might be able to think of one soon... But in the meantime, I can always tell you an old one again~"
-                
+
                 show monika 1eua
                 jump nsfw_monika_stories_menu
 
@@ -265,7 +265,7 @@ label nsfw_erotic_story_thepen:
             inspired_monika = True
         else:
             inspired_monika = False
-    
+
     if not mas_getEVL_shown_count("nsfw_erotic_story_thepen") >= 1:
         m 1etb "An erotic story?"
         m 1duu "Let me think.{w=0.3}.{w=0.3}."

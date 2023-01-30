@@ -27,7 +27,7 @@ init 6 python: # Use init 6 since the dictionary entry to store our entries is a
             eventlabel="nsfw_player_fetishintro",
             category=['sex'],
             prompt="Let's talk about fetishes.",
-            conditional="mas_canShowRisque(aff_thresh=1000) and store.mas_getEVL_shown_count('nsfw_monika_fetish') >= 1", 
+            conditional="mas_canShowRisque(aff_thresh=1000) and store.mas_getEVL_shown_count('nsfw_monika_fetish') >= 1",
             action=EV_ACT_QUEUE,
             aff_range=(mas_aff.LOVE, None)
         )
@@ -122,7 +122,7 @@ label nsfw_fetish_bondage:
     m 1eua "As far as I know, it was initially developed in the early 1900's, and in paralell in two different locations - bringing us the styles we have today: western and western, but that's slightly different."
     m 1eua "They each have different ideas at their core, but are superficially the same and have even taken inspiration from one another. I can explain more about the history later if you want."
     m 1eua "There are a variety of reasons someone might be into it, ranging from the sense of security it brings, the change in power dynamic, how it looks, or even the sense of trust needed to do it with another."
-    
+
     m 1eua "Though with that well and done, what do you think, [player]? Do you think you'd like to try it out?"
     $ _history_list.pop()
     menu:
@@ -130,7 +130,7 @@ label nsfw_fetish_bondage:
         "Yes":
             $ persistent._nsfw_pm_bondage = True
             m 2tkbsb "Okay!"
-            
+
             m 1eua "Would you prefer giving, recieving, or both?"
             $ _history_list.pop()
             menu:

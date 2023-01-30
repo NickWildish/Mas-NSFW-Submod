@@ -510,8 +510,12 @@ init 6 python:
         code="NCP"
     )
 
-label nsfw_compliment_wet: # TODO
+label nsfw_compliment_wet:
     m 1eua "NOT COMPLETE"
+    if not renpy.seen_label("nsfw_compliment_wet_2"):
+        call nsfw_compliment_wet_2
+    else:
+        call nsfw_compliment_wet_3
     return
 
 label nsfw_compliment_wet_2: #TODO: Finish writing Monika's initial reaction to compliment

@@ -287,8 +287,8 @@ label nsfw_sexting_init:
                 #m 2ektdd "I can't believe you..."
                 #return "quit"
         call nsfw_sexting_main
-    elif persistent._nsfw_sext_hot_start or persistent._nsfw_sext_sexy_start:
-        call nsfw_sexting_main
+    #elif persistent._nsfw_sext_hot_start or persistent._nsfw_sext_sexy_start: | - Not sure what this is here for, but commenting it out in-case we need it somewhere
+    #    call nsfw_sexting_main                                                |
     else:
         $ last_sexted_since = datetime.datetime.now() - persistent._nsfw_last_sexted
         if persistent._nsfw_sext_sexy_start == True:

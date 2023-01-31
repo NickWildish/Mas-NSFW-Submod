@@ -89,19 +89,25 @@ label nsfw_sexting_main:
             $ shouldkiss = False
             $ shouldkiss_cooldown = 5
 
+        # Menus work well with 'All Gen Scrollable Menus' installed, so making a config for if the user has it or not
+        $ end_of_prompt = ""
+
+        if not store.mas_submod_utils.isSubmodInstalled("All Gen Scrollable Menus"):
+            $ end_of_prompt = " (sextchoice)" # TODO: Figure out why sextchoice is not being removed during sexting
+
         menu:
             m "[monika_quip][quip_ending]{fast}"
 
-            "[player_prompt[0]] (sextchoice)":
+            "[player_prompt[0]][end_of_prompt]":
                 $ prompt_choice = 0
 
-            "[player_prompt[1]] (sextchoice)":
+            "[player_prompt[1]][end_of_prompt]":
                 $ prompt_choice = 1
 
-            "[player_prompt[2]] (sextchoice)":
+            "[player_prompt[2]][end_of_prompt]":
                 $ prompt_choice = 2
 
-            "Actually, can we stop just for now? (sextchoice)":
+            "Actually, can we stop just for now?[end_of_prompt]":
                 if horny_lvl >= sexy_req:
                     $ persistent._nsfw_horny_level = horny_lvl - 10
                     $ persistent._nsfw_sext_sexy_start = True

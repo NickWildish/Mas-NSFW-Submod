@@ -1035,6 +1035,63 @@ label nsfw_monika_sexting:
         m 3wubssdlo "I would never make you do anything you didn't want to."
     return
 
+default persistent._nsfw_sexting_wait_current = 0
+
+init 5 python:
+    addEvent(
+        Event(
+            persistent.event_database,
+            eventlabel="nsfw_monika_sexting_horny",
+            conditional=(
+                "mas_canShowRisque(aff_thresh=1000) "
+                "and persistent._nsfw_sexting_success_last != None "
+                "and persistent._nsfw_player_sex_drive != 3 "
+                "and mas_timePastSince(persistent._nsfw_sexting_success_last, datetime.timedelta(hours=12)) "
+                "and mas_timePastSince(persistent._nsfw_monika_sexting_horny, datetime.timedelta(hours=12))"
+            ),
+            action=EV_ACT_RANDOM,
+            aff_range(mas_aff.LOVE, None)
+        )
+    )
+
+label nsfw_monika_sexting_horny:
+    persistent._nsfw_sexting_wait_current += 1
+
+    if persistent._nsfw_player_sex_drive == 1 and persistent._nsfw_sexting_wait_current == 1:
+        m 1eua "Hey, [player]." # TODO: Make proper dialogue for this bit
+        m 1eua "I wanna sext with you."
+        m 1eua "Are you up for it?"
+        $ _history_list.pop()
+        menu:
+            m "Are you up for it?{fast}"
+
+            "Yes.":
+                m 1eua "Great!"
+                call nsfw_sexting_init
+
+            "No.":
+                m 1eua "Aww..."
+                m 1eua "Okay, [player]."
+    else if (persistent._nsfw_sexting_wait_current != 2):
+        persistent._nsfw_sexting_wait_current += 1
+    else:
+        m 1eua "Hey, [player]." # TODO: Make proper dialogue for this bit
+        m 1eua "I wanna sext with you."
+        m 1eua "I gave you some more time than usual."
+        m 1eua "Are you up for it?"
+        $ _history_list.pop()
+        menu:
+            m "Are you up for it?{fast}"
+
+            "Yes.":
+                m 1eua "Great!"
+                call nsfw_sexting_init
+
+            "No.":
+                m 1eua "Aww..."
+
+    return
+
 init 5 python:
     addEvent(
         Event(

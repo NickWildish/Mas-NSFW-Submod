@@ -10,7 +10,10 @@ init 5 python:
             eventlabel="nsfw_player_sextingsession",
             category=['sex'],
             prompt="Do you want to sext?",
-            conditional="mas_canShowRisque(aff_thresh=1000) and store.mas_getEVL_shown_count('nsfw_monika_sexting') >= 1",
+            conditional=(
+                "mas_canShowRisque(aff_thresh=1000) "
+                "and store.mas_getEVL_shown_count('nsfw_monika_sexting') >= 1"
+                ),
             action=EV_ACT_POOL,
             aff_range=(mas_aff.LOVE, None)
         )
@@ -267,7 +270,10 @@ init 5 python:
             eventlabel="nsfw_monika_favorite_position",
             category=['sex'],
             prompt="[player]'s favorite position",
-            conditional="mas_canShowRisque(aff_thresh=400) and persistent._nsfw_genitalia == 'P'", # Need to add a version for women
+            conditional=(
+                "mas_canShowRisque(aff_thresh=400) "
+                "and persistent._nsfw_genitalia == 'P'"# Need to add a version for women
+                ),
             action=EV_ACT_RANDOM,
             aff_range=(mas_aff.ENAMORED, None)
         )
@@ -385,7 +391,10 @@ init 5 python:
             eventlabel="nsfw_monika_genitalia",
             category=['sex'],
             prompt="[player]'s genitalia",
-            conditional="renpy.seen_label('nsfw_monika_nsfwmodinstall') and mas_canShowRisque(aff_thresh=400)",
+            conditional=(
+                "renpy.seen_label('nsfw_monika_nsfwmodinstall') "
+                "and mas_canShowRisque(aff_thresh=400)"
+                ),
             action=EV_ACT_QUEUE,
             aff_range=(mas_aff.ENAMORED, None)
         )
@@ -619,7 +628,10 @@ init 5 python:
             eventlabel="nsfw_monika_masturbation_benefits",
             category=['sex'],
             prompt="Masturbation benefits",
-            conditional="mas_canShowRisque(aff_thresh=400) and store.mas_getEVL_shown_count('nsfw_monika_brb_masturbate')",
+            conditional=(
+                "mas_canShowRisque(aff_thresh=400) "
+                "and store.mas_getEVL_shown_count('nsfw_monika_brb_masturbate')"
+                ),
             action=EV_ACT_RANDOM,
             aff_range=(mas_aff.ENAMORED, None)
         )

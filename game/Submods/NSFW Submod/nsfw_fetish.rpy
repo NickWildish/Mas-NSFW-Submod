@@ -27,7 +27,10 @@ init 6 python: # Use init 6 since the dictionary entry to store our entries is a
             eventlabel="nsfw_player_fetishintro",
             category=['sex'],
             prompt="Let's talk about fetishes.",
-            conditional="mas_canShowRisque(aff_thresh=1000) and store.mas_getEVL_shown_count('nsfw_monika_fetish') >= 1",
+            conditional=(
+                "mas_canShowRisque(aff_thresh=1000) "
+                "and store.mas_getEVL_shown_count('nsfw_monika_fetish') >= 1"
+                ),
             action=EV_ACT_QUEUE,
             aff_range=(mas_aff.LOVE, None)
         )

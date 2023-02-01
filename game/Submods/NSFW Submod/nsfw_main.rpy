@@ -55,6 +55,27 @@ screen nsfw_submod_screen():
                 style="slider"
             )
 
+        hbox:
+            style_prefix "check"
+            box_wrap False
+
+            if _tooltip:
+                textbutton _("Monika Sexting Initiation"):
+                    action NullAction()
+                    hovered SetField(_tooltip, "value", "Changes the duration that Monika will wait until randomising trying to sext, from 12 hours, 24 hours, or never.")
+                    unhovered SetField(_tooltip, "value", _tooltip.default)
+            else:
+                textbutton _("Monika Sexting Initiation"):
+                    action NullAction()
+
+            bar value FieldValue(
+                persistent,
+                "_nsfw_player_sex_drive",
+                range=3,
+                offset=1,
+                style="slider"
+            )
+
 init 5 python: # init 5 as the modified dictionary (mas_all_ev_db_map) is using priority 4, and we want it to be around before adding anything.
     mas_all_ev_db_map.update({"NCP" : store.nsfw_compliments.nsfw_compliment_database})
     mas_all_ev_db_map.update({"NST" : store.nsfw_stories.nsfw_story_database})
@@ -152,8 +173,6 @@ init python in mas_nsfw:
                     return unlockable_underwear[new_underwear_no]
 
         return None
-
-
 
     def calc_sexting_reqs(horny_max=50, horny_min=0, hot_req=10, sexy_req=30):
         """

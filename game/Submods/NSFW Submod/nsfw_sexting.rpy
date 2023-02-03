@@ -610,6 +610,7 @@ label nsfw_sexting_finale:
             $ store.persistent._nsfw_sexting_success_last = datetime.datetime.now()
             $ store.persistent._nsfw_horny_level = 0
 
+            $ persistent._nsfw_sexting_attempts = 0 # Resets Monika sexting attempt count back to 0, if player initiated and Monika was set to low frequency
             return
 
         "No.":

@@ -19,6 +19,7 @@ init -989 python:
         )
 
 default persistent._nsfw_player_endurance = 1
+default persistent._nsfw_monika_sexting_frequency = 1
 
 screen nsfw_submod_screen():
     python:
@@ -38,10 +39,36 @@ screen nsfw_submod_screen():
             style_prefix "check"
             box_wrap False
 
+            python:
+                if persistent._nsfw_player_endurance == 1:
+                    end_disp = "~5 minutes"
+                elif persistent._nsfw_player_endurance == 2:
+                    end_disp = "~10 minutes"
+                elif persistent._nsfw_player_endurance == 3:
+                    end_disp = "~15 minutes"
+                elif persistent._nsfw_player_endurance == 4:
+                    end_disp = "~20 minutes"
+                elif persistent._nsfw_player_endurance == 5:
+                    end_disp = "~25 minutes"
+                elif persistent._nsfw_player_endurance == 6:
+                    end_disp = "~30 minutes"
+                elif persistent._nsfw_player_endurance == 7:
+                    end_disp = "~35 minutes"
+                elif persistent._nsfw_player_endurance == 8:
+                    end_disp = "~40 minutes"
+                elif persistent._nsfw_player_endurance == 9:
+                    end_disp = "~45 minutes"
+                elif persistent._nsfw_player_endurance == 10:
+                    end_disp = "~50 minutes"
+                elif persistent._nsfw_player_endurance == 11:
+                    end_disp = "~55 minutes"
+                else:
+                    end_disp = str(_nsfw_player_endurance)
+
             if _tooltip:
                 textbutton _("Sexting Endurance"):
                     action NullAction()
-                    hovered SetField(_tooltip, "value", "Changes the duration that Monika will last during sexting, from ~5 minutes to ~55 minutes")
+                    hovered SetField(_tooltip, "value", "Changes the duration that Monika will last during sexting, from ~5 minutes to ~55 minutes. Currently set to: " + end_disp)
                     unhovered SetField(_tooltip, "value", _tooltip.default)
             else:
                 textbutton _("Sexting Endurance"):
@@ -59,19 +86,29 @@ screen nsfw_submod_screen():
             style_prefix "check"
             box_wrap False
 
+            python:
+                if persistent._nsfw_monika_sexting_frequency == 1:
+                    sext_freq_disp = "12 hours"
+                elif persistent._nsfw_monika_sexting_frequency == 2:
+                    sext_freq_disp = "24 hours"
+                elif persistent._nsfw_monika_sexting_frequency == 3:
+                    sext_freq_disp = "Never"
+                else:
+                    sext_freq_disp = str(_nsfw_monika_sexting_frequency)
+
             if _tooltip:
-                textbutton _("Monika Sexting Initiation"):
+                textbutton _("Monika Sexting Frequency"):
                     action NullAction()
-                    hovered SetField(_tooltip, "value", "Changes the duration that Monika will wait until randomising trying to sext, from 12 hours, 24 hours, or never.")
+                    hovered SetField(_tooltip, "value", "Changes the duration that Monika will wait until randomly trying to sext, from 12 hours, 24 hours, or never. Currently set to: " + sext_freq_disp)
                     unhovered SetField(_tooltip, "value", _tooltip.default)
             else:
-                textbutton _("Monika Sexting Initiation"):
+                textbutton _("Monika Sexting Frequency"):
                     action NullAction()
 
             bar value FieldValue(
                 persistent,
-                "_nsfw_player_sex_drive",
-                range=3,
+                "_nsfw_monika_sexting_frequency",
+                range=2, # 1 = Normal, 2 = Low, 3 = Never
                 offset=1,
                 style="slider"
             )

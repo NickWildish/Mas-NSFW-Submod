@@ -108,6 +108,8 @@ label nsfw_sexting_main:
                 $ prompt_choice = 2
 
             "Actually, can we stop just for now?[end_of_prompt]":
+                $ persistent._nsfw_last_sexted = datetime.datetime.now() # We already have a success check, so this can be a check for any previous sexting attempt
+
                 if horny_lvl >= sexy_req:
                     $ persistent._nsfw_horny_level = horny_lvl - 10
                     $ persistent._nsfw_sext_sexy_start = True
@@ -611,6 +613,7 @@ label nsfw_sexting_finale:
             $ store.persistent._nsfw_horny_level = 0
 
             $ persistent._nsfw_sexting_attempts = 0 # Resets Monika sexting attempt count back to 0, if player initiated and Monika was set to low frequency
+
             return
 
         "No.":

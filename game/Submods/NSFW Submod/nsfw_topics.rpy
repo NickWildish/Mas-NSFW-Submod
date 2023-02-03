@@ -1065,7 +1065,7 @@ label nsfw_monika_sexting_horny:
         $ persistent._nsfw_sexting_attempts += 1
 
     # If our number of attempts matches the player's frequency request, then try to sext
-    if persistent._nsfw_monika_sexting_frequency == persistent._nsfw_sexting_attempts:
+    if persistent._nsfw_sexting_attempts == persistent._nsfw_monika_sexting_frequency:
         m 1eua "Hey, [player]." # TODO: Make proper dialogue for this bit
         m 1eua "I wanna sext with you."
         m 1eua "Are you up for it?"

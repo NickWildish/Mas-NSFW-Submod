@@ -468,7 +468,7 @@ label nsfw_sexting_sexy_transfer:
 label nsfw_sexting_finale:
     m 6tkbfo "Hah~ [player]?"
     ## Just a little bit of RNG to keep things interesting.
-    $ rng = renpy.random.randomint(1,6)
+    $ rng = random.randomint(1,6)
     if rng == 1:
         m 6hkbfc "I'm getting really close."
     elif rng == 2:

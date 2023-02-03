@@ -1027,3 +1027,19 @@ init python in mas_nsfw:
             return starts_hot[random.randint(0, len(starts_hot) - 1)]
         else: # Default
             return starts_cute[random.randint(0, len(starts_cute) - 1)]
+
+    # def rerandom_sext_event(nsfw_ev_label="", nsfw_conditional=""):
+    #     if nsfw_ev_label == "" or nsfw_conditional="":
+    #         return
+
+    #     with MAS_EVL(nsfw_ev_label) as random_ev:
+    #         random_ev.random = False
+    #         random_ev.conditional = (
+    #             "mas_canShowRisque(aff_thresh=1000) "
+    #             "and persistent._nsfw_sexting_success_last != None "
+    #             "and persistent._nsfw_monika_sexting_frequency != 3 "
+    #             "and mas_timePastSince(persistent._nsfw_sexting_last_sexted, datetime.timedelta(hours=12)) "
+    #             "and mas_timePastSince(mas_getEVL_last_seen('nsfw_monika_sexting_horny'), datetime.timedelta(hours=12))"
+    #         )
+    #         random_ev.action = EV_ACT_RANDOM
+    #     mas_rebuildEventLists()

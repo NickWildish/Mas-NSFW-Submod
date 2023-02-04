@@ -3,6 +3,23 @@ init 5 python in mas_bookmarks_derand:
 
 # PLAYER TOPICS
 
+init 5 python:
+    addEvent(
+        Event(
+            persistent.event_database,
+            eventlabel="nsfw_player_monika_initiate_sext",
+            category=['sex'],
+            prompt="Can you initiate sexting again?",
+            pool=True,
+            unlock=False,
+            aff_range=(mas_aff.LOVE, None)
+        )
+    )
+
+label nsfw_player_monika_initiate_sext:
+    m 1eua "Okay."
+    return
+
 # MONIKA TOPICS
 
 # original topic by mysterylewds, edits by mizuotanu-nirera

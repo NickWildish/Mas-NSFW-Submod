@@ -380,7 +380,7 @@ label nsfw_monika_fetish:
     m 1ekbld "But there are some things that are just too dangerous to be worth it in my view."
     m 1ekbsa "I'm sure whatever you're into isn't dangerous at all, [player]."
     if mas_is18Over():
-        m 3ekbsa "So, if you have a fantasy that isn't {i}too{\i} dangerous..."
+        m 3ekbsa "So, if you have a fantasy that isn't {i}too{/i} dangerous..."
         m 5eubsa "I wouldn't mind being there to help you...{w=0.2}fulfill it."
         m 5hubsa "Ehehe~"
     return

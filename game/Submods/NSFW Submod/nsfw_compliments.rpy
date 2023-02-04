@@ -441,7 +441,7 @@ label nsfw_compliment_naughty_flirting_2:
             m 1tsbfd "It would probably be easier to practice talking naughty if{nw}"
             if persistent._nsfw_genitalia == "P":
                 extend 1tsbfd " I had your nice and big dick to suck on and play with~"
-            elif persistent.nsfw_genitalia == "V":
+            elif persistent._nsfw_genitalia == "V":
                 extend 1tsbfd " I had your pussy in my face for me to lick and play with~"
             else:
                 extend 1tsbfd " your face was buried deep in my pussy, licking it clean~"

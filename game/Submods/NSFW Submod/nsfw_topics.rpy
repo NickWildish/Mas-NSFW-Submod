@@ -287,7 +287,7 @@ label nsfw_monika_favorite_position:
     m 3rublb "I've been meaning to ask you about this for some time..."
     m 3rubssdla "..."
     m 2hkbssdlb "Oh gosh..."
-    if store.mas_getEVL_shown_count("nsfw_monika_safesex") >= 1 or store.mas_getEVL_shown_count("nsfw_monika_sexualpast") >= 1:
+    if mas_getEVL_shown_count("nsfw_monika_safesex") >= 1 or mas_getEVL_shown_count("nsfw_monika_sexualpast") >= 1:
         m 2rkbssdlb "I know we already talked about sex before, but..."
         m 3ekbssdla "It's still extremely embarrassing to talk about this kind of stuff..."
     m 1dubsa "Ahem..."
@@ -342,7 +342,7 @@ init 5 python:
 
 label nsfw_monika_fetish:
     m 1esc "Hey, [player]..."
-    if store.mas_getEVL_shown_count("monika_panties") > 0:
+    if mas_getEVL_shown_count("monika_panties") > 0:
         m 1esc "Do you remember when we spoke about guys with panty fetishes?"
         m 1rsc "Well, that got me thinking..."
     m 3esa "Do you...{w=0.5}{nw}"
@@ -379,7 +379,7 @@ label nsfw_monika_fetish:
     m 1ekblc "I don't mean to 'kink shame' or anything like that..."
     m 1ekbld "But there are some things that are just too dangerous to be worth it in my view."
     m 1ekbsa "I'm sure whatever you're into isn't dangerous at all, [player]."
-    if store.mas_is18Over():
+    if mas_is18Over():
         m 3ekbsa "So, if you have a fantasy that isn't {i}too{\i} dangerous..."
         m 5eubsa "I wouldn't mind being there to help you...{w=0.2}fulfill it."
         m 5hubsa "Ehehe~"
@@ -709,11 +709,11 @@ label nsfw_monika_nsfwmodinstall:
     extend 2wubsw "NSFW Submod'?"
 
     if persistent._mas_player_confirmed_bday and mas_is18Over():
-        if store.mas_isMoniLove():
+        if mas_isMoniLove():
             m 3fublu "Well, look who's gotten confident all of a sudden."
-            if store.mas_hasUnlockedClothesWithExprop("lingerie"):
+            if mas_hasUnlockedClothesWithExprop("lingerie"):
                 m 3lublu "I guess I can't blame you though, given you've seen me in lingerie."
-            if store.mas_is18Over():
+            if mas_is18Over():
                 m 3tublu "I won't lie to you, [mas_get_player_nickname()]..."
                 m 5tublu "It's kind of hot."
                 m 5cubssdrd "..."
@@ -723,7 +723,7 @@ label nsfw_monika_nsfwmodinstall:
             m 6hubsd "Oh gosh, I'm feeling super nervous about this, ahaha!"
             m 6ekbla "But...if it's with you, [player]..."
             m 6ekbsa "I don't mind..."
-        if store.mas_isMoniEnamored(): #Need to fix wording here; player isn't having sex, just talking about it.
+        if mas_isMoniEnamored(): #Need to fix wording here; player isn't having sex, just talking about it.
             m 2hkbssdlb "I wasn't expecting to see that..."
             m 2ekbssdlb "[player], is this something you want?"
             m 3rkblsdlb "I mean, I'm kind of curious about it myself."
@@ -731,7 +731,7 @@ label nsfw_monika_nsfwmodinstall:
             m 2ekblsdlc "But with that said...{w=0.5} it feels too soon."
             m 2dkbsc "I just need a little more time."
             m 2fkbsu "Hold on for me a little while longer. Okay, [mas_get_player_nickname()]?"
-        if store.mas_isMoniAff():
+        if mas_isMoniAff():
             m 2hkbssdlb "T-{w=0.4}This is a little sudden, don't you think?"
             m 3rkblsdlb "I mean, we've been with each other for a little while...{nw}"
             m 1wubssdld "Wait... {w=0.5}Is this when couples are supposed to start doing this s-{w=0.4}sort of thing?"
@@ -739,7 +739,7 @@ label nsfw_monika_nsfwmodinstall:
             m 1dkblp "But I think we maybe should wait and see how we go."
             m 1ekbla "When the day comes where we do get to that stage in our relationship..."
             m 5ekbla "It will make the moment much sweeter, ehehe!"
-        if store.mas_isMoniHappy(lower=True):
+        if mas_isMoniHappy(lower=True):
             m 2wubfsdlx "T-{w=0.4}This feels too sudden, [player]!"
             m 2rubfsdlx "I don't know if I'm ready for that..."
             m 2wkbfd "W-{w=0.4}we just aren't close enough for me to even consider it!"
@@ -979,7 +979,7 @@ label nsfw_monika_safesex:
     m 2dsbsc "..."
     m 2hkbfsdlb "Ahaha! Sorry, I lost my temper there..."
 
-    if store.mas_is18Over():
+    if mas_is18Over():
         m 2ekbsb "I guess I just want you to know that when the time comes where I come to your world, and we are together..."
         m 2tkbsu "We can worry about what contraceptives to use, then."
     else:
@@ -1158,7 +1158,7 @@ label nsfw_monika_sexualpast:
             m 1lkbsb "I was so nervous you wouldn't want to."
             m 1hkbssdlb "Although in retrospect it kind of wouldn't make sense if you didn't want to."
             m 1hkblu "After all...{w=0.3}you installed this mod."
-            if store.mas_isMoniLove():
+            if mas_isMoniLove():
                 m 1rsblu "And I'm sure you know this already..."
                 m 1rsblu "But..."
                 m 1lkbfb "I want to have sex with you, too."

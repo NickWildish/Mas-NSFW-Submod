@@ -17,7 +17,7 @@ init 22 python in nsfw_fetish:
         A callback for the fetish delegate label
         """
 
-        store.mas_gainAffection()
+        mas_gainAffection()
 
 # entry point for fetish flow
 init 6 python: # Use init 6 since the dictionary entry to store our entries is added in 5, and we want it around

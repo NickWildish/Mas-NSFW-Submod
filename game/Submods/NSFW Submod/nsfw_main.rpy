@@ -23,7 +23,7 @@ default persistent._nsfw_monika_sexting_frequency = 1
 
 screen nsfw_submod_screen():
     python:
-        nsfw_submods_screen = store.renpy.get_screen("submods", "screens")
+        nsfw_submods_screen = renpy.get_screen("submods", "screens")
 
         if nsfw_submods_screen:
             _tooltip = nsfw_submods_screen.scope.get("tooltip", None)
@@ -152,9 +152,9 @@ init python in mas_nsfw:
         else:
             time_away_req = datetime.timedelta(hours=set_time) # It is assumed to be "hours" if something else is found.
 
-        time_since_last_seen = datetime.datetime.now() - store.mas_getEVL_last_seen(topic)
+        time_since_last_seen = datetime.datetime.now() - mas_getEVL_last_seen(topic)
 
-        if store.mas_getAbsenceLength() >= time_away_req and time_since_last_seen >= time_away_req:
+        if mas_getAbsenceLength() >= time_away_req and time_since_last_seen >= time_away_req:
             return True
         else:
             return False
@@ -166,7 +166,7 @@ init python in mas_nsfw:
         OUT:
             True if the player has seen 'monika_gettingnude' topic AND risque is allowed AND the player hasn't seen the topic for at least 6 hours AND the player hasn't already unlocked her underwear, False if otherwise
         """
-        if store.mas_getEV("nsfw_monika_gettingnude").shown_count >= 1 and store.mas_canShowRisque(aff_thresh=1000) and hour_check() and not store.mas_SELisUnlocked(store.mas_clothes_underwear_white):
+        if mas_getEV("nsfw_monika_gettingnude").shown_count >= 1 and mas_canShowRisque(aff_thresh=1000) and hour_check() and not mas_SELisUnlocked(store.mas_clothes_underwear_white):
             return True
         else:
             return False
@@ -178,7 +178,7 @@ init python in mas_nsfw:
         OUT:
             True if the player has seen 'monika_gettingnude' topic twice AND risque is allowed AND the player hasn't seen the topic for at least 6 hours AND the player hasn't already unlocked her naked, false if otherwise
         """
-        if store.mas_SELisUnlocked(store.mas_clothes_underwear_white) and store.mas_canShowRisque() and hour_check() and not store.persistent._nsfw_has_unlocked_birthdaysuit:
+        if mas_SELisUnlocked(store.mas_clothes_underwear_white) and mas_canShowRisque() and hour_check() and not store.persistent._nsfw_has_unlocked_birthdaysuit:
             return True
         else:
             return False
@@ -193,19 +193,19 @@ init python in mas_nsfw:
         """
         unlockable_underwear = []
 
-        if not store.mas_SELisUnlocked(store.mas_clothes_underwear_black):
+        if not mas_SELisUnlocked(store.mas_clothes_underwear_black):
             unlockable_underwear.append(store.mas_clothes_underwear_black)
 
-        if not store.mas_SELisUnlocked(store.mas_clothes_underwear_pink):
+        if not mas_SELisUnlocked(store.mas_clothes_underwear_pink):
             unlockable_underwear.append(store.mas_clothes_underwear_pink)
 
         # Add more underwear here
 
-        if store.mas_SELisUnlocked(store.mas_clothes_underwear_white):
+        if mas_SELisUnlocked(store.mas_clothes_underwear_white):
             if random.randint(1,3) == 1: # 1/3 chance of unlocking new underwear
                 if unlockable_underwear:
                     new_underwear_no = random.randint(0,len(unlockable_underwear)-1)
-                    store.mas_SELisUnlocked(unlockable_underwear[new_underwear_no])
+                    mas_SELisUnlocked(unlockable_underwear[new_underwear_no])
 
                     return unlockable_underwear[new_underwear_no]
 
@@ -255,7 +255,7 @@ init python in mas_nsfw:
             A string containing a particular response from Monika.
         """
         player_name = store.persistent.playername
-        player_nickname = store.mas_get_player_nickname()
+        player_nickname = mas_get_player_nickname()
 
         return_responses = [] # start building from this list
 
@@ -714,7 +714,7 @@ init python in mas_nsfw:
             eye_desc = "beautiful"
 
         player_name = store.persistent.playername
-        player_nickname = store.mas_get_player_nickname()
+        player_nickname = mas_get_player_nickname()
 
         # Sexting quips for your average compliment
         sext_quips_cute = [
@@ -963,9 +963,9 @@ init python in mas_nsfw:
 
         rare_endings = (
             ", " + store.persistent.playername + ".",
-            ", " + store.mas_get_player_nickname() + ".",
+            ", " + mas_get_player_nickname() + ".",
             ", " + store.persistent.playername + "~",
-            ", " + store.mas_get_player_nickname() + "~",
+            ", " + mas_get_player_nickname() + "~",
         )
 
         existing_endings = (

@@ -5,7 +5,7 @@ label nsfw_monika_nsfwReact:
     m 1lsbssdrb "By the way, [player]..."
     m "Are you looking into lewd kinds of stuff?"
     m 3lsbsa "You know...of me?"
-    if store.mas_getEV("nsfw_player_sextingsession").shown_count >= 1:
+    if mas_getEV("nsfw_player_sextingsession").shown_count >= 1:
         m 3ekbsa "I know we occasionally do lewd things over text together..."
     elif store.mas_anni.pastSixMonths() and mas_isMoniEnamored(higher=True):
         m 3ekbsa "I know we haven't been able to do those kind of things yet..."

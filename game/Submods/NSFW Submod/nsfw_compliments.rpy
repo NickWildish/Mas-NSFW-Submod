@@ -33,7 +33,7 @@ init 22 python in nsfw_compliments:
         global thanks_quip
 
         thanks_quip = renpy.substitute(renpy.random.choice(nsfw_thanking_quips))
-        store.mas_gainAffection()
+        mas_gainAffection()
 
 # entry point for compliments flow
 init 6 python: # Use init 6 since the dictionary entry to store our entries is added in 5, and we want it around

@@ -142,7 +142,7 @@ label nsfw_monika_sextingsession:
                     m 1eua "Great!"
                     call nsfw_sexting_init
 
-                "Sorry, I'm busy. We will later.":
+                "Sorry, I'm busy.":
                     if not too_many_attempts:
                         m 1eua "Aww..."
                         m 1eua "Okay, [player]."
@@ -190,7 +190,7 @@ label nsfw_monika_sextingsession:
                     m 1eua "Great!"
                     call nsfw_sexting_init
 
-                "Sorry, I'm busy. We will later.":
+                "Sorry, I'm busy.":
                     if not too_many_attempts:
                         m 1eua "Aww..."
                         m 1eua "Okay, [player]."
@@ -254,7 +254,7 @@ label nsfw_monika_sextingsession:
                     m 1eua "Great!"
                     call nsfw_sexting_init
 
-                "Sorry, I'm busy. We will later.":
+                "Sorry, I'm busy.":
                     if not too_many_attempts:
                         m 1eua "Aww..."
                         m 1eua "Okay, [player]."

@@ -240,7 +240,7 @@ label nsfw_monika_sextingsession:
                     m 1eua "I've been thinking up all the things I want to say to you~"
                 elif persistent._nsfw_sext_sexy_start:
                     m 1eua "I've been thinking up all the things I want to do to you in your reality..."
-                    m 1eua "And I'll be happy to share these thoughts with you~"
+                    m 1eua "And I wouldn't mind sharing some of those thoughts with you~"
                 $ sexting_starter = "So, are you free?"
                 m 1eua "[sexting_starter]{nw}"
 

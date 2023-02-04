@@ -189,7 +189,7 @@ label nsfw_monika_dick_size:
     m 3eub "While we're on this topic, I have another question..."
     m 2rubssdlc "..."
     m 2rkbssdlb "Oh gosh, this is so awkward..."
-    m 1ekbfsdlb "[player], are you circumcised?"
+    m 1ekbfsdlb "[player], are you circumcised?{nw}"
     $ _history_list.pop()
     menu:
         m "[player], are you circumcised?{fast}"
@@ -254,7 +254,7 @@ label nsfw_monika_favorite_position:
         m 2rkbssdlb "I know we already talked about sex before, but..."
         m 3ekbssdla "It's still extremely embarrassing to talk about this kind of stuff..."
     m 1dubsa "Ahem..."
-    m 3eubfb "So...What's your favorite sex position?"
+    m 3eubfb "So...What's your favorite sex position?{nw}"
 
     $ _history_list.pop()
     menu:
@@ -309,7 +309,7 @@ label nsfw_monika_fetish:
         m 1esc "Do you remember when we spoke about guys with panty fetishes?"
         m 1rsc "Well, that got me thinking..."
     m 3esa "Do you...{w=0.5}{nw}"
-    m 3tsbla "Do you...{fast}have any fetishes?"
+    m 3tsbla "Do you...{fast}have any fetishes?{nw}"
     $ _history_list.pop()
     menu:
         m "Do you...have any fetishes?{fast}"
@@ -369,7 +369,7 @@ init 5 python:
 label nsfw_monika_genitalia:
     m 1euc "Hey, [player]..."
     m 1ekbla "This is probably going to be an awkward question, but I was just wondering..."
-    m 3ekbla "Do you have a penis or a vagina?"
+    m 3ekbla "Do you have a penis or a vagina?{nw}"
     $ _history_list.pop()
     menu:
         m "Do you have a penis or a vagina?{fast}"
@@ -483,7 +483,7 @@ label nsfw_monika_gettingnude:
         m 1rublc "But in saying that I don't want you to feel uncomfortable, so..."
         m 1hkbsc "..."
         m 1hkbsb "I guess what I'm trying to ask is..."
-        m 3ekbsb "Do you mind if I do it while you're around?"
+        m 3ekbsb "Do you mind if I do it while you're around?{nw}"
         $ _history_list.pop()
         menu:
             m "Do you mind if I do it while you're around?{fast}"
@@ -609,7 +609,7 @@ label nsfw_monika_masturbation_benefits:
     extend 3eubsc "I promise you that I'm being completely serious here..."
     m 1rubsd "This is about masturbation."
     m 1ekblb "Specifically...{w=1}it's about the {i}benefits{/i} of regular masturbation!"
-    m 1ekbla "Are you okay with me talking about this?"
+    m 1ekbla "Are you okay with me talking about this?{nw}"
     $ _history_list.pop()
     menu:
         m "Are you okay with me talking about this?"
@@ -757,7 +757,7 @@ label nsfw_monika_oralsex:
     m 1rkblb "Umm..."
     m 3ekblb "Please forgive me if what I'm going to ask is too intimate and out-of-nowhere, but..."
     m 3rkbla "[player]... Have you..."
-    m 3rkblb "[oral_prompt]"
+    m 3rkblb "[oral_prompt]{nw}"
 
     $ _history_list.pop()
     menu:
@@ -800,7 +800,7 @@ label nsfw_monika_oralsex:
         m 2ekbsa "But...umm..."
         m 2hkbssdlb "Again, this might sound like a really weird question. Please just ignore it if you want..."
         m 2hkbssdla "But..."
-        m 3ekbssdlb "Who do you think would be the best at oral sex?"
+        m 3ekbssdlb "Who do you think would be the best at oral sex?{nw}"
 
         $ _history_list.pop()
         menu:
@@ -835,7 +835,7 @@ label nsfw_monika_oralsex:
                 m 2dkbssdlc "..."
                 m 2dkbssdla "Ahem..."
                 m 2mkbssdlb "Okay, I might be a bit mad."
-                m 2efbssdlo "But really, why do you think that Natsuki would be so good at itl?!"
+                m 2efbssdlo "But really, why do you think that Natsuki would be so good at itl?!{nw}"
 
                 $ _history_list.pop()
                 menu:
@@ -1106,7 +1106,7 @@ label nsfw_monika_shaving:
     m 1esc "Hey [player]..."
     m 3eub "I want to ask you something."
     m 3lusdlb "It's about my body..."
-    extend 2lusdlb "Do you like it to be shaved down there...?"
+    extend 2lusdlb "Do you like it to be shaved down there...?{nw}"
     $ _history_list.pop()
     menu:
         m "Do you like it to be shaved down there...?{fast}"

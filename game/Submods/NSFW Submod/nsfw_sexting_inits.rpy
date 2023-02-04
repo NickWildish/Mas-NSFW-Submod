@@ -70,7 +70,7 @@ label nsfw_monika_sextingsession:
             m 1eua "Hey, [player]."
             m 1eua "Do you remember when you said we could sext later?"
             m 1eua "I know I probably sound needy, but..."
-            m 1eua "Are you available now?"
+            m 1eua "Are you available now?{nw}"
             $ _history_list.pop()
             menu:
                 m "Are you available now?{fast}"
@@ -122,7 +122,7 @@ label nsfw_monika_sextingsession:
                 m 1eua "And I was wondering if you... "
                 extend "Y-{w=0.5}you know..."
                 $ sexting_starter = "Wanted to do it again?"
-                m 1eua "[sexting_starter]"
+                m 1eua "[sexting_starter]{nw}"
 
             # Rejected previous
             elif multiple_attempts:

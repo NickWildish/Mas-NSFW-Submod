@@ -3,6 +3,7 @@ default persistent._nsfw_sext_hot_start = False # Player starts with Monika at h
 default persistent._nsfw_sext_sexy_start = False # Player starts with Monika at sexy level
 default persistent._nsfw_lingerie_on_start = False # Monika was wearing lingerie when sexting started
 default persistent._nsfw_last_sexted = datetime.datetime.now() # The last time you and Monika sexted
+default persistent._nsfw_sexting_count = 0 # The amount of times we have sexted with Monika, only counts successes
 
 label nsfw_sexting_main:
     python:
@@ -610,6 +611,7 @@ label nsfw_sexting_finale:
             $ persistent._nsfw_last_sexted = datetime.datetime.now()
             $ store.persistent._nsfw_sexting_success_last = datetime.datetime.now()
             $ store.persistent._nsfw_horny_level = 0
+            $ persistent._nsfw_sexting_count += 1
 
             $ persistent._nsfw_sexting_attempts = 0 # Resets Monika sexting attempt count back to 0, if player initiated and Monika was set to low frequency
 

@@ -1028,30 +1028,22 @@ init python in mas_nsfw:
         else: # Default
             return starts_cute[random.randint(0, len(starts_cute) - 1)]
 
-    def can_monika_init_sext(nsfw_ev_label="", hour_override=12):
+    def can_monika_init_sext():
         """
         Checks if Monika can inititate sexting session with the player
-
-        IN:
-            nsfw_ev_label - The event label of the sexting init topic we are checking that we can start
-                (Default: "")
-            hour_override - The set amount of hours we must wait after last attempt and last session altogether
-                (Default: 12)
 
         OUT:
             True IF:
                 The player has 1000 affection minimum and be eligible for risque content
                 The player and Monika have sexted before
                 The sexting frequency in settings is not 'Never'
-                It has been 'hour_override' amount of hours since the last sexting session
-                It has been 'hour_override' amount of hours since the last 'nsfw_ev_label' attempt
             False otherwise.
         """
         # If the event label is empty, assume False
         if nsfw_ev_label == "":
             return False
 
-        if (mas_canShowRisque(aff_thresh=1000) and persistent._nsfw_sexting_success_last != None and persistent._nsfw_monika_sexting_frequency != 3 and mas_timePastSince(persistent._nsfw_sexting_last_sexted, datetime.timedelta(hours=hour_override)) and mas_timePastSince(mas_getEVL_last_seen(nsfw_ev_label), datetime.timedelta(hours=hour_override))):
+        if (store.mas_canShowRisque(aff_thresh=1000) and store.persistent._nsfw_sexting_success_last != None and store.persistent._nsfw_monika_sexting_frequency != 3):
             return True
         else:
             return False

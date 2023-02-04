@@ -5,7 +5,11 @@ init 5 python:
         Event(
             persistent.event_database,
             eventlabel="nsfw_monika_sexting_horny",
-            conditional=(mas_nsfw.can_monika_init_sext("nsfw_monika_sexting_horny")),
+            conditional=(
+                "mas_nsfw.can_monika_init_sext() "
+                "and mas_timePastSince(persistent._nsfw_sexting_last_sexted, datetime.timedelta(hours=12)) "
+                "and mas_timePastSince(mas_getEVL_last_seen('nsfw_monika_sexting_horny'), datetime.timedelta(hours=12))"
+                ),
             action=EV_ACT_RANDOM,
             aff_range=(mas_aff.LOVE, None)
         )
@@ -48,9 +52,7 @@ label nsfw_monika_sexting_horny_end:
         with MAS_EVL("nsfw_monika_sexting_horny") as sexting_horny_ev:
             sexting_horny_ev.random = False
             sexting_horny_ev.conditional = (
-                "mas_canShowRisque(aff_thresh=1000) "
-                "and persistent._nsfw_sexting_success_last != None "
-                "and persistent._nsfw_monika_sexting_frequency != 3 "
+                "mas_nsfw.can_monika_init_sext() "
                 "and mas_timePastSince(persistent._nsfw_sexting_last_sexted, datetime.timedelta(hours=12)) "
                 "and mas_timePastSince(mas_getEVL_last_seen('nsfw_monika_sexting_horny'), datetime.timedelta(hours=12))"
             )

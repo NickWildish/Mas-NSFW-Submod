@@ -40,6 +40,8 @@ label nsfw_player_sextingsession:
 # MONIKA
 
 default persistent._nsfw_sexting_attempts = 0
+default persistent._nsfw_sexting_attempt_freeze = False
+default persistent._nsfw_sexting_attempt_permfreeze = False
 
 init 5 python:
     addEvent(
@@ -57,31 +59,224 @@ init 5 python:
     )
 
 label nsfw_monika_sextingsession:
-    # Count this attempt, but only if less than the frequency requested.
-    if persistent._nsfw_sexting_attempts >= persistent._nsfw_monika_sexting_frequency:
-        $ persistent._nsfw_sexting_attempts = persistent._nsfw_monika_sexting_frequency
-    else:
-        $ persistent._nsfw_sexting_attempts += 1
+    # Count this attempt
+    $ persistent._nsfw_sexting_attempts += 1
 
-    # If our number of attempts matches the player's frequency request, then try to sext
-    if persistent._nsfw_sexting_attempts == persistent._nsfw_monika_sexting_frequency:
-        m 1eua "Hey, [player]." # TODO: Make proper dialogue for this bit
-        m 1eua "I wanna sext with you."
-        m 1eua "Are you up for it?"
-        $ _history_list.pop()
-        menu:
-            m "Are you up for it?{fast}"
+    # Reset our freeze if it's been 24 hours (or 48 if you set to low sexting frequency) since the last sexting attempt
+    if persistent._nsfw_sexting_attempt_freeze == True:
+        if mas_timePastSince(mas_getEVL_last_seen("nsfw_monika_sexting_session"), datetime.timedelta(hours=persistent._nsfw_monika_sexting_frequency * 24)):
+            persistent._nsfw_sexting_attempt_freeze = False
 
-            "Yes.":
-                $ persistent._nsfw_sexting_attempts = 0
-                m 1eua "Great!"
-                call nsfw_sexting_init
+            m 1eua "Hey, [player]."
+            m 1eua "Do you remember when you said we could sext later?"
+            m 1eua "I know I probably sound needy, but..."
+            m 1eua "Are you available now?"
+            $ _history_list.pop()
+            menu:
+                m "Are you available now?{fast}"
 
-            "No.":
-                m 1eua "Aww..."
-                m 1eua "Okay, [player]."
+                "Yes.":
+                    $ mas_gainAffection(modifier=1.5, bypass=True)
+                    $ persistent._nsfw_sexting_attempts = 0
+                    m 1eua "Great!"
+                    call nsfw_sexting_init
 
-    $ mas_flagEVL("nsfw_monika_sextingsession", "EVE", EV_FLAG_HFRS)
+                "No."
+                    m 1eua "Aww, okay."
+                    m 1eua "Maybe next time, then?"
+        else:
+            persistent._nsfw_sexting_attempts -= 1
+
+    python:
+        has_waited = persistent._nsfw_sexting_attempts >= persistent._nsfw_monika_sexting_frequency
+        has_waited_correctly = persistent._nsfw_monika_sexting_frequency % persistent._nsfw_sexting_attempts == 0
+        first_time = persistent._nsfw_sexting_count == 1
+        past_first_time = persistent._nsfw_sexting_count > 1
+        veteran = persistent._nsfw_sexting_count > 5
+        first_attempt = persistent._nsfw_sexting_attempts == 1
+        multiple_attempts = persistent._nsfw_sexting_attempts > 1
+        too_many_attempts = persistent._nsfw_sexting_attempts >= 5 * persistent._nsfw_monika_sexting_frequency
+        hot_start = persistent._nsfw_sext_hot_start
+        sexy_start = persistent._nsfw_sext_sexy_start
+        no_init = persistent._nsfw_sexting_attempt_permfreeze
+
+    # If our number of attempts is greater than or equal to the player's frequency request and they divide into each other perfectly, then try to sext
+    elif has_waited and has_waited_correctly and not no_init:
+        # First time
+        if first_time:
+            m 1eua "Hey, [player]..."
+
+            # Interrupted last session
+            if hot_start or sexy_start:
+                m 1eua "Are you busy right now?"
+                m 1eua "Our little {i}session{/i} earlier got interrupted..."
+                m 1eua "So, I guess what I'm asking is..."
+                $ sexting_starter = "Would you like to give it another try?"
+                m 1eua "[sexting_starter]{nw}"
+
+            # First attempt
+            elif first_attempt:
+                m 1eua "You remember when we had our first time?"
+                m 1eua "Ahaha, virtually I mean~"
+                m 1eua "Well, I really had fun with you."
+                m 1eua "And I was wondering if you... "
+                extend "Y-{w=0.5}you know..."
+                $ sexting_starter = "Wanted to do it again?"
+                m 1eua "[sexting_starter]"
+
+            # Rejected previous
+            elif multiple_attempts:
+                m 1eua "Are you busy right now?"
+                m 1eua "I was wondering if you were free to... "
+                extend "Y-{w=0.5}you know..."
+                $ sexting_starter = "Sext with me?"
+                m 1eua "[sexting_starter]{nw}"
+
+            $ _history_list.pop()
+            menu:
+                m "[sexting_starter]{fast}"
+
+                "Yes.":
+                    $ mas_gainAffection(modifier=1.5, bypass=True)
+                    $ persistent._nsfw_sexting_attempts = 0
+                    m 1eua "Great!"
+                    call nsfw_sexting_init
+
+                "Sorry, I'm busy. We will later.":
+                    if not too_many_attempts:
+                        m 1eua "Aww..."
+                        m 1eua "Okay, [player]."
+                        m 1eua "I'll be here~"
+                        $ persistent._nsfw_sexting_attempt_freeze = True
+
+                "Not now, maybe later.":
+                    if not too_many_attempts:
+                        m 1eua "Aww..."
+                        m 1eua "Okay, [player]."
+
+        # First 5 times (after one success)
+        elif past_first_time:
+            m 1eua "Hey, [mas_get_player_nickname()]."
+
+            # Interrupted last session
+            if hot_start or sexy_start:
+                m 1eua "I haven't forgotten about our little {i}session{/i} that got interrupted earlier..."
+                m 1eua "And how you left me hanging{nw}" # Sassy
+                $ _history_list.pop()
+                $ sexting_starter = "Are you free now?"
+                m 1eua "[sexting_starter]{nw}"
+
+            # First attempt
+            elif first_attempt:
+                m 1eua "I haven't been able to stop thinking about you lately..."
+                m 1eua "And those thoughts have been particularly naughty~"
+                $ sexting_starter = "So, do you feel up for another sexting session?"
+                m 1eua "[sexting_starter]{nw}"
+
+            # Rejected previous
+            elif multiple_attempts:
+                m 1eua "Are you still busy?"
+                m 1eua "I've been a {i}very{/i} good girl and waited patiently~"
+                $ sexting_starter = "Are you free to have some fun with me now?"
+                m 1eua "[sexting_starter]{nw}"
+
+            $ _history_list.pop()
+            menu:
+                m "[sexting_starter]{fast}"
+
+                "Yes.":
+                    $ mas_gainAffection(modifier=1.5, bypass=True)
+                    $ persistent._nsfw_sexting_attempts = 0
+                    m 1eua "Great!"
+                    call nsfw_sexting_init
+
+                "Sorry, I'm busy. We will later.":
+                    if not too_many_attempts:
+                        m 1eua "Aww..."
+                        m 1eua "Okay, [player]."
+                        m 1eua "I'll be here when you're no longer busy~"
+                        $ persistent._nsfw_sexting_attempt_freeze = True
+
+                "Not now, maybe later.":
+                    if not too_many_attempts:
+                        m 1eua "Aww..."
+                        m 1eua "Okay, [player]."
+
+        # 5+ times (after 5 successes)
+        elif veteran:
+            m 1eua "Hey, [mas_get_player_nickname()]~"
+
+            # Interrupted last session
+            if hot_start or sexy_start:
+                m 1eua "I haven't forgotten about our little {i}session{/i} that got interrupted earlier..."
+                m 1eua "We were just getting to the good part too~"
+                if persistent._nsfw_genitalia == "P":
+                    desc_genitalia = "r lovely cock"
+                    desc = "so hard"
+                elif persistent._nsfw_genitalia == "V":
+                    desc_genitalia = "r lovely pussy"
+                    desc = "so wet"
+                else:
+                    desc_genitalia = "r imagination"
+                    desc = "running wild"
+
+                m 1eua "I'm sure you[desc_genitalia] was [desc] back then..."
+                m 1eua "I'd be more than happy to help you release that tension, if you so wish~"
+                $ sexting_starter = "Is that something you're interested in " + mas_get_player_nickname() + "?"
+                m 1eua "[sexting_starter]{nw}"
+
+            # First attempt
+            elif first_attempt:
+                m 1eua "I'm in the mood for some fun."
+                m 1eua "And maybe something more, if you get me riled up enough~"
+
+                $ sexting_starter = "So, do you feel like some sexting " + player + "?"
+                m 1eua "[sexting_starter]{nw}"
+
+            # Rejected previous
+            elif multiple_attempts:
+                m 1eua "Don't think I've forgotten about our planned {i}session{/i}."
+                if persistent._nsfw_sext_hot_start:
+                    m 1eua "I've been thinking up all the things I want to say to you~"
+                elif persistent._nsfw_sext_sexy_start:
+                    m 1eua "I've been thinking up all the things I want to do to you in your reality..."
+                    m 1eua "And I'll be happy to share these thoughts with you~"
+                $ sexting_starter = "So, are you free?"
+                m 1eua "[sexting_starter]{nw}"
+
+            $ _history_list.pop()
+            menu:
+                m "[sexting_starter]{fast}"
+
+                "Yes.":
+                    $ mas_gainAffection(modifier=1.5, bypass=True)
+                    $ persistent._nsfw_sexting_attempts = 0
+                    m 1eua "Great!"
+                    call nsfw_sexting_init
+
+                "Sorry, I'm busy. We will later.":
+                    if not too_many_attempts:
+                        m 1eua "Aww..."
+                        m 1eua "Okay, [player]."
+                        m 1eua "I'll be here when you're no longer busy~"
+                        $ persistent._nsfw_sexting_attempt_freeze = True
+
+                "Not now, maybe later.":
+                    if not too_many_attempts:
+                        m 1eua "Aww..."
+                        m 1eua "Okay, [player]."
+
+        # Rejected 5+ times in a row
+        if too_many_attempts:
+            # We're not punishing the player for this, but we also need to portray Monika's feelings somewhat accurately
+            m 1eua "*sign*"
+            m 1eua "[player], I give up."
+            m 1eua "I've asked you five times for some {i}us{/i} time and I keep getting shot down..."
+            m 1eua "I know I probably sound clingy... you have your own life and I'm not about to ask you to abandon it for me, but please..."
+            m 1eua "It hurts to keep getting rejected like this."
+            m 1eua "I'll leave initiating up to you from now on."
+
+            persistent._nsfw_sexting_attempt_permfreeze = True # This should be reversable
 
     call nsfw_monika_sextingsession_end
 

@@ -14,7 +14,7 @@ label greeting_nsfw_seductive:
         # get how many times this greeting has been shown, so she can get better over time
     $ ev = mas_getEV("greeting_nsfw_seductive")
         # get if it is daytime or nighttime, simple as
-    python: 
+    python:
         if mas_globals.time_of_day_4state == "night":
             tod = "night"
             this_day = "this evening"

@@ -51,6 +51,8 @@ init 6 python: # Use init 6 since the dictionary entry to store our entries is a
     )
 
 label nsfw_monika_compliments:
+    # TODO: Add a bit here that checks if she tried to sext earlier but you said you're busy, so she tries sexting again
+
     python:
         # Unlock any compliments that need to be unlocked
         Event.checkEvents(nsfw_compliments.nsfw_compliment_database)

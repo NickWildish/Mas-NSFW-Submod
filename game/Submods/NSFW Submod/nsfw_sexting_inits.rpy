@@ -278,6 +278,9 @@ label nsfw_monika_sextingsession:
 
             persistent._nsfw_sexting_attempt_permfreeze = True # This should be reversable
 
+    elif no_init:
+        persistent._nsfw_sexting_attempts -= 1 # We don't want to count this as an attempt
+
     call nsfw_monika_sextingsession_end
 
     return "no_unlock"

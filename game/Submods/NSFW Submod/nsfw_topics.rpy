@@ -108,8 +108,8 @@ label nsfw_monika_dick_size:
             m 1ekc "I'm sorry if I made you uncomfortable. I won't bring it up again."
             return "derandom"
 
-    if persistent.mas_pm_units_height_metric != None:
-        $ persistent._nsfw_units_metric = persistent.mas_pm_units_height_metric # get existing answer to metric / imperial question
+    if persistent._mas_pm_units_height_metric != None:
+        $ persistent._nsfw_units_metric = persistent._mas_pm_units_height_metric # get existing answer to metric / imperial question
 
     elif persistent._nsfw_units_metric == None:
         m 2eub "I guess I really should know this first though..."

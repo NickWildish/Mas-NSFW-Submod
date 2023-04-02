@@ -132,32 +132,34 @@ label nsfw_fetish_bondage: #TODO: Finish adding expressions
         m "Though with that being said, what do you think, [player]? Do you think you'd like to try it out?{fast}"
         "Yes":
             $ persistent._nsfw_pm_bondage = True
-            m 3hublb "Okay!"
+            m 3hublb "That's great!"
+            m 3hubla "I feel like I'm getting to know more about you every day!"
             m 3eubla "From what I've said, would you prefer giving, recieving, or both?"
             $ _history_list.pop()
             menu:
-                    m "Would you prefer giving, recieving, or both?{fast}"
-                    "Giving":
-                        $ persistent._nsfw_pm_bondage_context = "G"
-                        m 3eubld "Oh?"
-                        m 3rubla "I haven't really done something like this before..."
-                        m 1ekbla "But I trust you, and if this is something you want to try..."
-                        m 5ekbla "I'll do my best to make sure you enjoy yourself."
-                        m 5tublb "Who knows? Maybe I'll even enjoy it {i}too{/i} much~"
+                m "Would you prefer giving, recieving, or both?{fast}"
 
-                    "Recieving":
-                        $ persistent._nsfw_pm_bondage_context = "R"
-                        m 5tubla "Oh?"
-                        m 5tublb "Then I guess I'd better start practicing my knots~"
+                "Giving":
+                    $ persistent._nsfw_pm_bondage_context = "G"
+                    m 3eubld "Oh?"
+                    m 3rubla "I haven't really done something like this before..."
+                    m 1ekbla "But I trust you, and if this is something you want to try..."
+                    m 5ekbla "I'll do my best to make sure you enjoy yourself."
+                    m 5tublb "Who knows? Maybe I'll even enjoy it {i}too{/i} much~"
 
-                    "Both":
-                        $ persistent._nsfw_pm_bondage_context = "B"
-                        m 5tubla "Oh?"
-                        m 5tublb "Guess we'd better start practicing our knots in the meantime, huh?"
+                "Recieving":
+                    $ persistent._nsfw_pm_bondage_context = "R"
+                    m 5tubla "Oh?"
+                    m 5tublb "Then I guess I'd better start practicing my knots~"
+
+                "Both":
+                    $ persistent._nsfw_pm_bondage_context = "B"
+                    m 5tubla "Oh?"
+                    m 5tublb "Guess we'd better start practicing our knots in the meantime, huh?"
 
         "No":
             $ persistent._nsfw_pm_bondage = False
-            m 1hubsb "Alright, [player]."
+            m 1hubla "Alright, [player]."
             m 5tublb "Guess I'll put away these handcuffs for now." #Smirk
 
     m 5hublb "Ahaha~"
@@ -216,6 +218,7 @@ label nsfw_fetish_hand_holding:
     $ _history_list.pop()
     menu:
         m "Though I gotta ask, are you into something like that?{fast}"
+
         "Yes":
             $ persistent._nsfw_pm_hand_holding = True
             m 3wubld "Really?"
@@ -259,29 +262,59 @@ init 6 python:
     )
 
 label nsfw_fetish_anal: #TODO: Finish adding expressions
-    m 1hkblsdlb "AnalTest"
+    m 1eua "Anal, huh?"
+    m 1eua "It's a pretty common fetish, and I'm sure you've heard of it before."
+    m 1eua "But in case you aren't aware, anal refers to the sexual stimulation of the anus."
+    m 1eua "Whilst the reasoning people give for choosing anal sex over vaginal sex varies, many can see it as simply a personal preference."
+    m 1eua "With that being said, is anal something you are into?"
     $ _history_list.pop()
     menu:
-        m "AnalTest{fast}"
+        m "With that being said, is anal something you are into?{fast}"
+
         "Yes":
             $ persistent._nsfw_pm_anal = True
-
-            m 2tkbsb "YesConfirm"
+            m 3hublb "That's great!"
+            m 3hubla "I feel like I'm getting to know more about you every day!"
+            m 3eubla "From what I've said, would you prefer giving, recieving, or both?"
             $ _history_list.pop()
             menu:
-                m "YesConfirm"
+                m "From what I've said, would you prefer giving, recieving, or both?{fast}"
                 "Giving":
                     $ persistent._nsfw_pm_anal_context = "G"
+                    m 1eua "Oh?"
+                    m 1eua "You want to get a good view back there, do you?"
+                    m 1eua "Ahaha~ Just teasing you, [player]."
 
                 "Recieving":
                     $ persistent._nsfw_pm_anal_context = "R"
+                    m 1eua "Really?"
+                    if persistent._nsfw_genitalia = "P":
+                        m 1eua "I'm surprised."
+                        m 1eua "Not in a bad way or anything."
+                        m 1eua "I don't know if I'm going to be able to do it right..."
+                        m 1eua "But if it will make you happy, I'll do my best."
+                    elif persistent._nsfw_genitalia = "V":
+                        m 1eua "I suppose I wouldn't mind giving it a try."
+                        m 1eua "I'll make sure you feel good~"
+                    else:
+                        m 1eua "Well, I guess I'll have to try it out."
+                        m 1eua "I want to make sure you feel good, [player]."
 
                 "Both":
                     $ persistent._nsfw_pm_anal_context = "B"
+                    m 1eua "Both, hey?"
+                    m 1eua "A giver, and a receiver..."
+                    m 1eua "I'm happy to hear that, [player]."
+                    m 1eua "We can each take turns to satisfy one another~"
 
         "No":
-            m 1hubsb "NoConfirm"
-    return
+            m 1hubla "Alright, [player]."
+
+    m 1eua "As for me, I'm willing to experiment."
+    m 1eua "I've only begun to explore my sexuality, so I'm not sure what I'm into yet."
+    m 1eua "You've helped me discover a lot of things about myself, and I'm sure there's more to come."
+    m 1eua "I love you, and I'm willing to try anything with you, [player]."
+    return "love"
 
 default persistent.nsfw_pm_dominance = "U" #D for Dom, S for Sub, B for Switch, U for Undefined
 
@@ -297,22 +330,77 @@ init 6 python:
     )
 
 label nsfw_fetish_dominance: #TODO: Finish adding expressions
-    m 1hkblsdlb "DominanceTest"
+    m 1eua "Dominance, huh?"
+    m 1eua "I guess people's sexual preferences can be categorised into three main groups."
+    m 1eua "The first is the dominant, and the second is the submissive."
+    m 1eua "The dominant is the one who takes control, and the submissive is the one who gives control."
+    m 1eua "I suppose by the same logic, a switch is someone who can be either."
+    m 1eua "Which would you say you are, [player]?"
+    m 1eua "If you're not sure, I can describe each one to you."
+    m 1eua "Would you like me to explain?"
+    $ _history_list.pop()
+    menu:
+        m "Would you like me to explain?{fast}"
+        "Yes."
+            m 1eua "Okay!"
+            m 1eua "The dominant is the one who takes control."
+            m 1eua "They are the one who decides what happens, and when."
+            m 1eua "And they are often the ones to initiate."
+            m 1eua "You could say they like being the boss, ahaha~"
+            m 1eua "Anyway, the submissive is the one who gives control."
+            m 1eua "They are the one who is told what to do, and when."
+            m 1eua "And they are often the ones to be initiated upon."
+            m 1eua "This is not always the case, however."
+            m 1eua "Sometimes the submissive one can be the one to inititate, but during the act the dominant one takes control."
+            m 1eua "A switch is someone who can be either."
+            m 1eua "They can be the dominant one moment, and the submissive the next."
+            m 1eua "They can be the one to initiate, and the one to be initiated upon."
+            m 1eua "It can even happen mid-act!"
+            m 1eua "They are probably the most adaptive to any given lover, since they can take on the role of either."
+            m 1eua "So, based on what I've just told you..."
+
+        "No."
+        m 1eua "Okay, [player]."
+        m 1eua "So then..."
+
+    m 1eua "Are you a dominant, a submissive, or a switch?"
     $ _history_list.pop()
     menu:
         m "DominanceTest{fast}"
         "Dominance":
             $ persistent._nsfw_pm_dominance = "D"
-            m 2tkbsb "DomConfirm"
+            m 1eua "A dominant, huh?"
+            m 1eua "I can see it."
+            m 1eua "You seem like the sort of person who likes to take charge."
+            m 1eua "And I'm all here for it~"
 
         "Submission":
             $ persistent._nsfw_pm_dominance = "S"
-            m 1hubsb "SubConfirm"
+            m 1eua "A submissive, huh?"
+            m 1eua "I can see it."
+            m 1eua "You seem like the sort of person who likes to be told what to do."
+            m 1eua "It's cute~"
+            m 1eua "Makes me want to take care of you...."
+            m 1eua "Ehehe~"
 
         "Both":
             $ persistent._nsfw_pm_dominance = "B"
-            m 1hubsb "SwitchConfirm"
+            m 1eua "A switch, huh?"
+            m 1eua "I can see it."
+            m 1eua "You strike me as a cooperative person."
+            m 1eua "Wanting to please your partner, and being willing to do whatever they want."
+            m 1eua "That is something I love about you~"
 
-    m "As for me?"
-    m "Well...I suppose I wouldn't mind being either." #As a way to explain Monika being accepting of every option.
-    return
+    m 1eua "As for me?"
+    m 1eua "Well...I suppose I wouldn't mind being either." #As a way to explain Monika being accepting of every option.
+    if persistent._nsfw_pm_dominance == "B":
+        m 1eua "Guess we are the same in that regard."
+        m 1eua "We both like to please our partners."
+        m 1eua "And we both like to be pleased."
+    else:
+        m 1eua "I'm willing to try anything, but I'm not sure what I prefer."
+        m 1eua "I guess I'll have to experiment with you."
+        m 1eua "Not that I mind~"
+
+    m 1eua "Regardless of what you prefer, I will always love you, [player]."
+    return "love"

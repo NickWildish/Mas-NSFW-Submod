@@ -11,13 +11,13 @@ init 5 python:
             category=['sex'],
             prompt="Can you initiate sexting again?",
             pool=True,
-            unlock=False,
+            unlocked=False,
             aff_range=(mas_aff.LOVE, None)
         )
     )
 
 label nsfw_player_monika_initiate_sext:
-    m 1eua "Okay."
+    m 1eua "Okay." #TODO: add dialogue
     return
 
 # MONIKA TOPICS
@@ -946,7 +946,7 @@ label nsfw_monika_safesex:
         m 4eublb "Despite its name, it should actually be taken as soon as possible!"
     else:
         m 4eubla "I've read that there are a whole bunch of different contraception methods, for both men and women."
-        m 3eubla "Some are more popular than others, such as condoms for men, and oral contraceptives for women." #TODO - Add pose
+        m 3eubla "Some are more popular than others, such as condoms for men, and oral contraceptives for women."
 
     m 3lkblc "They aren't exactly flawless though..."
     m 4ekbld "There is still a chance of accidents happening in spite of all the precautions."

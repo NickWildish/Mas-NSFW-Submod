@@ -1028,7 +1028,7 @@ init python in mas_nsfw:
         else: # Default
             return starts_cute[random.randint(0, len(starts_cute) - 1)]
 
-    def can_monika_init_sext():
+    def can_monika_init_sext(nsfw_ev_label=""):
         """
         Checks if Monika can inititate sexting session with the player
 

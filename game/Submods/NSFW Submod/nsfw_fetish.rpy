@@ -122,6 +122,7 @@ init 6 python:
     )
 
 label nsfw_fetish_bondage: #TODO: Finish adding expressions
+    m 1eua "Okay, let's talk about bondage."
     m 3eub "Bondage is essentially at it's core, a matter of restraint through various means. Whether that's with a ribbon, rope, or even handcuffs."
     m 3eua "As far as I know, it was initially developed in the early 1900's, and in paralell in two different locations - bringing us the styles we have today: western and eastern, but they're slightly different."
     m 4eua "They each have different ideas at their core, but are superficially the same and have even taken inspiration from one another. I can explain more about the history later if you want."
@@ -191,6 +192,7 @@ label nsfw_fetish_bondage: #TODO: Finish adding expressions
 
         "No":
             m 3hua "That's okay. Let me know if you change your mind."
+
     return
 
 default persistant._nsfw_pm_hand_holding = False
@@ -245,6 +247,7 @@ label nsfw_fetish_hand_holding:
     m 1eka "Though in all seriousness some people {i}do{/i} have a fetish for hands."
     m 3eka "Could be palms, fingers, or anything else."
     m 5ekb "So if you {i}are{/i} legitimately into hand holding or just hands in general...{w=0.5}I wouldn't mind, [player]~"
+
     return
 
 default persistent.nsfw_pm_anal = False
@@ -262,58 +265,63 @@ init 6 python:
     )
 
 label nsfw_fetish_anal: #TODO: Finish adding expressions
-    m 1eua "Anal, huh?"
-    m 1eua "It's a pretty common fetish, and I'm sure you've heard of it before."
-    m 1eua "But in case you aren't aware, anal refers to the sexual stimulation of the anus."
-    m 1eua "Whilst the reasoning people give for choosing anal sex over vaginal sex varies, many can see it as simply a personal preference."
-    m 1eua "With that being said, is anal something you are into?"
+    m 2eud "Anal..."
+    m 2rua "It's a pretty common fetish, and I'm sure you've heard of it before."
+    m 3eubla "But in case you aren't aware, anal refers to the sexual stimulation of the anus."
+    m 3eublb "It's interesting to learn, but the human prostate has a very interesting property."
+    m 3wubld "It's been said that stimulating it during sex can lead to a more intense orgasm."
+    m 4eubld "Some people say they prefer anal sex because of the feeling that it gives."
+    m 3eubla "But, in any case..."
+    m 1ekblb "Is anal something you are into?"
     $ _history_list.pop()
     menu:
-        m "With that being said, is anal something you are into?{fast}"
+        m "Is anal something you are into?{fast}"
 
         "Yes":
             $ persistent._nsfw_pm_anal = True
             m 3hublb "That's great!"
             m 3hubla "I feel like I'm getting to know more about you every day!"
-            m 3eubla "From what I've said, would you prefer giving, recieving, or both?"
+            m 3eubla "Would you prefer giving, recieving, or both?"
             $ _history_list.pop()
             menu:
-                m "From what I've said, would you prefer giving, recieving, or both?{fast}"
+                m "Would you prefer giving, recieving, or both?{fast}"
                 "Giving":
                     $ persistent._nsfw_pm_anal_context = "G"
-                    m 1eua "Oh?"
-                    m 1eua "You want to get a good view back there, do you?"
-                    m 1eua "Ahaha~ Just teasing you, [player]."
+                    m 1tubla "Oh?"
+                    m 2tublb "You want to get a good view back there, do you?"
+                    m 1hublb "Ahaha~ Just teasing you, [player]."
 
                 "Recieving":
                     $ persistent._nsfw_pm_anal_context = "R"
-                    m 1eua "Really?"
+                    m 1wubld "Really?"
                     if persistent._nsfw_genitalia = "P":
-                        m 1eua "I'm surprised."
-                        m 1eua "Not in a bad way or anything."
-                        m 1eua "I don't know if I'm going to be able to do it right..."
-                        m 1eua "But if it will make you happy, I'll do my best."
+                        m 1rubld "I'm surprised."
+                        m 1wubso "Not in a bad way or anything."
+                        m 2rubsd "I just...didn't expect that from you."
+                        m 2rkbsc "I don't know if I'm going to be able to do it right..."
+                        m 1ekbsa "But if it will make you happy, I'll do my best."
                     elif persistent._nsfw_genitalia = "V":
-                        m 1eua "I suppose I wouldn't mind giving it a try."
-                        m 1eua "I'll make sure you feel good~"
+                        m 1hubla "I suppose I wouldn't mind giving it a try."
+                        m 3tkblb "I'll make sure you feel good~"
                     else:
-                        m 1eua "Well, I guess I'll have to try it out."
-                        m 1eua "I want to make sure you feel good, [player]."
+                        m 1eubla "Well, I guess I'll have to try it out."
+                        m 3tkblb "I want to make sure you feel good, [player]."
 
                 "Both":
                     $ persistent._nsfw_pm_anal_context = "B"
-                    m 1eua "Both, hey?"
-                    m 1eua "A giver, and a receiver..."
-                    m 1eua "I'm happy to hear that, [player]."
-                    m 1eua "We can each take turns to satisfy one another~"
+                    m 1tubla "Both, hey?"
+                    m 1tublb "A giver, and a receiver..."
+                    m 1tubsa "I'm happy to hear that, [player]."
+                    m 3tkbsb "We can each take turns to satisfy one another~"
 
         "No":
             m 1hubla "Alright, [player]."
 
-    m 1eua "As for me, I'm willing to experiment."
-    m 1eua "I've only begun to explore my sexuality, so I'm not sure what I'm into yet."
-    m 1eua "You've helped me discover a lot of things about myself, and I'm sure there's more to come."
-    m 1eua "I love you, and I'm willing to try anything with you, [player]."
+    m 3rubla "As for me, I'm willing to experiment."
+    m 2ekbla "I've only just begun to explore my sexuality thanks to you, so I'm not sure what I'm into yet."
+    m 2ekblb "You've helped me discover a lot of things about myself, and I'm sure there's more to come."
+    m 5ekblb "I love you, and I'm willing to try anything with you, [player]."
+
     return "love"
 
 default persistent.nsfw_pm_dominance = "U" #D for Dom, S for Sub, B for Switch, U for Undefined
@@ -323,84 +331,85 @@ init 6 python:
         Event(
             persistent._nsfw_fetish_database,
             eventlabel="nsfw_fetish_dominance",
-            prompt="Dominance",
+            prompt="Dominance & Submissiveness",
             unlocked=True
         ),
         code="NFH"
     )
 
 label nsfw_fetish_dominance: #TODO: Finish adding expressions
-    m 1eua "Dominance, huh?"
-    m 1eua "I guess people's sexual preferences can be categorised into three main groups."
-    m 1eua "The first is the dominant, and the second is the submissive."
-    m 1eua "The dominant is the one who takes control, and the submissive is the one who gives control."
-    m 1eua "I suppose by the same logic, a switch is someone who can be either."
+    m 1hua "Sure, we can talk about that."
+    m 3eub "On the one side, you have the dominant."
+    m 3tub "They are the ones who take control."
+    m 5eua "And on the other side, is the submissive."
+    m 5eub "They are the ones who give up control."
+    m 3rua "A switch is someone who can be either."
+    m 3eua "They can be the dominant one moment, and the submissive the next."
     m 1eua "Which would you say you are, [player]?"
-    m 1eua "If you're not sure, I can describe each one to you."
-    m 1eua "Would you like me to explain?"
+    m 1eka "If you're not sure, I can describe each one to you."
+    m 1ekblb "Would you like that?"
     $ _history_list.pop()
     menu:
-        m "Would you like me to explain?{fast}"
-        "Yes."
-            m 1eua "Okay!"
-            m 1eua "The dominant is the one who takes control."
-            m 1eua "They are the one who decides what happens, and when."
-            m 1eua "And they are often the ones to initiate."
-            m 1eua "You could say they like being the boss, ahaha~"
-            m 1eua "Anyway, the submissive is the one who gives control."
-            m 1eua "They are the one who is told what to do, and when."
-            m 1eua "And they are often the ones to be initiated upon."
-            m 1eua "This is not always the case, however."
-            m 1eua "Sometimes the submissive one can be the one to inititate, but during the act the dominant one takes control."
-            m 1eua "A switch is someone who can be either."
-            m 1eua "They can be the dominant one moment, and the submissive the next."
-            m 1eua "They can be the one to initiate, and the one to be initiated upon."
-            m 1eua "It can even happen mid-act!"
-            m 1eua "They are probably the most adaptive to any given lover, since they can take on the role of either."
-            m 1eua "So, based on what I've just told you..."
+        m "Would you like that?{fast}"
+        "Yes.":
+            m 1hubla "Okay!"
+            m 3eublb "The best way to think of a dom-sub relationship is like a consesual, eroticized exchange of power." # Cynthia Slater's words
+            m 3rua "The dominant is the one who takes control."
+            m 4gua "They are the assertive ones, with their role being to lead, guide, and protect."
+            m 4eubla "It's basically their job to lead how the sex plays out, and that their partner is safe while doing so."
+            m 5eubla "The submissive is the one who gives control."
+            m 5eublb "They are required to surrender themselves to the dominant, and to trust them to lead."
+            m 5rublb "Think of them like they are giving in to the dominant's will."
+            m 5eubla "Sometimes a person can also be either."
+            m 1eublb "One moment they like being the dominant one, and the next they are wanting to surrender themselves to their partner."
+            m 1eubla "This can even be done in the same session, if they so choose."
+            m 3eubla "They are probably the most adaptive to any given lover, since they can take on the role of either."
+            m 3tubla "So, based on what I've just told you..."
 
-        "No."
-        m 1eua "Okay, [player]."
-        m 1eua "So then..."
+        "No.":
+            m 1hubla "Okay, [player]."
+            m 3tubla "So then..."
 
-    m 1eua "Are you a dominant, a submissive, or a switch?"
+    m 3tublb "Are you a dominant, a submissive, or both?"
     $ _history_list.pop()
     menu:
-        m "DominanceTest{fast}"
-        "Dominance":
+        m "Are you a dominant, a submissive, or both?{fast}"
+        "Dominant":
             $ persistent._nsfw_pm_dominance = "D"
-            m 1eua "A dominant, huh?"
-            m 1eua "I can see it."
-            m 1eua "You seem like the sort of person who likes to take charge."
-            m 1eua "And I'm all here for it~"
+            m 3tubla "A dominant, huh?"
+            m 3gubla "I can see it."
+            m 5tubla "You seem like the sort of person who likes to take charge."
+            m 5tublb "And I'm all here for it~"
 
-        "Submission":
+        "Submissive":
             $ persistent._nsfw_pm_dominance = "S"
-            m 1eua "A submissive, huh?"
-            m 1eua "I can see it."
-            m 1eua "You seem like the sort of person who likes to be told what to do."
-            m 1eua "It's cute~"
-            m 1eua "Makes me want to take care of you...."
-            m 1eua "Ehehe~"
+            m 3tubla "A submissive, huh?"
+            m 3gubla "I can see it."
+            m 1kubla "You seem like the sort of person who likes to be told what to do."
+            m 1ekbla "It's cute~"
+            m 5tublb "Makes me want to take care of you..."
+            m 5tubla "Ehehe~"
 
         "Both":
             $ persistent._nsfw_pm_dominance = "B"
-            m 1eua "A switch, huh?"
-            m 1eua "I can see it."
-            m 1eua "You strike me as a cooperative person."
-            m 1eua "Wanting to please your partner, and being willing to do whatever they want."
-            m 1eua "That is something I love about you~"
+            m 3tubla "A switch, huh?"
+            m 3gubla "I can see it."
+            m 1ekbla "You strike me as a cooperative person."
+            m 1ekblb "Wanting to please your partner, and being willing to do whatever they want."
+            m 5eublb "That is something I love about you~"
 
-    m 1eua "As for me?"
-    m 1eua "Well...I suppose I wouldn't mind being either." #As a way to explain Monika being accepting of every option.
+    m 5gublu "As for me?"
+    m 5rublb "Well...I suppose I wouldn't mind being either." #As a way to explain Monika being accepting of every option.
     if persistent._nsfw_pm_dominance == "B":
-        m 1eua "Guess we are the same in that regard."
-        m 1eua "We both like to please our partners."
-        m 1eua "And we both like to be pleased."
+        m 5hubla "Guess we are the same in that regard."
+        m 5hublb "We both like to please our partners."
+        m 1dublb "And we both like to be pleased."
     else:
-        m 1eua "I'm willing to try anything, but I'm not sure what I prefer."
-        m 1eua "I guess I'll have to experiment with you."
-        m 1eua "Not that I mind~"
+        m 5rkbla "I'm willing to try anything, but I'm not sure what I prefer."
+        m 5tkbla "I guess I'll have to experiment with you."
+        m 1tkbla "Not that I mind~"
 
-    m 1eua "Regardless of what you prefer, I will always love you, [player]."
+    m 1eublb "In any case..."
+    m 3ekbla "Regardless of what you prefer, I will always love you, [player]."
+
     return "love"

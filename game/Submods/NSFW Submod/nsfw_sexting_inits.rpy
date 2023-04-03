@@ -49,11 +49,11 @@ init 5 python:
             persistent.event_database,
             eventlabel="nsfw_monika_sextingsession",
             conditional=(
-                "mas_nsfw.can_monika_init_sext() "
-                "and mas_timePastSince(persistent._nsfw_sexting_last_sexted, datetime.timedelta(hours=12)) "
-                "and mas_timePastSince(mas_getEVL_last_seen('nsfw_monika_sextingsession'), datetime.timedelta(hours=12))"
+                "mas_nsfw.can_monika_init_sext('nsfw_monika_sextingsession') "
+                "and mas_timePastSince(persistent._nsfw_sexting_last_sexted, datetime.timedelta(seconds=12)) "
+                "and mas_timePastSince(mas_getEVL_last_seen('nsfw_monika_sextingsession'), datetime.timedelta(seconds=12))"
                 ),
-            action=EV_ACT_RANDOM,
+            action=EV_ACT_QUEUE,
             aff_range=(mas_aff.LOVE, None)
         )
     )
@@ -61,7 +61,10 @@ init 5 python:
 label nsfw_monika_sextingsession:
     python:
         has_waited = persistent._nsfw_sexting_attempts >= persistent._nsfw_monika_sexting_frequency
-        has_waited_correctly = persistent._nsfw_monika_sexting_frequency % persistent._nsfw_sexting_attempts == 0
+        if persistent._nsfw_sexting_attempts != 0:
+            has_waited_correctly = (persistent._nsfw_monika_sexting_frequency % persistent._nsfw_sexting_attempts == 0)
+        else:
+            has_waited_correctly = True
         first_time = persistent._nsfw_sexting_count == 1
         past_first_time = persistent._nsfw_sexting_count > 1
         veteran = persistent._nsfw_sexting_count > 5
@@ -77,7 +80,7 @@ label nsfw_monika_sextingsession:
 
     # Reset our freeze if it's been 24 hours (or 48 if you set to low sexting frequency) since the last sexting attempt
     if persistent._nsfw_sexting_attempt_freeze == True:
-        if mas_timePastSince(mas_getEVL_last_seen("nsfw_monika_sexting_session"), datetime.timedelta(hours=persistent._nsfw_monika_sexting_frequency * 24)):
+        if mas_timePastSince(mas_getEVL_last_seen("nsfw_monika_sextingsession"), datetime.timedelta(hours=persistent._nsfw_monika_sexting_frequency * 24)):
             $ persistent._nsfw_sexting_attempt_freeze = False
 
             m 1eta "Hey, [player]."
@@ -306,10 +309,10 @@ label nsfw_monika_sextingsession_end:
         with MAS_EVL("nsfw_monika_sextingsession") as sextingsession_ev:
             sextingsession_ev.random = False
             sextingsession_ev.conditional = (
-                "mas_nsfw.can_monika_init_sext() "
-                "and mas_timePastSince(persistent._nsfw_sexting_last_sexted, datetime.timedelta(hours=12)) "
-                "and mas_timePastSince(mas_getEVL_last_seen('nsfw_monika_sextingsession'), datetime.timedelta(hours=12))"
+                "mas_nsfw.can_monika_init_sext('nsfw_monika_sextingsession') "
+                "and mas_timePastSince(persistent._nsfw_sexting_last_sexted, datetime.timedelta(seconds=12)) "
+                "and mas_timePastSince(mas_getEVL_last_seen('nsfw_monika_sextingsession'), datetime.timedelta(seconds=12))"
             )
-            sextingsession_ev.action = EV_ACT_RANDOM
+            sextingsession_ev.action = EV_ACT_QUEUE
         mas_rebuildEventLists()
     return

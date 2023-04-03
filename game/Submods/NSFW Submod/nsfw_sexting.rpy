@@ -192,8 +192,8 @@ label nsfw_sexting_main:
             m 6hubfb "Hah~ That feels better."
             $ hot_transfer = True
 
-        elif mas_SELisUnlocked(store.mas_clothes_birthday_suit) and previous_subtype == "UND" and not sexy_transfer:
-            call mas_clothes_change(outfit=mas_clothes_birthday_suit, outfit_mode=False, exp="6hubfb", restore_zoom=False)
+        elif store.mas_SELisUnlocked(store.mas_clothes_birthday_suit) and previous_subtype == "UND" and not sexy_transfer:
+            call store.mas_clothes_change(outfit=mas_clothes_birthday_suit, outfit_mode=False, exp="6hubfb", restore_zoom=False)
             m 6hubfb "Hah~ That feels better."
             $ sexy_transfer = True
 

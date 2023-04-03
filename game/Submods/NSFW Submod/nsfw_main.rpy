@@ -193,10 +193,10 @@ init python in mas_nsfw:
         """
         unlockable_underwear = []
 
-        if not mas_SELisUnlocked(store.mas_clothes_underwear_black):
+        if not store.mas_SELisUnlocked(store.mas_clothes_underwear_black):
             unlockable_underwear.append(store.mas_clothes_underwear_black)
 
-        if not mas_SELisUnlocked(store.mas_clothes_underwear_pink):
+        if not store.mas_SELisUnlocked(store.mas_clothes_underwear_pink):
             unlockable_underwear.append(store.mas_clothes_underwear_pink)
 
         # Add more underwear here
@@ -255,7 +255,7 @@ init python in mas_nsfw:
             A string containing a particular response from Monika.
         """
         player_name = store.persistent.playername
-        player_nickname = mas_get_player_nickname()
+        player_nickname = store.mas_get_player_nickname()
 
         return_responses = [] # start building from this list
 
@@ -714,7 +714,7 @@ init python in mas_nsfw:
             eye_desc = "beautiful"
 
         player_name = store.persistent.playername
-        player_nickname = mas_get_player_nickname()
+        player_nickname = store.mas_get_player_nickname()
 
         # Sexting quips for your average compliment
         sext_quips_cute = [
@@ -963,9 +963,9 @@ init python in mas_nsfw:
 
         rare_endings = (
             ", " + store.persistent.playername + ".",
-            ", " + mas_get_player_nickname() + ".",
+            ", " + store.mas_get_player_nickname() + ".",
             ", " + store.persistent.playername + "~",
-            ", " + mas_get_player_nickname() + "~",
+            ", " + store.mas_get_player_nickname() + "~",
         )
 
         existing_endings = (

@@ -1063,3 +1063,18 @@ init python in mas_nsfw:
     #         )
     #         random_ev.action = EV_ACT_RANDOM
     #     mas_rebuildEventLists()
+
+    def return_random_number(min=0, max=10):
+        """
+        Returns a random number between the min and max values
+
+        IN:
+            min - The minimum value for the random number
+                (Default: 0)
+            max - The maximum value for the random number
+                (Default: 10)
+
+        OUT:
+            A random number between the min and max values
+        """
+        return random.randint(min, max)

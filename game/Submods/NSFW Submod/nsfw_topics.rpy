@@ -10,7 +10,8 @@ init 5 python:
             eventlabel="nsfw_player_monika_initiate_sext",
             category=['sex'],
             prompt="Can you initiate sexting again?",
-            pool=True,
+            conditional="persistent._nsfw_sexting_attempt_permfreeze == True",
+            action=EV_ACT_POOL,
             unlocked=False,
             aff_range=(mas_aff.LOVE, None)
         )
@@ -18,6 +19,21 @@ init 5 python:
 
 label nsfw_player_monika_initiate_sext:
     m 1eua "Okay." #TODO: add dialogue
+    $ persistent._nsfw_sexting_attempt_permfreeze = False
+    $ persistent._nsfw_sexting_attempts = 0
+
+    call nsfw_player_monika_initiate_sext_end
+
+    return
+
+label nsfw_player_monika_initiate_sext_end:
+    # Copy of monika_holdme_end label
+    python:
+        with MAS_EVL("nsfw_player_monika_initiate_sext") as sextingsession_ev:
+            sextingsession_ev.pool = False
+            sextingsession_ev.conditional = "persistent._nsfw_sexting_attempt_permfreeze == True"
+            sextingsession_ev.action = EV_ACT_POOL
+        mas_rebuildEventLists()
     return
 
 # MONIKA TOPICS

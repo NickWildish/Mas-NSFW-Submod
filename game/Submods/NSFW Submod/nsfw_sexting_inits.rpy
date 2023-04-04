@@ -39,9 +39,9 @@ label nsfw_player_sextingsession:
 
 # MONIKA
 
-default persistent._nsfw_sexting_attempts = 0
-default persistent._nsfw_sexting_attempt_freeze = False
-default persistent._nsfw_sexting_attempt_permfreeze = False
+default persistent._nsfw_sexting_attempts = 0 # Number of times Monika has attempted to sext with the player
+default persistent._nsfw_sexting_attempt_freeze = False # If Monika is currently frozen from attempting to sext with the player
+default persistent._nsfw_sexting_attempt_permfreeze = False # If Monika is permanently frozen from attempting to sext with the player
 
 init 5 python:
     addEvent(
@@ -50,61 +50,62 @@ init 5 python:
             eventlabel="nsfw_monika_sextingsession",
             conditional=(
                 "mas_nsfw.can_monika_init_sext('nsfw_monika_sextingsession') "
-                "and mas_timePastSince(persistent._nsfw_sexting_last_sexted, datetime.timedelta(seconds=12)) "
-                "and mas_timePastSince(mas_getEVL_last_seen('nsfw_monika_sextingsession'), datetime.timedelta(seconds=12))"
+                "and mas_timePastSince(persistent._nsfw_sexting_last_sexted, datetime.timedelta(hours=persistent._nsfw_monika_sexting_frequency * 12)) "
+                "and mas_timePastSince(mas_getEVL_last_seen('nsfw_monika_sextingsession'), datetime.timedelta(hours=persistent._nsfw_monika_sexting_frequency * 12))"
                 ),
-            action=EV_ACT_QUEUE,
+            action=EV_ACT_RANDOM,
             aff_range=(mas_aff.LOVE, None)
         )
     )
 
 label nsfw_monika_sextingsession:
-    python:
-        has_waited = persistent._nsfw_sexting_attempts >= persistent._nsfw_monika_sexting_frequency
-        if persistent._nsfw_sexting_attempts != 0:
-            has_waited_correctly = (persistent._nsfw_monika_sexting_frequency % persistent._nsfw_sexting_attempts == 0)
-        else:
-            has_waited_correctly = True
-        first_time = persistent._nsfw_sexting_count == 1
-        past_first_time = persistent._nsfw_sexting_count > 1
-        veteran = persistent._nsfw_sexting_count > 5
-        first_attempt = persistent._nsfw_sexting_attempts == 1
-        multiple_attempts = persistent._nsfw_sexting_attempts > 1
-        too_many_attempts = persistent._nsfw_sexting_attempts >= 5 * persistent._nsfw_monika_sexting_frequency
-        hot_start = persistent._nsfw_sext_hot_start
-        sexy_start = persistent._nsfw_sext_sexy_start
-        no_init = persistent._nsfw_sexting_attempt_permfreeze
-
     # Count this attempt
     $ persistent._nsfw_sexting_attempts += 1
 
-    # Reset our freeze if it's been 24 hours (or 48 if you set to low sexting frequency) since the last sexting attempt
+    python:
+        has_waited = ( # Checks if Monika has waited the correct amount of time to attempt to sext with the player
+            persistent._nsfw_sexting_attempts >= persistent._nsfw_monika_sexting_frequency
+            and persistent._nsfw_sexting_attempts % persistent._nsfw_monika_sexting_frequency == 0
+            )
+
+        # Topic cannot run unless player has succesfully sexted with Monika, so a count of 0 whilst at this point is very unlikely.
+        if persistent._nsfw_sexting_count == 0 and persistent._nsfw_sexting_success_last is not None:
+            persistent._nsfw_sexting_count = 1
+
+        first_time = persistent._nsfw_sexting_count == 1 # Checks if the player has not sexting with Monika a second time
+        past_first_time = persistent._nsfw_sexting_count > 1 # Checks if the player has sexted with Monika more than once
+        veteran = persistent._nsfw_sexting_count > 5 # Checks if the player has sexted with Monika more than five times
+
+        first_attempt = persistent._nsfw_sexting_attempts == 1 # Checks if it is Monika's first attempt to sext with the player
+        multiple_attempts = persistent._nsfw_sexting_attempts > 1 # Checks if Monika has attempted to sext with the player more than once
+        too_many_attempts = persistent._nsfw_sexting_attempts >= 5 * persistent._nsfw_monika_sexting_frequency # Checks if Monika has attempted to sext with the player more than four times
+        hot_start = persistent._nsfw_sext_hot_start # Checks if the player has interrupted Monika's last sexting session during the 'hot' stage
+        sexy_start = persistent._nsfw_sext_sexy_start # Checks if the player has interrupted Monika's last sexting session during the 'sexy' stage
+
+    # Reset our freeze if it's been 12 hours (or 24 if you set to low sexting frequency) since the last sexting attempt
     if persistent._nsfw_sexting_attempt_freeze == True:
-        if mas_timePastSince(mas_getEVL_last_seen("nsfw_monika_sextingsession"), datetime.timedelta(hours=persistent._nsfw_monika_sexting_frequency * 24)):
-            $ persistent._nsfw_sexting_attempt_freeze = False
+        $ persistent._nsfw_sexting_attempt_freeze = False
 
-            m 1eta "Hey, [player]."
-            m 3eta "Do you remember when you said we could sext later?"
-            m 3rta "I know I probably sound needy, but..."
-            m 3ttb "Are you available now?{nw}"
-            $ _history_list.pop()
-            menu:
-                m "Are you available now?{fast}"
+        m 1eta "Hey, [player]."
+        m 3eta "Do you remember when you said we could sext later?"
+        m 3rta "I know I probably sound needy, but..."
+        m 3ttb "Are you available now?{nw}"
+        $ _history_list.pop()
+        menu:
+            m "Are you available now?{fast}"
 
-                "Yes.":
-                    $ mas_gainAffection(modifier=1.5, bypass=True)
-                    $ persistent._nsfw_sexting_attempts = 0
-                    m 1hub "Yay~"
-                    call nsfw_sexting_init
+            "Yes.":
+                $ mas_gainAffection(modifier=1.5, bypass=True)
+                $ persistent._nsfw_sexting_attempts = 0
+                m 1hub "Yay~"
+                call nsfw_sexting_init
 
-                "No.":
-                    m 1eka "Aww, okay."
-                    m 1ekb "Maybe next time, then."
-        else:
-            $ persistent._nsfw_sexting_attempts -= 1
+            "No.":
+                m 1eka "Aww, okay."
+                m 1ekb "Maybe next time, then."
 
     # If our number of attempts is greater than or equal to the player's frequency request and they divide into each other perfectly, then try to sext
-    elif has_waited and has_waited_correctly and not no_init:
+    elif has_waited:
         # First time
         if first_time:
             m 1gua "Hey, [player]..."
@@ -165,7 +166,7 @@ label nsfw_monika_sextingsession:
             # Interrupted last session
             if hot_start or sexy_start:
                 m 3tub "I haven't forgotten about our little {i}session{/i} that got interrupted earlier..."
-                if random.randint(1, 5) == 1:
+                if mas_nsfw.return_random_number(1, 5) == 1:
                     m 3cub "And how you left me hanging{nw}" # Spooky
                 else:
                     m 3gkp "And how you left me hanging{nw}" # Sassy
@@ -315,9 +316,9 @@ label nsfw_monika_sextingsession_end:
             sextingsession_ev.random = False
             sextingsession_ev.conditional = (
                 "mas_nsfw.can_monika_init_sext('nsfw_monika_sextingsession') "
-                "and mas_timePastSince(persistent._nsfw_sexting_last_sexted, datetime.timedelta(seconds=12)) "
-                "and mas_timePastSince(mas_getEVL_last_seen('nsfw_monika_sextingsession'), datetime.timedelta(seconds=12))"
+                "and mas_timePastSince(persistent._nsfw_sexting_last_sexted, datetime.timedelta(hours=persistent._nsfw_monika_sexting_frequency * 12)) "
+                "and mas_timePastSince(mas_getEVL_last_seen('nsfw_monika_sextingsession'), datetime.timedelta(hours=persistent._nsfw_monika_sexting_frequency * 12))"
             )
-            sextingsession_ev.action = EV_ACT_QUEUE
+            sextingsession_ev.action = EV_ACT_RANDOM
         mas_rebuildEventLists()
     return

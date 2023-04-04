@@ -164,7 +164,7 @@ init python in mas_nsfw:
         Checks if the player should be able to see Monika's underwear yet.
 
         OUT:
-            True if the player has seen 'monika_gettingnude' topic AND risque is allowed AND the player hasn't seen the topic for at least 6 hours AND the player hasn't already unlocked her underwear, False if otherwise
+            boolean - True if the player has seen 'monika_gettingnude' topic once AND risque is allowed AND the player hasn't seen the topic for at least 6 hours AND the player hasn't already unlocked her underwear, False if otherwise
         """
         if mas_getEV("nsfw_monika_gettingnude").shown_count >= 1 and mas_canShowRisque(aff_thresh=1000) and hour_check() and not mas_SELisUnlocked(store.mas_clothes_underwear_white):
             return True
@@ -176,7 +176,7 @@ init python in mas_nsfw:
         Checks to see if the player should be able to see Monika with no clothes yet.
 
         OUT:
-            True if the player has seen 'monika_gettingnude' topic twice AND risque is allowed AND the player hasn't seen the topic for at least 6 hours AND the player hasn't already unlocked her naked, false if otherwise
+            boolean - True if the player has seen 'monika_gettingnude' topic twice AND risque is allowed AND the player hasn't seen the topic for at least 6 hours AND the player hasn't already unlocked her naked, false if otherwise
         """
         if mas_SELisUnlocked(store.mas_clothes_underwear_white) and mas_canShowRisque() and hour_check() and not store.persistent._nsfw_has_unlocked_birthdaysuit:
             return True
@@ -188,8 +188,8 @@ init python in mas_nsfw:
         Checks if the player has underwear that has not previously been unlocked, and unlocks them at random.
 
         OUT:
-            True if the player unlocks new underwear, False if otherwise
-            The value of the underwear unlocked for topic purposes
+            The underwear if it was unlocked, or
+            None
         """
         unlockable_underwear = []
 
@@ -201,11 +201,11 @@ init python in mas_nsfw:
 
         # Add more underwear here
 
-        if mas_SELisUnlocked(store.mas_clothes_underwear_white):
+        if store.mas_SELisUnlocked(store.mas_clothes_underwear_white):
             if random.randint(1,3) == 1: # 1/3 chance of unlocking new underwear
                 if unlockable_underwear:
                     new_underwear_no = random.randint(0,len(unlockable_underwear)-1)
-                    mas_SELisUnlocked(unlockable_underwear[new_underwear_no])
+                    store.mas_SELisUnlocked(unlockable_underwear[new_underwear_no])
 
                     return unlockable_underwear[new_underwear_no]
 
@@ -242,9 +242,7 @@ init python in mas_nsfw:
         Returns a Monika response from a selected category.
 
         IN:
-            category - The category of the response
-                (Default: 0)
-            response_no - The location in the category of a response
+            response_category - The category of the response
                 (Default: 0)
             response_type - The type of the response. Used only if the response_category is 2 (sexy).
                 (Default: None)
@@ -697,8 +695,6 @@ init python in mas_nsfw:
         IN:
             category - The category of the quip
                 (Default: 0)
-            response_no - The location in the category of a quip
-                (Default: 0)
 
         OUT:
             A string containing a particular quip from Monika.
@@ -993,8 +989,12 @@ init python in mas_nsfw:
         Returns a starting piece to dialogue, such as 'Hmm~' or 'Hah~'
 
         IN:
-            category - The category in which we will pull the appropriate dialogue start from.
-                (Default: "cute")
+            horny_level - The current horny level of the player
+                (Default: 0)
+            hot_req - The horny level required to reach the 'hot' stage
+                (Default: 4)
+            sexy_req - The horny level required to reach the 'sexy' stage
+                (Default: 8)
 
         OUT:
             The selected starting text for the dialogue
@@ -1030,20 +1030,21 @@ init python in mas_nsfw:
 
     def can_monika_init_sext(nsfw_ev_label=""):
         """
-        Checks if Monika can inititate sexting session with the player
+        Checks if Monika can initiate sexting
+
+        IN:
+            nsfw_ev_label - The event label for the event we're checking
+                (Default: "")
 
         OUT:
-            True IF:
-                The player has 1000 affection minimum and be eligible for risque content
-                The player and Monika have sexted before
-                The sexting frequency in settings is not 'Never'
-            False otherwise.
+            boolean - True if Monika can initiate sexting, False otherwise
         """
         # If the event label is empty, assume False
         if nsfw_ev_label == "":
             return False
 
-        if (store.mas_canShowRisque(aff_thresh=1000) and store.persistent._nsfw_sexting_success_last != None and store.persistent._nsfw_monika_sexting_frequency != 3):
+        # If the player can be shown risque content, have had a succesful sexting session with Monika, have not disabled sexting, and Monika has not permanently frozen the sexting system, return True
+        if (store.mas_canShowRisque(aff_thresh=1000) and store.persistent._nsfw_sexting_success_last != None and store.persistent._nsfw_monika_sexting_frequency != 3 and store.persistent._nsfw_sexting_attempt_permfreeze == False):
             return True
         else:
             return False

@@ -296,8 +296,13 @@ label nsfw_monika_sextingsession:
 
             $ persistent._nsfw_sexting_attempt_permfreeze = True # This should be reversable
 
-    elif no_init:
-        $ persistent._nsfw_sexting_attempts -= 1 # We don't want to count this as an attempt
+    else: # TODO - Add posing to the dialogue
+        m 1eua "Hey, [mas_get_player_nickname()]~"
+        m 1eua "Just wanted to let you know that in the mood for some {i}fun{/i} later."
+        m 1eua "I hope you're free then~"
+        m 1eua "Or we could just do it right now, if you're up for it~"
+        m 1eua "I'm sure you'll be able to make time for me, right?"
+        m 1eua "Ehehe~"
 
     call nsfw_monika_sextingsession_end
 

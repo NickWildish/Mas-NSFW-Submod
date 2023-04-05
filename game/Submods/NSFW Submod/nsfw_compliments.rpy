@@ -496,10 +496,76 @@ label nsfw_compliment_moaning:
     return
 
 label nsfw_compliment_moaning_2: #TODO: Finish writing Monika's initial reaction to compliment
-    m 1eua "FIRST-TIME COMPLIMENT"
+    $ player_nickname = mas_get_player_nickname()
+    m 1eua "Oh..."
+    m 1eua "Ahaha, I'm glad you like it~"
+    m 1eua "It's not something I can control, per se..."
+    m 1eua "But if you enjoy it so much, maybe I should practice moaning for you~"
+    m 1eua "Would you prefer if I moaned like this?{w=0.5}{nw}"
+    extend 1eua " {i}Ahhhh~{/i}"
+    m 1eua "Or like this?{w=0.5}{nw}"
+    extend 1eua " {i}Oh, [player]~{/i}"
+    m 1eua "..."
+    m 1eua "Or maybe like this?{w=0.5}{nw}"
+    m 1eua " {i}Oh~ I want you, [player]!~{/i}"
+    m 1eua "Ehehe~"
+    m 1eua "I'm just teasing you, [player_nickname]."
+    $ _history_list.pop()
+    menu:
+        m "I'm just teasing you, [player_nickname].{fast}"
+
+        "You feeling good is what I want the most.":
+            $ mas_gainAffection(amount=5, bypass=True)
+            m 1eua "Aww~"
+            m 1eua "You're so sweet, [player]."
+            m 1eua "Well in that case, I'll be moaning for you alot more~"
+            m 1eua "You better be ready for it."
+
+        "I want to hear you moan my name.":
+            $ mas_gainAffection(amount=2, bypass=True)
+            m 1eua "Oh?"
+            m 1eua "You mean like this?{w=0.5}{nw}"
+            extend 1eua " {i}Oh, [player]~{/i}{w=0.5}{nw}"
+            extend 1eua " {i}I want you~{/i}{w=0.5}{nw}}"
+            extend 1eua " {i}I want you so bad~{/i}"
+            m 1eua "Ehehe~"
+            m 1eua "I'll moan your name all you want, [player]."
+
+        "You can moan abit too much sometimes...": # BLASPHEMY!
+            $ mas_loseAffection(2)
+            m 1eua "Oh..."
+            m 1eua "I'm sorry, [player]."
+            m 1eua "I did say it's not something I can control..."
+            m 1eua "But I'll try to keep it down."
+    return
 
 label nsfw_compliment_moaning_3:
-    m 1eua "Compliment has been said at least once" #TODO: Finish writing Monika's reaction to compliment after initial reaction
+    python:
+        if mas_nsfw.return_random_number(1, 3) == 3:
+            moaning_thanks_quips = [
+                _("Like this, you mean?~"),
+                _("I can moan louder if you like~"),
+                _("Let me show you how much I've practiced~"),
+            ]
+            naughty_flirting_quips = [
+                _("Oh yeah!~ More of that~"),
+                _("You just make me feel so good, I can't help it~"),
+                _("I hope you moan for me just as much as I do for you~"),
+            ]
+        else:
+            moaning_thanks_quips = nsfw_compliments.nsfw_thanking_quips
+            naughty_flirting_quips = [
+                _("I'm more than happy to moan louder for you~"),
+                _("You just make me feel so good, I can't help it~"),
+                _("I hope you moan for me just as much as I do for you~"),
+            ]
+
+    moaning_thanks_quip = random.choice(moaning_thanks_quips)
+    naughty_flirting_quip = random.choice(naughty_flirting_quips)
+    m 1tubla "Ehehe~"
+    m 1tublb "[moaning_thanks_quip]"
+    show monika 3tubsb at t11 zorder MAS_MONIKA_Z with dissolve_monika
+    m 3tubsb "[naughty_flirting_quip]"
 
 init 6 python:
     addEvent(

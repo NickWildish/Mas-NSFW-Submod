@@ -488,7 +488,6 @@ init 6 python:
     )
 
 label nsfw_compliment_moaning:
-    m 1eua "NOT COMPLETE"
     if not renpy.seen_label("nsfw_compliment_moaning_2"):
         call nsfw_compliment_moaning_2
     else:
@@ -579,7 +578,6 @@ init 6 python:
     )
 
 label nsfw_compliment_wet:
-    m 1eua "NOT COMPLETE"
     if not renpy.seen_label("nsfw_compliment_wet_2"):
         call nsfw_compliment_wet_2
     else:
@@ -587,7 +585,42 @@ label nsfw_compliment_wet:
     return
 
 label nsfw_compliment_wet_2: #TODO: Finish writing Monika's initial reaction to compliment
-    m 1eua "FIRST-TIME COMPLIMENT"
+    python:
+        if persistent._nsfw_genitalia == "P":
+            naughty_bits = "I can make you even wetter with my cock deep inside you."
+        elif persistent._nsfw_genitalia == "V":
+            naughty_bits = "It's only fair, given how wet you make me."
+        else:
+            naughty_bits = "I'd make you even wetter if I was eating you out."
+
+    m 1eua "Oh my~"
+    m 1eua "I can't tell you how much I love you {i}making{/i} me wet~"
+    m 1eua "You just make me feel so hot and tingly..."
+    m 1eua "I can't help but get wet for you~"
+
+    $ _history_list.pop()
+    menu:
+        m "I can't help but get wet for you~{fast}"
+
+        "I'm glad that I make you feel good.":
+            m 1eua "Aww, [player]~"
+            m 1eua "You always make me feel good."
+            m 1eua ""
+
+        "[naughty_bits]":
+            m 1eua "Response 2"
+
+        "You'd better make me feel good too. You owe me.":
+            m 1eua "Response 3"
+
+    return
 
 label nsfw_compliment_wet_3:
-    m 1eua "Compliment has been said at least once" #TODO: Finish writing Monika's reaction to compliment after initial reaction
+    python:
+        naughty_flirting_quips = [
+            _(""),
+            _(""),
+            _(""),
+        ]
+        naughty_flirting_quip = random.choice(naughty_flirting_quips)
+    return

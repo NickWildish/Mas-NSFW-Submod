@@ -543,8 +543,9 @@ label nsfw_compliment_moaning_2: #TODO: Finish writing Monika's initial reaction
     return
 
 label nsfw_compliment_moaning_3:
+    $ moan_check = mas_nsfw.return_random_number(1, 3) == 3 # 1/3 chance of Monika being a bit more naughty
     python:
-        if mas_nsfw.return_random_number(1, 3) == 3:
+        if moan_check:
             moaning_thanks_quips = [
                 _("Like this, you mean?~"),
                 _("I can moan louder if you like~"),
@@ -552,7 +553,7 @@ label nsfw_compliment_moaning_3:
             ]
             naughty_flirting_quips = [
                 _("Oh yeah!~ More of that~"),
-                _("You just make me feel so good, I can't help it~"),
+                _("Oh, I'm getting so wet~"),
                 _("I hope you moan for me just as much as I do for you~"),
             ]
         else:
@@ -563,12 +564,19 @@ label nsfw_compliment_moaning_3:
                 _("I hope you moan for me just as much as I do for you~"),
             ]
 
-    $ moaning_thanks_quip = random.choice(moaning_thanks_quips)
-    $ naughty_flirting_quip = random.choice(naughty_flirting_quips)
-    m 1tubla "Ehehe~"
-    m 1tublb "[moaning_thanks_quip]"
-    show monika 3tubsb at t11 zorder MAS_MONIKA_Z with dissolve_monika
-    m 3tubsb "[naughty_flirting_quip]"
+        moaning_thanks_quip = random.choice(moaning_thanks_quips)
+        naughty_flirting_quip = random.choice(naughty_flirting_quips)
+
+    if moan_check:
+        m 3tublb "[moaning_thanks_quip]"
+        show monika 3tubsb at t11 zorder MAS_MONIKA_Z with dissolve_monika
+        m 3hkbso "[naughty_flirting_quip]"
+        m 3hubsa "Ehehe~"
+    else:
+        m 1tubla "Ehehe~"
+        m 1tublb "[moaning_thanks_quip]"
+        show monika 3tubsb at t11 zorder MAS_MONIKA_Z with dissolve_monika
+        m 3tubsb "[naughty_flirting_quip]"
     return
 
 init 6 python:

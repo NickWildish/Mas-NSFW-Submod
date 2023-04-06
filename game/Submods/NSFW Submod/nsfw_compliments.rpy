@@ -598,34 +598,50 @@ label nsfw_compliment_wet_2: #TODO: Finish writing Monika's initial reaction to 
         else:
             naughty_bits = "I'd make you even wetter if I was eating you out."
 
-    m 1eua "Oh my~"
-    m 1eua "I can't tell you how much I love you {i}making{/i} me wet~"
-    m 1eua "You just make me feel so hot and tingly..."
-    m 1eua "I can't help but get wet for you~"
+    m 1tubla "Oh my~"
+    m 3tubla "I can't tell you how much I love you {i}making{/i} me wet~"
+    m 3gublb "You just make me feel so hot and tingly..."
+    m 3gubla "I can't help but get wet for you~"
 
     $ _history_list.pop()
     menu:
         m "I can't help but get wet for you~{fast}"
 
         "I'm glad that I make you feel good.":
-            m 1eua "Aww, [player]~"
-            m 1eua "You always make me feel good."
-            m 1eua ""
+            $ store.mas_gainAffection(5)
+            m 1ekbla "Aww, [player]~"
+            m 3ekblb "You always make me feel good."
+            m "Both in my heart..."
+            extend 7tkbla "and down here~"
+            m 7hubla "Ehehe~"
 
         "[naughty_bits]":
-            m 1eua "Response 2"
+            $ store.mas_gainAffection(2)
+            m 1tfbsa "H-hey~"
+            m 1tfbsb "Only I am allowed to be flirty here."
+            m 1hubsa "Ehehe~"
+            m 3mubsa "Let's have a little fun later and see how wet you can make me."
+            m 5tubla "I'm sure you'll enjoy it just as much as me."
 
         "You'd better make me feel good too. You owe me.":
-            m 1eua "Response 3"
+            $ store.mas_loseAffection(5)
+            m 3wubld "Uhh..."
+            m 1rtbld "I...guess?"
+            m 1tsblc "You don't have to be so rude about it though..."
 
     return
 
 label nsfw_compliment_wet_3:
     python:
         naughty_flirting_quips = [
-            _(""),
-            _(""),
-            _(""),
+            _("You know I can't help it when you talk like that~"),
+            _("What can I say? You just make me feel so good~"),
+            _("I hope you're going to take responsibility for making me wet~"),
         ]
         naughty_flirting_quip = random.choice(naughty_flirting_quips)
+
+    m 1tubla "Ehehe~"
+    m 1tublb "[nsfw_compliments.thanks_quip]"
+    show monika 3tubsb at t11 zorder MAS_MONIKA_Z with dissolve_monika
+    m 3tubsb "[naughty_flirting_quip]"
     return

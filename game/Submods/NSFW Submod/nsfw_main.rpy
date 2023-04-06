@@ -166,7 +166,7 @@ init python in mas_nsfw:
         OUT:
             boolean - True if the player has seen 'monika_gettingnude' topic once AND risque is allowed AND the player hasn't seen the topic for at least 6 hours AND the player hasn't already unlocked her underwear, False if otherwise
         """
-        if mas_getEV("nsfw_monika_gettingnude").shown_count >= 1 and mas_canShowRisque(aff_thresh=1000) and hour_check() and not mas_SELisUnlocked(store.mas_clothes_underwear_white):
+        if store.mas_getEV("nsfw_monika_gettingnude").shown_count >= 1 and store.mas_canShowRisque(aff_thresh=1000) and hour_check() and not store.mas_SELisUnlocked(store.mas_clothes_underwear_white):
             return True
         else:
             return False
@@ -178,7 +178,7 @@ init python in mas_nsfw:
         OUT:
             boolean - True if the player has seen 'monika_gettingnude' topic twice AND risque is allowed AND the player hasn't seen the topic for at least 6 hours AND the player hasn't already unlocked her naked, false if otherwise
         """
-        if mas_SELisUnlocked(store.mas_clothes_underwear_white) and mas_canShowRisque() and hour_check() and not store.persistent._nsfw_has_unlocked_birthdaysuit:
+        if store.mas_SELisUnlocked(store.mas_clothes_underwear_white) and store.mas_canShowRisque() and hour_check() and not store.persistent._nsfw_has_unlocked_birthdaysuit:
             return True
         else:
             return False

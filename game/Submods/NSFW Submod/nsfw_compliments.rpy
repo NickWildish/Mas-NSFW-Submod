@@ -498,7 +498,6 @@ label nsfw_compliment_moaning:
     return
 
 label nsfw_compliment_moaning_2: #TODO: Finish writing Monika's initial reaction to compliment
-    $ player_nickname = mas_get_player_nickname()
     m 1eua "Oh..."
     m 1eua "Ahaha, I'm glad you like it~"
     m 1eua "It's not something I can control, per se..."
@@ -562,12 +561,13 @@ label nsfw_compliment_moaning_3:
                 _("I hope you moan for me just as much as I do for you~"),
             ]
 
-    moaning_thanks_quip = random.choice(moaning_thanks_quips)
-    naughty_flirting_quip = random.choice(naughty_flirting_quips)
+    $ moaning_thanks_quip = random.choice(moaning_thanks_quips)
+    $ naughty_flirting_quip = random.choice(naughty_flirting_quips)
     m 1tubla "Ehehe~"
     m 1tublb "[moaning_thanks_quip]"
     show monika 3tubsb at t11 zorder MAS_MONIKA_Z with dissolve_monika
     m 3tubsb "[naughty_flirting_quip]"
+    return
 
 init 6 python:
     addEvent(

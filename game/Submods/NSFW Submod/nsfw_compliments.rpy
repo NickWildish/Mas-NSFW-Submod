@@ -12,15 +12,18 @@ init 3 python in nsfw_compliments:
 init 22 python in nsfw_compliments:
     import store
 
+    player_name = store.persistent.playername
+    player_nickname = store.mas_get_player_nickname()
+
     # Need to set some nsfw thanking quips here.
     nsfw_thanking_quips = [
-        _("You're so sweet, [player]."),
-        _("Thanks for saying that again, [player]!"),
-        _("Thanks for telling me that again, [mas_get_player_nickname()]!"),
-        _("You always make me feel special, [mas_get_player_nickname()]."),
-        _("Aww, [player]~"),
-        _("Thanks, [mas_get_player_nickname()]!"),
-        _("You always flatter me, [player].")
+        _("You're so sweet, " + player_name + "."),
+        _("Thanks for saying that again, " + player_name + "!"),
+        _("Thanks for telling me that again, " + player_nickname + "!"),
+        _("You always make me feel special, " + player_nickname + "."),
+        _("Aww, " + player_name + "~"),
+        _("Thanks, " + player_nickname + "!"),
+        _("You always flatter me, " + player_name + ".")
     ]
 
     # set this here in case of a crash mid-compliment

@@ -543,6 +543,7 @@ label nsfw_compliment_moaning_2: #TODO: Finish writing Monika's initial reaction
     return
 
 label nsfw_compliment_moaning_3:
+    $ player_name = store.persistent.playername
     $ moan_check = mas_nsfw.return_random_number(1, 3) == 3 # 1/3 chance of Monika being a bit more naughty
     python:
         if moan_check:
@@ -554,7 +555,7 @@ label nsfw_compliment_moaning_3:
             naughty_flirting_quips = [
                 _("Oh yeah!~ More of that~"),
                 _("Oh, I'm getting so wet~"),
-                _("I hope you moan for me just as much as I do for you~"),
+                _("Faster, " + player_name + "!~ I want you~"),
             ]
         else:
             moaning_thanks_quips = nsfw_compliments.nsfw_thanking_quips

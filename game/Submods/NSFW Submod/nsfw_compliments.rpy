@@ -36,7 +36,7 @@ init 22 python in nsfw_compliments:
         global thanks_quip
 
         thanks_quip = renpy.substitute(renpy.random.choice(nsfw_thanking_quips))
-        mas_gainAffection()
+        store.mas_gainAffection()
 
 # entry point for compliments flow
 init 6 python: # Use init 6 since the dictionary entry to store our entries is added in 5, and we want it around
@@ -127,14 +127,14 @@ label nsfw_compliment_thighs_2:
     m 1ekbsa "But...thank you, [player]~"
     menu:
         "I'd love to bury my face between them.":
-            $ mas_gainAffection(5,bypass=True)
+            $ store.mas_gainAffection(5,bypass=True)
             m 2tkbsb "H-Hey~"
             m 3tkbsu "[player]...you're getting a little {i}too{/i} naughty there. Ahaha~"
             m 3gkbsu "Not that I mind..."
             m 5tkbsu "I'm sure I would enjoy it if you did that~"
 
         "You always had the best thighs in the Literature Club.":
-            $ mas_gainAffection(2,bypass=True)
+            $ store.mas_gainAffection(2,bypass=True)
             m 1hubsb "Ahaha~"
             m 3tubsb "That means you were looking at Yuri, Sayori, and Natsuki's thighs too, huh?"
             m 1gubsb "Well..."
@@ -145,7 +145,7 @@ label nsfw_compliment_thighs_2:
             m 2tubsa "Don't worry. It's okay to look, as long as you think mine are the best~"
 
         "They kind of remind me of Yuri's.":
-            $ mas_loseAffection() # Rule 1 of dating a woman: Don't compare them to another woman, you nuff nuff.
+            $ store.mas_loseAffection() # Rule 1 of dating a woman: Don't compare them to another woman, you nuff nuff.
             m 1etbsd "Uh..."
             m 1rfbld "Are they, now?"
             m 1gfblc "..."
@@ -217,7 +217,7 @@ label nsfw_compliment_thighhighs_2:
 
     menu:
         "Even in uniform, you dress more nicely than any of the other girls in the club.":
-            $ mas_gainAffection(3,bypass=True)
+            $ store.mas_gainAffection(3,bypass=True)
             m 1eubsb "I'm so glad you think that, [player]~"
             m 1rubsa "But I mean...ahaha...I kind of expected for my socks to get noticed by you, {nw}"
             extend 1gubsb "a [guyGirl] who seems to love my thighs. Ahaha~"
@@ -228,7 +228,7 @@ label nsfw_compliment_thighhighs_2:
             m 5mubsa "Then I'm fine with it~"
 
         "I bet they not only look good, but feel really smooth and silky too![naughty_bits]":
-            $ mas_gainAffection(2,bypass=True)
+            $ store.mas_gainAffection(2,bypass=True)
             if persistent._nsfw_genitalia == "P":
                 m 2subld "Ooo~"
                 m 2subsu "A thighjob, eh?"
@@ -251,7 +251,7 @@ label nsfw_compliment_thighhighs_2:
                 m 1gubfa "I hope we can try that soon. Ehehe~"
 
         "I love how they wrap around your thick thighs.":
-            $ mas_gainAffection(1,bypass=True)
+            $ store.mas_gainAffection(1,bypass=True)
             m 1hkbsa "Gosh..."
             m 1hkbssdlb "You keep making me blush with all this talk about my thighs..."
             m 1ekbsa "The other parts of my body are nice to look at too, you know."
@@ -320,7 +320,7 @@ label nsfw_compliment_tits_2:
 
     menu:
         "I'd love to suck on your breasts.":
-            $ mas_gainAffection(5,bypass=True)
+            $ store.mas_gainAffection(5,bypass=True)
             m 1hkbsa "Ahem..."
             m 1tfbsb "[player]!"
             m 3tfbsu "Why did you get so naughty out of nowhere like that?"
@@ -331,7 +331,7 @@ label nsfw_compliment_tits_2:
             m 1hubsa "Ehehe~"
 
         "Can you make them bigger?":
-            $ mas_loseAffection(5) # face <- palm
+            $ store.mas_loseAffection(5) # face <- palm
             m 3wubsd "..."
             m 3eubssdld "I-I mean..."
             m 3rubssdlc "I do have full control over the console, so..."
@@ -517,14 +517,14 @@ label nsfw_compliment_moaning_2: #TODO: Finish writing Monika's initial reaction
         m "I'm just teasing you, [player_nickname].{fast}"
 
         "You feeling good is what I want the most.":
-            $ mas_gainAffection(amount=5, bypass=True)
+            $ store.mas_gainAffection(amount=5, bypass=True)
             m 1eua "Aww~"
             m 1eua "You're so sweet, [player]."
             m 1eua "Well in that case, I'll be moaning for you alot more~"
             m 1eua "You better be ready for it."
 
         "I want to hear you moan my name.":
-            $ mas_gainAffection(amount=2, bypass=True)
+            $ store.mas_gainAffection(amount=2, bypass=True)
             m 1eua "Oh?"
             m 1eua "You mean like this?{w=0.5}{nw}"
             extend 1eua " {i}Oh, [player]~{/i}{w=0.5}{nw}"
@@ -534,7 +534,7 @@ label nsfw_compliment_moaning_2: #TODO: Finish writing Monika's initial reaction
             m 1eua "I'll moan your name all you want, [player]."
 
         "You can moan abit too much sometimes...": # BLASPHEMY!
-            $ mas_loseAffection(2)
+            $ store.mas_loseAffection(2)
             m 1eua "Oh..."
             m 1eua "I'm sorry, [player]."
             m 1eua "I did say it's not something I can control..."

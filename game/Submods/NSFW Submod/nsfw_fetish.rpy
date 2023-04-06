@@ -105,10 +105,11 @@ label nsfw_player_fetishes:
 # NSFW fetishes start here
 # ---------------------------
 # Noting that the current approach is intended to be both informative and descriptive, allowing you to make a decision of whether or not it's something you're into.
+# Also noting that the 'context' used here is intended to coincide with sexting, so the prompts are appropriate to the player
 
 
 default persistent._nsfw_pm_bondage = False
-default persistent._nsfw_pm_bondage_context = "U" #G for Giving, R for Recieving, B for both, U for Undefined
+default persistent._nsfw_pm_bondage_context = ["U"] # ["FBM"] for Giving, ["FBP"] for Receiving, ["FBM", "FBP"] for both, ["U"] for Undefined
 
 init 6 python:
     addEvent(
@@ -121,7 +122,7 @@ init 6 python:
         code="NFH"
     )
 
-label nsfw_fetish_bondage: #TODO: Finish adding expressions
+label nsfw_fetish_bondage:
     m 1eua "Okay, let's talk about bondage."
     m 3eub "Bondage is essentially at it's core, a matter of restraint through various means. Whether that's with a ribbon, rope, or even handcuffs."
     m 3eua "As far as I know, it was initially developed in the early 1900's, and in paralell in two different locations - bringing us the styles we have today: western and eastern, but they're slightly different."
@@ -141,7 +142,7 @@ label nsfw_fetish_bondage: #TODO: Finish adding expressions
                 m "Would you prefer giving, recieving, or both?{fast}"
 
                 "Giving":
-                    $ persistent._nsfw_pm_bondage_context = "G"
+                    $ persistent._nsfw_pm_bondage_context = ["FBM"]
                     m 3eubld "Oh?"
                     m 3rubla "I haven't really done something like this before..."
                     m 1ekbla "But I trust you, and if this is something you want to try..."
@@ -149,12 +150,12 @@ label nsfw_fetish_bondage: #TODO: Finish adding expressions
                     m 5tublb "Who knows? Maybe I'll even enjoy it {i}too{/i} much~"
 
                 "Recieving":
-                    $ persistent._nsfw_pm_bondage_context = "R"
+                    $ persistent._nsfw_pm_bondage_context = ["FBP"]
                     m 5tubla "Oh?"
                     m 5tublb "Then I guess I'd better start practicing my knots~"
 
                 "Both":
-                    $ persistent._nsfw_pm_bondage_context = "B"
+                    $ persistent._nsfw_pm_bondage_context = ["FBM", "FBP"]
                     m 5tubla "Oh?"
                     m 5tublb "Guess we'd better start practicing our knots in the meantime, huh?"
 
@@ -250,8 +251,8 @@ label nsfw_fetish_hand_holding:
 
     return
 
-default persistent.nsfw_pm_anal = False
-default persistent.nsfw_pm_anal_context = "U" #G for Giving, R for Recieving, B for both, U for Undefined
+default persistent._nsfw_pm_anal = False
+default persistent._nsfw_pm_anal_context = ["U"] # ["IAM", "MBH", "MXM", "FAM"] for Giving, ["IAP", "PBH", "FXP", "FAP"] for Recieving, ["IAM", "MBH", "MXM", "FAM", "IAP", "PBH", "FXP", "FAP"] for both, ["U"] for Undefined
 
 init 6 python:
     addEvent(
@@ -264,7 +265,7 @@ init 6 python:
         code="NFH"
     )
 
-label nsfw_fetish_anal: #TODO: Finish adding expressions
+label nsfw_fetish_anal:
     m 2eud "Anal..."
     m 2rua "It's a pretty common fetish, and I'm sure you've heard of it before."
     m 3eubla "But in case you aren't aware, anal refers to the sexual stimulation of the anus."
@@ -286,13 +287,13 @@ label nsfw_fetish_anal: #TODO: Finish adding expressions
             menu:
                 m "Would you prefer giving, recieving, or both?{fast}"
                 "Giving":
-                    $ persistent._nsfw_pm_anal_context = "G"
+                    $ persistent._nsfw_pm_anal_context = ["IAM", "MBH", "MXM", "FAM"]
                     m 1tubla "Oh?"
                     m 2tublb "You want to get a good view back there, do you?"
                     m 1hublb "Ahaha~ Just teasing you, [player]."
 
                 "Recieving":
-                    $ persistent._nsfw_pm_anal_context = "R"
+                    $ persistent._nsfw_pm_anal_context = ["IAP", "PBH", "FXP", "FAP"]
                     m 1wubld "Really?"
                     if persistent._nsfw_genitalia = "P":
                         m 1rubld "I'm surprised."
@@ -308,7 +309,7 @@ label nsfw_fetish_anal: #TODO: Finish adding expressions
                         m 3tkblb "I want to make sure you feel good, [player]."
 
                 "Both":
-                    $ persistent._nsfw_pm_anal_context = "B"
+                    $ persistent._nsfw_pm_anal_context = ["IAM", "MBH", "MXM", "FAM", "IAP", "PBH", "FXP", "FAP"]
                     m 1tubla "Both, hey?"
                     m 1tublb "A giver, and a receiver..."
                     m 1tubsa "I'm happy to hear that, [player]."
@@ -324,7 +325,7 @@ label nsfw_fetish_anal: #TODO: Finish adding expressions
 
     return "love"
 
-default persistent.nsfw_pm_dominance = "U" #D for Dom, S for Sub, B for Switch, U for Undefined
+default persistent._nsfw_pm_dominance = ["U"] # ["command", "FSM"] for Dom, ["FSP"] for Sub, ["command", "FSM", "FSP"] for Switch, ["U"] for Undefined
 
 init 6 python:
     addEvent(
@@ -337,7 +338,7 @@ init 6 python:
         code="NFH"
     )
 
-label nsfw_fetish_dominance: #TODO: Finish adding expressions
+label nsfw_fetish_dominance:
     m 1hua "Sure, we can talk about that."
     m 3eub "On the one side, you have the dominant."
     m 3tub "They are the ones who take control."
@@ -375,14 +376,14 @@ label nsfw_fetish_dominance: #TODO: Finish adding expressions
     menu:
         m "Are you a dominant, a submissive, or both?{fast}"
         "Dominant":
-            $ persistent._nsfw_pm_dominance = "D"
+            $ persistent._nsfw_pm_dominance = ["FSM"]
             m 3tubla "A dominant, huh?"
             m 3gubla "I can see it."
             m 5tubla "You seem like the sort of person who likes to take charge."
             m 5tublb "And I'm all here for it~"
 
         "Submissive":
-            $ persistent._nsfw_pm_dominance = "S"
+            $ persistent._nsfw_pm_dominance = ["FSP"]
             m 3tubla "A submissive, huh?"
             m 3gubla "I can see it."
             m 1kubla "You seem like the sort of person who likes to be told what to do."
@@ -391,7 +392,7 @@ label nsfw_fetish_dominance: #TODO: Finish adding expressions
             m 5tubla "Ehehe~"
 
         "Both":
-            $ persistent._nsfw_pm_dominance = "B"
+            $ persistent._nsfw_pm_dominance = ["FSM", "FSP"]
             m 3tubla "A switch, huh?"
             m 3gubla "I can see it."
             m 1ekbla "You strike me as a cooperative person."

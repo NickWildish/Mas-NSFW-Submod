@@ -838,10 +838,22 @@ init python in mas_nsfw:
             The last two only apply to third stage (sexy) prompts and responses; they are otherwise None.
 
         """
-
         # initialize this to None, it isn't used unless it's a prompt or quip at stage 3
         return_type = None
         return_subtype = None
+
+        # Going to manually list out fetishes until I get a better idea of how to do it
+        player_fetishes = [
+            (_("bondage"), persistent._nsfw_pm_bondage, persistent._nsfw_pm_bondage_context),
+            (_("hand_holding"), persistent._nsfw_pm_hand_holding, None),
+            (_("anal"), persistent._nsfw_pm_anal, persistent._nsfw_pm_anal_context),
+            (_("dominance"), True, persistent._nsfw_pm_dominance),
+        ]
+
+        # Search player_fetishes for which of the pm varaibles are True
+        #for key in player_fetishes:
+        #    if key[1] == True:
+
 
         # Grab list we will be drawing dialogue from, based on category_type and horny_level
         if category_type == "quip":

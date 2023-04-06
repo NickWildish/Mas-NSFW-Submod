@@ -498,46 +498,48 @@ label nsfw_compliment_moaning:
     return
 
 label nsfw_compliment_moaning_2: #TODO: Finish writing Monika's initial reaction to compliment
-    m 1eua "Oh..."
-    m 1eua "Ahaha, I'm glad you like it~"
-    m 1eua "It's not something I can control, per se..."
-    m 1eua "But if you enjoy it so much, maybe I should practice moaning for you~"
-    m 1eua "Would you prefer if I moaned like this?{w=0.5}{nw}"
-    extend 1eua " {i}Ahhhh~{/i}"
-    m 1eua "Or like this?{w=0.5}{nw}"
-    extend 1eua " {i}Oh, [player]~{/i}"
-    m 1eua "..."
-    m 1eua "Or maybe like this?{w=0.5}{nw}"
-    m 1eua " {i}Oh~ I want you, [player]!~{/i}"
-    m 1eua "Ehehe~"
-    m 1eua "I'm just teasing you."
+    m 1wubld "Oh..."
+    m 1hublb "Ahaha, I'm glad you like it~"
+    m 3rkbla "It's not something I can control, per se..."
+    m 3tsbla "But if you enjoy it so much, maybe I should practice moaning for you~"
+    m 4tsbla "Would you prefer if I moaned like this?{w=0.5}{nw}"
+    extend 4hkblo " {i}Ahhhh~{/i}"
+    m 4kkblo "Or like this?{w=0.5}{nw}"
+    extend 4hkbld " {i}Oh, [player]~{/i}"
+    m 7gkblu "..."
+    m 7tkblb "Or maybe like this?{w=0.5}{nw}"
+    m 7hkblw " {i}Oh~ I want you, [player]!~{/i}"
+    m 7tkblu "Ehehe~"
+    m 1tubla "I'm just teasing you."
     $ _history_list.pop()
     menu:
         m "I'm just teasing you.{fast}"
 
         "You feeling good is what I want the most.":
             $ store.mas_gainAffection(amount=5, bypass=True)
-            m 1eua "Aww~"
-            m 1eua "You're so sweet, [player]."
-            m 1eua "Well in that case, I'll be moaning for you alot more~"
-            m 1eua "You better be ready for it."
+            m 1ekbla "Aww~"
+            m 3ekbla "You're so sweet, [player]."
+            m 3tublb "Well in that case, I'll be moaning for you alot more~"
+            m 3tubla "You better be ready for it."
 
         "I want to hear you moan my name.":
             $ store.mas_gainAffection(amount=2, bypass=True)
-            m 1eua "Oh?"
-            m 1eua "You mean like this?{w=0.5}{nw}"
-            extend 1eua " {i}Oh, [player]~{/i}{w=0.5}{nw}"
-            extend 1eua " {i}I want you~{/i}{w=0.5}{nw}}"
-            extend 1eua " {i}I want you so bad~{/i}"
-            m 1eua "Ehehe~"
-            m 1eua "I'll moan your name all you want, [player]."
+            m 1tkbla "Oh?"
+            m 3tsbla "You mean like this?{w=0.5}{nw}"
+            extend 3hkblo " {i}Oh, [player]~{/i}{w=0.5}{nw}"
+            extend 3kkbld " {i}I want you~{/i}{w=0.5}{nw}}"
+            extend 3tkblo " {i}I want you so bad~{/i}"
+            m 1hubla "Ehehe~"
+            m 1tubla "I'll moan your name all you want."
+            m 1ekbla "But I want you to moan mine too~"
+            m 1ekblb "A fair trade, don't you think?"
 
         "You can moan abit too much sometimes...": # BLASPHEMY!
             $ store.mas_loseAffection(2)
-            m 1eua "Oh..."
-            m 1eua "I'm sorry, [player]."
-            m 1eua "I did say it's not something I can control..."
-            m 1eua "But I'll try to keep it down."
+            m 1ekblc "Oh..."
+            m 1ekbld "I'm sorry, [player]."
+            m 3rkbld "I did say it's not something I can control..."
+            m 3dkblc "But I'll try to keep it down..."
     return
 
 label nsfw_compliment_moaning_3:

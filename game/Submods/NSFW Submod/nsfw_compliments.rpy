@@ -497,7 +497,7 @@ label nsfw_compliment_moaning:
         call nsfw_compliment_moaning_3
     return
 
-label nsfw_compliment_moaning_2: #TODO: Finish writing Monika's initial reaction to compliment
+label nsfw_compliment_moaning_2:
     m 1wubld "Oh..."
     m 1hublb "Ahaha, I'm glad you like it~"
     m 3rkbla "It's not something I can control, per se..."
@@ -598,7 +598,7 @@ label nsfw_compliment_wet:
         call nsfw_compliment_wet_3
     return
 
-label nsfw_compliment_wet_2: #TODO: Finish writing Monika's initial reaction to compliment
+label nsfw_compliment_wet_2:
     python:
         if persistent._nsfw_genitalia == "P":
             naughty_bits = "I can make you even wetter with my cock deep inside you."

@@ -297,13 +297,13 @@ label nsfw_monika_sextingsession:
 
             $ persistent._nsfw_sexting_attempt_permfreeze = True # This should be reversable
 
-    else: # TODO - Add posing to the dialogue
-        m 1eua "Hey, [mas_get_player_nickname()]~"
-        m 1eua "Just wanted to let you know that in the mood for some {i}fun{/i} later."
-        m 1eua "I hope you're free then~"
-        m 1eua "Or we could just do it right now, if you're up for it~"
-        m 1eua "I'm sure you'll be able to make time for me, right?"
-        m 1eua "Ehehe~"
+    else:
+        m 1tua "Hey, [mas_get_player_nickname()]~"
+        m 3tubla "Just wanted to let you know that in the mood for some {i}fun{/i} later."
+        m 3tublb "I hope you're free then~"
+        m 5tublb "Or we could just do it right now, if you're up for it~"
+        m 5gublb "I'm sure you'll be able to make time for me, right?"
+        m 5hubla "Ehehe~"
 
     call nsfw_monika_sextingsession_end
 

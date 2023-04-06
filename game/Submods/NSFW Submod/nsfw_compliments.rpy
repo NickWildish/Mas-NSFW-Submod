@@ -511,10 +511,10 @@ label nsfw_compliment_moaning_2: #TODO: Finish writing Monika's initial reaction
     m 1eua "Or maybe like this?{w=0.5}{nw}"
     m 1eua " {i}Oh~ I want you, [player]!~{/i}"
     m 1eua "Ehehe~"
-    m 1eua "I'm just teasing you, [player_nickname]."
+    m 1eua "I'm just teasing you."
     $ _history_list.pop()
     menu:
-        m "I'm just teasing you, [player_nickname].{fast}"
+        m "I'm just teasing you.{fast}"
 
         "You feeling good is what I want the most.":
             $ store.mas_gainAffection(amount=5, bypass=True)

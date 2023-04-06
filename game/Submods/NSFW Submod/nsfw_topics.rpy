@@ -18,9 +18,28 @@ init 5 python:
     )
 
 label nsfw_player_monika_initiate_sext:
-    m 1eua "Okay." #TODO: add dialogue
-    $ persistent._nsfw_sexting_attempt_permfreeze = False
-    $ persistent._nsfw_sexting_attempts = 0
+    m 2euc "I can..."
+    m 2ekc "But do you really want me to?"
+    m 3rkc "You turned me down that many times that I started to doubt you wanted it."
+    m 1dkblc "I don't like to be rejected so much, [player]."
+    m 1ekbla "Do you really want me to initiate sexting sessions again?"
+
+    $ _history_list.pop()
+    menu:
+        m "Do you really want me to initiate sexting sessions again?{fast}"
+
+        "Yes.":
+            m 1ekblb "Okay, [player]"
+            m 3ekblb "I don't mind if you don't feel like it sometimes."
+            m 5ekbla "Just remember that I love you, and I'll always be here for you."
+            $ persistent._nsfw_sexting_attempt_permfreeze = False
+            $ persistent._nsfw_sexting_attempts = 0
+
+        "No...":
+            m 1ekblb "ALright, [player]."
+            m 1eka "I'll leave you in charge of it."
+            m 3tka "Don't leave me hanging {i}too{/i} long, though."
+            m 3hua "Ehehe~"
 
     call nsfw_player_monika_initiate_sext_end
 

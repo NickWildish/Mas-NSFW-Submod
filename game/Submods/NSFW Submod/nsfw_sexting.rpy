@@ -20,9 +20,9 @@ label nsfw_sexting_main:
         recent_prompts = [] # The recent prompts used
         recent_responses = [] # The recent responses used
         recent_quips = [] # The recent quips used
-        previous_cat = None # The category of the last prompt used ("cute", "hot", or "sexy")
-        previous_type = None # The "type" of the last prompt used. Only relevant in third stage.
-        previous_subtype = None # The "subtype" of the last prompt used. Only relevant in third stage.
+        previous_category = None # The category of the last prompt/quip/response used ("cute", "hot", or "sexy"). Changes depending on previous dialogue.
+        previous_type = None # The "type" of the last prompt/quip/response used. Only relevant in third stage. Changes depending on previous dialogue.
+        previous_subtype = None # The "subtype" of the last prompt/quip/response used. Only relevant in third stage. Changes depending on previous dialogue.
         shouldkiss = False # Used in handling of kissing logic
         shouldkiss_cooldown = 0 # Used in handling of kissing logic
         shouldchange = False # Used in handling of clothes change logic
@@ -32,21 +32,26 @@ label nsfw_sexting_main:
 
     while True:
         python:
+            # Grab random line of dialogue from list
+            monika_quip, quip_cat, quip_type, quip_subtype = mas_nsfw.return_sexting_dialogue(category_type="quip", horny_level=horny_lvl, hot_req=hot_req, sexy_req=sexy_req, horny_max=horny_max, recent=recent_quips, prev_cat=previous_cat, prev_type=previous_type, prev_stype=previous_subtype)
+            quip_ending = mas_nsfw.return_dialogue_end(monika_quip)
+
+            # Set new previous category/type/subtype
+            previous_cat = quip_cat[prompt_choice]
+            previous_type = quip_type[prompt_choice]
+            previous_subtype = quip_subtype[prompt_choice]
+
             # Make 3 player prompts
             for x in range(3):
-                player_prompt[x], prompt_cat[x], prompt_type[x], prompt_subtype[x] = mas_nsfw.return_sexting_dialogue(category_type="prompt", horny_level=horny_lvl, hot_req=hot_req, sexy_req=sexy_req, horny_max=horny_max, recent=recent_prompts)
+                player_prompt[x], prompt_cat[x], prompt_type[x], prompt_subtype[x] = mas_nsfw.return_sexting_dialogue(category_type="prompt", horny_level=horny_lvl, hot_req=hot_req, sexy_req=sexy_req, horny_max=horny_max, recent=recent_prompts, prev_cat=previous_cat, prev_type=previous_type, prev_stype=previous_subtype)
 
             # While loop to prevent duplicates
             while player_prompt[1] == player_prompt[0]:
                 # Grab second random prompt from list
-                player_prompt[1], prompt_cat[1], prompt_type[1], prompt_subtype[1] = mas_nsfw.return_sexting_dialogue(category_type="prompt", horny_level=horny_lvl, hot_req=hot_req, sexy_req=sexy_req, horny_max=horny_max, recent=recent_prompts)
+                player_prompt[1], prompt_cat[1], prompt_type[1], prompt_subtype[1] = mas_nsfw.return_sexting_dialogue(category_type="prompt", horny_level=horny_lvl, hot_req=hot_req, sexy_req=sexy_req, horny_max=horny_max, recent=recent_prompts, prev_cat=previous_cat, prev_type=previous_type, prev_stype=previous_subtype)
             while player_prompt[2] == player_prompt[0] or player_prompt[2] == player_prompt[1]:
                 # Grab third random prompt from list
-                player_prompt[2], prompt_cat[2], prompt_type[2], prompt_subtype[2] = mas_nsfw.return_sexting_dialogue(category_type="prompt", horny_level=horny_lvl, hot_req=hot_req, sexy_req=sexy_req, horny_max=horny_max, recent=recent_prompts)
-
-            # Grab random line of dialogue from list
-            monika_quip = mas_nsfw.return_sexting_dialogue(category_type="quip", horny_level=horny_lvl, hot_req=hot_req, sexy_req=sexy_req, horny_max=horny_max, recent=recent_quips)[0]
-            quip_ending = mas_nsfw.return_dialogue_end(monika_quip)
+                player_prompt[2], prompt_cat[2], prompt_type[2], prompt_subtype[2] = mas_nsfw.return_sexting_dialogue(category_type="prompt", horny_level=horny_lvl, hot_req=hot_req, sexy_req=sexy_req, horny_max=horny_max, recent=recent_prompts, prev_cat=previous_cat, prev_type=previous_type, prev_stype=previous_subtype)
 
         if horny_lvl >= sexy_req or store.persistent._nsfw_sext_sexy_start:
             if store.persistent._nsfw_sext_sexy_start:
@@ -133,6 +138,7 @@ label nsfw_sexting_main:
                     return
 
         python:
+            # Set new previous category/type/subtype
             previous_cat = prompt_cat[prompt_choice]
             previous_type = prompt_type[prompt_choice]
             previous_subtype = prompt_subtype[prompt_choice]
@@ -197,9 +203,10 @@ label nsfw_sexting_main:
             m 6hubfb "Hah~ That feels better."
             $ sexy_transfer = True
 
-        $ response_start = mas_nsfw.return_dialogue_start(horny_level=horny_lvl, hot_req=hot_req, sexy_req=sexy_req)
-        $ monika_response = mas_nsfw.return_sexting_dialogue(category_type="response", horny_level=horny_lvl, hot_req=hot_req, sexy_req=sexy_req, horny_max=horny_max, recent=recent_responses, previous_cat=previous_cat, previous_type=previous_type, previous_subtype=previous_subtype)[0]
-        $ response_ending = mas_nsfw.return_dialogue_end(monika_response)
+        python:
+            response_start = mas_nsfw.return_dialogue_start(horny_level=horny_lvl, hot_req=hot_req, sexy_req=sexy_req)
+            monika_response, response_cat, response_type, response_subtype = mas_nsfw.return_sexting_dialogue(category_type="response", horny_level=horny_lvl, hot_req=hot_req, sexy_req=sexy_req, horny_max=horny_max, recent=recent_responses, previous_cat=previous_cat, previous_type=previous_type, previous_subtype=previous_subtype)
+            response_ending = mas_nsfw.return_dialogue_end(monika_response)
 
         if previous_type == "funny":
             show monika sexting_funny_poses

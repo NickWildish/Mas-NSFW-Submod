@@ -48,6 +48,12 @@ label nsfw_player_fetishintro: #TODO: Finish adding expressions
     $ mas_unlockEventLabel("nsfw_player_fetishes")
 return
 
+# The fetish list contains lists that have information about any given fetish the player has expressed interest in.
+# If the player has not specified any fetishes, we assume they're into everything.
+# The first item in the list is the name of the fetish, the second is a whitelist of tags that the player will be into, the third is a blacklist of tags that the player will not be into.
+# Example: ["Bondage", ["FBM"], ["FBP"]] means that the player is into bondage, but only if they're the one giving it, and not receiving it.
+default persistent._nsfw_player_fetishes = []
+
 # entry point for fetish flow
 init 6 python: # Use init 6 since the dictionary entry to store our entries is added in 5, and we want it around
     addEvent(
@@ -107,9 +113,9 @@ label nsfw_player_fetishes:
 # Noting that the current approach is intended to be both informative and descriptive, allowing you to make a decision of whether or not it's something you're into.
 # Also noting that the 'context' used here is intended to coincide with sexting, so the prompts are appropriate to the player
 
-
 default persistent._nsfw_pm_bondage = False
-default persistent._nsfw_pm_bondage_context = ["U"] # ["FBM"] for Giving, ["FBP"] for Receiving, ["FBM", "FBP"] for both, ["U"] for Undefined
+default persistent._nsfw_pm_bondage_whitelist = ["U"] # ["FBM"] for Giving, ["FBP"] for Receiving, ["FBM", "FBP"] for both, ["U"] for Undefined
+default persistent._nsfw_pm_bondage_blacklist = ["U"]
 
 init 6 python:
     addEvent(
@@ -142,7 +148,8 @@ label nsfw_fetish_bondage:
                 m "Would you prefer giving, recieving, or both?{fast}"
 
                 "Giving":
-                    $ persistent._nsfw_pm_bondage_context = ["FBM"]
+                    $ persistent._nsfw_pm_bondage_whitelist = ["FBM"]
+                    $ persistent._nsfw_pm_bondage_blacklist = ["FBP"]
                     m 3eubld "Oh?"
                     m 3rubla "I haven't really done something like this before..."
                     m 1ekbla "But I trust you, and if this is something you want to try..."
@@ -150,17 +157,21 @@ label nsfw_fetish_bondage:
                     m 5tublb "Who knows? Maybe I'll even enjoy it {i}too{/i} much~"
 
                 "Recieving":
-                    $ persistent._nsfw_pm_bondage_context = ["FBP"]
+                    $ persistent._nsfw_pm_bondage_whitelist = ["FBP"]
+                    $ persistent._nsfw_pm_bondage_blacklist = ["FBM"]
                     m 5tubla "Oh?"
                     m 5tublb "Then I guess I'd better start practicing my knots~"
 
                 "Both":
-                    $ persistent._nsfw_pm_bondage_context = ["FBM", "FBP"]
+                    $ persistent._nsfw_pm_bondage_whitelist = ["FBM", "FBP"]
+                    $ persistent._nsfw_pm_bondage_blacklist = ["U"]
                     m 5tubla "Oh?"
                     m 5tublb "Guess we'd better start practicing our knots in the meantime, huh?"
 
         "No":
             $ persistent._nsfw_pm_bondage = False
+            $ persistent._nsfw_pm_bondage_whitelist = ["U"]
+            $ persistent._nsfw_pm_bondage_blacklist = ["FBM", "FBP"]
             m 1hubla "Alright, [player]."
             m 5tublb "Guess I'll put away these handcuffs for now." #Smirk
 
@@ -194,9 +205,28 @@ label nsfw_fetish_bondage:
         "No":
             m 3hua "That's okay. Let me know if you change your mind."
 
+    call nsfw_fetish_bondage_end
+
     return
 
-default persistant._nsfw_pm_hand_holding = False
+label nsfw_fetish_bondage_end:
+    # Force-update the fetish
+    python:
+        found_fetish = False
+        for fetish in persistent._nsfw_player_fetishes:
+            if fetish[0] == "Bondage":
+                found_fetish = True
+                fetish[1] = persistent._nsfw_pm_bondage_whitelist
+                fetish[2] = persistent._nsfw_pm_bondage_blacklist
+                break
+
+        if not found_fetish:
+            # If we get here, we didn't find the fetish
+            persistent._nsfw_player_fetishes.append(["Bondage", persistent._nsfw_pm_bondage_whitelist, persistent._nsfw_pm_bondage_blacklist])
+
+    return
+
+default persistant._nsfw_pm_hand_holding = False # Not in serious use yet
 # Could maybe add hands as a legit fetish alongside handholding
 
 init 6 python:
@@ -227,7 +257,7 @@ label nsfw_fetish_hand_holding:
             m 3wubld "Really?"
             m 2rubld "That's..."
             m 2eubld "That's a pretty big jump in our relationship..."
-            m 2rublc "but I suppose I'm okay with it as long as it's with you."
+            m 2rublc "But I suppose I'm okay with it as long as it's with you."
 
         "No":
             $ persistent._nsfw_pm_hand_holding = False
@@ -252,7 +282,8 @@ label nsfw_fetish_hand_holding:
     return
 
 default persistent._nsfw_pm_anal = False
-default persistent._nsfw_pm_anal_context = ["U"] # ["IAM", "MBH", "MXM", "FAM"] for Giving, ["IAP", "PBH", "FXP", "FAP"] for Recieving, ["IAM", "MBH", "MXM", "FAM", "IAP", "PBH", "FXP", "FAP"] for both, ["U"] for Undefined
+default persistent._nsfw_pm_anal_whitelist = ["U"] # ["IAM", "MBH", "MXM", "FAM"] for Giving, ["IAP", "PBH", "FXP", "FAP"] for Recieving, ["IAM", "MBH", "MXM", "FAM", "IAP", "PBH", "FXP", "FAP"] for both, ["U"] for Undefined
+default persistent._nsfw_pm_anal_blacklist = ["U"]
 
 init 6 python:
     addEvent(
@@ -287,13 +318,15 @@ label nsfw_fetish_anal:
             menu:
                 m "Would you prefer giving, recieving, or both?{fast}"
                 "Giving":
-                    $ persistent._nsfw_pm_anal_context = ["IAM", "MBH", "MXM", "FAM"]
+                    $ persistent._nsfw_pm_anal_whitelist = ["IAM", "MBH", "MXM", "FAM"]
+                    $ persistent._nsfw_pm_anal_blacklist = ["IAP", "PBH", "FXP", "FAP"]
                     m 1tubla "Oh?"
                     m 2tublb "You want to get a good view back there, do you?"
                     m 1hublb "Ahaha~ Just teasing you, [player]."
 
                 "Recieving":
-                    $ persistent._nsfw_pm_anal_context = ["IAP", "PBH", "FXP", "FAP"]
+                    $ persistent._nsfw_pm_anal_whitelist = ["IAP", "PBH", "FXP", "FAP"]
+                    $ persistent._nsfw_pm_anal_blacklist = ["IAM", "MBH", "MXM", "FAM"]
                     m 1wubld "Really?"
                     if persistent._nsfw_genitalia = "P":
                         m 1rubld "I'm surprised."
@@ -309,23 +342,48 @@ label nsfw_fetish_anal:
                         m 3tkblb "I want to make sure you feel good, [player]."
 
                 "Both":
-                    $ persistent._nsfw_pm_anal_context = ["IAM", "MBH", "MXM", "FAM", "IAP", "PBH", "FXP", "FAP"]
+                    $ persistent._nsfw_pm_anal_whitelist = ["IAM", "MBH", "MXM", "FAM", "IAP", "PBH", "FXP", "FAP"]
+                    $ persistent._nsfw_pm_anal_blacklist = ["U"]
                     m 1tubla "Both, hey?"
                     m 1tublb "A giver, and a receiver..."
                     m 1tubsa "I'm happy to hear that, [player]."
                     m 3tkbsb "We can each take turns to satisfy one another~"
 
         "No":
-            m 1hubla "Alright, [player]."
+            $ persistent._nsfw_pm_anal = False
+            $ persistent._nsfw_pm_anal_whitelist = ["U"]
+            $ persistent._nsfw_pm_anal_blacklist = ["IAM", "MBH", "MXM", "FAM", "IAP", "PBH", "FXP", "FAP"]
+            m 1hubla "That's alright, [player]."
 
     m 3rubla "As for me, I'm willing to experiment."
     m 2ekbla "I've only just begun to explore my sexuality thanks to you, so I'm not sure what I'm into yet."
     m 2ekblb "You've helped me discover a lot of things about myself, and I'm sure there's more to come."
     m 5ekblb "I love you, and I'm willing to try anything with you, [player]."
 
+    call nsfw_fetish_anal_end
+
     return "love"
 
-default persistent._nsfw_pm_dominance = ["U"] # ["command", "FSM"] for Dom, ["FSP"] for Sub, ["command", "FSM", "FSP"] for Switch, ["U"] for Undefined
+label nsfw_fetish_anal_end:
+    # Force-update the fetish
+    python:
+        found_fetish = False
+        for fetish in persistent._nsfw_player_fetishes:
+            if fetish[0] == "Anal":
+                found_fetish = True
+                fetish[1] = persistent._nsfw_pm_anal_whitelist
+                fetish[2] = persistent._nsfw_pm_anal_blacklist
+                break
+
+        if not found_fetish:
+            # If we get here, we didn't find the fetish
+            persistent._nsfw_player_fetishes.append(["Anal", persistent._nsfw_pm_anal_whitelist, persistent._nsfw_pm_anal_blacklist])
+
+    return
+
+# No true or false here, as by default you're one or the other, or both
+default persistent._nsfw_pm_dominance_whitelist = ["U"] # ["command", "FSM"] for Dom, ["FSP"] for Sub, ["command", "FSM", "FSP"] for Switch, ["U"] for Undefined
+default persistent._nsfw_pm_dominance_blacklist = ["U"]
 
 init 6 python:
     addEvent(
@@ -401,7 +459,7 @@ label nsfw_fetish_dominance:
 
     m 5gublu "As for me?"
     m 5rublb "Well...I suppose I wouldn't mind being either." #As a way to explain Monika being accepting of every option.
-    if persistent._nsfw_pm_dominance == "B":
+    if persistent._nsfw_pm_dominance == ["FSM", "FSP"]:
         m 5hubla "Guess we are the same in that regard."
         m 5hublb "We both like to please our partners."
         m 1dublb "And we both like to be pleased."
@@ -413,4 +471,23 @@ label nsfw_fetish_dominance:
     m 1eublb "In any case..."
     m 3ekbla "Regardless of what you prefer, I will always love you, [player]."
 
+    call nsfw_fetish_dominance_end
+
     return "love"
+
+label nsfw_fetish_dominance_end:
+    # Force-update the fetish
+    python:
+        found_fetish = False
+        for fetish in persistent._nsfw_player_fetishes:
+            if fetish[0] == "Dominance":
+                found_fetish = True
+                fetish[1] = persistent._nsfw_pm_dominance_whitelist
+                fetish[2] = persistent._nsfw_pm_dominance_blacklist
+                break
+
+        if not found_fetish:
+            # If we get here, we didn't find the fetish
+            persistent._nsfw_player_fetishes.append(["Dominance", persistent._nsfw_pm_dominance_whitelist, persistent._nsfw_pm_dominance_blacklist])
+
+    return

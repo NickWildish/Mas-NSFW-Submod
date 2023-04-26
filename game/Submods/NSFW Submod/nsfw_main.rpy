@@ -658,30 +658,23 @@ init python in mas_nsfw:
 
         return new_dialogue_list
 
-    def return_sexting_dialogue(category_type="response", horny_level=0, hot_req=10, sexy_req=30, horny_max=50, recent=[], prev_cat=None, prev_type=None, prev_stypes=None):
+    def return_sexting_dialogue(category_type="response", horny_lvl=0, horny_reqs=[0, 10, 30, 50], recent=[], previous_vars=[], past_prompts=[None, None]):
         """
         Returns a string from a dialogue list based on
 
         IN:
             category_type - The loop component ("quip", "prompt", or "response") of dialogue we want to pull
                 (Default: "response")
-            horny_level - The level of horny Monika is at
+            horny_lvl - The level of horny Monika is at
                 (Default: 0)
-            hot_req - The requirement for hot dialogue
-                (Default: 10)
-            sexy_req - The requirement for sexy dialogue
-                (Default: 30)
-            horny_max - The maximum possible horny level
-                (Default: 50)
+            horny_reqs - The horny requirements for each category [min, hot, sexy, max].
+                (Default: [0, 10, 30, 50])
             recent - The recent_quips, recent_prompts, or recent_responses used - should match category_type.
                 (Default: [])
-            prev_cat - the "category" ("cute", "hot", "sexy") of the last prompt used
-                (Optional, used only when category_type == "response")
-            prev_type - The "type" of the last prompt used
-                (Optional, used only when category_type == "response")
-            prev_stype - The "subtype" of the last prompt used
-                (Optional, used only when category_type == "response")
-
+            previous_vars - The previous dialogue's category, type and subtype [category, type, subtype].
+                (Default: [])
+            past_prompts - The past prompts used (only used when getting prompt).
+                (Default: None)
         OUT:
             Four outputs:
             [0] An individual string randomly picked from the list,
@@ -695,36 +688,37 @@ init python in mas_nsfw:
         return_type = None
         return_subtype = None
 
-        # Grab list we will be drawing dialogue from, based on category_type and horny_level
+        # Grab list we will be drawing dialogue from, based on category_type and horny level
         if category_type == "quip":
             selected_recentlist = recent
-            if horny_level >= sexy_req:
+            if horny_lvl >= horny_reqs[2]:
                 dialogue_list = return_sext_quips(quip_category=2)
                 return_cat = "sexy"
-            elif horny_level >= hot_req:
+            elif horny_lvl >= horny_reqs[1]:
                 dialogue_list = return_sext_quips(quip_category=1)
                 return_cat = "hot"
             else: # Default
                 dialogue_list = return_sext_quips(quip_category=0)
                 return_cat = "cute"
 
-            new_dialogue_list = refine_dialogue_list_with_subtypes(dialogue_list, prev_stypes, "quip")
-
         elif category_type == "prompt":
             selected_recentlist = recent
-            if horny_level >= sexy_req:
+            if horny_lvl >= horny_reqs[2]:
                 # Don't need to check here, as sexy is the highest level we can go for dialogue
                 dialogue_list = return_sext_prompts(prompt_category=2)
-                return_cat = "sexy"
+                if dialogue_list[0][0] == "funny":
+                    return_cat = "funny"
+                else:
+                    return_cat = "sexy"
 
-            elif horny_level >= hot_req:
+            elif horny_lvl >= horny_reqs[1]:
                 # Create random integer based on how close value is to sexy req vs max
-                hot_to_current_rand = random.randint(hot_req, horny_level)
-                current_to_sexy_rand = random.randint(horny_level, sexy_req)
+                hot_to_current_rand = random.randint(horny_reqs[1], horny_lvl)
+                current_to_sexy_rand = random.randint(horny_lvl, horny_reqs[2])
 
                 # Check how close value is to sexy req vs max
-                hot_to_current = horny_level - hot_to_current_rand
-                current_to_sexy = current_to_sexy_rand - horny_level
+                hot_to_current = horny_lvl - hot_to_current_rand
+                current_to_sexy = current_to_sexy_rand - horny_lvl
                 if hot_to_current > current_to_sexy:
                     dialogue_list = return_sext_prompts(prompt_category=2)
                     return_cat = "sexy"
@@ -734,12 +728,12 @@ init python in mas_nsfw:
 
             else: # Default
                 # Create random integer based on how close value is to sexy req vs max
-                min_to_current_rand = random.randint(0, horny_level)
-                current_to_hot_rand = random.randint(horny_level, hot_req)
+                min_to_current_rand = random.randint(0, horny_lvl)
+                current_to_hot_rand = random.randint(horny_lvl, horny_reqs[1])
 
                 # Check how close value is to sexy req vs max
-                min_to_current = horny_level - min_to_current_rand
-                current_to_hot = current_to_hot_rand - horny_level
+                min_to_current = horny_lvl - min_to_current_rand
+                current_to_hot = current_to_hot_rand - horny_lvl
                 if min_to_current > current_to_hot:
                     dialogue_list = return_sext_prompts(prompt_category=1)
                     return_cat = "hot"
@@ -751,53 +745,109 @@ init python in mas_nsfw:
             # Responses should match the category / stage as the last prompt picked in order to make sense.
             selected_recentlist = recent
 
-            if previous_cat == "cute":
+            if previous_vars[0] == "cute":
                 category_number = 0
-            elif previous_cat == "hot":
+            elif previous_vars[0] == "hot":
                 category_number = 1
-            else: # if previous_cat == "sexy":
+            else: # if previous_vars[0] == "sexy":
                 category_number = 2
 
-            dialogue_list = return_sext_responses(response_category=category_number, response_type=previous_type, response_subtype=previous_subtype)
-            return_cat = previous_cat
+            dialogue_list = return_sext_responses(response_vars=[category_number, previous_vars[1], previous_vars[2]])
+            return_cat = previous_vars[0]
 
-        # Grab length of aquired list
-        list_length = len(dialogue_list)
+        new_dialogue_list = refine_dialogue_list_with_subtypes(dialogue_list, previous_vars[2], None, selected_recentlist)
+
+        # Grab length of acquired list
+        list_length = len(new_dialogue_list)
+        list_length_first = len(new_dialogue_list[0])
+        list_length_second = len(new_dialogue_list[1])
+        list_length_third = len(new_dialogue_list[2])
 
         # Grab random dialogue from list
         dialogue_no = random.randint(0, list_length - 1)
 
-        # Break out of recentlist check after 100 failed attempts to find dialogue not in recent list.
+        if list_length_first is not 0:
+            dialogue_no_first = random.randint(0, list_length_first - 1)
+        else:
+            dialogue_no_first = -1
+
+        if list_length_second is not 0:
+            dialogue_no_second = random.randint(0, list_length_second - 1)
+        else:
+            dialogue_no_second = -1
+
+        # Should never happen, but just in case so we know where the issue is
+        if list_length_third is not 0:
+            dialogue_no_third = random.randint(0, list_length_third - 1)
+        else:
+            dialogue_no_third = -1
 
         # Ideally this is never needed but it covers possible edge cases where the system may get
         # caught in a runaway while loop when searching through a dialogue list that is too short.
         recentlist_breakout = 0
 
-        if category_type == "prompt": # if it's a prompt, dialogue_list is a list of tuples.
-            while dialogue_list[dialogue_no][2] in selected_recentlist and recentlist_breakout < 100:
-                dialogue_no = random.randint(0, list_length - 1)
-                recentlist_breakout += 1
+        if category_type == "prompt": # if it's a prompt, new_dialogue_list is a list of tuples.
+            final_prompt_refinement = []
 
-            return_type = dialogue_list[dialogue_no][0]
-            return_subtype = dialogue_list[dialogue_no][1]
-            return_dialogue = dialogue_list[dialogue_no][2]
+            # Create a prompt using the three pools
+            # Use past prompts to verify which pool to use
+            if past_prompts[0] is None and dialogue_no_first is not -1:
+                # If there are no past prompts, this is using the first pool
+                final_prompt_refinement = new_dialogue_list[0][dialogue_no_first]
+
+                # Check if the dialogue is in the recent list, if so, grab a new one
+                while final_prompt_refinement[2] in selected_recentlist and recentlist_breakout < 100:
+                    dialogue_no_first = random.randint(0, list_length_first - 1)
+                    final_prompt_refinement = new_dialogue_list[0][dialogue_no_first]
+                    recentlist_breakout += 1
+
+            elif past_prompts [1] is None and dialogue_no_second is not -1:
+                # If there is only one past prompt, this is using the second pool
+                final_prompt_refinement = new_dialogue_list[1][dialogue_no_second]
+
+                # Check if the dialogue is in the recent list, if so, grab a new one
+                while final_prompt_refinement[2] in selected_recentlist and recentlist_breakout < 100:
+                    dialogue_no_first = random.randint(0, list_length_first - 1)
+                    final_prompt_refinement = new_dialogue_list[1][dialogue_no_second]
+                    recentlist_breakout += 1
+
+            else:
+                # If there are two past prompts, this is using the third pool
+                final_prompt_refinement = new_dialogue_list[2][dialogue_no_third]
+
+                # Check if the dialogue is in the recent list, if so, grab a new one
+                while final_prompt_refinement[2] in selected_recentlist and recentlist_breakout < 100:
+                    dialogue_no_first = random.randint(0, list_length_first - 1)
+                    final_prompt_refinement = new_dialogue_list[2][dialogue_no_third]
+                    recentlist_breakout += 1
+
+            return_dialogue = final_prompt_refinement[2]
+            return_type = final_prompt_refinement[0]
+            return_subtype = final_prompt_refinement[1]
 
         elif category_type == "quip": # if it's a quip, dialogue_list is a list of tuples. May as well keep these seperate despite no differences
+            final_prompt_refinement = new_dialogue_list[0][dialogue_no_first]
+
             # Do loop to check if selected dialogue was used recently
-            while dialogue_list[dialogue_no][2] in selected_recentlist and recentlist_breakout < 100:
-                dialogue_no = random.randint(0, list_length - 1)
+            while final_prompt_refinement[2] in selected_recentlist and recentlist_breakout < 100:
+                dialogue_no_first = random.randint(0, list_length_first - 1)
+                final_prompt_refinement = new_dialogue_list[0][dialogue_no_first]
                 recentlist_breakout += 1
 
-            return_type = dialogue_list[dialogue_no][0]
-            return_subtype = dialogue_list[dialogue_no][1]
-            return_dialogue = dialogue_list[dialogue_no][2]
+            return_dialogue = final_prompt_refinement[2]
+            return_type = final_prompt_refinement[0]
+            return_subtype = final_prompt_refinement[1]
 
         else: # do not run any recentness checks for funny responses because only one option is possible
-            return_type = dialogue_list[dialogue_no][0]
-            return_subtype = dialogue_list[dialogue_no][1]
-            return_dialogue = dialogue_list[dialogue_no][2]
+            final_prompt_refinement = new_dialogue_list[0][dialogue_no_first]
 
-        return return_dialogue, return_cat, return_type, return_subtype
+            return_dialogue = final_prompt_refinement[2]
+            return_type = final_prompt_refinement[0]
+            return_subtype = final_prompt_refinement[1]
+
+        sexting_dialogue = [return_dialogue, return_cat, return_type, return_subtype]
+
+        return sexting_dialogue
 
     def return_dialogue_end(dialogue=""):
         """
@@ -843,7 +893,7 @@ init python in mas_nsfw:
 
         return dialogue_end
 
-    def return_dialogue_start(horny_level=0, hot_req=4, sexy_req=8):
+    def return_dialogue_start(horny_level=0, horny_reqs=[10, 30]):
         """
         Returns a starting piece to dialogue, such as 'Hmm~' or 'Hah~'
 
@@ -851,9 +901,9 @@ init python in mas_nsfw:
             horny_level - The current horny level of the player
                 (Default: 0)
             hot_req - The horny level required to reach the 'hot' stage
-                (Default: 4)
+                (Default: 10)
             sexy_req - The horny level required to reach the 'sexy' stage
-                (Default: 8)
+                (Default: 30)
 
         OUT:
             The selected starting text for the dialogue
@@ -880,9 +930,9 @@ init python in mas_nsfw:
             "",
         )
 
-        if horny_level >= sexy_req:
+        if horny_level >= horny_reqs[1]:
             return starts_sexy[random.randint(0, len(starts_sexy) - 1)]
-        elif horny_level >= hot_req:
+        elif horny_level >= horny_reqs[0]:
             return starts_hot[random.randint(0, len(starts_hot) - 1)]
         else: # Default
             return starts_cute[random.randint(0, len(starts_cute) - 1)]

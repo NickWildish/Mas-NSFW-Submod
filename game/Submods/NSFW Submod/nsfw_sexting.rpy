@@ -256,7 +256,6 @@ label nsfw_sexting_main:
             if horny_lvl >= horny_reqs[3]:
                 return
 
-
 label nsfw_sexting_init:
     if "lingerie" not in monika_chr.clothes.ex_props:
         $ persistent._nsfw_lingerie_on_start = True

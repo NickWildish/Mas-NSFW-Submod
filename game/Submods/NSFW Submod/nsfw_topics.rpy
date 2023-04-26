@@ -1188,3 +1188,93 @@ label nsfw_monika_shaving:
     m 1nub "I'll always love you!"
 
     return "love"
+
+    init 5 python:
+    addEvent(
+        Event(
+            persistent.event_database,
+            eventlabel="monika_nsfw_kama_sutra",
+            category=["literature"],
+            prompt="Kama Sutra",
+            conditional=(
+                "mas_canShowRisque(aff_thresh=600)"
+            ),
+            action=EV_ACT_RANDOM,
+            aff_range=(mas_aff.ENAMORED, None)
+        )
+    )
+
+label monika_nsfw_kama_sutra: ## The book everyone thinks is just about sex
+    m 1gua "So, [player]..."
+    m 1ekb "Have you ever looked into the {i}'Kama Sutra'{/i}?"
+    m 1tub "I'm sure you've at least heard the name. It has quite a reputation."
+    m 3eub "Kama Sutra means 'Principles of Love', and it's an ancient Indian text about sexuality."
+    m 4eub "Contrary to popular belief, it isn't actually a 'sex manual', but rather it's more of an instructional text about the nature of love."
+    m 2eub "It was written as a guide to the art of living well, finding a life partner, and keeping your love life alive."
+    m 2esb "Only one section of the book actually covers sexual positions, out of seven sections in total."
+    m 3eub "Broadly speaking, the text covers four main goals for life. Virtuous living, desire, material prosperity, and liberation."
+    m 3gublb "Of course...People do like to talk about the sexual part of it at great length."
+    $ favpos = persistent._nsfw_player_favourite_position
+    if renpy.seen_label("nsfw_monika_favorite_position") and favpos != "None":
+        # you have a favourite position
+        m 3kublb "We {i}have{/i} already discussed favourite positions, haven't we? And now I know that you prefer [favpos], ahaha~"
+    elif renpy.seen_label("nsfw_monika_favorite_position") and favpos = "None":
+        # you saw the favourite position topic but she didn't record your position (for some reason or another)
+        m 3dkblsdlb "Hmm... We already talked about your favourite position, but I think I forgot what you said. I'm sorry, [player]!"
+        m 3kkblsdlb "If you want to bring up that topic that again, you could remind me. I promise to remember this time!"
+    else:
+        # you havent seen the position topic yet
+        m 3kublb "We should talk about your favourite position some time, ahaha~"
+    m 6hublb "They say variety is the spice of life, and the same is true of your love life."
+    m 6lublb "I know I can't really do anything special for you just yet..."
+    m 6fublb "But, I can practice and get better at talking about all the things we could do together."
+    m 6hublb "...Ahaha! Sorry, I was getting a bit off track there."
+    m 7eublb "The general text of the {i}Kama Sutra{/i}, and all the advice it gives, can be a little hard to understand in the translations."
+    m 1eublb "This happens a lot with translated works that use the literal translations, rather than the meaning behind the text."
+    m 1eublo "Maybe this is why people treat the {i}Kama Sutra{/i} like a sex guide? "
+    extend 1eublo "After all, it's much easier to do drawings...or demonstrations...of the sex positions, and share those around."
+    m 1rublo "Compare that to trying to give someone advice about virtuous living using complex, antiquated terminology..."
+    m 1hkblb "Ahaha!{w=0.4} I think I'm equally as curious about the discussion of literal versus interpretive translations of text as I am about the sexual content..."
+    m 1lkblsdlb "What does that say about me?"
+    m 1ekblsdlb "I hope that wasn't too confusing, [player]."
+    m 1eubla "If you ever decide to give it a read, then I hope you enjoy it."
+
+    return
+
+init 5 python:
+    addEvent(
+        Event(
+            persistent.event_database,
+            eventlabel="monika_nsfw_ananga_ranga",
+            category=["literature"],
+            prompt="Ananga Ranga",
+            conditional=(
+                "mas_canShowRisque(aff_thresh=600)",
+                "renpy.seen_label('monika_nsfw_kama_sutra')"
+            ),
+            action=EV_ACT_RANDOM,
+            aff_range=(mas_aff.ENAMORED, None)
+        )
+    )
+
+label monika_nsfw_ananga_ranga: ## The book that is ACTUALLY just about sex
+    m 1eub "Hey, [player]. You know how I mentioned the {i}Kama Sutra{/i} before?"
+    m 1ekb "I talked about how, contrary to popular belief, it isn't just a manual about sexual positions."
+    m 3eub "Well... It turns out that there is another book, the {i}Ananga Ranga{/i}, which does fit that description."
+    m 3eua "Like the {i}Kama Sutra{/i}, the {i}Ananga Ranga{/i} comes from India. it even takes inspiration from it."
+    m 3wubsa "The book provides instructions on how a husband can show his love for his wife through sexual pleasure."
+    m 3subsb "It apparently does this to show that, for a man, having a wife should be enough to keep him satisfied."
+    m 3eubsa "By promoting variety in the bedroom, it aims to prevent the married couple from growing tired of one another."
+    m 4gubsa "It even covers concepts like foreplay, and the art of seduction."
+    m 2etblp "Now, I know it's a little outdated to think purely about a man's ownership of a woman, like she's a possession to look after."
+    m 3eublo "However, it is fascinating to look at these things with a sense of perspective."
+    m 4eubld "The {i}Ananga Ranga{/i} was clearly written with the intent of making a man more faithful to his wife."
+    m 3eubld "If you think about it, you could even see this as teaching the man to see a wife as {i}more{/i} than just some kind of..."
+    m 2lublc "Well, like an object. Or like an animal."
+    m 2lublp "Some people still need to learn that particular lesson." # annoyed pose
+    m 2wubla "Anyway..."
+    m 3hublb "I did try to read a bit of the {i}Ananga Ranga{/i}. The language is a little bit...{w=0.4}difficult to parse, ahaha..."
+    m 3wublb "It was made for a different culture, in a much different time. So a lot of the subtleties are lost on me."
+    m 5kublb "Still, I think we can get on just fine without an instruction book. Right?"
+
+    return

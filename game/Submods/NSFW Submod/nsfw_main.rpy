@@ -211,19 +211,19 @@ init python in mas_nsfw:
 
         return None
 
-    def calc_sexting_reqs(horny_max=50, horny_min=0, hot_req=10, sexy_req=30):
+    def calc_sexting_reqs(horny_min=0, hot_req=10, sexy_req=30, horny_max=50):
         """
         Calculates what the values of horny maximum, minimum, hot_req and sexy_req are, based on the player's endurance value
 
         IN:
-            horny_max - The maximum amount of horny Monika can withold before exploding in ecstasy
-                (Default: 50)
             horny_min - The minimum horny value
                 (Default: 0)
             hot_req - The horny_level requirement for hot dialogue
                 (Default: 10)
             sexy_req - The horny_level requirement for sexy dialogue
                 (Default: 30)
+            horny_max - The maximum amount of horny Monika can withold before exploding in ecstasy
+                (Default: 50)
 
         OUT:
             The maximum, minimum, hot_req and sexy_req values
@@ -235,7 +235,7 @@ init python in mas_nsfw:
         new_hot_req = hot_req * player_endurance
         new_sexy_req = sexy_req * player_endurance
 
-        return new_horny_max, new_horny_min, new_hot_req, new_sexy_req
+        return new_horny_min, new_hot_req, new_sexy_req, new_horny_max
 
     def refine_category_sel_with_fetishes(category_sel):
         # Fetch the player's fetishes
@@ -264,7 +264,6 @@ init python in mas_nsfw:
                     break
             if not blacklisted:
                 new_category_sel.append(prompt)
-        category_sel = new_category_sel
 
         return new_category_sel
 

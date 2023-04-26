@@ -988,3 +988,131 @@ init python in mas_nsfw:
             A random number between the min and max values
         """
         return random.randint(min, max)
+
+    def create_sexting_prompts(horny_lvl=0, horny_reqs=[0, 10, 30, 50], previous_vars=[], recent_prompts=[]):
+        new_player_prompts = [["", "", "", ""], ["", "", "", ""], ["", "", "", ""]] # The prompts from which the player will choose from, and their respective category/type/subtype.
+
+        if horny_lvl > horny_reqs[2]:
+            sext_category = 2
+            category_type = "sexy"
+        elif horny_lvl > horny_reqs[1]:
+            sext_category = 1
+            category_type = "hot"
+        else:
+            sext_category = 0
+            category_type = "cute"
+
+        # # Check how many unique prompts we can create
+        # # Only if greater than 10 do we enforce the while loop below
+        # unique_prompts_1 = len(refine_dialogue_list_with_subtypes(return_sext_prompts(sext_category), previous_vars[2], dialogue_pool=0))
+        # unique_prompts_2 = len(refine_dialogue_list_with_subtypes(return_sext_prompts(sext_category), previous_vars[2], dialogue_pool=1))
+        # unique_prompts_3 = len(refine_dialogue_list_with_subtypes(return_sext_prompts(sext_category), previous_vars[2], dialogue_pool=2))
+
+        # while len(recent_prompts) >= unique_prompts_1:
+        #     recent_prompts.pop(0)
+
+        # while len(recent_prompts) >= unique_prompts_2:
+        #     recent_prompts.pop(0)
+
+        # while len(recent_prompts) >= unique_prompts_3:
+        #     recent_prompts.pop(0)
+
+        past_prompts = [None, None]
+        # Make 3 player prompts
+        for x in range(3):
+            new_player_prompts[x] = return_sexting_dialogue(
+                category_type="prompt",
+                horny_lvl=horny_lvl,
+                horny_reqs=horny_reqs,
+                recent=recent_prompts,
+                previous_vars=previous_vars,
+                past_prompts=past_prompts
+            )
+
+            if x < 2:
+                past_prompts[x]=new_player_prompts[x]
+
+        while new_player_prompts[1][0] == new_player_prompts[0][0]:
+            past_prompts[1]=None
+
+            # Check for duplicates with second prompt
+            new_player_prompts[1] = return_sexting_dialogue(
+                category_type="prompt",
+                horny_lvl=horny_lvl,
+                horny_reqs=horny_reqs,
+                recent=recent_prompts,
+                previous_vars=previous_vars,
+                past_prompts=past_prompts
+            )
+
+            past_prompts[1]=new_player_prompts[1]
+
+        while new_player_prompts[2][0] == new_player_prompts[0][0] or new_player_prompts[2][0] == new_player_prompts[1][0]:
+            # Check for duplicates with third prompt
+            new_player_prompts[2] = return_sexting_dialogue(
+                category_type="prompt",
+                horny_lvl=horny_lvl,
+                horny_reqs=horny_reqs,
+                recent=recent_prompts,
+                previous_vars=previous_vars,
+                past_prompts=past_prompts
+            )
+
+        return new_player_prompts
+
+    def create_sexting_quips(horny_lvl=0, horny_reqs=[0, 10, 30, 50], previous_vars=[], recent_quips=[]):
+        # Set up variables
+        new_monika_quip = [] # The quip Monika will say, the category/type/subtype of the quip, and the ending of the quip.
+
+        if horny_lvl > horny_reqs[2]:
+            sext_category = 2
+            category_type = "sexy"
+        elif horny_lvl > horny_reqs[1]:
+            sext_category = 1
+            category_type = "hot"
+        else:
+            sext_category = 0
+            category_type = "cute"
+
+        unique_quips = len(refine_dialogue_list_with_subtypes(return_sext_prompts(sext_category), previous_vars[2], dialogue_pool=0))
+
+        while len(recent_quips) >= unique_quips:
+            recent_quips.pop(0)
+
+        # Set quip, noting the category/type/subtype
+        new_monika_quip = return_sexting_dialogue(
+            category_type="quip",
+            horny_lvl=horny_lvl,
+            horny_reqs=horny_reqs,
+            recent=recent_quips,
+            previous_vars=previous_vars
+        )
+
+        new_monika_quip.append("")
+
+        # Set quip ending
+        new_monika_quip[4] = return_dialogue_end(new_monika_quip[0])
+
+        return new_monika_quip
+
+    def create_sexting_response(horny_lvl=0, horny_reqs=[0, 10, 30, 50], previous_vars=[], recent_responses=[]):
+        # Set up variables
+        new_monika_response = [] # The response Monika will say, the category/type/subtype of the quip, the beginning and the ending of the quip.
+
+        # Set response, noting the category/type/subtype
+        new_monika_response = return_sexting_dialogue(
+            category_type="response",
+            horny_lvl=horny_lvl,
+            horny_reqs=horny_reqs,
+            recent=recent_responses,
+            previous_vars=previous_vars
+        )
+
+        new_monika_response.append("")
+        new_monika_response.append("")
+
+        # Set response ending
+        new_monika_response[4] = return_dialogue_start(horny_level=horny_lvl, horny_reqs=[horny_reqs[1], horny_reqs[2]])
+        new_monika_response[5] = return_dialogue_end(new_monika_response[0])
+
+        return new_monika_response

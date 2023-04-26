@@ -570,34 +570,91 @@ init python in mas_nsfw:
             #         dp1.append(dialogue) if dialogue[0][0] not in unique_tags else None
 
         return dp1
+
+    def refine_dialogue_list_with_subtypes(dialogue_list, subtypes=None, dialogue_pool=None, recent=[]):
         """
         Returns a new dialogue list that contains only the dialogue that matches the subtypes provided, or are generic.
-        Prompt -> Response -> Quip
 
         IN:
             dialogue_list - The list of dialogue to refine
             subtypes - The subtypes to match
-            category_type - The loop component ("quip", "prompt", or "response") of dialogue we want to pull
+            dialogue_pool - The pool of dialogue to use. If none, return them all.
+            recent - The list of recent dialogue
 
         OUT:
             new_dialogue_list - The new dialogue list that contains only the dialogue that matches the subtypes provided, or are generic
         """
-        new_dialogue_list = []
+        # Rare use cases
+        if subtypes == None:
+            subtypes = ["GEN"]
 
-        if category_type == "quip":
-            # We'll try to find at least 5 dialogue that matches the subtypes
-            for dialogue in dialogue_list:
-                for subtype in subtypes:
+        # The dialogue list should have a variety, but we want it to apply to the correct subject.
+        # Tags that start with P or M get prompts with both P-- or M-- tags, with -- representing other tags in their category
+        # Any other tags get prompts with their first two characters, then their first character.
+        # The rest are random.
+        # Example: We receive a subtype of "PPS", so we find subtypes that have "PP-" and "MP-"
+        # Example 2: We receive a subtype of "IAM", so we find subtypes that have "IA-" and "I--"
+
+        special_tags = ["GEN", "KIS", "UND", "CHE"]
+
+        # These are the pools we'll use to collect the dialogue types
+        dp1, dp2, dp3 = [], [], []
+
+        for i, subtype in enumerate(subtypes):
+            for j, dialogue in enumerate(dialogue_list):
+                # If the dialogue has already been used recently, skip it
+                if dialogue[2] in recent:
+                    continue
+
+                # If the subtype is in the special tags
+                elif subtype in special_tags:
+                    if subtype == "CHE":
+                        target_pools = [2, 3]
+                        pool = 1 if subtype in dialogue[1] else target_pools[j % 2]
+                    else:
+                        target_pools = [1, 2, 3]
+                        pool = target_pools[j % 3]
+
+                # If there are multiple subtypes
+                elif len(subtypes) > 1:
+                    # we match subtype index to the pool index
+                    target_pools = [1, 2, 3]
+                    pool = target_pools[i % 3]
+
+                # If the subtype has the letter "M" or "P" to start
+                elif subtype[0] in "MP":
+                    pool = 3
                     if subtype in dialogue[1]:
-                        new_dialogue_list.append(dialogue)
-                        break
+                        pool = 1
+                    else:
+                        for ds in dialogue[1]:
+                            pool = 2 if subtype[0] != ds[0] and subtype[1:] == ds[1:] else 3
 
-            # If we didn't find enough dialogue that matches the subtypes, we'll just use generic dialogue
-            if new_dialoguelist.length < 5:
-                for dialogue in dialogue_list:
-                    if "GEN" in dialogue[1]:
-                        new_dialogue_list.append(dialogue)
-                        break
+                # If there is one subtype and no special tags
+                else:
+                    if subtype in dialogue[1]:
+                        pool = dp1
+                    elif subtype[0] in dialogue[1][0]:
+                        pool = dp2
+                    else:
+                        pool = dp3
+
+                if pool == 1 and not dialogue_already_in_pool(dp1, dialogue):
+                    dp1.append(dialogue)
+                elif pool == 2 and not dialogue_already_in_pool(dp2, dialogue):
+                    dp2.append(dialogue)
+                elif pool == 3 and not dialogue_already_in_pool(dp3, dialogue):
+                    dp3.append(dialogue)
+
+        for i, pool in enumerate([dp1, dp2, dp3]):
+            if len(pool) == 0:
+                non_empty_pools = [p for p in [dp1, dp2, dp3] if len(p) > 1 and p != pool]
+                if non_empty_pools:
+                    chosen_pool = random.choice(non_empty_pools)
+                    index = random.randint(0, len(chosen_pool) - 1)
+                    pool.append(chosen_pool.pop(index))
+
+        new_dialogue_list = [dp1, dp2, dp3] if dialogue_pool is None else [dp1, dp2, dp3][dialogue_pool]
 
         return new_dialogue_list
 

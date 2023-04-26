@@ -463,7 +463,113 @@ init python in mas_nsfw:
 
         return new_category_sel
 
-    def refine_dialogue_list_with_subtypes(dialogue_list, subtypes, category_type):
+    def dialogue_already_in_pool(dialogue, *pools):
+        """
+        Checks if the dialogue is already in the pool
+
+        IN:
+            dialogue - The dialogue to check
+            pools - The pools to check
+
+        OUT:
+            True if the dialogue is already in the pool, False otherwise
+        """
+        return any(dialogue in pool for pool in pools)
+
+    def refine_dialogue_list_with_types(dialogue_list, types=None, dialogue_pool=None, recent=[]):
+        """
+        Refines a dialogue list with a list of types. This is only to be used for responses.
+
+        IN:
+            dialogue_list - The dialogue list to be refined
+            types - A list of types to be used in the refinement
+                (Default: None)
+            dialogue_pool - A list of dialogue to be used in the refinement
+                (Default: None)
+            recent - A list of dialogue that has been recently used
+                (Default: [])
+
+        OUT:
+            A refined dialogue list
+        """
+        # Rare use cases
+        if types == None:
+            types = ["STM"]
+
+        dp1, dp2, dp3 = [], [], [] # may use other 2 dialogue pools at a later date
+
+        unique_tags = ["CMP", "CMD", "DES", "QUE"]
+
+        response_pairings = [
+            ["CMP"],        ["CMP", "THK"],
+            ["CMP"],        ["CMP", "CMP"],
+            ["CMP"],        ["CMP", "CRM"],
+            ["CMD"],        ["CMD", "CPL"],
+            ["DES", "PLY"], ["DES", "LED"],
+            ["DES", "MON"], ["DES", "LED"],
+            ["DES", "PLY"], ["DES", "DRM", "PLY"],
+            ["DES", "MON"], ["DES", "DRM", "MON"],
+            ["QUE", "QYS"], ["ANS", "AYS"],
+            ["QUE", "QNO"], ["ANS", "ANO"],
+            ["QUE", "QAG"], ["ANS", "AAG"],
+            ["QUE", "QDG"], ["ANS", "ADG"],
+            ["QUE", "QSP"], ["ANS", "ASP"],
+            ["QUE", "QAT"], ["ANS", "AAT"],
+            ["QUE", "QDT"], ["ANS", "ADT"],
+            ["STM"], ["DES", "LED"]
+        ]
+
+        for dialogue in dialogue_list:
+            if dialogue[2] in recent:
+                continue
+
+            for pair in response_pairings:
+                if types == pair[0] and dialogue[0] == pair[1]:
+                    dp1.append(dialogue) if not dialogue_already_in_pool(dialogue, dp1, dp2, dp3) else None
+                    break
+                elif dialogue[0][0] not in unique_tags:
+                    dp2.append(dialogue) if not dialogue_already_in_pool(dialogue, dp1, dp2, dp3) else None
+                else: # Should never be needed
+                    dp3.append(dialogue) if not dialogue_already_in_pool(dialogue, dp1, dp2, dp3) else None
+
+        if len(dp1) == 0:
+            dp1 = dp2 if len(dp2) > 0 else dp3
+
+            # if len(dialogue[0]) > 1:
+            #     if types[0] == "CMP" or types[0] == "CMD": # Compliments and Commands
+            #         response_types = ["THK", "CMP", "CRM"] if "CMP" in types else ["CPL"]
+            #         dp1.append(dialogue) if dialogue[0][1] in response_types else None
+            #     elif types[0] == "DES": # Desires
+            #         response_types = ["LED", "DRM"]
+            #         if types[1] == "PLY" and len(dialogue[0]) > 2: # Player desires
+            #             dp1.append(dialouge) if dialogue[0][1] in response_types or dialogue[0][2] == "PLY" else None
+            #         elif types[1] == "MON" and len(dialogue[0]) > 2: # Monika desires
+            #             dp1.append(dialouge) if dialogue[0][1] in response_types or dialogue[0][2] == "PLY" else None
+            #         else: # Match remaining desires
+            #             for dialogue in dialogue_list:
+            #                 if dialogue[2] in recent:
+            #                     continue
+            #                 dp1.append(dialogue) if dialogue[0][1] == response_types[0] else None
+            #     elif types[0] == "QUE": # Questions
+            #         if types[1] == "QSP": # Specific questions
+            #             for dialogue in dialogue_list:
+            #                 if dialogue[2] in recent:
+            #                     continue
+            #                 dp1.append(dialogue) if "ANS" in dialogue[0] and types[2] in dialogue[0] else None
+            #         else: # Match remaining questions
+            #             for dialogue in dialogue_list:
+            #                 if dialogue[2] in recent:
+            #                     continue
+            #                 dp1.append(dialogue) if "A" + types[1][1:] in dialogue[0] else None
+            #         if len(dp) == 0: # ie. if there are no available answers for the question
+            #             for dialogue in dialogue_list:
+            #                 dp1.append(dialogue) if "ADK" in dialogue[0] else None # Monika answers with "I don't know"
+            # else:
+            #     if types[0] not in unique_tags: # Generic (STM, ARA, etc.)
+            #         dp1.append(dialogue) if dialogue[0] == ["DES", "LED"] else None
+            #         dp1.append(dialogue) if dialogue[0][0] not in unique_tags else None
+
+        return dp1
         """
         Returns a new dialogue list that contains only the dialogue that matches the subtypes provided, or are generic.
         Prompt -> Response -> Quip

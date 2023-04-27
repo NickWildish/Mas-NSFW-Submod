@@ -617,9 +617,16 @@ init python in mas_nsfw:
 
                 # If there are multiple subtypes
                 elif len(subtypes) > 1:
-                    # we match subtype index to the pool index
-                    target_pools = [1, 2, 3]
-                    pool = target_pools[i % 3]
+                    if subtype in dialogue[0]:
+                        # we match subtype index to the pool index
+                        pool = 1 if i == 0
+                        pool = 2 if i == 1
+                        pool = 3 if i == 2
+
+                        pool = target_pool
+
+                    elif len(subtypes) == 2:
+                        pool = 3
 
                 # If the subtype has the letter "M" or "P" to start
                 elif subtype[0] in "MP":
@@ -648,11 +655,14 @@ init python in mas_nsfw:
 
         for i, pool in enumerate([dp1, dp2, dp3]):
             if len(pool) == 0:
-                non_empty_pools = [p for p in [dp1, dp2, dp3] if len(p) > 1 and p != pool]
-                if non_empty_pools:
-                    chosen_pool = random.choice(non_empty_pools)
-                    index = random.randint(0, len(chosen_pool) - 1)
-                    pool.append(chosen_pool.pop(index))
+                if pool == dp1:
+                    chosen_pool = dp2 if len(dp2) != 0 else dp3
+                elif pool == dp2:
+                    chosen_pool = dp1 if len(dp1) != 0 else dp3
+                else:
+                    chosen_pool = dp2 if len(dp2) != 0 else dp1
+                index = random.randint(0, len(chosen_pool) - 1)
+                pool.append(chosen_pool.pop(index))
 
         new_dialogue_list = [dp1, dp2, dp3] if dialogue_pool is None else [dp1, dp2, dp3][dialogue_pool]
 

@@ -1189,7 +1189,7 @@ label nsfw_monika_shaving:
 
     return "love"
 
-    init 5 python:
+init 5 python:
     addEvent(
         Event(
             persistent.event_database,

@@ -619,9 +619,9 @@ init python in mas_nsfw:
                 elif len(subtypes) > 1:
                     if subtype in dialogue[0]:
                         # we match subtype index to the pool index
-                        pool = 1 if i == 0
-                        pool = 2 if i == 1
-                        pool = 3 if i == 2
+                        pool = 1 if i == 0 else None
+                        pool = 2 if i == 1 else None
+                        pool = 3 if i == 2 else None
 
                         pool = target_pool
 

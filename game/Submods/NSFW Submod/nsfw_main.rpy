@@ -535,40 +535,6 @@ init python in mas_nsfw:
         if len(dp1) == 0:
             dp1 = dp2 if len(dp2) > 0 else dp3
 
-            # if len(dialogue[0]) > 1:
-            #     if types[0] == "CMP" or types[0] == "CMD": # Compliments and Commands
-            #         response_types = ["THK", "CMP", "CRM"] if "CMP" in types else ["CPL"]
-            #         dp1.append(dialogue) if dialogue[0][1] in response_types else None
-            #     elif types[0] == "DES": # Desires
-            #         response_types = ["LED", "DRM"]
-            #         if types[1] == "PLY" and len(dialogue[0]) > 2: # Player desires
-            #             dp1.append(dialouge) if dialogue[0][1] in response_types or dialogue[0][2] == "PLY" else None
-            #         elif types[1] == "MON" and len(dialogue[0]) > 2: # Monika desires
-            #             dp1.append(dialouge) if dialogue[0][1] in response_types or dialogue[0][2] == "PLY" else None
-            #         else: # Match remaining desires
-            #             for dialogue in dialogue_list:
-            #                 if dialogue[2] in recent:
-            #                     continue
-            #                 dp1.append(dialogue) if dialogue[0][1] == response_types[0] else None
-            #     elif types[0] == "QUE": # Questions
-            #         if types[1] == "QSP": # Specific questions
-            #             for dialogue in dialogue_list:
-            #                 if dialogue[2] in recent:
-            #                     continue
-            #                 dp1.append(dialogue) if "ANS" in dialogue[0] and types[2] in dialogue[0] else None
-            #         else: # Match remaining questions
-            #             for dialogue in dialogue_list:
-            #                 if dialogue[2] in recent:
-            #                     continue
-            #                 dp1.append(dialogue) if "A" + types[1][1:] in dialogue[0] else None
-            #         if len(dp) == 0: # ie. if there are no available answers for the question
-            #             for dialogue in dialogue_list:
-            #                 dp1.append(dialogue) if "ADK" in dialogue[0] else None # Monika answers with "I don't know"
-            # else:
-            #     if types[0] not in unique_tags: # Generic (STM, ARA, etc.)
-            #         dp1.append(dialogue) if dialogue[0] == ["DES", "LED"] else None
-            #         dp1.append(dialogue) if dialogue[0][0] not in unique_tags else None
-
         return dp1
 
     def refine_dialogue_list_with_subtypes(dialogue_list, subtypes=None, dialogue_pool=None, recent=[]):

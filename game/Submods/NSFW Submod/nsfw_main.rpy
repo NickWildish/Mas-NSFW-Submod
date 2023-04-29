@@ -513,7 +513,7 @@ init python in mas_nsfw:
             ["QUE", "QNO"], ["ANS", "ANO"],
             ["QUE", "QAG"], ["ANS", "AAG"],
             ["QUE", "QDG"], ["ANS", "ADG"],
-            ["QUE", "QSP"], ["ANS", "ASP"],
+            #["QUE", "QSP"], ["ANS", "ASP"], # We check this manually due to the integer
             ["QUE", "QAT"], ["ANS", "AAT"],
             ["QUE", "QDT"], ["ANS", "ADT"],
             ["STM"], ["DES", "LED"]
@@ -527,10 +527,18 @@ init python in mas_nsfw:
                 if types == pair[0] and dialogue[0] == pair[1]:
                     dp1.append(dialogue) if not dialogue_already_in_pool(dialogue, dp1, dp2, dp3) else None
                     break
+                elif len(types) == 3 and types[2:] == pair[0][2:] and dialogue[0][2:] == pair[1][2:]:
+                    if types[3] == dialogue[3]:
+                        dp1.append(dialogue) if not dialogue_already_in_pool(dialogue, dp1, dp2, dp3) else None
+                    else:
+                        dp3.append(dialogue) if not dialogue_already_in_pool(dialogue, dp1, dp2, dp3) else None
+                    break
                 elif dialogue[0][0] not in unique_tags:
                     dp2.append(dialogue) if not dialogue_already_in_pool(dialogue, dp1, dp2, dp3) else None
+                    break
                 else: # Should never be needed
                     dp3.append(dialogue) if not dialogue_already_in_pool(dialogue, dp1, dp2, dp3) else None
+                    break # Not really necessary but makes it neat, except this comment makes it no longer neat so isn't not really worth it anymore....I'm gonna stop typing.
 
         if len(dp1) == 0:
             dp1 = dp2 if len(dp2) > 0 else dp3
@@ -622,12 +630,12 @@ init python in mas_nsfw:
         for i, pool in enumerate([dp1, dp2, dp3]):
             if len(pool) == 0:
                 if pool == dp1:
-                    chosen_pool = dp2 if len(dp2) != 0 else dp3
+                    chosen_pool = dp2 if len(dp2) > 1 else dp3
                 elif pool == dp2:
-                    chosen_pool = dp1 if len(dp1) != 0 else dp3
+                    chosen_pool = dp1 if len(dp1) > 1 else dp3
                 else:
-                    chosen_pool = dp2 if len(dp2) != 0 else dp1
-                index = random.randint(0, len(chosen_pool) - 1)
+                    chosen_pool = dp2 if len(dp2) > 1 else dp1
+                index = random.randint(0, len(chosen_pool) - 1) if len(chosen_pool) > 1 else 0
                 pool.append(chosen_pool.pop(index))
 
         new_dialogue_list = [dp1, dp2, dp3] if dialogue_pool is None else [dp1, dp2, dp3][dialogue_pool]

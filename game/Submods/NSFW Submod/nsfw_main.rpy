@@ -152,7 +152,7 @@ init python in mas_nsfw:
         else:
             time_away_req = datetime.timedelta(hours=set_time) # It is assumed to be "hours" if something else is found.
 
-        time_since_last_seen = datetime.datetime.now() - mas_getEVL_last_seen(topic)
+        time_since_last_seen = datetime.datetime.now() - store.mas_getEVL_last_seen(topic)
 
         if mas_getAbsenceLength() >= time_away_req and time_since_last_seen >= time_away_req:
             return True

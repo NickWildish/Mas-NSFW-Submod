@@ -578,6 +578,8 @@ init python in mas_nsfw:
 
         for i, subtype in enumerate(subtypes):
             for j, dialogue in enumerate(dialogue_list):
+                pool_no = 3
+
                 # If the dialogue has already been used recently, skip it
                 if dialogue[2] in recent:
                     continue
@@ -586,47 +588,48 @@ init python in mas_nsfw:
                 elif subtype in special_tags:
                     if subtype == "CHE":
                         target_pools = [2, 3]
-                        pool = 1 if subtype in dialogue[1] else target_pools[j % 2]
+                        pool_no = 1 if subtype in dialogue[1] else target_pools[(j % 2) - len(dp1)]
                     else:
                         target_pools = [1, 2, 3]
-                        pool = target_pools[j % 3]
+                        pool_no = target_pools[j % 3]
 
                 # If there are multiple subtypes
                 elif len(subtypes) > 1:
-                    if subtype in dialogue[0]:
+                    if subtype in dialogue[1]:
                         # we match subtype index to the pool index
-                        pool = 1 if i == 0 else None
-                        pool = 2 if i == 1 else None
-                        pool = 3 if i == 2 else None
-
-                        pool = target_pool
+                        pool_no = 1 if i == 0 else None
+                        pool_no = 2 if i == 1 else None
+                        pool_no = 3 if i == 2 else None
 
                     elif len(subtypes) == 2:
-                        pool = 3
+                        pool_no = 3
 
                 # If the subtype has the letter "M" or "P" to start
                 elif subtype[0] in "MP":
-                    pool = 3
                     if subtype in dialogue[1]:
-                        pool = 1
+                        pool_no = 1
                     else:
-                        for ds in dialogue[1]:
-                            pool = 2 if subtype[0] != ds[0] and subtype[1:] == ds[1:] else 3
+                        for subs in dialogue[1]:
+                            if subtype[0] != subs[0] and subtype[1:] == subs[1:]:
+                                pool_no = 2
+                                break
+                            else:
+                                pool_no = 3
 
                 # If there is one subtype and no special tags
                 else:
                     if subtype in dialogue[1]:
-                        pool = dp1
-                    elif subtype[0] in dialogue[1][0]:
-                        pool = dp2
+                        pool_no = 1
+                    elif subtype[0] == dialogue[1][0]:
+                        pool_no = 2
                     else:
-                        pool = dp3
+                        pool_no = 3
 
-                if pool == 1 and not dialogue_already_in_pool(dp1, dialogue):
+                if pool_no == 1 and not dialogue_already_in_pool(dialogue, dp1, dp2, dp3):
                     dp1.append(dialogue)
-                elif pool == 2 and not dialogue_already_in_pool(dp2, dialogue):
+                elif pool_no == 2 and not dialogue_already_in_pool(dialogue, dp1, dp2, dp3):
                     dp2.append(dialogue)
-                elif pool == 3 and not dialogue_already_in_pool(dp3, dialogue):
+                elif pool_no == 3 and not dialogue_already_in_pool(dialogue, dp1, dp2, dp3):
                     dp3.append(dialogue)
 
         for i, pool in enumerate([dp1, dp2, dp3]):

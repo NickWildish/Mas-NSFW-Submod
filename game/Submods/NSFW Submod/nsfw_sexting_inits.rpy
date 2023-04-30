@@ -7,11 +7,13 @@ init 5 python:
             eventlabel="nsfw_player_sextingsession",
             category=['sex'],
             prompt="Do you want to sext?",
+            unlocked=False,
             conditional=(
                 "mas_canShowRisque(aff_thresh=1000) "
                 "and store.mas_getEVL_shown_count('nsfw_monika_sexting') >= 1"
                 ),
-            action=EV_ACT_POOL,
+            action=EV_ACT_UNLOCK,
+            pool=True,
             aff_range=(mas_aff.LOVE, None)
         )
     )

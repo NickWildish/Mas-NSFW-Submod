@@ -634,14 +634,24 @@ init python in mas_nsfw:
 
         for i, pool in enumerate([dp1, dp2, dp3]):
             if len(pool) == 0:
-                if pool == dp1:
-                    chosen_pool = dp2 if len(dp2) > 1 else dp3
-                elif pool == dp2:
-                    chosen_pool = dp1 if len(dp1) > 1 else dp3
-                else:
-                    chosen_pool = dp2 if len(dp2) > 1 else dp1
-                index = random.randint(0, len(chosen_pool) - 1) if len(chosen_pool) > 1 else 0
-                pool.append(chosen_pool.pop(index))
+                if i == 0: # Ensures if we only have 1 dialogue, it goes to the first pool (In the cases of specific types, like "QSP")
+                    non_empty_pools = [p for p in [dp1, dp2, dp3] if len(p) >= 1 and p != pool]
+                else: # Otherwise, we can choose any pool that isn't empty
+                    non_empty_pools = [p for p in [dp1, dp2, dp3] if len(p) > 1 and p != pool]
+
+                if non_empty_pools == [dp3]:
+                    index = random.randint(0, len(dp3) - 1)
+                    for j, dialogue in enumerate(dp3):
+                        if "GEN" in dialogue[1]:
+                            index = j
+                    pool.append(dp3.pop(index))
+                elif non_empty_pools:
+                    if i == 2: # If we're on the last pool, choose the last non-empty pool
+                        chosen_pool = non_empty_pools[len(non_empty_pools) - 1]
+                    else: # Otherwise, choose the first non-empty pool
+                        chosen_pool = non_empty_pools[0]
+                    index = random.randint(0, len(chosen_pool) - 1)
+                    pool.append(chosen_pool.pop(index))
 
         new_dialogue_list = [dp1, dp2, dp3] if dialogue_pool is None else [dp1, dp2, dp3][dialogue_pool]
 

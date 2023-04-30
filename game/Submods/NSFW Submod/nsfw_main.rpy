@@ -751,7 +751,7 @@ init python in mas_nsfw:
             else: # if previous_vars[0] == "sexy":
                 category_number = 2
 
-            dialogue_list = return_sext_responses(response_vars=[category_number, previous_vars[1], previous_vars[2]])
+            dialogue_list = return_sext_responses(response_vars=[category_number, previous_vars[1], previous_vars[2]], recent=selected_recentlist)
             return_cat = previous_vars[0]
 
         new_dialogue_list = refine_dialogue_list_with_subtypes(dialogue_list, previous_vars[2], None, selected_recentlist)

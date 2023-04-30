@@ -403,8 +403,10 @@ label nsfw_sexting_init:
                 m 1eka "Since we stopped earlier, I hope you don't mind if we start again."
                 m 3tkblb "This can be your punishment for making me wait after getting me excited."
                 m 3hubla "Ehehe~"
-        m 3eub "I remember the last time we did this; it was so much fun!"
-        m 3tublb "So [player]...let's get started, shall we?"
+        else:
+            m 3eub "I remember the last time we did this; it was so much fun!"
+            m 3tublb "So [player]...let's get started, shall we?"
+
         call nsfw_sexting_main
 
     if store.persistent._nsfw_horny_level < 0:

@@ -138,7 +138,7 @@ label nsfw_sexting_main:
         python:
             if shouldkiss_cooldown > 0:
                 shouldkiss_cooldown -= 1
-            if previous_vars[2] == "KIS": # Override cooldown and kiss right away if the player picks a prompt that asks for a kiss
+            if "KIS" in previous_vars[2]: # Override cooldown and kiss right away if the player picks a prompt that asks for a kiss
                 shouldkiss = True
             elif "kiss" in player_prompts[prompt_choice] and random.randint(1,5) == 1:
                 if shouldkiss_cooldown == 0:
@@ -148,47 +148,6 @@ label nsfw_sexting_main:
             call monika_kissing_motion_short
             $ shouldkiss = False
             $ shouldkiss_cooldown = 5
-
-        # undress if asked by player
-        if mas_SELisUnlocked(store.mas_clothes_underwear_white) and previous_vars[2] == "UND" and not hot_transfer:
-            python:
-                if persistent._nsfw_lingerie_on_start:
-                    if store.mas_submod_utils.isSubmodInstalled("Auto Outfit Change"):
-                        if store.ahc_utils.hasUnlockedClothesOfExprop("lingerie") and not store.ahc_utils.isWearingClothesOfExprop("lingerie"):
-                            shouldchange = 2
-                        elif mas_SELisUnlocked(store.mas_clothes_underwear_white): # unlikely case where player has AHC but no lingerie unlocked
-                            shouldchange = 1
-                    elif mas_SELisUnlocked(store.mas_clothes_underwear_white): # player doesn't have AHC but does have submod underwear
-                        shouldchange = 1
-
-            if shouldchange == 1:
-                # TODO: Call a random dialogue of Monika agreeing to do as the player asks
-
-                call mas_clothes_change(outfit=mas_clothes_underwear_white, outfit_mode=False, exp="6hubfb", restore_zoom=False)
-            elif shouldchange == 2:
-
-                window hide
-                call mas_transition_to_emptydesk
-
-                python:
-                    renpy.pause(1.0, hard=True)
-
-                    store.ahc_utils.changeClothesOfExprop("lingerie")
-
-                    renpy.pause(4.0, hard=True)
-
-                call mas_transition_from_emptydesk("monika 6hubfb")
-                window hide
-
-            $ shouldchange = 0
-
-            m 6hubfb "Hah~ That feels better."
-            $ hot_transfer = True
-
-        elif store.mas_SELisUnlocked(store.mas_clothes_birthday_suit) and previous_subtype == "UND" and not sexy_transfer:
-            call store.mas_clothes_change(outfit=mas_clothes_birthday_suit, outfit_mode=False, exp="6hubfb", restore_zoom=False)
-            m 6hubfb "Hah~ That feels better."
-            $ sexy_transfer = True
 
         python:
             # Monika's response to prompt
@@ -217,6 +176,45 @@ label nsfw_sexting_main:
             m "[monika_response[0]][response_ending]"
         else:
             m "[response_start][monika_response[0]][response_ending]"
+
+        # undress if asked by player
+        if mas_SELisUnlocked(store.mas_clothes_underwear_white) and "UND" in previous_vars[2] and not hot_transfer:
+            python:
+                if persistent._nsfw_lingerie_on_start:
+                    if store.mas_submod_utils.isSubmodInstalled("Auto Outfit Change"):
+                        if store.ahc_utils.hasUnlockedClothesOfExprop("lingerie") and not store.ahc_utils.isWearingClothesOfExprop("lingerie"):
+                            shouldchange = 2
+                        elif mas_SELisUnlocked(store.mas_clothes_underwear_white): # unlikely case where player has AHC but no lingerie unlocked
+                            shouldchange = 1
+                    elif mas_SELisUnlocked(store.mas_clothes_underwear_white): # player doesn't have AHC but does have submod underwear
+                        shouldchange = 1
+
+            if shouldchange == 1:
+                call mas_clothes_change(outfit=mas_clothes_underwear_white, outfit_mode=False, exp="6hubfb", restore_zoom=False)
+            elif shouldchange == 2:
+
+                window hide
+                call mas_transition_to_emptydesk
+
+                python:
+                    renpy.pause(1.0, hard=True)
+
+                    store.ahc_utils.changeClothesOfExprop("lingerie")
+
+                    renpy.pause(4.0, hard=True)
+
+                call mas_transition_from_emptydesk("monika 6hubfb")
+                window hide
+
+            $ shouldchange = 0
+
+            m 6hubfb "Hah~ That feels better."
+            $ hot_transfer = True
+
+        elif store.mas_SELisUnlocked(store.mas_clothes_birthday_suit) and "UND" in previous_vars[2] and not sexy_transfer:
+            call store.mas_clothes_change(outfit=mas_clothes_birthday_suit, outfit_mode=False, exp="6hubfb", restore_zoom=False)
+            m 6hubfb "Hah~ That feels better."
+            $ sexy_transfer = True
 
         python:
             if shouldkiss_cooldown > 0:

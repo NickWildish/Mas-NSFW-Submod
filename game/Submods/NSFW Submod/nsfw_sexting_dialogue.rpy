@@ -184,7 +184,7 @@ init python in mas_nsfw_sexting_dialogue:
         (["STM"],       ["UND"],        _("What you're wearing would look even better on my bedroom floor.")), #10
         (["CMD"],       ["UND", "DOM"], _("Take off your clothes. I want to see your beautiful body.")), #11
         (["DES", "PLY"],["FSM", "DOM"], _("I want to lay you down on my bed as we kiss.")), #12
-        (["STM"],       ["FSM"],        _("I want to feel your hot breath on my skin as we feel each other.")), #13
+        (["DES", "MON"],["FSM"],        _("I want to feel your hot breath on my skin as we feel each other.")), #13
         (["CMP"],       ["MBD"],        _("Your body is so hot.")), #14
         (["CMP"],       ["MBD"],        _("You're so sexy.")), #15
         (["STM"],       ["GEN"],        _("I can't wait to be alone with you.")), #16
@@ -539,6 +539,7 @@ init python in mas_nsfw_sexting_dialogue:
         (["DES", "LED"],       ["GEN"], _("Do you really?")), #21
         (["DES", "DRM", "PLY"],["GEN"], _("I would love it if you did that")), #22
         (["DES", "DRM", "MON"],["GEN"], _("I would love to do that")), #23
+        (["ANS", "AYS"],       ["GEN"], _("Of course")),
     ]
 
     sext_responses_hot = [
@@ -595,9 +596,9 @@ init python in mas_nsfw_sexting_dialogue:
         (["DES", "REM", "PLY"],["RCN", "SUB"], _("Tell me what else you want me to do to you")), #20
         (["CMD", "CPL"],       ["ONM"],        _("Like this?")),
         (["CMD", "CPL"],       ["GEN"],        _("Anything for you")),
-        (["ANS", "ASP", 0]     ["ONP"],        _("I think I can have a guess")),
-        (["ANS", "ASP", 0]     ["ONP"],        _("I don't know~ Maybe you can demonstrate for me right now what you were doing")),
-        (["ANS", "ASP", 1]     ["FSM", "MBD"], _("I'd want you to touch me down there")),
-        (["ANS", "ASP", 1]     ["FSM", "MBD"], _("I'd want you to play with my breasts")),
-        (["ANS", "ASP", 1]     ["FSM", "MBD"], _("You can touch me anywhere you like")), # You can touch my hair! Undress me everywheeeere!
+        (["ANS", "ASP", 0],    ["ONP"],        _("I think I can have a guess")),
+        (["ANS", "ASP", 0],    ["ONP"],        _("I don't know~ Maybe you can demonstrate for me right now what you were doing")),
+        (["ANS", "ASP", 1],    ["FSM", "MBD"], _("I'd want you to touch me down there")),
+        (["ANS", "ASP", 1],    ["FSM", "MBD"], _("I'd want you to play with my breasts")),
+        (["ANS", "ASP", 1],    ["FSM", "MBD"], _("You can touch me anywhere you like")), # You can touch my hair! Undress me everywheeeere!
     ]

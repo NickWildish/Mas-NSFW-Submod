@@ -530,7 +530,7 @@ init python in mas_nsfw:
                     dp1.append(dialogue) if not dialogue_already_in_pool(dialogue, dp1, dp2, dp3) else None
                     break
                 elif len(types) == 3 and types[2:] == pair[0][2:] and dialogue[0][2:] == pair[1][2:]:
-                    if types[3] == dialogue[3]:
+                    if types[3] == dialogue[0][3]:
                         dp1.append(dialogue) if not dialogue_already_in_pool(dialogue, dp1, dp2, dp3) else None
                     else:
                         dp3.append(dialogue) if not dialogue_already_in_pool(dialogue, dp1, dp2, dp3) else None

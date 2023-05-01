@@ -148,8 +148,8 @@ init python in mas_nsfw_sexting_dialogue:
         (["CMP"],              ["MBD"],        _("You look stunning today.")), #2
         (["CMP"],              ["GEN"],        _("You live rent-free in my heart.")), #3
         (["CMP"],              ["MHR"],        _("You have beautiful hair.")), #4
-        (["CMP"],              ["MFS"],        _("You have gorgeous eyes.")), #5
-        (["CMP"],              ["MFS"],        _("You have a beautiful smile.")), #6
+        (["CMP"],              ["MFE"],        _("You have gorgeous eyes.")), #5
+        (["CMP"],              ["MFL"],        _("You have a beautiful smile.")), #6
         (["CMP"],              ["MPS"],        _("I always have a great time with you.")), #7
         (["CMP"],              ["GEN"],        _("Every day with you is a good day.")), #8
         (["DES", "PLY"],       ["GEN"],        _("I wish I could hold you close right now.")), #9
@@ -163,6 +163,7 @@ init python in mas_nsfw_sexting_dialogue:
         (["CMP"],              ["MBD"],        _("Is it getting hot in here, or is it just you?")), #17
         (["CMP"],              ["MPS"],        _("You never fail to give me butterflies.")), #18
         (["CMP"],              ["MPS"],        _("You make my heart happy.")), #19
+        (["DES", "MON"],       ["GEN"],        _("I want you to hold me for a change.")), # 20
     ]
 
     # Sexting prompts for your more 'risque' options
@@ -225,7 +226,7 @@ init python in mas_nsfw_sexting_dialogue:
         (["STM"],              ["GEN"],        _("I get so turned on thinking about you.")),
         (["STM"],              ["GEN"],        _("You're the only person I have eyes for, " + monika_nickname + ".")),
         (["STM"],              ["GEN"],        _("I can't get aroused to the thought of anyone but you.")),
-        (["CMD"],              ["ONM"],        _("Be careful not to spill too much of your...juices on your chair, " + monika_nickname + ".")),
+        (["STM"],              ["ONM"],        _("Be careful not to spill too much of your...juices on your chair, " + monika_nickname + ".")),
         (["CMD"],              ["ONM", "DOM"], _("Touch yourself slowly for me, " + monika_nickname + ".")),
         (["CMD"],              ["ONM", "DOM"], _("Gently spread open your pussy lips for me, " + monika_nickname + ".")),
         (["CMD"],              ["ONM", "DOM"], _("I want you to gently rub your clit, " + monika_nickname + ".")),
@@ -287,8 +288,8 @@ init python in mas_nsfw_sexting_dialogue:
         (["DES", "MON"],["IAM", "DOM"], _("When we're finally together, I want you to take my cock up your ass, " + monika_nickname + ".")),
         (["DES", "MON"],["MFT", "FFJ"], _("I want you to rub your feet on my hard cock.")),
     ]
-    if store.persistent._nsfw_genitalia == "P":
-        sext_prompts_sexy.extend(sext_prompts_sexy_p)
+    # if store.persistent._nsfw_genitalia == "P":
+    #     sext_prompts_sexy.extend(sext_prompts_sexy_p)
 
     # I did not write any V / M / F prompts yet but these are here so they can be enabled later
 
@@ -511,29 +512,33 @@ init python in mas_nsfw_sexting_dialogue:
 
     ## SEXTING RESPONSES ##
     sext_responses_cute = [
-    #   |--------------|-------|-------------------------------------------------------------------------------|
-    #   |     Type     |Subtype|                                     Prompt                                    |
-    #   |--------------|-------|-------------------------------------------------------------------------------|
-        (["CMP", "THK"],["GEN"], _("Thank you")), #0
-        (["CMP", "THK"],["GEN"], _("Thanks")), #1
-        (["CMP", "THK"],["CHE"], _("That's very cheesy")), #2
-        (["CMP", "THK"],["CHE"], _("That's cheesy")), #3
-        (["CMP", "THK"],["CHE"], _("That's so cheesy")), #4
-        (["CMP", "CMP"],["GEN"], _("You're the sweetest")), #5
-        (["CMP", "CMP"],["GEN"], _("You're so sweet")), #6
-        (["CMP", "CMP"],["GEN"], _("That's so nice of you to say")), #7
-        (["CMP", "CRM"],["CHE"], _("You're so cheesy")), #8
-        (["CMP", "CMP"],["GEN"], _("You are just the cutest")), #9
-        (["CMP", "CRM"],["GEN"], _("You always know exactly what to say")), #10
-        (["CMP", "CRM"],["GEN"], _("You always bring a smile to my face")), #11
-        (["CMP", "CMP"],["GEN"], _("You're such a cutie")), #12
-        (["CMP", "CRM"],["GEN"], _("That's so sweet")), #13
-        (["CMP", "CMP"],["GEN"], _("You're so sweet, you know that?")), #14
-        (["CMP", "CRM"],["GEN"], _("Stop it, you're making me blush")), #15
-        (["CMP", "CMP"],["GEN"], _("You make me so happy")), #16
-        (["CMP", "CMP"],["GEN"], _("You're so kind")), #17
-        (["CMP", "CRM"],["GEN"], _("That's so sweet")), #18
-        (["CMP", "CRM"],["GEN"], _("That's sweet")), #19
+    #   |---------------------|-------|-------------------------------------------------------------------------------|
+    #   |         Type        |Subtype|                                     Prompt                                    |
+    #   |---------------------|-------|-------------------------------------------------------------------------------|
+        (["CMP", "THK"],       ["GEN"], _("Thank you")), #0
+        (["CMP", "THK"],       ["GEN"], _("Thanks")), #1
+        (["CMP", "THK"],       ["CHE"], _("That's very cheesy")), #2
+        (["CMP", "THK"],       ["CHE"], _("That's cheesy")), #3
+        (["CMP", "THK"],       ["CHE"], _("That's so cheesy")), #4
+        (["CMP", "CMP"],       ["GEN"], _("You're the sweetest")), #5
+        (["CMP", "CMP"],       ["GEN"], _("You're so sweet")), #6
+        (["CMP", "CMP"],       ["GEN"], _("That's so nice of you to say")), #7
+        (["CMP", "CRM"],       ["CHE"], _("You're so cheesy")), #8
+        (["CMP", "CMP"],       ["GEN"], _("You are just the cutest")), #9
+        (["CMP", "CRM"],       ["GEN"], _("You always know exactly what to say")), #10
+        (["CMP", "CRM"],       ["GEN"], _("You always bring a smile to my face")), #11
+        (["CMP", "CMP"],       ["GEN"], _("You're such a cutie")), #12
+        (["CMP", "CRM"],       ["GEN"], _("That's so sweet")), #13
+        (["CMP", "CMP"],       ["GEN"], _("You're so sweet, you know that?")), #14
+        (["CMP", "CRM"],       ["GEN"], _("Stop it, you're making me blush")), #15
+        (["CMP", "CMP"],       ["GEN"], _("You make me so happy")), #16
+        (["CMP", "CMP"],       ["GEN"], _("You're so kind")), #17
+        (["CMP", "CRM"],       ["GEN"], _("That's so sweet")), #18
+        (["CMP", "CRM"],       ["GEN"], _("That's sweet")), #19
+        (["ANS", "ASP", 0],    ["GEN"], _("I could ask you the same thing")), #20
+        (["DES", "LED"],       ["GEN"], _("Do you really?")), #21
+        (["DES", "DRM", "PLY"],["GEN"], _("I would love it if you did that")), #22
+        (["DES", "DRM", "MON"],["GEN"], _("I would love to do that")), #23
     ]
 
     sext_responses_hot = [
@@ -560,6 +565,7 @@ init python in mas_nsfw_sexting_dialogue:
         (["DES", "LED"],["GEN"], _("Is that so?")), #17
         (["DES", "LED"],["GEN"], _("Is that right?")), #18
         (["CMP", "CRM"],["GEN"], _("You make me so happy talking like that")), #19
+        (["CMD", "CPL"],["GEN"], _("Anything for you")) #20
     ]
 
     sext_responses_sexy = [
@@ -587,4 +593,11 @@ init python in mas_nsfw_sexting_dialogue:
         (["DES", "DRM"],       ["GEN"],        _("You really know how to please a woman")), #18
         (["DES", "REM"],       ["RCN"],        _("Say that again")), #19
         (["DES", "REM", "PLY"],["RCN", "SUB"], _("Tell me what else you want me to do to you")), #20
+        (["CMD", "CPL"],       ["ONM"],        _("Like this?")),
+        (["CMD", "CPL"],       ["GEN"],        _("Anything for you")),
+        (["ANS", "ASP", 0]     ["ONP"],        _("I think I can have a guess")),
+        (["ANS", "ASP", 0]     ["ONP"],        _("I don't know~ Maybe you can demonstrate for me right now what you were doing")),
+        (["ANS", "ASP", 1]     ["FSM", "MBD"], _("I'd want you to touch me down there")),
+        (["ANS", "ASP", 1]     ["FSM", "MBD"], _("I'd want you to play with my breasts")),
+        (["ANS", "ASP", 1]     ["FSM", "MBD"], _("You can touch me anywhere you like")), # You can touch my hair! Undress me everywheeeere!
     ]

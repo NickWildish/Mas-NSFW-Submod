@@ -498,7 +498,7 @@ init python in mas_nsfw:
 
         dp1, dp2, dp3 = [], [], [] # may use other 2 dialogue pools at a later date
 
-        unique_tags = ["CMP", "CMD", "DES", "QUE"]
+        unique_tags = ["CMP", "CMD", "DES", "QUE", "ANS"]
 
         response_pairings = [
             (["CMP"],        ["CMP", "THK"]),
@@ -511,11 +511,11 @@ init python in mas_nsfw:
             (["DES", "MON"], ["DES", "DRM"]),
             (["DES", "PLY"], ["DES", "DRM", "PLY"]),
             (["DES", "MON"], ["DES", "DRM", "MON"]),
+            (["QUE", "QSP"], ["ANS", "ASP"]), # We check this manually due to the integer
             (["QUE", "QYS"], ["ANS", "AYS"]),
             (["QUE", "QNO"], ["ANS", "ANO"]),
             (["QUE", "QAG"], ["ANS", "AAG"]),
             (["QUE", "QDG"], ["ANS", "ADG"]),
-            #(["QUE", "QSP"], ["ANS", "ASP"]), # We check this manually due to the integer
             (["QUE", "QAT"], ["ANS", "AAT"]),
             (["QUE", "QDT"], ["ANS", "ADT"]),
             (["STM"], ["DES", "LED"]),
@@ -525,22 +525,27 @@ init python in mas_nsfw:
             if dialogue[2] in recent:
                 continue
 
+            dp_to_append = 4
             for pair in response_pairings:
                 if types == pair[0] and dialogue[0] == pair[1]:
-                    dp1.append(dialogue) if not dialogue_already_in_pool(dialogue, dp1, dp2, dp3) else None
+                    dp_to_append = 1
                     break
-                elif len(types) == 3 and types[2:] == pair[0][2:] and dialogue[0][2:] == pair[1][2:]:
-                    if types[3] == dialogue[0][3]:
-                        dp1.append(dialogue) if not dialogue_already_in_pool(dialogue, dp1, dp2, dp3) else None
+                elif len(types) == 3 and types[:2] == pair[0] and dialogue[0][:2] == pair[1]:
+                    if types[2] == dialogue[0][2]:
+                        dp_to_append = 1
                     else:
-                        dp3.append(dialogue) if not dialogue_already_in_pool(dialogue, dp1, dp2, dp3) else None
+                        dp_to_append = 3 if dp_to_append > 3 else None
                     break
                 elif dialogue[0][0] not in unique_tags:
-                    dp2.append(dialogue) if not dialogue_already_in_pool(dialogue, dp1, dp2, dp3) else None
+                    dp_to_append = 2 if dp_to_append > 2 else None
                     break
-                else: # Should never be needed
-                    dp3.append(dialogue) if not dialogue_already_in_pool(dialogue, dp1, dp2, dp3) else None
-                    break # Not really necessary but makes it neat, except this comment makes it no longer neat so isn't not really worth it anymore....I'm gonna stop typing.
+
+            if dp_to_append == 4 or dp_to_append == 3:
+                dp3.append(dialogue) if not dialogue_already_in_pool(dialogue, dp1, dp2, dp3) else None
+            elif dp_to_append == 2:
+                dp2.append(dialogue) if not dialogue_already_in_pool(dialogue, dp1, dp2, dp3) else None
+            elif dp_to_append == 1:
+                dp1.append(dialogue) if not dialogue_already_in_pool(dialogue, dp1, dp2, dp3) else None
 
         if len(dp1) == 0:
             dp1 = dp2 if len(dp2) > 0 else dp3

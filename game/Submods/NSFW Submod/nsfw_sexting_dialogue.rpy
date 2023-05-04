@@ -160,10 +160,10 @@ init python in mas_nsfw_sexting_dialogue:
         (["QUE", "QYS"],       ["GEN"],        _("Our first kiss after you cross over is going to be wonderful, don't you think?")), #14
         (["CMP"],              ["MPS"],        _("I really like getting to know you.")), #15
         (["CMP"],              ["GEN"],        _("Everything makes me think of you.")), #16
-        (["CMP"],              ["MBD"],        _("Is it getting hot in here, or is it just you?")), #17
+        (["QUE", "QSP", 1],    ["MBD"],        _("Is it getting hot in here, or is it just you?")), #17
         (["CMP"],              ["MPS"],        _("You never fail to give me butterflies.")), #18
         (["CMP"],              ["MPS"],        _("You make my heart happy.")), #19
-        (["DES", "MON"],       ["GEN"],        _("I want you to hold me for a change.")), # 20
+        (["DES", "MON"],       ["FSP"],        _("I want you to hold me for a change.")), # 20
     ]
 
     # Sexting prompts for your more 'risque' options
@@ -191,6 +191,7 @@ init python in mas_nsfw_sexting_dialogue:
         (["CMP"],       ["GEN"],        _("You're all I can think about.")), #17
         (["DES", "PLY"],["FSM", "DOM"], _("When we're together, I want to have you lie back and let me take care of you.")), #18
         (["STM"],       ["PCL"],        _("I'm wearing something you might like right now.")), #19
+        (["CMP"],       ["UND", "MBD"], _("I'm picturing you naked right now... Damn, you look good.")),
     ]
 
     # Sexting prompts for your most 'risque' options
@@ -200,7 +201,6 @@ init python in mas_nsfw_sexting_dialogue:
     #   |---------------------|--------------|---------------------------------------------------------------------------|
         (["CMP"],              ["IOM", "MFS"], _("I bet you have a really hot orgasm face.")),
         (["STM"],              ["GEN"],        _("I can't wait to be alone with you.")),
-        (["CMP"],              ["UND", "MBD"], _("I'm picturing you naked right now... Damn, you look good.")),
         (["CMP"],              ["MPS", "SUB"], _("I think there is something insanely sexy about a woman being in control. Don't you agree?")),
         (["CMP"],              ["GEN"],        _("I bet you have the sexiest sounding moans in the world.")),
         (["CMP"],              ["GEN"],        _("Everything about you turns me on.")),
@@ -382,7 +382,7 @@ init python in mas_nsfw_sexting_dialogue:
         (["STM"],       ["CHE"],        _("Are you just saying that to get into my pants?{w=1.0} Ahaha! Just kidding~")), #6
         (["CMP"],       ["PPS"],        _("I love how sweet you are")), #7
         (["CMP"],       ["PPS"],        _("I love how kind you are")), #8
-        (["CMP"],       ["GEN"],        _("You're a cutie pie")), #9
+        (["CMP"],       ["GEN"],        _("You're such a cutie pie")), #9
         (["DES", "MON"],["KIS"],        _("I just want to kiss you right now")), #10
         (["DES", "MON"],["FSP"],        _("I wish I could hold you right now")), #11
         (["DES", "PLY"],["PPS"],        _("Once we meet in the real world we need to do something about your cuteness")), #12
@@ -540,6 +540,7 @@ init python in mas_nsfw_sexting_dialogue:
         (["DES", "DRM", "PLY"],["GEN"], _("I would love it if you did that")), #22
         (["DES", "DRM", "MON"],["GEN"], _("I would love to do that")), #23
         (["ANS", "AYS"],       ["GEN"], _("Of course")),
+        (["ANS", "ASP", 1],    ["GEN"], _("I don't know, you tell me"))
     ]
 
     sext_responses_hot = [
@@ -591,9 +592,9 @@ init python in mas_nsfw_sexting_dialogue:
         (["DES", "DRM"],       ["GEN"],        _("When did you learn to talk like that?")), #15
         (["DES", "DRM"],       ["GEN"],        _("Have you always been this sexy?")), #16
         (["STM"],              ["GEN"],        _("I am so wet right now")), #17
-        (["DES", "DRM"],       ["GEN"],        _("You really know how to please a woman")), #18
-        (["DES", "REM"],       ["RCN"],        _("Say that again")), #19
-        (["DES", "REM", "PLY"],["RCN", "SUB"], _("Tell me what else you want me to do to you")), #20
+        (["DES", "DRM", "MON"],["GEN"],        _("You really know how to please a woman")), #18
+        (["DES", "DRM"],       ["RCN"],        _("Say that again")), #19
+        (["DES", "DRM", "PLY"],["RCN", "SUB"], _("Tell me what else you want me to do to you")), #20
         (["CMD", "CPL"],       ["ONM"],        _("Like this?")),
         (["CMD", "CPL"],       ["GEN"],        _("Anything for you")),
         (["ANS", "ASP", 0],    ["ONP"],        _("I think I can have a guess")),

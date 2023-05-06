@@ -335,12 +335,12 @@ label nsfw_fetish_cheesiness:
             m 1eua "I might have gotten a bit carried away. Ahaha~"
             m 1eua "I'll try to tone it down a bit."
 
-        "It's just like pizza, it gets better with every slice!":
+        "I love it!":
             $ persistent._nsfw_pm_cheesiness = True
             $ persistent._nsfw_pm_cheesiness_whitelist = ["CHE"]
             $ persistent._nsfw_pm_cheesiness_blacklist = ["U"]
             m 1eua "Ahaha~"
-            m 1eua "You're so silly, [player]."
+            m 1eua "I'm glad you enjoy keeping things lighthearted, [player]."
             m 1eua "I'll try to keep it up then."
 
     call nsfw_fetish_cheesiness_end

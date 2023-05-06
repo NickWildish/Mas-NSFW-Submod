@@ -591,10 +591,19 @@ init python in mas_nsfw:
 
                 # If the subtype is in the special tags
                 elif subtype in special_tags:
-                    if subtype == "CHE":
+                    if subtype == "GEN":
                         target_pools = [2, 3]
                         pool_no = 1 if subtype in dialogue[1] else target_pools[(j % 2) - len(dp1)]
-                    else:
+                    elif subtype == "KIS":
+                        target_pools = [2, 3]
+                        pool_no = 1 if "FKS" in dialogue[1] else target_pools[(j % 2) - len(dp1)]
+                    elif subtype == "UND":
+                        target_pools = [2, 3]
+                        pool_no = 1 if "MCL" in dialogue[1] or "PCL" in dialogue[1] else target_pools[(j % 2) - len(dp1)]
+                    elif subtype == "CHE":
+                        target_pools = [2, 3]
+                        pool_no = 1 if subtype in dialogue[1] else target_pools[(j % 2) - len(dp1)]
+                    else: # Shouldn't activate, but here in case any get added
                         target_pools = [1, 2, 3]
                         pool_no = target_pools[j % 3]
 

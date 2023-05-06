@@ -149,9 +149,6 @@ init python in mas_nsfw_sexting_dialogue:
         (["CMP"],              ["MTH"],        _("I really love your thighs.")),
         (["CMP"],              ["MCL"],        _("I think the clothes you're wearing really suit you.")),
         (["CMP"],              ["MFT"],        _("I bet you have cute feet.")),
-
-        (["STM"],              ["MFT"],        _("I bet you have cute feet.")),
-
         (["CMP"],              ["GEN"],        _("Every day with you is a good day.")), #8
         (["CMP"],              ["GEN"],        _("Everything makes me think of you.")), #16
         (["CMP"],              ["GEN"],        _("You live rent-free in my heart.")), #3

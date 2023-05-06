@@ -258,10 +258,12 @@ init python in mas_nsfw:
         new_category_sel = []
         for prompt in category_sel:
             blacklisted = False
-            for tag in prompt[1]:
-                if tag in fetish_blacklist:
-                    blacklisted = True
-                    break
+            for i in range(2):
+                # Check if any of the tags in the type or subtype of the prompt are blacklisted
+                for tag in prompt[i]:
+                    if tag in fetish_blacklist:
+                        blacklisted = True
+                        break
             if not blacklisted:
                 new_category_sel.append(prompt)
 

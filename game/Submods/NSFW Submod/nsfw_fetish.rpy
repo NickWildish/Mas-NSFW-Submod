@@ -554,23 +554,55 @@ label nsfw_fetish_dominance:
     m 1eublb "In any case..."
     m 3ekbla "Regardless of what you prefer, I will always love you, [player]."
 
-    call nsfw_fetish_dominance_end
+default persistent._nsfw_pm_feet = False
 
-    return "love"
+init 6 python:
+    addEvent(
+        Event(
+            persistent._nsfw_fetish_database,
+            eventlabel="nsfw_fetish_feet",
+            prompt="Feet",
+            unlocked=True
+        ),
+        code="NFH"
+    )
 
-label nsfw_fetish_dominance_end:
-    # Force-update the fetish
-    python:
-        found_fetish = False
-        for fetish in persistent._nsfw_player_fetishes:
-            if fetish[0] == "Dominance":
-                found_fetish = True
-                fetish[1] = persistent._nsfw_pm_dominance_whitelist
-                fetish[2] = persistent._nsfw_pm_dominance_blacklist
-                break
+label nsfw_fetish_feet:
+    m 1eua "You want to talk about feet?"
+    m 1eua "Okay, [player]!"
+    m 1eua "Is feet something you are into?"
 
-        if not found_fetish:
-            # If we get here, we didn't find the fetish
-            persistent._nsfw_player_fetishes.append(["Dominance", persistent._nsfw_pm_dominance_whitelist, persistent._nsfw_pm_dominance_blacklist])
+    $ _history_list.pop()
+
+    menu:
+        m "Is feet something you are into?{fast}"
+
+        "Yes":
+            $ persistent._nsfw_pm_feet = True
+            m 1eua "Okay, [player]!"
+            m 1eua "Some people have a preference on feet."
+            m 1eua "Like, they don't like their own feet but they like other people's feet."
+            m 1eua "Do you have a preference, [player]?"
+
+            $ _history_list.pop()
+
+            menu:
+                m "Do you have a preference, [player?]{fast}"
+
+                "I prefer other's feet":
+                    $ store.mas_nsfw.save_fetish_to_persistent("Feet", ["MFT"], ["PFT"])
+                    m 1eua "Okay, [player]!"
+
+                "I prefer my own feet":
+                    $ store.mas_nsfw.save_fetish_to_persistent("Feet", ["PFT"], ["MFT"])
+                    m 1eua "Okay, [player]!"
+
+                "I like both":
+                    $ store.mas_nsfw.save_fetish_to_persistent("Feet", ["MFT", "PFT"], ["U"])
+                    m 1eua "Okay, [player]!"
+
+        "No":
+            $ persistent._nsfw_pm_feet = False
+            m 1eua "Okay, [player]!"
 
     return

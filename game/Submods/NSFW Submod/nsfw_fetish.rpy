@@ -305,6 +305,63 @@ label nsfw_fetish_hand_holding_end:
             persistent._nsfw_player_fetishes.append(["Hand Holding", persistent._nsfw_pm_hand_holding_whitelist, persistent._nsfw_pm_hand_holding_blacklist])
 
     return
+
+default persistant._nsfw_pm_cheesiness = False
+default persistant._nsfw_pm_cheesiness_whitelist = ["U"]
+default persistant._nsfw_pm_cheesiness_blacklist = ["U"]
+
+init 6 python:
+    addEvent(
+        Event(
+            persistent._nsfw_fetish_database,
+            eventlabel="nsfw_fetish_cheesiness",
+            prompt="About your cheesiness...",
+            unlocked=True
+        ),
+        code="NFH"
+    )
+
+label nsfw_fetish_cheesiness:
+    m 1eua "Yeah? What about it?"
+    $ _history_list.pop()
+    menu:
+        m "Yeah? what about it?{fast}"
+
+        "I'm not a big fan...":
+            $ persistent._nsfw_pm_cheesiness = False
+            $ persistent._nsfw_pm_cheesiness_whitelist = ["U"]
+            $ persistent._nsfw_pm_cheesiness_blacklist = ["CHE"]
+            m 1eua "Oh, I'm sorry."
+            m 1eua "I might have gotten a bit carried away. Ahaha~"
+            m 1eua "I'll try to tone it down a bit."
+
+        "It's just like pizza, it gets better with every slice!":
+            $ persistent._nsfw_pm_cheesiness = True
+            $ persistent._nsfw_pm_cheesiness_whitelist = ["CHE"]
+            $ persistent._nsfw_pm_cheesiness_blacklist = ["U"]
+            m 1eua "Ahaha~"
+            m 1eua "You're so silly, [player]."
+            m 1eua "I'll try to keep it up then."
+
+    call nsfw_fetish_cheesiness_end
+
+    return
+
+label nsfw_fetish_cheesiness_end:
+    # Force-update the fetish
+    python:
+        found_fetish = False
+        for fetish in persistent._nsfw_player_fetishes:
+            if fetish[0] == "Cheesiness":
+                found_fetish = True
+                fetish[1] = persistent._nsfw_pm_cheesiness_whitelist
+                fetish[2] = persistent._nsfw_pm_cheesiness_blacklist
+                break
+
+        if not found_fetish:
+            # If we get here, we didn't find the fetish
+            persistent._nsfw_player_fetishes.append(["Cheesiness", persistent._nsfw_pm_cheesiness_whitelist, persistent._nsfw_pm_cheesiness_blacklist])
+
     return
 
 default persistent._nsfw_pm_anal = False

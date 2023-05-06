@@ -1013,6 +1013,22 @@ init python in mas_nsfw:
         return random.randint(min, max)
 
     def create_sexting_prompts(horny_lvl=0, horny_reqs=[0, 10, 30, 50], previous_vars=[], recent_prompts=[]):
+        """
+        Creates sexting prompts for Monika to send to the player
+
+        IN:
+            horny_lvl - The current horny level of the player
+                (Default: 0)
+            horny_reqs - The horny level requirements for each stage of sexting
+                (Default: [0, 10, 30, 50])
+            previous_vars - The previous variables used in the sexting session
+                (Default: [])
+            recent_prompts - The recent prompts used in the sexting session
+                (Default: [])
+
+        OUT:
+            new_player_prompts - The new prompts for the player to choose from
+        """
         new_player_prompts = [["", "", "", ""], ["", "", "", ""], ["", "", "", ""]] # The prompts from which the player will choose from, and their respective category/type/subtype.
 
         if horny_lvl > horny_reqs[2]:
@@ -1084,6 +1100,22 @@ init python in mas_nsfw:
         return new_player_prompts
 
     def create_sexting_quips(horny_lvl=0, horny_reqs=[0, 10, 30, 50], previous_vars=[], recent_quips=[]):
+        """
+        Creates sexting quips for Monika to send to the player
+
+        IN:
+            horny_lvl - The current horny level of the player
+                (Default: 0)
+            horny_reqs - The horny level requirements for each stage of sexting
+                (Default: [0, 10, 30, 50])
+            previous_vars - The previous variables used in the sexting session
+                (Default: [])
+            recent_quips - The recent quips used in the sexting session
+                (Default: [])
+
+        OUT:
+            new_monika_quip - The new quip for Monika to send to the player
+        """
         # Set up variables
         new_monika_quip = [] # The quip Monika will say, the category/type/subtype of the quip, and the ending of the quip.
 
@@ -1119,6 +1151,22 @@ init python in mas_nsfw:
         return new_monika_quip
 
     def create_sexting_response(horny_lvl=0, horny_reqs=[0, 10, 30, 50], previous_vars=[], recent_responses=[]):
+        """
+        Creates sexting responses for Monika to send to the player
+
+        IN:
+            horny_lvl - The current horny level of the player
+                (Default: 0)
+            horny_reqs - The horny level requirements for each stage of sexting
+                (Default: [0, 10, 30, 50])
+            previous_vars - The previous variables used in the sexting session
+                (Default: [])
+            recent_responses - The recent responses used in the sexting session
+                (Default: [])
+
+        OUT:
+            new_monika_response - The new response for Monika to send to the player
+        """
         # Set up variables
         new_monika_response = [] # The response Monika will say, the category/type/subtype of the quip, the beginning and the ending of the quip.
 

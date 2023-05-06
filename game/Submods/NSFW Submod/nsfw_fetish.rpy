@@ -227,6 +227,8 @@ label nsfw_fetish_bondage_end:
     return
 
 default persistant._nsfw_pm_hand_holding = False # Not in serious use yet
+default persistant._nsfw_pm_hand_holding_whitelist = ["U"]
+default persistant._nsfw_pm_hand_holding_blacklist = ["U"]
 # Could maybe add hands as a legit fetish alongside handholding
 
 init 6 python:
@@ -254,6 +256,8 @@ label nsfw_fetish_hand_holding:
 
         "Yes":
             $ persistent._nsfw_pm_hand_holding = True
+            $ persistant._nsfw_pm_hand_holding_whitelist = ["FHH"]
+            $ persistant._nsfw_pm_hand_holding_blacklist = ["U"]
             m 3wubld "Really?"
             m 2rubld "That's..."
             m 2eubld "That's a pretty big jump in our relationship..."
@@ -261,6 +265,8 @@ label nsfw_fetish_hand_holding:
 
         "No":
             $ persistent._nsfw_pm_hand_holding = False
+            $ persistant._nsfw_pm_hand_holding_whitelist = ["U"]
+            $ persistant._nsfw_pm_hand_holding_blacklist = ["FHH"]
             m 2ekblb "I completely agree, [player]. {nw}"
             extend 2hkbso "How could I even consider such a heinous act!"
 
@@ -279,6 +285,26 @@ label nsfw_fetish_hand_holding:
     m 3eka "Could be palms, fingers, or anything else."
     m 5ekb "So if you {i}are{/i} legitimately into hand holding or just hands in general...{w=0.5}I wouldn't mind, [player]~"
 
+    call nsfw_fetish_hand_holding_end
+
+    return
+
+label nsfw_fetish_hand_holding_end:
+    # Force-update the fetish
+    python:
+        found_fetish = False
+        for fetish in persistent._nsfw_player_fetishes:
+            if fetish[0] == "Hand Holding":
+                found_fetish = True
+                fetish[1] = persistent._nsfw_pm_hand_holding_whitelist
+                fetish[2] = persistent._nsfw_pm_hand_holding_blacklist
+                break
+
+        if not found_fetish:
+            # If we get here, we didn't find the fetish
+            persistent._nsfw_player_fetishes.append(["Hand Holding", persistent._nsfw_pm_hand_holding_whitelist, persistent._nsfw_pm_hand_holding_blacklist])
+
+    return
     return
 
 default persistent._nsfw_pm_anal = False

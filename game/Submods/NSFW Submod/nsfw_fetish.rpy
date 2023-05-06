@@ -322,7 +322,7 @@ init 6 python:
     )
 
 label nsfw_fetish_cheesiness:
-    m 1eua "Yeah? What about it?"
+    m 1eua "Yeah? What about it?" #TODO: Complete posing
     $ _history_list.pop()
     menu:
         m "Yeah? what about it?{fast}"

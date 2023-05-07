@@ -534,7 +534,7 @@ init python in mas_nsfw_sexting_dialogue:
     #   |         Type        |Subtype|                                     Prompt                                    |
     #   |---------------------|-------|-------------------------------------------------------------------------------|
         (["ANS", "ASP", 0],    ["GEN"], _("I could ask you the same thing")), #20
-        (["ANS", "ASP", 1],    ["GEN"], _("I don't know, you tell me"))
+        (["ANS", "ASP", 1],    ["GEN"], _("I don't know, you tell me")),
         (["ANS", "AYS"],       ["GEN"], _("Of course")),
         (["CMP", "CMP"],       ["GEN"], _("That's so nice of you to say")), #7
         (["CMP", "CMP"],       ["GEN"], _("You are just the cutest")), #9
@@ -565,7 +565,7 @@ init python in mas_nsfw_sexting_dialogue:
     #   |--------------|-------|-------------------------------------------------------------------------------|
     #   |     Type     |Subtype|                                     Prompt                                    |
     #   |--------------|-------|-------------------------------------------------------------------------------|
-        (["CMD", "CPL"],["GEN"], _("Anything for you")) #20
+        (["CMD", "CPL"],["GEN"], _("Anything for you")), #20
         (["CMP", "CRM"],["GEN"], _("You know exactly what to say")), #2
         (["CMP", "CRM"],["GEN"], _("You make me so happy talking like that")), #19
         (["DES", "DRM"],["GEN"], _("Don't tempt me to try and break the screen to get to you")), #6

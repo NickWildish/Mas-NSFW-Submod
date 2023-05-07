@@ -1207,15 +1207,14 @@ init python in mas_nsfw:
 
     def save_fetish_to_persistent(fetish_name, fetish_whitelist, fetish_blacklist):
         # Force-update the fetish
-        python:
-            found_fetish = False
-            for fetish in persistent._nsfw_player_fetishes:
-                if fetish[0] == fetish_to_save:
-                    found_fetish = True
-                    fetish[1] = fetish_whitelist
-                    fetish[2] = fetish_blacklist
-                    break
+        found_fetish = False
+        for fetish in persistent._nsfw_player_fetishes:
+            if fetish[0] == fetish_to_save:
+                found_fetish = True
+                fetish[1] = fetish_whitelist
+                fetish[2] = fetish_blacklist
+                break
 
-            if not found_fetish:
-                # If we get here, we didn't find the fetish
-                persistent._nsfw_player_fetishes.append([fetish_to_save, fetish_whitelist, fetish_blacklist])
+        if not found_fetish:
+            # If we get here, we didn't find the fetish
+            persistent._nsfw_player_fetishes.append([fetish_to_save, fetish_whitelist, fetish_blacklist])

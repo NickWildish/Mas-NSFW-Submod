@@ -1,10 +1,16 @@
 init -990 python in mas_submod_utils:
     Submod(
-        author="NSFW Dev Team",
+        author="NickWildish",
         name="NSFW Submod",
+        version="1.3.0",
         description="A collection of NSFW topics and features for MAS.",
-        version="1.2.7",
         settings_pane="nsfw_submod_screen"
+        version_updates= {
+            "nickwildish_nsfw_submod_v1_0_3": "nickwildish_nsfw_submod_v1_1_0",
+            "nickwildish_nsfw_submod_v1_1_0": "nickwildish_nsfw_submod_v1_1_1",
+            "nickwildish_nsfw_submod_v1_2_7": "nickwildish_nsfw_submod_v1_3_0"
+        },
+        coauthors=["mizuotana-nirera", "TreeWizard96"]
     ) # https://github.com/NickWildish/Mas-NSFW-Submod
 
 # Register the updater

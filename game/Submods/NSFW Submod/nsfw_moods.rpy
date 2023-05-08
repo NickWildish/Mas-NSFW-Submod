@@ -5,7 +5,8 @@ init 5 python:
             "nsfw_mood_horny",
             prompt="...horny.",
             category=[store.mas_moods.TYPE_NEUTRAL],
-            unlocked=True,
+            conditional=["store.persistent._nsfw_sexting_success_last is not None"],
+            action=EV_ACT_UNLOCK,
             ),
         code="MOO"
     )

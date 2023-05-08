@@ -104,4 +104,10 @@ label nickwildish_nsfw_submod_v1_3_0(version="v_1_3_0"):
         ),
         action=EV_ACT_UNLOCK
     )
+    mas_setEVLPropValues(
+        "nsfw_mood_horny",
+        unlocked=False,
+        conditional=["store.persistent._nsfw_sexting_success_last is not None"],
+        action=EV_ACT_UNLOCK,
+    )
     return

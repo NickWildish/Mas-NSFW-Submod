@@ -469,7 +469,7 @@ init 6 python:
         code="NFH"
     )
 
-label nsfw_fetish_feet:
+label nsfw_fetish_feet: #TODO: Finish feet topic
     m 1eua "You want to talk about feet?"
     m 1eua "Okay, [player]!"
     m 1eua "Is feet something you are into?"

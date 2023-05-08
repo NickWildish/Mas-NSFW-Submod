@@ -4,7 +4,7 @@ init -990 python in mas_submod_utils:
         name="NSFW Submod",
         version="1.3.0",
         description="A collection of NSFW topics and features for MAS.",
-        settings_pane="nsfw_submod_screen"
+        settings_pane="nsfw_submod_screen",
         version_updates= {
             "nickwildish_nsfw_submod_v1_0_3": "nickwildish_nsfw_submod_v1_1_0",
             "nickwildish_nsfw_submod_v1_1_0": "nickwildish_nsfw_submod_v1_1_1",
@@ -601,16 +601,16 @@ init python in mas_nsfw:
                 elif subtype in special_tags:
                     if subtype == "GEN":
                         target_pools = [2, 3]
-                        pool_no = 1 if subtype in dialogue[1] else target_pools[(j % 2) - len(dp1)]
+                        pool_no = 1 if subtype in dialogue[1] else target_pools[(j - len(dp1)) % 2]
                     elif subtype == "KIS":
                         target_pools = [2, 3]
-                        pool_no = 1 if "FKS" in dialogue[1] else target_pools[(j % 2) - len(dp1)]
+                        pool_no = 1 if "FKS" in dialogue[1] else target_pools[(j - len(dp1)) % 2]
                     elif subtype == "UND":
                         target_pools = [2, 3]
-                        pool_no = 1 if "MCL" in dialogue[1] or "PCL" in dialogue[1] else target_pools[(j % 2) - len(dp1)]
+                        pool_no = 1 if "MCL" in dialogue[1] or "PCL" in dialogue[1] else target_pools[(j - len(dp1)) % 2]
                     elif subtype == "CHE":
                         target_pools = [2, 3]
-                        pool_no = 1 if subtype in dialogue[1] else target_pools[(j % 2) - len(dp1)]
+                        pool_no = 1 if subtype in dialogue[1] else target_pools[(j - len(dp1)) % 2]
                     else: # Shouldn't activate, but here in case any get added
                         target_pools = [1, 2, 3]
                         pool_no = target_pools[j % 3]

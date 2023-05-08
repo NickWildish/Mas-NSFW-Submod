@@ -558,7 +558,7 @@ init python in mas_nsfw_sexting_dialogue:
         (["CMP", "THK"],       ["GEN"], _("Thanks")), #1
         (["DES", "DRM", "MON"],["GEN"], _("I would love to do that")), #23
         (["DES", "DRM", "PLY"],["GEN"], _("I would love it if you did that")), #22
-        (["DES", "LED"],       ["GEN"], _("Do you really?")), #21
+        (["DES", "LED"],       ["GEN"], _("Do you really mean that?")), #21
     ]
 
     sext_responses_hot = [

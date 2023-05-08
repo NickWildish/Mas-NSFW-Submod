@@ -101,29 +101,31 @@ label nsfw_sexting_main:
 
         python:
             # Generate player prompts
-            for x in range(3):
-                player_prompts = store.mas_nsfw.create_sexting_prompts(horny_lvl=horny_lvl, horny_reqs=horny_reqs, previous_vars=previous_vars, recent_prompts=recent_prompts)
-                #recent_prompts.append(player_prompts[x][2]) # already done elsewhere?
+            player_prompts = store.mas_nsfw.create_sexting_prompts(horny_lvl=horny_lvl, horny_reqs=horny_reqs, previous_vars=previous_vars, recent_prompts=recent_prompts)
+            #recent_prompts.append(player_prompts[x][2]) # already done elsewhere?
 
         # Menus work well with 'All Gen Scrollable Menus' installed, so making a config for if the user has it or not
-        $ end_of_prompt = ""
+        # $ end_of_prompt = ""
 
         if not store.mas_submod_utils.isSubmodInstalled("All Gen Scrollable Menus"):
-            $ end_of_prompt = " (sextchoice)" # TODO: Figure out why sextchoice is not being removed during sexting
+            sext_menu = []
 
-        menu:
-            m "[monika_quip[0]][quip_ending]{fast}"
+            for x in range(3):
+                sext_menu.append((_(player_prompts[x][0]), "player_prompt_" + str(x)))
 
-            "[player_prompts[0][0]][end_of_prompt]":
+            sext_menu.append((_("Actually, can we stop just for now?"), "stop_sext"))
+
+            show monika at t21
+            $ madechoice = renpy.display_menu(sext_menu, screen="talk_choice")
+            show monika at t11
+
+            if madechoice == "player_prompt_0":
                 $ prompt_choice = 0
-
-            "[player_prompts[1][0]][end_of_prompt]":
+            elif madechoice == "player_prompt_1":
                 $ prompt_choice = 1
-
-            "[player_prompts[2][0]][end_of_prompt]":
+            elif madechoice == "player_prompt_2":
                 $ prompt_choice = 2
-
-            "Actually, can we stop just for now?[end_of_prompt]":
+            elif madechoice == "stop_sext":
                 $ persistent._nsfw_last_sexted = datetime.datetime.now() # We already have a success check, so this can be a check for any previous sexting attempt
 
                 if horny_lvl >= horny_reqs[2]:
@@ -146,6 +148,42 @@ label nsfw_sexting_main:
                     m 1ekbla "Oh, okay."
                     m 3ekblb "Let's pick this up again later, okay?"
                     return
+        else:
+            menu:
+                m "[monika_quip[0]][quip_ending]{fast}"
+
+                "[player_prompts[0][0]][end_of_prompt]":
+                    $ prompt_choice = 0
+
+                "[player_prompts[1][0]][end_of_prompt]":
+                    $ prompt_choice = 1
+
+                "[player_prompts[2][0]][end_of_prompt]":
+                    $ prompt_choice = 2
+
+                "Actually, can we stop just for now?[end_of_prompt]":
+                    $ persistent._nsfw_last_sexted = datetime.datetime.now() # We already have a success check, so this can be a check for any previous sexting attempt
+
+                    if horny_lvl >= horny_reqs[2]:
+                        $ persistent._nsfw_horny_level = horny_lvl - 10
+                        $ persistent._nsfw_sext_sexy_start = True
+                        m 6lkbfp "Aww, I was really enjoying myself."
+                        m 6gkbfp "I hope whatever it is you need to do is important.{w=0.3}.{w=0.3}.{w=0.3}{nw}"
+                        m 6hubfb "Ahaha! Just kidding~"
+                        call nsfw_sexting_early_cleanup
+                        return
+                    elif horny_lvl >= horny_reqs[1]:
+                        $ persistent._nsfw_horny_level = horny_lvl - 5
+                        $ persistent._nsfw_sext_hot_start = True
+                        m 2tsbso "Aww, it was just starting to get interesting."
+                        m 2ekbsa "It's okay, we can pick this up again another time."
+                        call nsfw_sexting_early_cleanup
+                        return
+                    else: #Default
+                        $ persistent._nsfw_horny_level = horny_lvl - 1
+                        m 1ekbla "Oh, okay."
+                        m 3ekblb "Let's pick this up again later, okay?"
+                        return
 
         # Set new previous category/type/subtype to the new prompt's
         $ previous_vars = [player_prompts[prompt_choice][1], player_prompts[prompt_choice][2], player_prompts[prompt_choice][3]]

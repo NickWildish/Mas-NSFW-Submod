@@ -322,6 +322,7 @@ label nsfw_monika_favorite_position:
             m 4tubfu "I bet you'd like to see me from that perspective too, huh?"
             m 3hubfb "Ahaha! Don't get flustered~"
             m 1tubfa "Just knowing you're pleased and have a nice view of my body is enough for me to feel good, [mas_get_player_nickname()]~"
+            $ persistent._nsfw_player_favourite_position = "Doggy style"
 
         "Missionary.":
             m 3ekbfa "Aww~ That is so cute, [player]!"
@@ -329,6 +330,7 @@ label nsfw_monika_favorite_position:
             m 3gubfb "Just simply thinking about us, lying face-to-face, with our bodies up against one another makes my body feel warm. Ahaha~"
             m 1eubfa "I hope one day we can do it together!"
             m 1tubfa "I can tell you that I'm already looking forward to that day! Ahaha~"
+            $ persistent._nsfw_player_favourite_position = "Missionary"
 
         "Cowgirl.":
             m 3wubfd "Really? I wasn't expecting that."
@@ -340,6 +342,7 @@ label nsfw_monika_favorite_position:
             m 1rubfa "But..."
             m 5tubfa "If you insist on liking it the most..."
             m 5tubfb "I'd be happy to saddle up and ride it real good! Ahaha~"
+            $ persistent._nsfw_player_favourite_position = "Cowgirl"
 
     return
 
@@ -1215,11 +1218,12 @@ label monika_nsfw_kama_sutra: ## The book everyone thinks is just about sex
     m 2esb "Only one section of the book actually covers sexual positions, out of seven sections in total."
     m 3eub "Broadly speaking, the text covers four main goals for life. Virtuous living, desire, material prosperity, and liberation."
     m 3gublb "Of course...People do like to talk about the sexual part of it at great length."
+    $ favpos = "None"
     $ favpos = persistent._nsfw_player_favourite_position
     if renpy.seen_label("nsfw_monika_favorite_position") and favpos != "None":
         # you have a favourite position
         m 3kublb "We {i}have{/i} already discussed favourite positions, haven't we? And now I know that you prefer [favpos], ahaha~"
-    elif renpy.seen_label("nsfw_monika_favorite_position") and favpos = "None":
+    elif renpy.seen_label("nsfw_monika_favorite_position") and favpos == "None":
         # you saw the favourite position topic but she didn't record your position (for some reason or another)
         m 3dkblsdlb "Hmm... We already talked about your favourite position, but I think I forgot what you said. I'm sorry, [player]!"
         m 3kkblsdlb "If you want to bring up that topic that again, you could remind me. I promise to remember this time!"

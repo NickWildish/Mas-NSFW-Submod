@@ -267,6 +267,7 @@ init python in mas_nsfw_sexting_dialogue:
         (["STM"],              ["ONM"],        _("Be careful not to spill too much of your...juices on your chair, " + monika_nickname + ".")),
         (["STM"],              ["ONP"],        _("I get so horny thinking about you when I touch myself.")),
         (["STM"],              ["ONP"],        _("I'm clicking this option with one hand, because the other hand is busy.")),
+        (["QUE", "QAT"],       ["MTH", "MBD"], _("Would you like it if I slowly ran my hand up your thigh, teasing you before I touched you down there?")),
     ]
 
     # Prompt choices specific to players with penises.
@@ -276,6 +277,7 @@ init python in mas_nsfw_sexting_dialogue:
     #   |--------------|--------------|---------------------------------------------------------------------------|
         (["CMP"],       ["CFM"],        _("I bet you would look real cute with my cum all over your face.")),
         (["CMP"],       ["CMM"],        _("I bet you would look real cute with my cum dripping out of your mouth.")),
+        (["CMP"],       ["CFM", "COM"], _("I bet you would look gorgeous with my cum dripping down your face and onto your chest.")),
         (["CMP"],       ["KIS", "FBJ"], _("Your lips are perfect for kissing... I bet they'd be perfect for wrapping around my shaft as well.")),
         (["DES", "MON"],["CFM", "IOP"], _("I want to come all over your face and watch you try to lick it off.")),
         (["DES", "MON"],["CMM", "FBJ"], _("When we're together, I want you to take my cock in your mouth and swallow all my cum.")),
@@ -293,6 +295,11 @@ init python in mas_nsfw_sexting_dialogue:
         (["STM"],       ["ONP"],        _("I'm stroking my rigid cock just for you, " + monika_nickname + ".")),
         (["STM"],       ["PPN", "ONP"], _("The onomatopoeia 'doki doki' sometimes gets translated as 'throbbing'... I'm sure you can imagine what I'm doing right now.")),
         (["STM"],       ["PPN"],        _("I get really hard just thinking about you.")),
+        (["QUE", "QAT"],["PPN", "FSP"], _("Would you make out with me while your hand is wrapped around my cock?")),
+        (["DES", "PLY"],["CPM", "MVG"], _("I can't wait to see my cum dripping out of your pussy.")),
+        (["DES", "PLY"],["CPM", "MFE"], _("I want to look you in the eyes as I cum deep inside your wet pussy.")),
+        (["DES", "PLY"],["CAM", "MFE"], _("I want to look you in the eyes as I cum deep inside your tight little ass.")),
+        (["DES", "PLY"],["CPM", "ONM"], _("I want to give you a creampie, then watch you finger yourself while it's still inside.")),
     ]
     if store.persistent._nsfw_genitalia == "P":
         sext_prompts_sexy.extend(sext_prompts_sexy_p)
@@ -303,6 +310,14 @@ init python in mas_nsfw_sexting_dialogue:
     #   |     Type     |   Subtypes   |                                 Prompt                                    |
     #   |--------------|--------------|---------------------------------------------------------------------------|
         (["STM"],       ["PVG"],        _("I'm so wet for you.")),
+        (["STM"],       ["PVG"],        _("I'm dripping wet for you right now.")),
+        (["DES"],       ["FCP","IVV"],  _("I want to sit on your face.")),
+        (["DES","MON"], ["MTH","IOP"],  _("I want to grind my pussy against your thigh until I cum.")),
+        (["DES"],       ["FSP","FSM"],  _("I want us to finger each other to the edge and then...stop.")),
+        (["DES"],       ["PVG","FSP"],  _("I want you to play with my clit while I'm still wearing my clothes.")),
+        (["DES"],       ["PVG","FCP"],  _("I want you to eat me out.")),
+        (["DES"],       ["FTY","FSM"],  _("I want to use a vibrator on your clit and drive you over the edge. Would you let me?")),
+        (["QUE", "QAT"],["PCK","FSP"],  _("Would you make out with me while your hands are playing with my nipples?")),
     ]
     if store.persistent._nsfw_genitalia == "V":
         sext_prompts_sexy.extend(sext_prompts_sexy_v)
@@ -313,6 +328,7 @@ init python in mas_nsfw_sexting_dialogue:
     #   |     Type     |   Subtypes   |                                 Prompt                                    |
     #   |--------------|--------------|---------------------------------------------------------------------------|
         (["DES", "PLY"],["GEN"],        _("I want to show you just how manly I can be.")), # Please replace this if you have any semblance of an imagination more than I do
+        (["DES", "PLY"],["GEN"],        _("I want to show you what a man like me can do to a lady like you.")),
     ]
     if store.persistent.gender == "M":
         sext_prompts_sexy.extend(sext_prompts_sexy_m)
@@ -323,6 +339,7 @@ init python in mas_nsfw_sexting_dialogue:
     #   |     Type     |   Subtypes   |                                 Prompt                                    |
     #   |--------------|--------------|---------------------------------------------------------------------------|
         (["DES", "MON"],["GEN"],        _("I want you to show me how well you can please a woman.")),
+        (["DES", "PLY"],["GEN"],        _("I want to show you how well I can please another woman.")),
     ]
     if store.persistent.gender == "F":
         sext_prompts_sexy.extend(sext_prompts_sexy_f)
@@ -620,4 +637,13 @@ init python in mas_nsfw_sexting_dialogue:
         (["DES", "LED"],       ["GEN"],        _("Is that right?")), #2
         (["DES", "LED"],       ["GEN"],        _("Is that so?")), #3
         (["STM"],              ["GEN"],        _("I am so wet right now")), #17
+        (["STM"],              ["GEN"],        _("I'm so wet for you right now")), # 18
+        (["ANS","AAG"],        ["GEN"],        _("Anything for you")), # Agree 1
+        (["ANS","AAG"],        ["GEN"],        _("Yes, please")), # Agree 2
+        (["ANS","ADG"],        ["GEN"],        _("I'd rather not")), # Disagree 1
+        (["ANS","ADG"],        ["GEN"],        _("No")), # Disagree 2
+        (["ANS","AAT"],        ["GEN"],        _("I think I'd like that")), # affirm 1
+        (["ANS","AAT"],        ["GEN"],        _("Yes, please")), # affirm 2
+        (["ANS","ADT"],        ["GEN"],        _("I don't know if I'd like that")), # deny 1
+        (["ANS","ADT"],        ["GEN"],        _("I don't think so")), # deny 2
     ]

@@ -160,7 +160,7 @@ init python in mas_nsfw:
 
         time_since_last_seen = datetime.datetime.now() - store.mas_getEVL_last_seen(topic)
 
-        if mas_getAbsenceLength() >= time_away_req and time_since_last_seen >= time_away_req:
+        if store.mas_getAbsenceLength() >= time_away_req and time_since_last_seen >= time_away_req:
             return True
         else:
             return False

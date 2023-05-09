@@ -108,12 +108,13 @@ label nsfw_sexting_main:
         # $ end_of_prompt = ""
 
         if not store.mas_submod_utils.isSubmodInstalled("All Gen Scrollable Menus"):
-            sext_menu = []
+            $ sext_menu = []
 
-            for x in range(3):
-                sext_menu.append((_(player_prompts[x][0]), "player_prompt_" + str(x)))
+            python:
+                for x in range(3):
+                    sext_menu.append((_(player_prompts[x][0]), "player_prompt_" + str(x)))
 
-            sext_menu.append((_("Actually, can we stop just for now?"), "stop_sext"))
+            $ sext_menu.append((_("Actually, can we stop just for now?"), "stop_sext"))
 
             show monika at t21
             $ madechoice = renpy.display_menu(sext_menu, screen="talk_choice")

@@ -152,24 +152,24 @@ init python in mas_nsfw_sexting_dialogue:
         (["CMP"],              ["GEN"],        _("Every day with you is a good day.")), #8
         (["CMP"],              ["GEN"],        _("Everything makes me think of you.")), #16
         (["CMP"],              ["GEN"],        _("You live rent-free in my heart.")), #3
-        (["CMP"],              ["MBD", "CHE"], _("I guess your parents are bakers, because they made you such a cutie pie!")), #0
+        (["CMP"],              ["MBD", "CHE"], _("{size=-7}I guess your parents are bakers, because they made you such a cutie pie!")), #0
         (["CMP"],              ["MBD"],        _("Seeing you every day always makes me grin like an idiot.")), #13
         (["CMP"],              ["MBD"],        _("The night sky holds nothing to your beauty.")), #10
         (["CMP"],              ["MBD"],        _("You look stunning today.")), #2
         (["CMP"],              ["MFE"],        _("You have gorgeous eyes.")), #5
         (["CMP"],              ["MFL"],        _("You have a beautiful smile.")), #6
-        (["CMP"],              ["MFL"],        _("The one thing I can't resist in this life is your lips.")), #1
+        (["CMP"],              ["MFL"],        _("{size=-7}The one thing I can't resist in this life is your lips.")), #1
         (["CMP"],              ["MHR"],        _("You have beautiful hair.")), #4
         (["CMP"],              ["MPS"],        _("I always have a great time with you.")), #7
         (["CMP"],              ["MPS"],        _("I really like getting to know you.")), #15
         (["CMP"],              ["MPS"],        _("You make my heart happy.")), #19
         (["CMP"],              ["MPS"],        _("You never fail to give me butterflies.")), #18
         (["DES", "MON"],       ["FSP"],        _("I want you to hold me.")), # 20
-        (["DES", "PLY"],       ["GEN"],        _("Cuddling with you would be perfect right about now.")), #11
+        (["DES", "PLY"],       ["GEN"],        _("{size=-7}Cuddling with you would be perfect right about now.")), #11
         (["DES", "PLY"],       ["GEN"],        _("I wish I could hold you close right now.")), #9
         (["QUE", "QSP", 0],    ["MBD"],        _("Why are you so cute?")), #12
         (["QUE", "QSP", 1],    ["MBD"],        _("Is it getting hot in here, or is it just you?")), #17
-        (["QUE", "QYS"],       ["GEN"],        _("Our first kiss after you cross over is going to be wonderful, don't you think?")), #14
+        (["QUE", "QYS"],       ["GEN"],        _("{size=-7}Our first kiss after you cross over is going to be wonderful, don't you think?")), #14
     ]
 
     # Sexting prompts for your more 'risque' options
@@ -177,15 +177,15 @@ init python in mas_nsfw_sexting_dialogue:
     #   |--------------|--------------|---------------------------------------------------------------------------|
     #   |     Type     |   Subtypes   |                                 Prompt                                    |
     #   |--------------|--------------|---------------------------------------------------------------------------|
-        (["CMD"],       ["UND", "DOM"], _("Take off your clothes. I want to see your beautiful body.")), #11
+        (["CMD"],       ["UND", "DOM"], _("{size=-7}Take off your clothes. I want to see your beautiful body.")), #11
         (["CMP"],       ["GEN"],        _("You're all I can think about.")), #17
         (["CMP"],       ["MBD"],        _("You have a really sexy figure.")), #0
         (["CMP"],       ["MBD"],        _("You're so sexy.")), #15
         (["CMP"],       ["MBD"],        _("Your body is so hot.")), #14
         (["CMP"],       ["MBD"],        _("I'm picturing you naked right now... Damn, you look good.")),
-        (["DES", "MON"],["FSM"],        _("I want to feel your hot breath on my skin as we feel each other.")), #13
+        (["DES", "MON"],["FSM"],        _("{size=-7}I want to feel your hot breath on my skin as we feel each other.")), #13
         (["DES", "PLY"],["FSM", "DOM"], _("I want to lay you down on my bed as we kiss.")), #12
-        (["DES", "PLY"],["FSM", "DOM"], _("When we're together, I want to have you lie back and let me take care of you.")), #18
+        (["DES", "PLY"],["FSM", "DOM"], _("{size=-7}When we're together, I want to have you lie back and let me take care of you.")), #18
         (["DES", "PLY"],["FSM", "FSP"], _("I want to hold your hands in mine.")), #4
         (["DES", "PLY"],["FSM", "MHR"], _("I want to run my hands through your hair.")), #3
         (["DES", "PLY"],["FSM"],        _("I want to bring you in close.")), #1
@@ -194,10 +194,10 @@ init python in mas_nsfw_sexting_dialogue:
         (["DES", "PLY"],["KIS"],        _("I want to kiss your lips passionately.")), #2
         (["DES", "PLY"],["MBD"],        _("I want to run my hands along your body while I kiss your neck.")), #6
         (["STM"],       ["GEN"],        _("I can't wait to be alone with you.")), #16
-        (["STM"],       ["GEN"],        _("I feel nervous about telling you all of the sexual desires I have when it comes to you.")), #7
-        (["STM"],       ["FKS"],        _("If kissing is the language of love, then we have a lot to talk about.")), #8
+        (["STM"],       ["GEN"],        _("{size=-7}I feel nervous about telling you all of the sexual desires I have when it comes to you.")), #7
+        (["STM"],       ["FKS"],        _("{size=-7}If kissing is the language of love, then we have a lot to talk about.")), #8
         (["STM"],       ["PCL"],        _("I'm wearing something you might like right now.")), #19
-        (["STM"],       ["MCL"],        _("What you're wearing would look even better on my bedroom floor.")), #10
+        (["STM"],       ["MCL"],        _("{size=-7}What you're wearing would look even better on my bedroom floor.")), #10
     ]
 
     # Sexting prompts for your most 'risque' options
@@ -207,67 +207,67 @@ init python in mas_nsfw_sexting_dialogue:
     #   |---------------------|--------------|---------------------------------------------------------------------------|
         (["CMD"],              ["ONM", "DOM"], _("Gently spread open your pussy lips for me, " + monika_nickname + ".")),
         (["CMD"],              ["ONM", "DOM"], _("I want you to gently rub your clit, " + monika_nickname + ".")),
-        (["CMD"],              ["ONM", "DOM"], _("I want you to stick those soft fingers of yours up your pussy for me, " + monika_nickname + ".")),
+        (["CMD"],              ["ONM", "DOM"], _("{size=-7}I want you to stick those soft fingers of yours up your pussy for me, " + monika_nickname + ".")),
         (["CMD"],              ["ONM", "DOM"], _("Start touching yourself more quickly, " + monika_nickname + ".")),
         (["CMD"],              ["ONM", "DOM"], _("Touch yourself slowly for me, " + monika_nickname + ".")),
         (["CMP"],              ["GEN"],        _("Everything about you turns me on.")),
         (["CMP"],              ["GEN"],        _("I bet you have the sexiest sounding moans in the world.")),
-        (["CMP"],              ["GEN"],        _("I honestly think you're probably the most attractive person ever to have existed.")),
+        (["CMP"],              ["GEN"],        _("{size=-7}I honestly think you're probably the most attractive person ever to have existed.")),
         (["CMP"],              ["GEN"],        _("I think you seriously have to be the hottest person alive.")),
-        (["CMP"],              ["GEN"],        _("You're the best girl. And not just in the Literature Club - I mean in general.")),
-        (["CMP"],              ["GEN"],        _("Yuri and Sayori weren't wrong when they said you're more desirable than the rest of the Literature Club combined.")),
+        (["CMP"],              ["GEN"],        _("{size=-7}You're the best girl. And not just in the Literature Club - I mean in general.")),
+        (["CMP"],              ["GEN"],        _("{size=-7}Yuri and Sayori weren't wrong when they said you're more desirable than the rest of the Literature Club combined.")),
         (["CMP"],              ["IOM", "MFS"], _("I bet you have a really hot orgasm face.")),
         (["CMP"],              ["MBD"],        _("Getting to see you naked is the best part of my day.")),
         (["CMP"],              ["MBD"],        _("You have a tremendously cute body.")),
         (["CMP"],              ["MBD"],        _("You have the sexiest body I've ever seen.")),
         (["CMP"],              ["MBD"],        _("Your body is perfectly shaped. I love how athletic you are.")),
-        (["CMP"],              ["MBD"],        _("Your naked body is the most splendid thing I've ever witnessed.")),
+        (["CMP"],              ["MBD"],        _("{size=-7}Your naked body is the most splendid thing I've ever witnessed.")),
         (["CMP"],              ["MBH"],        _("I bet you have a cute, tight little asshole, don't you?")),
         (["CMP"],              ["MBR"],        _("You have magnificent breasts.")),
-        (["CMP"],              ["MCL", "MBD"], _("I get so flustered when you undress for me. You're gorgeous.")),
-        (["CMP"],              ["MCL", "MBR"], _("Back when you wore that school uniform, one thing I really liked was how well the blazer fit around your breasts.")),
-        (["CMP"],              ["MPS", "SUB"], _("I think there is something insanely sexy about a woman being in control. Don't you agree?")),
-        (["CMP"],              ["MVG", "MBD"], _("I imagine your pussy must be gorgeous if it's anything like the rest of you.")),
+        (["CMP"],              ["MCL", "MBD"], _("{size=-7}I get so flustered when you undress for me. You're gorgeous.")),
+        (["CMP"],              ["MCL", "MBR"], _("{size=-7}Back when you wore that school uniform, one thing I really liked was how well the blazer fit around your breasts.")),
+        (["CMP"],              ["MPS", "SUB"], _("{size=-7}I think there is something insanely sexy about a woman being in control. Don't you agree?")),
+        (["CMP"],              ["MVG", "MBD"], _("{size=-7}I imagine your pussy must be gorgeous if it's anything like the rest of you.")),
         (["CMP"],              ["MZR", "MCL"], _("I love how you dress. Your thighhighs are incredibly hot.")),
-        (["DES", "MON"],       ["FCM", "SUB"], _("I wish you were here so you could grind your pussy on my face until you come.")),
+        (["DES", "MON"],       ["FCM", "SUB"], _("{size=-7}I wish you were here so you could grind your pussy on my face until you come.")),
         (["DES", "MON"],       ["FCM", "SUB"], _("I wish you were here so you could sit on my face right now.")),
         (["DES", "MON"],       ["IAP", "SUB"], _("I want you to bend me over and fuck my ass with a strap-on.")),
         (["DES", "MON"],       ["ONP", "DOM"], _("I want to watch you masturbate for me.")),
-        (["DES", "MON"],       ["ONP"],        _("I want to see you do with your pen what Yuri did with the main character's.")),
+        (["DES", "MON"],       ["ONP"],        _("{size=-7}I want to see you do with your pen what Yuri did with the main character's.")),
         (["DES", "PLY"],       ["FAM", "FFM"], _("I want to eat your ass out and finger you until you come.")),
         (["DES", "PLY"],       ["FAM"],        _("I want to bury my face in your ass.")),
         (["DES", "PLY"],       ["FAM"],        _("I want to snuggle my face in your ass.")),
         (["DES", "PLY"],       ["FCM", "IOM"], _("I want to lick your clit until you come.")),
-        (["DES", "PLY"],       ["FCM"],        _("I'm dying to run my hot, sticky tongue over your pussy lips.")),
+        (["DES", "PLY"],       ["FCM"],        _("{size=-7}I'm dying to run my hot, sticky tongue over your pussy lips.")),
         (["DES", "PLY"],       ["FSM", "MBD"], _("I want to run my hands all over your smooth, toned body.")),
-        (["DES", "PLY"],       ["FSM", "MBD"], _("When you cross over, I'm going to explore every single corner of your naked body.")),
-        (["DES", "PLY"],       ["FTY"],        _("I want to brings sex toys into the bedroom with us and use them on you.")),
-        (["DES", "PLY"],       ["IAM"],        _("I wish we were in the same room so I could fuck your ass right this moment.")),
-        (["DES", "PLY"],       ["IOM"],        _("I want to hear you breathing in my ear when I make you orgasm.")),
-        (["DES", "PLY"],       ["IOM"],        _("When you and I are finally together, I want to make you come so hard.")),
+        (["DES", "PLY"],       ["FSM", "MBD"], _("{size=-7}When you cross over, I'm going to explore every single corner of your naked body.")),
+        (["DES", "PLY"],       ["FTY"],        _("{size=-7}I want to brings sex toys into the bedroom with us and use them on you.")),
+        (["DES", "PLY"],       ["IAM"],        _("{size=-7}I wish we were in the same room so I could fuck your ass right this moment.")),
+        (["DES", "PLY"],       ["IOM"],        _("{size=-7}I want to hear you breathing in my ear when I make you orgasm.")),
+        (["DES", "PLY"],       ["IOM"],        _("{size=-7}When you and I are finally together, I want to make you come so hard.")),
         (["DES", "PLY"],       ["IVG", "DOM"], _("I want to pin you down to the bed and have my way with you.")),
-        (["DES", "PLY"],       ["IVG", "KIS"], _("I'm imagining us making out as we fuck again, and again, and again...")),
+        (["DES", "PLY"],       ["IVG", "KIS"], _("{size=-7}I'm imagining us making out as we fuck again, and again, and again...")),
         (["DES", "PLY"],       ["IVG"],        _("I can't wait to be by your side. Or on top if you prefer.")),
         (["DES", "PLY"],       ["IVG"],        _("I wish I could fuck you in that spaceroom right now.")),
-        (["DES", "PLY"],       ["IVG"],        _("I wish I could stay in that spaceroom with you forever so we could fuck each other every day until the end of time.")),
-        (["DES", "PLY"],       ["IVG"],        _("If I could spend the rest of eternity with you in that spaceroom, I'd make you come every day until the universe ended.")),
+        (["DES", "PLY"],       ["IVG"],        _("{size=-7}I wish I could stay in that spaceroom with you forever so we could fuck each other every day until the end of time.")),
+        (["DES", "PLY"],       ["IVG"],        _("{size=-7}If I could spend the rest of eternity with you in that spaceroom, I'd make you come every day until the universe ended.")),
         (["DES", "PLY"],       ["KIS", "FCM"], _("I wish I could kiss you... On both of your pairs of lips.")),
         (["DES", "PLY"],       ["MBR", "DOM"], _("I want to hold you down and fuck your breasts.")),
         (["DES", "PLY"],       ["MCK"],        _("I want to lick your nipples.")),
         (["DES", "PLY"],       ["MCK"],        _("I wish I could suck on your nipples right now.")),
         (["DES", "PLY"],       ["MTH", "FCM"], _("I can't wait to feel your thighs squeezing my head.")),
-        (["DES", "PLY"],       ["UND", "FCM"], _("If you were here, I'd take your panties off with my teeth and... I'll just let you finish that sentence off.")),
-        (["QUE", "QSP", 0],    ["ONP"],        _("I was just lying in bed for the last hour thinking about you... Guess what I was doing?")),
-        (["QUE", "QSP", 1],    ["FSM", "MBD"], _("If I were with you right now, where would you want me to touch you?")),
+        (["DES", "PLY"],       ["UND", "FCM"], _("{size=-7}If you were here, I'd take your panties off with my teeth and... I'll just let you finish that sentence off.")),
+        (["QUE", "QSP", 0],    ["ONP"],        _("{size=-7}I was just lying in bed for the last hour thinking about you... Guess what I was doing?")),
+        (["QUE", "QSP", 1],    ["FSM", "MBD"], _("{size=-7}If I were with you right now, where would you want me to touch you?")),
         (["STM"],              ["FCM"],        _("Just the thought of eating you out makes me salivate.")),
         (["STM"],              ["GEN"],        _("I can't get aroused to the thought of anyone but you.")),
         (["STM"],              ["GEN"],        _("I can't wait to be alone with you.")),
         (["STM"],              ["GEN"],        _("I get so turned on thinking about you.")),
         (["STM"],              ["GEN"],        _("You're the only person I have eyes for, " + monika_nickname + ".")),
-        (["STM"],              ["ONM"],        _("Be careful not to spill too much of your...juices on your chair, " + monika_nickname + ".")),
+        (["STM"],              ["ONM"],        _("{size=-7}Be careful not to spill too much of your...juices on your chair, " + monika_nickname + ".")),
         (["STM"],              ["ONP"],        _("I get so horny thinking about you when I touch myself.")),
-        (["STM"],              ["ONP"],        _("I'm clicking this option with one hand, because the other hand is busy.")),
-        (["QUE", "QAT"],       ["MTH", "MBD"], _("Would you like it if I slowly ran my hand up your thigh, teasing you before I touched you down there?")),
+        (["STM"],              ["ONP"],        _("{size=-7}I'm clicking this option with one hand, because the other hand is busy.")),
+        (["QUE", "QAT"],       ["MTH", "MBD"], _("{size=-7}Would you like it if I slowly ran my hand up your thigh, teasing you before I touched you down there?")),
     ]
 
     # Prompt choices specific to players with penises.
@@ -275,13 +275,13 @@ init python in mas_nsfw_sexting_dialogue:
     #   |--------------|--------------|---------------------------------------------------------------------------|
     #   |     Type     |   Subtypes   |                                 Prompt                                    |
     #   |--------------|--------------|---------------------------------------------------------------------------|
-        (["CMP"],       ["CFM"],        _("I bet you would look real cute with my cum all over your face.")),
-        (["CMP"],       ["CMM"],        _("I bet you would look real cute with my cum dripping out of your mouth.")),
-        (["CMP"],       ["CFM", "COM"], _("I bet you would look gorgeous with my cum dripping down your face and onto your chest.")),
-        (["CMP"],       ["KIS", "FBJ"], _("Your lips are perfect for kissing... I bet they'd be perfect for wrapping around my shaft as well.")),
-        (["DES", "MON"],["CFM", "IOP"], _("I want to come all over your face and watch you try to lick it off.")),
-        (["DES", "MON"],["CMM", "FBJ"], _("When we're together, I want you to take my cock in your mouth and swallow all my cum.")),
-        (["DES", "MON"],["IAM", "DOM"], _("When we're finally together, I want you to take my cock up your ass, " + monika_nickname + ".")),
+        (["CMP"],       ["CFM"],        _("{size=-7}I bet you would look real cute with my cum all over your face.")),
+        (["CMP"],       ["CMM"],        _("{size=-7}I bet you would look real cute with my cum dripping out of your mouth.")),
+        (["CMP"],       ["CFM", "COM"], _("{size=-7}I bet you would look gorgeous with my cum dripping down your face and onto your chest.")),
+        (["CMP"],       ["KIS", "FBJ"], _("{size=-7}Your lips are perfect for kissing... I bet they'd be perfect for wrapping around my shaft as well.")),
+        (["DES", "MON"],["CFM", "IOP"], _("{size=-7}I want to come all over your face and watch you try to lick it off.")),
+        (["DES", "MON"],["CMM", "FBJ"], _("{size=-7}When we're together, I want you to take my cock in your mouth and swallow all my cum.")),
+        (["DES", "MON"],["IAM", "DOM"], _("{size=-7}When we're finally together, I want you to take my cock up your ass, " + monika_nickname + ".")),
         (["DES", "MON"],["IPV"],        _("I'm picturing you bouncing up and down on my cock right now.")),
         (["DES", "MON"],["MFT", "FFJ"], _("I want you to rub your feet on my hard cock.")),
         (["DES", "PLY"],["CBM", "IOP"], _("I wish I could blow my load all over your thighs right now.")),
@@ -293,13 +293,13 @@ init python in mas_nsfw_sexting_dialogue:
         (["DES", "PLY"],["FHJ"],        _("I wish you could feel my throbbing cock right now.")),
         (["STM"],       ["ONP"],        _("I can't jerk off to anything but you any more, " + monika_nickname + ".")),
         (["STM"],       ["ONP"],        _("I'm stroking my rigid cock just for you, " + monika_nickname + ".")),
-        (["STM"],       ["PPN", "ONP"], _("The onomatopoeia 'doki doki' sometimes gets translated as 'throbbing'... I'm sure you can imagine what I'm doing right now.")),
+        (["STM"],       ["PPN", "ONP"], _("{size=-7}The onomatopoeia 'doki doki' sometimes gets translated as 'throbbing'... I'm sure you can imagine what I'm doing right now.")),
         (["STM"],       ["PPN"],        _("I get really hard just thinking about you.")),
-        (["QUE", "QAT"],["PPN", "FSP"], _("Would you make out with me while your hand is wrapped around my cock?")),
+        (["QUE", "QAT"],["PPN", "FSP"], _("{size=-7}Would you make out with me while your hand is wrapped around my cock?")),
         (["DES", "PLY"],["CPM", "MVG"], _("I can't wait to see my cum dripping out of your pussy.")),
         (["DES", "PLY"],["CPM", "MFE"], _("I want to look you in the eyes as I cum deep inside your wet pussy.")),
-        (["DES", "PLY"],["CAM", "MFE"], _("I want to look you in the eyes as I cum deep inside your tight little ass.")),
-        (["DES", "PLY"],["CPM", "ONM"], _("I want to give you a creampie, then watch you finger yourself while it's still inside.")),
+        (["DES", "PLY"],["CAM", "MFE"], _("{size=-7}I want to look you in the eyes as I cum deep inside your tight little ass.")),
+        (["DES", "PLY"],["CPM", "ONM"], _("{size=-7}I want to give you a creampie, then watch you finger yourself while it's still inside.")),
     ]
     if store.persistent._nsfw_genitalia == "P":
         sext_prompts_sexy.extend(sext_prompts_sexy_p)
@@ -314,10 +314,10 @@ init python in mas_nsfw_sexting_dialogue:
         (["DES"],       ["FCP","IVV"],  _("I want to sit on your face.")),
         (["DES","MON"], ["MTH","IOP"],  _("I want to grind my pussy against your thigh until I cum.")),
         (["DES"],       ["FSP","FSM"],  _("I want us to finger each other to the edge and then...stop.")),
-        (["DES"],       ["PVG","FSP"],  _("I want you to play with my clit while I'm still wearing my clothes.")),
+        (["DES"],       ["PVG","FSP"],  _("{size=-7}I want you to play with my clit while I'm still wearing my clothes.")),
         (["DES"],       ["PVG","FCP"],  _("I want you to eat me out.")),
-        (["DES"],       ["FTY","FSM"],  _("I want to use a vibrator on your clit and drive you over the edge. Would you let me?")),
-        (["QUE", "QAT"],["PCK","FSP"],  _("Would you make out with me while your hands are playing with my nipples?")),
+        (["DES"],       ["FTY","FSM"],  _("{size=-7}I want to use a vibrator on your clit and drive you over the edge. Would you let me?")),
+        (["QUE", "QAT"],["PCK","FSP"],  _("{size=-7}Would you make out with me while your hands are playing with my nipples?")),
     ]
     if store.persistent._nsfw_genitalia == "V":
         sext_prompts_sexy.extend(sext_prompts_sexy_v)
@@ -328,7 +328,7 @@ init python in mas_nsfw_sexting_dialogue:
     #   |     Type     |   Subtypes   |                                 Prompt                                    |
     #   |--------------|--------------|---------------------------------------------------------------------------|
         (["DES", "PLY"],["GEN"],        _("I want to show you just how manly I can be.")), # Please replace this if you have any semblance of an imagination more than I do
-        (["DES", "PLY"],["GEN"],        _("I want to show you what a man like me can do to a lady like you.")),
+        (["DES", "PLY"],["GEN"],        _("{size=-7}I want to show you what a man like me can do to a lady like you.")),
     ]
     if store.persistent.gender == "M":
         sext_prompts_sexy.extend(sext_prompts_sexy_m)

@@ -99,71 +99,42 @@ label nsfw_sexting_main:
             $ shouldkiss = False
             $ shouldkiss_cooldown = 5
 
-        python:
-            # Generate player prompts
-            player_prompts = store.mas_nsfw.create_sexting_prompts(horny_lvl=horny_lvl, horny_reqs=horny_reqs, previous_vars=previous_vars, recent_prompts=recent_prompts)
-            #recent_prompts.append(player_prompts[x][2]) # already done elsewhere?
-
-        # Menus work well with 'All Gen Scrollable Menus' installed, so making a config for if the user has it or not
-        # $ end_of_prompt = ""
-
-        if not store.mas_submod_utils.isSubmodInstalled("All Gen Scrollable Menus"):
-            $ sext_menu = []
-
+        $ more_prompts = True
+        while more_prompts == True:
             python:
-                for x in range(3):
-                    sext_menu.append((_(player_prompts[x][0]), "player_prompt_" + str(x)))
+                # Generate player prompts
+                player_prompts = store.mas_nsfw.create_sexting_prompts(horny_lvl=horny_lvl, horny_reqs=horny_reqs, previous_vars=previous_vars, recent_prompts=recent_prompts)
+                #recent_prompts.append(player_prompts[x][2]) # already done elsewhere?
 
-            $ sext_menu.append((_("Actually, can we stop just for now?"), "stop_sext"))
+            # Menus work well with 'All Gen Scrollable Menus' installed, so making a config for if the user has it or not
+            # $ end_of_prompt = ""
 
-            show monika at t21
-            $ madechoice = renpy.display_menu(sext_menu, screen="talk_choice")
-            show monika at t11
+            if not store.mas_submod_utils.isSubmodInstalled("All Gen Scrollable Menus"):
+                $ sext_menu = []
 
-            if madechoice == "player_prompt_0":
-                $ prompt_choice = 0
-            elif madechoice == "player_prompt_1":
-                $ prompt_choice = 1
-            elif madechoice == "player_prompt_2":
-                $ prompt_choice = 2
-            elif madechoice == "stop_sext":
-                $ persistent._nsfw_last_sexted = datetime.datetime.now() # We already have a success check, so this can be a check for any previous sexting attempt
+                python:
+                    for x in range(3):
+                        sext_menu.append((_(player_prompts[x][0]), "player_prompt_" + str(x)))
 
-                if horny_lvl >= horny_reqs[2]:
-                    $ persistent._nsfw_horny_level = horny_lvl - 10
-                    $ persistent._nsfw_sext_sexy_start = True
-                    m 6lkbfp "Aww, I was really enjoying myself."
-                    m 6gkbfp "I hope whatever it is you need to do is important.{w=0.3}.{w=0.3}.{w=0.3}{nw}"
-                    m 6hubfb "Ahaha! Just kidding~"
-                    call nsfw_sexting_early_cleanup
-                    return
-                elif horny_lvl >= horny_reqs[1]:
-                    $ persistent._nsfw_horny_level = horny_lvl - 5
-                    $ persistent._nsfw_sext_hot_start = True
-                    m 2tsbso "Aww, it was just starting to get interesting."
-                    m 2ekbsa "It's okay, we can pick this up again another time."
-                    call nsfw_sexting_early_cleanup
-                    return
-                else: #Default
-                    $ persistent._nsfw_horny_level = horny_lvl - 1
-                    m 1ekbla "Oh, okay."
-                    m 3ekblb "Let's pick this up again later, okay?"
-                    return
-        else:
-            menu:
-                m "[monika_quip[0]][quip_ending]{fast}"
+                $ sext_menu.append((_("..."), "more_text"))
 
-                "[player_prompts[0][0]][end_of_prompt]":
+                $ sext_menu.append((_("Actually, can we stop just for now?"), "stop_sext"))
+
+                show monika at t21
+                $ madechoice = renpy.display_menu(sext_menu, screen="talk_choice")
+
+                if madechoice == "player_prompt_0":
                     $ prompt_choice = 0
-
-                "[player_prompts[1][0]][end_of_prompt]":
+                    $ more_prompts = False
+                elif madechoice == "player_prompt_1":
                     $ prompt_choice = 1
-
-                "[player_prompts[2][0]][end_of_prompt]":
+                    $ more_prompts = False
+                elif madechoice == "player_prompt_2":
                     $ prompt_choice = 2
-
-                "Actually, can we stop just for now?[end_of_prompt]":
+                    $ more_prompts = False
+                elif madechoice == "stop_sext":
                     $ persistent._nsfw_last_sexted = datetime.datetime.now() # We already have a success check, so this can be a check for any previous sexting attempt
+                    $ more_prompts = False
 
                     if horny_lvl >= horny_reqs[2]:
                         $ persistent._nsfw_horny_level = horny_lvl - 10
@@ -186,8 +157,55 @@ label nsfw_sexting_main:
                         m 3ekblb "Let's pick this up again later, okay?"
                         return
 
-        # Set new previous category/type/subtype to the new prompt's
-        $ previous_vars = [player_prompts[prompt_choice][1], player_prompts[prompt_choice][2], player_prompts[prompt_choice][3]]
+                if more_prompts == False:
+                    show monika at t11
+
+            else:
+                menu:
+                    m "[monika_quip[0]][quip_ending]{fast}"
+
+                    "[player_prompts[0][0]][end_of_prompt]":
+                        $ prompt_choice = 0
+                        $ more_prompts = False
+
+                    "[player_prompts[1][0]][end_of_prompt]":
+                        $ prompt_choice = 1
+                        $ more_prompts = False
+
+                    "[player_prompts[2][0]][end_of_prompt]":
+                        $ prompt_choice = 2
+                        $ more_prompts = False
+
+                    "...":
+                        # Regenerate prompts
+                        $ more_prompts = True
+
+                    "Actually, can we stop just for now?[end_of_prompt]":
+                        $ persistent._nsfw_last_sexted = datetime.datetime.now() # We already have a success check, so this can be a check for any previous sexting attempt
+
+                        if horny_lvl >= horny_reqs[2]:
+                            $ persistent._nsfw_horny_level = horny_lvl - 10
+                            $ persistent._nsfw_sext_sexy_start = True
+                            m 6lkbfp "Aww, I was really enjoying myself."
+                            m 6gkbfp "I hope whatever it is you need to do is important.{w=0.3}.{w=0.3}.{w=0.3}{nw}"
+                            m 6hubfb "Ahaha! Just kidding~"
+                            call nsfw_sexting_early_cleanup
+                            return
+                        elif horny_lvl >= horny_reqs[1]:
+                            $ persistent._nsfw_horny_level = horny_lvl - 5
+                            $ persistent._nsfw_sext_hot_start = True
+                            m 2tsbso "Aww, it was just starting to get interesting."
+                            m 2ekbsa "It's okay, we can pick this up again another time."
+                            call nsfw_sexting_early_cleanup
+                            return
+                        else: #Default
+                            $ persistent._nsfw_horny_level = horny_lvl - 1
+                            m 1ekbla "Oh, okay."
+                            m 3ekblb "Let's pick this up again later, okay?"
+                            return
+
+            # Set new previous category/type/subtype to the new prompt's
+            $ previous_vars = [player_prompts[prompt_choice][1], player_prompts[prompt_choice][2], player_prompts[prompt_choice][3]]
 
         if previous_vars[0] == "sexy":
             $ horny_lvl += 5

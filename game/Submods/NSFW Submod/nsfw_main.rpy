@@ -544,16 +544,17 @@ init python in mas_nsfw:
                     else:
                         dp_to_append = 3 if dp_to_append > 3 else None
                     break
-                elif dialogue[0][0] not in unique_tags:
+                elif types[0][0] not in unique_tags:
                     dp_to_append = 2 if dp_to_append > 2 else None
                     break
 
-            if dp_to_append == 4 or dp_to_append == 3:
-                dp3.append(dialogue) if not dialogue_already_in_pool(dialogue, dp1, dp2, dp3) else None
-            elif dp_to_append == 2:
-                dp2.append(dialogue) if not dialogue_already_in_pool(dialogue, dp1, dp2, dp3) else None
-            elif dp_to_append == 1:
-                dp1.append(dialogue) if not dialogue_already_in_pool(dialogue, dp1, dp2, dp3) else None
+            if not dialogue_already_in_pool(dialogue, dp1, dp2, dp3):
+                if dp_to_append == 4 or dp_to_append == 3:
+                    dp3.append(dialogue)
+                elif dp_to_append == 2:
+                    dp2.append(dialogue)
+                elif dp_to_append == 1:
+                    dp1.append(dialogue)
 
         if len(dp1) == 0:
             dp1 = dp2 if len(dp2) > 0 else dp3
@@ -591,7 +592,7 @@ init python in mas_nsfw:
 
         for i, subtype in enumerate(subtypes):
             for j, dialogue in enumerate(dialogue_list):
-                pool_no = 3
+                pool_no = 4
 
                 # If the dialogue has already been used recently, skip it
                 if dialogue[2] in recent:
@@ -613,18 +614,15 @@ init python in mas_nsfw:
                         pool_no = 1 if subtype in dialogue[1] else target_pools[(j - len(dp1)) % 2]
                     else: # Shouldn't activate, but here in case any get added
                         target_pools = [1, 2, 3]
-                        pool_no = target_pools[j % 3]
+                        pool_no = target_pools[(j - len(dp1)) % 3]
 
                 # If there are multiple subtypes
                 elif len(subtypes) > 1:
                     if subtype in dialogue[1]:
                         # we match subtype index to the pool index
-                        pool_no = 1 if i == 0 else None
-                        pool_no = 2 if i == 1 else None
-                        pool_no = 3 if i == 2 else None
-
-                    elif len(subtypes) == 2:
-                        pool_no = 3
+                        pool_no = i + 1
+                    else:
+                        pool_no = 3 if len(subtypes) != 3 else 4
 
                 # If the subtype has the letter "M" or "P" to start
                 elif subtype[0] in "MP":

@@ -348,10 +348,13 @@ label nsfw_fetish_anal:
             $ persistent._nsfw_pm_anal = True
             m 3hublb "That's great!"
             m 3hubla "I feel like I'm getting to know more about you every day!"
-            m 3eubla "Would you prefer giving, recieving, or both?"
+
+            m 1eua "Say.{w=0.3}.{w=0.3}.{w=0.3}this might sound a little out of nowhere, but..."
+            m 1eua "Ahaha~ I didn't even mean for that pun."
+            m 1eua "What do you think of...{w=0.5}my butt?"
             $ _history_list.pop()
             menu:
-                m "Would you prefer giving, recieving, or both?{fast}"
+                m "What do you think of...my butt?"
                 "Giving":
                     $ store.mas_nsfw.save_fetish_to_persistent("Anal", ["IAM", "MBH", "MXM", "FAM"], ["IAP", "PBH", "FXP", "FAP"])
                     m 1tubla "Oh?"

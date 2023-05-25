@@ -509,7 +509,27 @@ init python in mas_nsfw:
         unique_tags = ["CMP", "CMD", "DES", "QUE", "ANS"]
 
         response_pairings = [
+        #   |--------------|---------------------|
+        #   |    Prompt    |      Response       |
+        #   |--------------|---------------------|
+            (["CMP"],       ["CMP", "THK"]),
+            (["CMP"],       ["CMP", "CMP"]),
+            (["CMP"],       ["CMP", "CRM"]),
+            (["CMD"],       ["CMD", "CPL"]),
+            (["DES", "PLY"],["DES", "LED"]),
+            (["DES", "MON"],["DES", "LED"]),
+            (["DES", "PLY"],["DES", "DRM"]),
+            (["DES", "MON"],["DES", "DRM"]),
+            (["DES", "PLY"],["DES", "DRM", "PLY"]),
+            (["DES", "MON"],["DES", "DRM", "MON"]),
+            (["QUE", "QSP"],["ANS", "ASP"]), # We search for integer in third column
+            (["QUE", "QYS"],["ANS", "AYS"]),
+            (["QUE", "QNO"],["ANS", "ANO"]),
+            (["QUE", "QAG"],["ANS", "AAG"]),
             (["QUE", "QDG"],["ANS", "ADG"]),
+            (["QUE", "QAT"],["ANS", "AAT"]),
+            (["QUE", "QDT"],["ANS", "ADT"]),
+            (["STM"],       ["DES", "LED"]),
         ]
 
         for dialogue in dialogue_list:

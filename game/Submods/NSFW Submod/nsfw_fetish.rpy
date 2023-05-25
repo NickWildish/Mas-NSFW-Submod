@@ -113,7 +113,7 @@ label nsfw_player_fetishes:
 # Noting that the current approach is intended to be both informative and descriptive, allowing you to make a decision of whether or not it's something you're into.
 # Also noting that the 'context' used here is intended to coincide with sexting, so the prompts are appropriate to the player
 
-default persistent._nsfw_pm_bondage = False
+default persistent._nsfw_pm_bondage = False # These are kind of redundant
 
 init 6 python:
     addEvent(
@@ -127,77 +127,102 @@ init 6 python:
     )
 
 label nsfw_fetish_bondage:
-    m 1eua "Okay, let's talk about bondage."
-    m 3eub "Bondage is essentially at it's core, a matter of restraint through various means. Whether that's with a ribbon, rope, or even handcuffs."
-    m 3eua "As far as I know, it was initially developed in the early 1900's, and in paralell in two different locations - bringing us the styles we have today: western and eastern, but they're slightly different."
-    m 4eua "They each have different ideas at their core, but are superficially the same and have even taken inspiration from one another. I can explain more about the history later if you want."
-    m 4eub "There are a variety of reasons someone might be into it, ranging from the sense of security it brings, the change in power dynamic, how it looks, or even the sense of trust needed to do it with another."
-    m 7ekbla "Though with that being said, what do you think, [player]? Do you think you'd like to try it out?"
+    m 1eua "You want to talk about bondage?"
+    m 1eua "Sure! I'd love to get to know your opinion on it."
+    m 1eua "Have you heard of it before?"
     $ _history_list.pop()
     menu:
-        m "Though with that being said, what do you think, [player]? Do you think you'd like to try it out?{fast}"
-        "Yes":
-            $ persistent._nsfw_pm_bondage = True
-            m 3hublb "That's great!"
-            m 3hubla "I feel like I'm getting to know more about you every day!"
-            m 3eubla "From what I've said, would you prefer giving, recieving, or both?"
+        m "Have you heard of it before?{fast}"
+
+        "Yes, I have.":
+            m 1eua "Oh, that's great!"
+
+        "No, I haven't.":
+            m 1eua "Hmm...{w=0.5}Well it's a really interesting topic."
+            m 1eua "Basically, it's when people use restraints such as rope to tie people up in all kinds of positions."
+            m 1eua "That can be used for sex, but it can also be used for domination or playtime between lovers."
+
+    m 1eua "Does it sound like something that interests you?"
+    $ _history_list.pop()
+    menu:
+        m "Does it sound like something that interests you?{fast}"
+
+        "Yeah, it sounds pretty hot.":
+            m 1eua "Yeah? You think so?"
+            m 1eua "I think it's very hot!"
+            m 1eua "If I'm honest, it kinda turns me on. Just the thought of tying you up and..."
+            m 1eua "Mmm~ I think I've said too much."
+            m 1eua "But speaking of which, would you prefer to be the one tying me up, or the one being tied up in this...{w=0.5}{i}hypothetical{/i} scenario?"
             $ _history_list.pop()
             menu:
-                m "Would you prefer giving, recieving, or both?{fast}"
+                m "Speaking of which, would you prefer to be the one tying me up, or the one being tied up in this...{i}hypothetical{/i} scenario?{fast}"
 
-                "Giving":
+                "I'd want to tie you up and have my way with you.":
                     $ store.mas_nsfw.save_fetish_to_persistent("Bondage", ["FBM"], ["FBP"])
-                    m 3eubld "Oh?"
-                    m 3rubla "I haven't really done something like this before..."
-                    m 1ekbla "But I trust you, and if this is something you want to try..."
-                    m 5ekbla "I'll do my best to make sure you enjoy yourself."
-                    m 5tublb "Who knows? Maybe I'll even enjoy it {i}too{/i} much~"
+                    m 1eua "Hehe~ Well, if that's what you want you just say when, silly."
+                    m 1eua "I wouldn't mind surrendering a little power {i}juuuuust{/i} this once for you~"
 
-                "Recieving":
+                "I think you should tie me up and do what you want with me.":
                     $ store.mas_nsfw.save_fetish_to_persistent("Bondage", ["FBP"], ["FBM"])
-                    m 5tubla "Oh?"
-                    m 5tublb "Then I guess I'd better start practicing my knots~"
+                    m 1eua "Oooh! I like where this is going."
+                    m 1eua "Hmm...{w=0.5}I'll have to remember that next time we're getting naughty~"
+                    m 1eua "I'll describe how I'll tie you to my bed, and tease you until you can't stand it anymore."
 
-                "Both":
+                "I wouldn't mind trying both. I'm here to please.":
                     $ store.mas_nsfw.save_fetish_to_persistent("Bondage", ["FBM", "FBP"], ["U"])
-                    m 5tubla "Oh?"
-                    m 5tublb "Guess we'd better start practicing our knots in the meantime, huh?"
+                    m 1eua "Aww~ [player], you've always been such a people pleaser."
+                    m 1eua "I love that about you."
+                    m 1eua "Makes me want to tie you up and have you all to myself..."
+                    extend 1eua "But...{w=0.5}I think I'll let you tie me up on the odd occasion if you so desire."
 
-        "No":
-            $ persistent._nsfw_pm_bondage = False
+            m 1eua "Ehehe~ Anyway, back to the topic at hand before I get {i}too{/i} carried away." # Could lead to early sexting here, given that it's riled her up
+
+        "I don't think it's for me...":
             $ store.mas_nsfw.save_fetish_to_persistent("Bondage", ["U"], ["FBM", "FBP"])
-            m 1hubla "Alright, [player]."
-            m 5tublb "Guess I'll put away these handcuffs for now." #Smirk
+            m 1eua "That's perfectly fine!"
+            m 1eua "I don't think it's for everyone."
+            m 1eua "Bondage is something that should be negotiated and practiced thoroughly beforehand."
+            m 1eua "It's not something you should just jump into."
+            m 1eua "If you ever change your mind on it, I'd be happy to talk about it with you again."
 
-    m 5hublb "Ahaha~"
-    m 1hublb "You look so cute when you're flustered."
-    m 3eubla "Would you like to hear more about it? "
-    extend 3ekbla "Though I don't mind if you say no, it's a lot to go through." #Big ol' smile.
-
+    m 1eua "I actually learned an interesting bit of history regarding bondage, if you'd like to hear it."
     $ _history_list.pop()
     menu:
-        m "Would you like to hear more about it? Though I don't mind if you say no, it's a lot to go through.{fast}"
-        "Yes":
-            m 1hua "I'm glad!"
-            m 1eub "Now, there are three main styles of rope bondage in very broad categories: western and eastern.{w=0.5}{nw}"
-            extend 3rkb "There are further styles beyond this, but I don't want to get too much into it."
-            m 3eua "What we know as rope bondage today got its start in the early 1900's, with western and eastern developing in paralell into the 2000's."
-            m 4rkb "Now that's not to say people weren't doing something similar in the past, but not enough records of this have been found to trace it back further so we can't say for sure."
-            m 7eub "There isn't any particular line of seperation here - especially since each style has gradually been hybridized as they're exposed to greater and greater degrees."
-            m 7eua "But there are a few points that can be broadly contributed to one side or the other."
-            m 4eub "Western bondage usually ties people up so that things can be {i}done{/i} to them."
-            m 4rub "It finds roots in the classic 'dansel in distress' archetype in old Hollywood films, which inspired John Wille in the 1940's to create erotic artwork and photography that would inspire many."
-            m 4rub "Guess you'll never look at dansels in distress the same way again, ahaha~"
-            m 1eua "But anways, the style is generally designed to deal with restraint and handling a strugle, since the bonds are merely a means to an end. It commonly involves armbinders, gags, or furniture."
-            m 3eua "In comparison, Eastern bondage usually focuses on the act of being being tied up {i}is{/i} what's happening to them."
-            m 3eub "It finds roots in the work of Seiu Ito, an artist who incorporated rope bondage into his erotic work in the 20th century, and many attribute it to the importance of rope in important traditions, including the restraint of suspected criminals with rope."
-            m 4eub "It's usually concerned with beauty, symbolism, and or the pleasure of the experience. The arms being folded behind the back is common, as is partial or full suspension."
-            m 4eua "There's a bunch beyond this, like decorative styles based around aesthetics, the blended style seen in pornography, and even for performance!"
-            m 4hua "It's actually rather nice to see so many people embrace what they like!"
-            m 3hua "But that's all for now. Thanks for listening~"
+        m "I actually learned an interesting bit of history regarding bondage, if you'd like to hear it.{fast}"
 
-        "No":
-            m 3hua "That's okay. Let me know if you change your mind."
+        "Sure!":
+            m 1eua "Oh good! Thanks for being so interested in what I have to say."
+
+        "No thanks.":
+            m 1eua "Okay, that's fine."
+            m 1eua "I'll save it for another time then."
+            m 1eua "Regardless...thankyou for telling me about your preferences, [player]."
+            m 1eua "It can be difficult to talk about your fetishes with someone, so I appreciate you opening up to me."
+            m 1eua "If you ever want to talk about this again, or if you change your mind, I'll be here."
+            m 1eua "I love you, and I'll never judge you."
+            return
+
+    m 3eub "So basically, bondage is essentially at it's core a matter of restraint through various means. Whether that's with a ribbon, rope, or even handcuffs."
+    m 3eua "As far as I know, it was initially developed in the early 1900's, and in paralell in two different locations - bringing us the styles we have today: western and eastern, but they're slightly different."
+    m 4eua "They each have different ideas at their core, but are superficially the same and have even taken inspiration from one another."
+    m 4eub "There are a variety of reasons someone might be into it, ranging from the sense of security it brings, the change in power dynamic, how it looks, or even the sense of trust needed to do it with another."
+    m 1eua "It can be a very intimate experience, and it's something that should be negotiated and practiced thoroughly beforehand." #TODO: Add pose for this
+    m 1eub "Now, there are two main styles of rope bondage in very broad categories: western and eastern.{w=0.5}{nw}"
+    extend 3rkb "There are further styles beyond this, but I don't want to get too much into it."
+    m 3eua "What we know as rope bondage today got its start in the early 1900's, with western and eastern developing in paralell into the 2000's."
+    m 4rkb "Now that's not to say people weren't doing something similar in the past, but not enough records of this have been found to trace it back further so we can't say for sure."
+    m 7eub "There isn't any particular line of seperation here - especially since each style has gradually been hybridized as they're exposed to greater and greater degrees."
+    m 7eua "But there are a few points that can be broadly contributed to one side or the other."
+    m 4eub "Western bondage usually ties people up so that things can be {i}done{/i} to them."
+    m 4rub "It finds roots in the classic 'dansel in distress' archetype in old Hollywood films, which inspired John Wille in the 1940's to create erotic artwork and photography that would inspire many."
+    m 4rub "Guess you'll never look at dansels in distress the same way again, ahaha~"
+    m 1eua "But anways, the style is generally designed to deal with restraint and handling a struggle, since the bonds are merely a means to an end. It commonly involves armbinders, gags, or furniture."
+    m 3eua "In comparison, Eastern bondage usually focuses on the act of being being tied up {i}is{/i} what's happening to them."
+    m 3eub "It finds roots in the work of Seiu Ito, an artist who incorporated rope bondage into his erotic work in the 20th century, and many attribute it to the importance of rope in important traditions, including the restraint of suspected criminals with rope."
+    m 4eub "It's usually concerned with beauty, symbolism, and or the pleasure of the experience. The arms being folded behind the back is common, as is partial or full suspension."
+    m 4eua "There's a bunch beyond this, like decorative styles based around aesthetics, the blended style seen in pornography, and even for performance!"
+    m 4hua "It's actually rather nice to see so many people embrace what they like!"
+    m 3hua "But that's all for now. Thanks for listening~"
 
     return
 

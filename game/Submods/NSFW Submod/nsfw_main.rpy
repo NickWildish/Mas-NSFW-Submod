@@ -927,10 +927,10 @@ init python in mas_nsfw:
                 return ""
 
         # Otherwise, create a new ending
-        if random.randint(1,3) >= 2: # 2/3 chance to end the sentence simply with "." or "~"
-            dialogue_end = random.choice(common_endings)
-        else: # otherwise, end the sentence with player name or nickname
+        if random.randint(1,5) == 1: # 1/5 chance to end the sentence with player name or nickname
             dialogue_end = random.choice(rare_endings)
+        else: # otherwise, end the sentence simply with "." or "~"
+            dialogue_end = random.choice(common_endings)
 
         return dialogue_end
 

@@ -359,23 +359,23 @@ init python in mas_nsfw:
         if store.persistent._nsfw_genitalia == "P":
             sext_prompts_sexy.extend(sext_prompts_sexy_p)
 
-        # I did not write any V / M / F prompts yet but these are here so they can be enabled later
-
         # Prompt choices specific to players with vaginas.
-        # sext_prompts_sexy_v = store.mas_nsfw_sexting_dialogue.sext_prompts_sexy_v
-        # if store.persistent._nsfw_genitalia == "V":
-        #     sext_prompts_sexy.extend(sext_prompts_sexy_v)
+        sext_prompts_sexy_v = store.mas_nsfw_sexting_dialogue.sext_prompts_sexy_v
+        if store.persistent._nsfw_genitalia == "V":
+            sext_prompts_sexy.extend(sext_prompts_sexy_v)
 
         # Prompt choices specific to male players.
-        # sext_prompts_sexy_m = store.mas_nsfw_sexting_dialogue.sext_prompts_sexy_m
-        # if store.persistent.gender == "M":
-        #     sext_prompts_sexy.extend(sext_prompts_sexy_m)
+        sext_prompts_sexy_m = store.mas_nsfw_sexting_dialogue.sext_prompts_sexy_m
+        if store.persistent.gender == "M":
+            sext_prompts_sexy.extend(sext_prompts_sexy_m)
 
         # Prompt choices specific to female players.
-        # sext_prompts_sexy_f = store.mas_nsfw_sexting_dialogue.sext_prompts_sexy_f
+        sext_prompts_sexy_f = store.mas_nsfw_sexting_dialogue.sext_prompts_sexy_f
+        if store.persistent.gender == "F":
+            sext_prompts_sexy.extend(sext_prompts_sexy_f)
 
         # Sexting prompts for the haha funnies
-        sext_prompts_funny = store.mas_nsfw_sexting_dialogue.sext_prompts_funny
+        # sext_prompts_funny = store.mas_nsfw_sexting_dialogue.sext_prompts_funny
 
         # Sexting prompts for the haha funnies specific to players with penises
         sext_prompts_funny_p = store.mas_nsfw_sexting_dialogue.sext_prompts_funny_p
@@ -454,9 +454,9 @@ init python in mas_nsfw:
         if store.persistent.gender == "M":
             sext_quips_sexy.extend(sext_quips_sexy_m)
 
-        # sext_quips_sexy_f = store.mas_nsfw_sexting_dialogue.sext_quips_sexy_f
-        # if store.persistent.gender == "F":
-        #     sext_quips_sexy.extend(sext_quips_sexy_f)
+        sext_quips_sexy_f = store.mas_nsfw_sexting_dialogue.sext_quips_sexy_f
+        if store.persistent.gender == "F":
+            sext_quips_sexy.extend(sext_quips_sexy_f)
 
         if quip_category == 1:
             category_sel = sext_quips_hot

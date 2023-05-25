@@ -76,7 +76,7 @@ init python in mas_nsfw_sexting_dialogue:
     # "PBD" - Player's body in general
     # "PTH" - Player's thighs
     # "PHR" - Player's hair
-    # "PBR" - Player's breasts. Prompts with this go under sext_prompts_sexy_f.
+    # "PBR" - Player's breasts. Prompts with this go under sext_prompts_sexy_v.
     # "PCK" - Player's nipples
     # "PVG" - Player's vagina. Prompts with this go under sext_prompts_sexy_v.
     # "PBH" - Player's anus. It is assumed that all players have anuses...
@@ -111,7 +111,7 @@ init python in mas_nsfw_sexting_dialogue:
     # "IVV" - intercourse, player with vagina. Prompts with this go under sext_prompts_sexy_v.
     # "IAM" - anal, Monika receiving
     # "IAP" - anal, player receiving
-    # "IOM" - Monika's orgasm
+    # "IOM" - Monika's orgasm)],
     # "IOP" - Player's orgasm
     # "IOT" - orgasming together
 
@@ -143,62 +143,134 @@ init python in mas_nsfw_sexting_dialogue:
     #   |---------------------|--------------|---------------------------------------------------------------------------|
     #   |        Types        |   Subtypes   |                                 Prompt                                    |
     #   |---------------------|--------------|---------------------------------------------------------------------------|
-        (["CMP"],              ["MFS"],        _("You have a gorgeous face, you know that?")),
-        (["CMP"],              ["MFC"],        _("You're so cute, I just want to pinch your cheeks!")),
-        (["CMP"],              ["MBD"],        _("You have a gorgeous figure.")),
-        (["CMP"],              ["MTH"],        _("I really love your thighs.")),
-        (["CMP"],              ["MCL"],        _("I think the clothes you're wearing really suit you.")),
-        (["CMP"],              ["MFT"],        _("I bet you have cute feet.")),
         (["CMP"],              ["GEN"],        _("Every day with you is a good day.")), #8
         (["CMP"],              ["GEN"],        _("Everything makes me think of you.")), #16
         (["CMP"],              ["GEN"],        _("You live rent-free in my heart.")), #3
         (["CMP"],              ["MBD", "CHE"], _("{size=-7}I guess your parents are bakers, because they made you such a cutie pie!")), #0
         (["CMP"],              ["MBD"],        _("Seeing you every day always makes me grin like an idiot.")), #13
         (["CMP"],              ["MBD"],        _("The night sky holds nothing to your beauty.")), #10
+        (["CMP"],              ["MBD"],        _("You have a gorgeous figure.")),
         (["CMP"],              ["MBD"],        _("You look stunning today.")), #2
+        (["CMP"],              ["MCL"],        _("I think the clothes you're wearing really suit you.")),
+        (["CMP"],              ["MFC"],        _("You're so cute, I just want to pinch your cheeks!")),
         (["CMP"],              ["MFE"],        _("You have gorgeous eyes.")), #5
         (["CMP"],              ["MFL"],        _("You have a beautiful smile.")), #6
         (["CMP"],              ["MFL"],        _("{size=-7}The one thing I can't resist in this life is your lips.")), #1
+        (["CMP"],              ["MFS"],        _("You have a gorgeous face, you know that?")),
+        (["CMP"],              ["MFT"],        _("I bet you have cute feet.")),
         (["CMP"],              ["MHR"],        _("You have beautiful hair.")), #4
         (["CMP"],              ["MPS"],        _("I always have a great time with you.")), #7
         (["CMP"],              ["MPS"],        _("I really like getting to know you.")), #15
         (["CMP"],              ["MPS"],        _("You make my heart happy.")), #19
         (["CMP"],              ["MPS"],        _("You never fail to give me butterflies.")), #18
+        (["CMP"],              ["MTH"],        _("I really love your thighs.")),
         (["DES", "MON"],       ["FSP"],        _("I want you to hold me.")), # 20
-        (["DES", "PLY"],       ["GEN"],        _("{size=-7}Cuddling with you would be perfect right about now.")), #11
         (["DES", "PLY"],       ["GEN"],        _("I wish I could hold you close right now.")), #9
+        (["DES", "PLY"],       ["GEN"],        _("{size=-7}Cuddling with you would be perfect right about now.")), #11
         (["QUE", "QSP", 0],    ["MBD"],        _("Why are you so cute?")), #12
         (["QUE", "QSP", 1],    ["MBD"],        _("Is it getting hot in here, or is it just you?")), #17
         (["QUE", "QYS"],       ["GEN"],        _("{size=-7}Our first kiss after you cross over is going to be wonderful, don't you think?")), #14
     ]
 
+    sext_prompts_cute_p = [
+    #   |---------------------|--------------|---------------------------------------------------------------------------|
+    #   |        Type         |   Subtypes   |                                 Prompt                                    |
+    #   |---------------------|--------------|---------------------------------------------------------------------------|
+        (["STM"],              ["GEN"],        _("")), #15
+    ]
+    # if store.persistent._nsfw_genitalia == "P":
+    #     sext_prompts_cute.extend(sext_prompts_cute_p)
+
+    sext_prompts_cute_m = [
+    #   |---------------------|--------------|---------------------------------------------------------------------------|
+    #   |        Type         |   Subtypes   |                                 Prompt                                    |
+    #   |---------------------|--------------|---------------------------------------------------------------------------|
+        (["STM"],              ["GEN"],        _("")), #15
+    ]
+    # if store.persistent.gender == "M":
+    #     sext_prompts_cute.extend(sext_prompts_cute_m)
+
+    sext_prompts_cute_f = [
+    #   |---------------------|--------------|---------------------------------------------------------------------------|
+    #   |        Type         |   Subtypes   |                                 Prompt                                    |
+    #   |---------------------|--------------|---------------------------------------------------------------------------|
+        (["STM"],              ["GEN"],        _("")), #15
+    ]
+    # if store.persistent.gender == "F":
+    #     sext_prompts_cute.extend(sext_prompts_cute_f)
+
+    sext_prompts_cute_v = [
+    #   |---------------------|--------------|---------------------------------------------------------------------------|
+    #   |        Type         |   Subtypes   |                                 Prompt                                    |
+    #   |---------------------|--------------|---------------------------------------------------------------------------|
+        (["STM"],              ["GEN"],        _("")), #15
+    ]
+    # if  store.persistent._nsfw_genitalia == "V":
+    #     sext_prompts_cute.extend(sext_prompts_cute_v)
+
     # Sexting prompts for your more 'risque' options
     sext_prompts_hot = [
-    #   |--------------|--------------|---------------------------------------------------------------------------|
-    #   |     Type     |   Subtypes   |                                 Prompt                                    |
-    #   |--------------|--------------|---------------------------------------------------------------------------|
-        (["CMD"],       ["UND", "DOM"], _("{size=-7}Take off your clothes. I want to see your beautiful body.")), #11
-        (["CMP"],       ["GEN"],        _("You're all I can think about.")), #17
-        (["CMP"],       ["MBD"],        _("You have a really sexy figure.")), #0
-        (["CMP"],       ["MBD"],        _("You're so sexy.")), #15
-        (["CMP"],       ["MBD"],        _("Your body is so hot.")), #14
-        (["CMP"],       ["MBD"],        _("I'm picturing you naked right now... Damn, you look good.")),
-        (["DES", "MON"],["FSM"],        _("{size=-7}I want to feel your hot breath on my skin as we feel each other.")), #13
-        (["DES", "PLY"],["FSM", "DOM"], _("I want to lay you down on my bed as we kiss.")), #12
-        (["DES", "PLY"],["FSM", "DOM"], _("{size=-7}When we're together, I want to have you lie back and let me take care of you.")), #18
-        (["DES", "PLY"],["FSM", "FSP"], _("I want to hold your hands in mine.")), #4
-        (["DES", "PLY"],["FSM", "MHR"], _("I want to run my hands through your hair.")), #3
-        (["DES", "PLY"],["FSM"],        _("I want to bring you in close.")), #1
-        (["DES", "PLY"],["KIS"],        _("I really want to kiss you right now.")), #5
-        (["DES", "PLY"],["FKS", "FSM"], _("I want to hold you in my arms as we kiss.")), #9
-        (["DES", "PLY"],["KIS"],        _("I want to kiss your lips passionately.")), #2
-        (["DES", "PLY"],["MBD"],        _("I want to run my hands along your body while I kiss your neck.")), #6
-        (["STM"],       ["GEN"],        _("I can't wait to be alone with you.")), #16
-        (["STM"],       ["GEN"],        _("{size=-7}I feel nervous about telling you all of the sexual desires I have when it comes to you.")), #7
-        (["STM"],       ["FKS"],        _("{size=-7}If kissing is the language of love, then we have a lot to talk about.")), #8
-        (["STM"],       ["PCL"],        _("I'm wearing something you might like right now.")), #19
-        (["STM"],       ["MCL"],        _("{size=-7}What you're wearing would look even better on my bedroom floor.")), #10
+    #   |---------------------|--------------|---------------------------------------------------------------------------|
+    #   |        Type         |   Subtypes   |                                 Prompt                                    |
+    #   |---------------------|--------------|---------------------------------------------------------------------------|
+        (["CMD"],              ["UND", "DOM"], _("{size=-7}Take off your clothes. I want to see your beautiful body.")), #11
+        (["CMP"],              ["GEN"],        _("You're all I can think about.")), #17
+        (["CMP"],              ["MBD"],        _("You have a really sexy figure.")), #0
+        (["CMP"],              ["MBD"],        _("You're so sexy.")), #15
+        (["CMP"],              ["MBD"],        _("Your body is so hot.")), #14
+        (["CMP"],              ["MBD"],        _("I'm picturing you naked right now... Damn, you look good.")),
+        (["DES", "MON"],       ["FSM"],        _("{size=-7}I want to feel your hot breath on my skin as we feel each other.")), #13
+        (["DES", "PLY"],       ["FSM", "DOM"], _("I want to lay you down on my bed as we kiss.")), #12
+        (["DES", "PLY"],       ["FSM", "DOM"], _("{size=-7}When we're together, I want to have you lie back and let me take care of you.")), #18
+        (["DES", "PLY"],       ["FSM", "FSP"], _("I want to hold your hands in mine.")), #4
+        (["DES", "PLY"],       ["FSM", "MHR"], _("I want to run my hands through your hair.")), #3
+        (["DES", "PLY"],       ["FSM"],        _("I want to bring you in close.")), #1
+        (["DES", "PLY"],       ["KIS"],        _("I really want to kiss you right now.")), #5
+        (["DES", "PLY"],       ["FKS", "FSM"], _("I want to hold you in my arms as we kiss.")), #9
+        (["DES", "PLY"],       ["KIS"],        _("I want to kiss your lips passionately.")), #2
+        (["DES", "PLY"],       ["MBD"],        _("I want to run my hands along your body while I kiss your neck.")), #6
+        (["STM"],              ["GEN"],        _("I can't wait to be alone with you.")), #16
+        (["STM"],              ["GEN"],        _("{size=-7}I feel nervous about telling you all of the sexual desires I have when it comes to you.")), #7
+        (["STM"],              ["FKS"],        _("{size=-7}If kissing is the language of love, then we have a lot to talk about.")), #8
+        (["STM"],              ["PCL"],        _("I'm wearing something you might like right now.")), #19
+        (["STM"],              ["MCL"],        _("{size=-7}What you're wearing would look even better on my bedroom floor.")), #10
     ]
+
+    sext_prompts_hot_p = [
+    #   |---------------------|--------------|---------------------------------------------------------------------------|
+    #   |        Type         |   Subtypes   |                                 Prompt                                    |
+    #   |---------------------|--------------|---------------------------------------------------------------------------|
+        (["STM"],              ["GEN"],        _("")), #15
+    ]
+    # if store.persistent._nsfw_genitalia == "P":
+    #     sext_prompts_hot.extend(sext_prompts_hot_p)
+
+    sext_prompts_hot_m = [
+    #   |---------------------|--------------|---------------------------------------------------------------------------|
+    #   |        Type         |   Subtypes   |                                 Prompt                                    |
+    #   |---------------------|--------------|---------------------------------------------------------------------------|
+        (["STM"],              ["GEN"],        _("")), #15
+    ]
+    # if store.persistent.gender == "M":
+    #     sext_prompts_hot.extend(sext_prompts_hot_m)
+
+    sext_prompts_hot_f = [
+    #   |---------------------|--------------|---------------------------------------------------------------------------|
+    #   |        Type         |   Subtypes   |                                 Prompt                                    |
+    #   |---------------------|--------------|---------------------------------------------------------------------------|
+        (["STM"],              ["GEN"],        _("")), #15
+    ]
+    # if store.persistent.gender == "F":
+    #     sext_prompts_hot.extend(sext_prompts_hot_f)
+
+    sext_prompts_hot_v = [
+    #   |---------------------|--------------|---------------------------------------------------------------------------|
+    #   |        Type         |   Subtypes   |                                 Prompt                                    |
+    #   |---------------------|--------------|---------------------------------------------------------------------------|
+        (["STM"],              ["GEN"],        _("")), #15
+    ]
+    # if  store.persistent._nsfw_genitalia == "V":
+    #     sext_prompts_hot.extend(sext_prompts_hot_v)
 
     # Sexting prompts for your most 'risque' options
     sext_prompts_sexy = [
@@ -272,216 +344,220 @@ init python in mas_nsfw_sexting_dialogue:
 
     # Prompt choices specific to players with penises.
     sext_prompts_sexy_p = [
-    #   |--------------|--------------|---------------------------------------------------------------------------|
-    #   |     Type     |   Subtypes   |                                 Prompt                                    |
-    #   |--------------|--------------|---------------------------------------------------------------------------|
-        (["CMP"],       ["CFM"],        _("{size=-7}I bet you would look real cute with my cum all over your face.")),
-        (["CMP"],       ["CMM"],        _("{size=-7}I bet you would look real cute with my cum dripping out of your mouth.")),
-        (["CMP"],       ["CFM", "COM"], _("{size=-7}I bet you would look gorgeous with my cum dripping down your face and onto your chest.")),
-        (["CMP"],       ["KIS", "FBJ"], _("{size=-7}Your lips are perfect for kissing... I bet they'd be perfect for wrapping around my shaft as well.")),
-        (["DES", "MON"],["CFM", "IOP"], _("{size=-7}I want to come all over your face and watch you try to lick it off.")),
-        (["DES", "MON"],["CMM", "FBJ"], _("{size=-7}When we're together, I want you to take my cock in your mouth and swallow all my cum.")),
-        (["DES", "MON"],["IAM", "DOM"], _("{size=-7}When we're finally together, I want you to take my cock up your ass, " + monika_nickname + ".")),
-        (["DES", "MON"],["IPV"],        _("I'm picturing you bouncing up and down on my cock right now.")),
-        (["DES", "MON"],["MFT", "FFJ"], _("I want you to rub your feet on my hard cock.")),
-        (["DES", "PLY"],["CBM", "IOP"], _("I wish I could blow my load all over your thighs right now.")),
-        (["DES", "PLY"],["CMM", "FBJ"], _("I want to see you swallow my thick, creamy load after blowing me.")),
-        (["DES", "PLY"],["COM", "MBR"], _("I want to come all over your breasts.")),
-        (["DES", "PLY"],["FBJ"],        _("I can't wait to you see you drooling all over my cock.")),
-        (["DES", "PLY"],["FBJ"],        _("I'm just imagining my thick cock filling your mouth.")),
-        (["DES", "PLY"],["FHJ"],        _("I wish it was your hand jerking me off right now.")),
-        (["DES", "PLY"],["FHJ"],        _("I wish you could feel my throbbing cock right now.")),
-        (["STM"],       ["ONP"],        _("I can't jerk off to anything but you any more, " + monika_nickname + ".")),
-        (["STM"],       ["ONP"],        _("I'm stroking my rigid cock just for you, " + monika_nickname + ".")),
-        (["STM"],       ["PPN", "ONP"], _("{size=-7}The onomatopoeia 'doki doki' sometimes gets translated as 'throbbing'... I'm sure you can imagine what I'm doing right now.")),
-        (["STM"],       ["PPN"],        _("I get really hard just thinking about you.")),
-        (["QUE", "QAT"],["PPN", "FSP"], _("{size=-7}Would you make out with me while your hand is wrapped around my cock?")),
-        (["DES", "PLY"],["CPM", "MVG"], _("I can't wait to see my cum dripping out of your pussy.")),
-        (["DES", "PLY"],["CPM", "MFE"], _("I want to look you in the eyes as I cum deep inside your wet pussy.")),
-        (["DES", "PLY"],["CAM", "MFE"], _("{size=-7}I want to look you in the eyes as I cum deep inside your tight little ass.")),
-        (["DES", "PLY"],["CPM", "ONM"], _("{size=-7}I want to give you a creampie, then watch you finger yourself while it's still inside.")),
+    #   |---------------------|--------------|---------------------------------------------------------------------------|
+    #   |        Type         |   Subtypes   |                                 Prompt                                    |
+    #   |---------------------|--------------|---------------------------------------------------------------------------|
+        (["CMP"],              ["CFM"],        _("{size=-7}I bet you would look real cute with my cum all over your face.")),
+        (["CMP"],              ["CMM"],        _("{size=-7}I bet you would look real cute with my cum dripping out of your mouth.")),
+        (["CMP"],              ["CFM", "COM"], _("{size=-7}I bet you would look gorgeous with my cum dripping down your face and onto your chest.")),
+        (["CMP"],              ["KIS", "FBJ"], _("{size=-7}Your lips are perfect for kissing... I bet they'd be perfect for wrapping around my shaft as well.")),
+        (["DES", "MON"],       ["CFM", "IOP"], _("{size=-7}I want to come all over your face and watch you try to lick it off.")),
+        (["DES", "MON"],       ["CMM", "FBJ"], _("{size=-7}When we're together, I want you to take my cock in your mouth and swallow all my cum.")),
+        (["DES", "MON"],       ["IAM", "DOM"], _("{size=-7}When we're finally together, I want you to take my cock up your ass, " + monika_nickname + ".")),
+        (["DES", "MON"],       ["IPV"],        _("I'm picturing you bouncing up and down on my cock right now.")),
+        (["DES", "MON"],       ["MFT", "FFJ"], _("I want you to rub your feet on my hard cock.")),
+        (["DES", "PLY"],       ["CBM", "IOP"], _("I wish I could blow my load all over your thighs right now.")),
+        (["DES", "PLY"],       ["CMM", "FBJ"], _("I want to see you swallow my thick, creamy load after blowing me.")),
+        (["DES", "PLY"],       ["COM", "MBR"], _("I want to come all over your breasts.")),
+        (["DES", "PLY"],       ["FBJ"],        _("I can't wait to you see you drooling all over my cock.")),
+        (["DES", "PLY"],       ["FBJ"],        _("I'm just imagining my thick cock filling your mouth.")),
+        (["DES", "PLY"],       ["FHJ"],        _("I wish it was your hand jerking me off right now.")),
+        (["DES", "PLY"],       ["FHJ"],        _("I wish you could feel my throbbing cock right now.")),
+        (["STM"],              ["ONP"],        _("I can't jerk off to anything but you any more, " + monika_nickname + ".")),
+        (["STM"],              ["ONP"],        _("I'm stroking my rigid cock just for you, " + monika_nickname + ".")),
+        (["STM"],              ["PPN", "ONP"], _("{size=-7}The onomatopoeia 'doki doki' sometimes gets translated as 'throbbing'... I'm sure you can imagine what I'm doing right now.")),
+        (["STM"],              ["PPN"],        _("I get really hard just thinking about you.")),
+        (["QUE", "QAT"],       ["PPN", "FSP"], _("{size=-7}Would you make out with me while your hand is wrapped around my cock?")),
+        (["DES", "PLY"],       ["CPM", "MVG"], _("I can't wait to see my cum dripping out of your pussy.")),
+        (["DES", "PLY"],       ["CPM", "MFE"], _("I want to look you in the eyes as I cum deep inside your wet pussy.")),
+        (["DES", "PLY"],       ["CAM", "MFE"], _("{size=-7}I want to look you in the eyes as I cum deep inside your tight little ass.")),
+        (["DES", "PLY"],       ["CPM", "ONM"], _("{size=-7}I want to give you a creampie, then watch you finger yourself while it's still inside.")),
     ]
-    if store.persistent._nsfw_genitalia == "P":
-        sext_prompts_sexy.extend(sext_prompts_sexy_p)
+    # if store.persistent._nsfw_genitalia == "P":
+    #     sext_prompts_sexy.extend(sext_prompts_sexy_p)
 
     # Prompt choices specific to players with vaginas.
     sext_prompts_sexy_v = [
-    #   |--------------|--------------|---------------------------------------------------------------------------|
-    #   |     Type     |   Subtypes   |                                 Prompt                                    |
-    #   |--------------|--------------|---------------------------------------------------------------------------|
-        (["STM"],       ["PVG"],        _("I'm so wet for you.")),
-        (["STM"],       ["PVG"],        _("I'm dripping wet for you right now.")),
-        (["DES"],       ["FCP","IVV"],  _("I want to sit on your face.")),
-        (["DES","MON"], ["MTH","IOP"],  _("I want to grind my pussy against your thigh until I cum.")),
-        (["DES"],       ["FSP","FSM"],  _("I want us to finger each other to the edge and then...stop.")),
-        (["DES"],       ["PVG","FSP"],  _("{size=-7}I want you to play with my clit while I'm still wearing my clothes.")),
-        (["DES"],       ["PVG","FCP"],  _("I want you to eat me out.")),
-        (["DES"],       ["FTY","FSM"],  _("{size=-7}I want to use a vibrator on your clit and drive you over the edge. Would you let me?")),
-        (["QUE", "QAT"],["PCK","FSP"],  _("{size=-7}Would you make out with me while your hands are playing with my nipples?")),
+    #   |---------------------|--------------|---------------------------------------------------------------------------|
+    #   |        Type         |   Subtypes   |                                 Prompt                                    |
+    #   |---------------------|--------------|---------------------------------------------------------------------------|
+        (["STM"],              ["PVG"],        _("I'm so wet for you.")),
+        (["STM"],              ["PVG"],        _("I'm dripping wet for you right now.")),
+        (["DES"],              ["FCP", "IVV"], _("I want to sit on your face.")),
+        (["DES","MON"],        ["MTH", "IOP"], _("I want to grind my pussy against your thigh until I cum.")),
+        (["DES"],              ["FSP", "FSM"], _("I want us to finger each other to the edge and then...stop.")),
+        (["DES"],              ["PVG", "FSP"], _("{size=-7}I want you to play with my clit while I'm still wearing my clothes.")),
+        (["DES"],              ["PVG", "FCP"], _("I want you to eat me out.")),
+        (["DES"],              ["FTY", "FSM"], _("{size=-7}I want to use a vibrator on your clit and drive you over the edge. Would you let me?")),
+        (["QUE", "QAT"],       ["PCK", "FSP"], _("{size=-7}Would you make out with me while your hands are playing with my nipples?")),
     ]
-    if store.persistent._nsfw_genitalia == "V":
-        sext_prompts_sexy.extend(sext_prompts_sexy_v)
+    # if store.persistent._nsfw_genitalia == "V":
+    #     sext_prompts_sexy.extend(sext_prompts_sexy_v)
 
     # Prompt choices specific to male players.
     sext_prompts_sexy_m = [
-    #   |--------------|--------------|---------------------------------------------------------------------------|
-    #   |     Type     |   Subtypes   |                                 Prompt                                    |
-    #   |--------------|--------------|---------------------------------------------------------------------------|
-        (["DES", "PLY"],["GEN"],        _("I want to show you just how manly I can be.")), # Please replace this if you have any semblance of an imagination more than I do
-        (["DES", "PLY"],["GEN"],        _("{size=-7}I want to show you what a man like me can do to a lady like you.")),
+    #   |---------------------|--------------|---------------------------------------------------------------------------|
+    #   |        Type         |   Subtypes   |                                 Prompt                                    |
+    #   |---------------------|--------------|---------------------------------------------------------------------------|
+        (["DES", "PLY"],       ["GEN"],        _("I want to show you just how manly I can be.")), # Please replace this if you have any semblance of an imagination more than I do
+        (["DES", "PLY"],       ["GEN"],        _("{size=-7}I want to show you what a man like me can do to a lady like you.")),
     ]
-    if store.persistent.gender == "M":
-        sext_prompts_sexy.extend(sext_prompts_sexy_m)
+    # if store.persistent.gender == "M":
+    #     sext_prompts_sexy.extend(sext_prompts_sexy_m)
 
     # Prompt choices specific to female players.
     sext_prompts_sexy_f = [
-    #   |--------------|--------------|---------------------------------------------------------------------------|
-    #   |     Type     |   Subtypes   |                                 Prompt                                    |
-    #   |--------------|--------------|---------------------------------------------------------------------------|
-        (["DES", "MON"],["GEN"],        _("I want you to show me how well you can please a woman.")),
-        (["DES", "PLY"],["GEN"],        _("I want to show you how well I can please another woman.")),
+    #   |---------------------|--------------|---------------------------------------------------------------------------|
+    #   |        Type         |   Subtypes   |                                 Prompt                                    |
+    #   |---------------------|--------------|---------------------------------------------------------------------------|
+        (["DES", "MON"],       ["GEN"],        _("I want you to show me how well you can please a woman.")),
+        (["DES", "PLY"],       ["GEN"],        _("I want to show you how well I can please another woman.")),
     ]
-    if store.persistent.gender == "F":
-        sext_prompts_sexy.extend(sext_prompts_sexy_f)
+    # if store.persistent.gender == "F":
+    #     sext_prompts_sexy.extend(sext_prompts_sexy_f)
 
     # Sexting prompts for the haha funnies | CURRENTLY DISABLED
 
     # Each prompt requires a corresponding response in the return_sext_responses() function.
     # The subtype must be a string matching with the index (labelled ID) of the prompt under the sext_responses_funny list to work properly.
     sext_prompts_funny = [
-    #   |-------|----|-------------------------------------------------------------------------------|
-    #   | Types | ID |                                     Prompt                                    |
-    #   |-------|----|-------------------------------------------------------------------------------|
-        (["FUN"], "0", _("I put on my robe and wizard hat.")), #0
-        (["FUN"], "1", _("It's not my fault that I fell for you... You tripped me!")), #1
-        (["FUN"], "3", _("I looked hot today, you missed out.")), #3
-        (["FUN"], "4", _("You like jazz?")), #4
-        (["FUN"], "5", _("What do you want to do to me right now?")), #5 - Please fold my clothes neatly
-        (["FUN"], "6", _("You've been a naughty girl.")), #6 - Santa will bring you a lump of coal
-        (["FUN"], "7", _("I'm about to blow your mind with my sexting. Ready?")), #7 - Lay me into bed, your hands caress my body. Your palms are sweaty. Knees weak. Arms spaghetti.
-        (["FUN"], "8", _("Want to have a threesome?")), #8
-        (["FUN"], "9", _("What's a fantasy that you have for when we have sex one day?")), #9 - Scratching back, once a squirrel did that to me.
-        (["FUN"],"10", _("What is a question that's on your mind right now?")), #10 - Where is your hand? In my bowl of Doritos.
-        (["FUN"],"11", _("I kinda wanna do naughty things to you...")), #11 - Cool aid man - "Oh yeah."
-        (["FUN"],"13", _("Are you feeling good right now?")), #13 - Hi [text here], I'm Dad.
-        (["FUN"],"14", _("What's one of you're fetishes?")), #14 - Proper grammar... Well then your in luck.
-        (["FUN"],"16", _("Would thou perchance wish to partake in coitus?")), #16
-        (["FUN"],"17", _("You have big, beautiful nipples.")), #17
-        (["FUN"],"18", _("Do I make you horny baby?")), #18 - Do I make you randy?
-        (["FUN"],"19", _("You're so cute.")), #19 - You're stuch a stud / babe - You're a wizard, Harry.
+    #   |---------------------|--------------|---------------------------------------------------------------------------|
+    #   |        Type         |   Subtypes   |                                 Prompt                                    |
+    #   |---------------------|--------------|---------------------------------------------------------------------------|
+        (["FUN"],               "0",           _("I put on my robe and wizard hat.")), #0
+        (["FUN"],               "1",           _("It's not my fault that I fell for you... You tripped me!")), #1
+        (["FUN"],               "3",           _("I looked hot today, you missed out.")), #3
+        (["FUN"],               "4",           _("You like jazz?")), #4
+        (["FUN"],               "5",           _("What do you want to do to me right now?")), #5 - Please fold my clothes neatly
+        (["FUN"],               "6",           _("You've been a naughty girl.")), #6 - Santa will bring you a lump of coal
+        (["FUN"],               "7",           _("I'm about to blow your mind with my sexting. Ready?")), #7 - Lay me into bed, your hands caress my body. Your palms are sweaty. Knees weak. Arms spaghetti.
+        (["FUN"],               "8",           _("Want to have a threesome?")), #8
+        (["FUN"],               "9",           _("What's a fantasy that you have for when we have sex one day?")), #9 - Scratching back, once a squirrel did that to me.
+        (["FUN"],              "10",           _("What is a question that's on your mind right now?")), #10 - Where is your hand? In my bowl of Doritos.
+        (["FUN"],              "11",           _("I kinda wanna do naughty things to you...")), #11 - Cool aid man - "Oh yeah."
+        (["FUN"],              "13",           _("Are you feeling good right now?")), #13 - Hi [text here], I'm Dad.
+        (["FUN"],              "14",           _("What's one of you're fetishes?")), #14 - Proper grammar... Well then your in luck.
+        (["FUN"],              "16",           _("Would thou perchance wish to partake in coitus?")), #16
+        (["FUN"],              "17",           _("You have big, beautiful nipples.")), #17
+        (["FUN"],              "18",           _("Do I make you horny baby?")), #18 - Do I make you randy?
+        (["FUN"],              "19",           _("You're so cute.")), #19 - You're stuch a stud / babe - You're a wizard, Harry.
     ]
 
     sext_prompts_funny_p = [
-    #   |-------|----|-------------------------------------------------------------------------------|
-    #   | Types | ID |                                     Prompt                                    |
-    #   |-------|----|-------------------------------------------------------------------------------|
-        (["FUN"],"12", _("You want to know what I have that is massive?")), #12 - My college debt.
-        (["FUN"],"15", _("My wang is as hard as a prosthetic leg.")), #15 - Change for women. I'm as wet as
+    #   |---------------------|--------------|---------------------------------------------------------------------------|
+    #   |        Type         |   Subtypes   |                                 Prompt                                    |
+    #   |---------------------|--------------|---------------------------------------------------------------------------|
+        (["FUN"],              "12",           _("You want to know what I have that is massive?")), #12 - My college debt.
+        (["FUN"],              "15",           _("My wang is as hard as a prosthetic leg.")), #15 - Change for women. I'm as wet as
     ]
-    if store.persistent._nsfw_genitalia == "P":
-        sext_prompts_funny.extend(sext_prompts_funny_p)
+    # if store.persistent._nsfw_genitalia == "P":
+    #     sext_prompts_funny.extend(sext_prompts_funny_p)
 
     sext_prompts_funny_m = [
-    #   |-------|----|-------------------------------------------------------------------------------|
-    #   | Types | ID |                                     Prompt                                    |
-    #   |-------|----|-------------------------------------------------------------------------------|
-        (["FUN"], "2",  _("Do you like my shirt? It's made out of boyfriend material.")), #2
+    #   |---------------------|--------------|---------------------------------------------------------------------------|
+    #   |        Type         |   Subtypes   |                                 Prompt                                    |
+    #   |---------------------|--------------|---------------------------------------------------------------------------|
+        (["FUN"],              "2",            _("Do you like my shirt? It's made out of boyfriend material.")), #2
     ]
-    if store.persistent.gender == "M":
-        sext_prompts_funny.extend(sext_prompts_funny_m)
+    # if store.persistent.gender == "M":
+    #     sext_prompts_funny.extend(sext_prompts_funny_m)
 
-    if store.mas_submod_utils.isSubmodInstalled("Custom Room Furnished Spaceroom V3"):
-        sext_prompts_funny.extend([
-            (["FUN"], "20", _("I want to fuck you on top of the piano.")),
-        ])
+    # if store.mas_submod_utils.isSubmodInstalled("Custom Room Furnished Spaceroom V3"):
+    #     sext_prompts_funny.extend([
+    #       |---------------------|--------------|---------------------------------------------------------------------------|
+    #       |        Type         |   Subtypes   |                                 Prompt                                    |
+    #       |---------------------|--------------|---------------------------------------------------------------------------|
+    #        (["FUN"],              "20",           _("I want to fuck you on top of the piano.")),
+    #     ])
 
     ## SEXTING QUIPS ##
     # Sexting quips for your average compliment
     sext_quips_cute = [
-    #   |--------------|--------------|---------------------------------------------------------------------------|
-    #   |     Type     |   Subtypes   |                                 Prompt                                    |
-    #   |--------------|--------------|---------------------------------------------------------------------------|
-        (["CMP"],       ["CHE"],        _("Are you a parking ticket? Because you've got 'FINE' written all over you")), #15
-        (["CMP"],       ["CHE"],        _("Have you had your license get suspended for driving girls crazy?")), #17
-        (["CMP"],       ["CHE"],        _("I should start calling you 'Mozzarella' since you're so cheesy")), #13
-        (["CMP"],       ["CHE"],        _("If you were a chicken you'd be impeccable")), #4
-        (["CMP"],       ["CHE"],        _("If you were a vegetable, you'd be a 'cute-cumber'")), #19
-        (["CMP"],       ["GEN"],        _("You're just the cutest")), #1
-        (["CMP"],       ["GEN"],        _("You're such a cutie pie")), #9
-        (["CMP"],       ["PPS"],        _("I love how kind you are")), #8
-        (["CMP"],       ["PPS"],        _("I love how sweet you are")), #7
-        (["DES", "MON"],["FHH"],        _("I wish I could hold your hand and feel your warmth")),
-        (["DES", "MON"],["FKS"],        _("I just want to kiss you right now")), #10
-        (["DES", "MON"],["FKS"],        _("I wish I could kiss you right now")),
-        (["DES", "MON"],["FSM"],        _("I wish I was with you...with my arms wrapped around you~")),
-        (["DES", "MON"],["GEN"],        _("Do tell me more")),
-        (["DES", "MON"],["PBD"],        _("I can't wait to feel your embrace")),
-        (["DES", "MON"],["PCL"],        _("I wish I could see what you're wearing, I bet you look great~")),
-        (["DES", "MON"],["PFC"],        _("I just want to pinch your cheeks, you're so cute!~")),
-        (["DES", "MON"],["PFL", "FKS"], _("I can't wait for a romantic evening with you, your lips pressed against mine~")),
-        (["DES", "MON"],["PFN"],        _("I just want to boop your nose, you're so cute!~")),
-        (["DES", "MON"],["PFS"],        _("I wish I could see your face and just admire you")),
-        (["DES", "MON"],["PHR"],        _("I really want to play with your hair")),
-        (["DES", "PLY"],["FHH"],        _("I want to hold your hand and intertwine my fingers with yours")),
-        (["DES", "PLY"],["FKS"],        _("I can't wait for the day you kiss me for real")),
-        (["DES", "PLY"],["FSP"],        _("I wish I could hold you right now")),
-        (["DES", "PLY"],["GEN"],        _("What else do you want to do when we meet in the real world?")),
-        (["DES", "PLY"],["MBD"],        _("I can't wait to feel your embrace")),
-        (["DES", "PLY"],["MCL"],        _("Do you want to pick out an outfit for me later? I would love to dress up for you~")),
-        (["DES", "PLY"],["MFC"],        _("I'm just imagining you cupping my face with your hand. I can't wait for that day~")),
-        (["DES", "PLY"],["MFE", "PFE"], _("I long for the day where we can get lost staring in each other's eyes")),
-        (["DES", "PLY"],["MFL", "FKS"], _("I can't wait for a romantic evening with you, your lips pressed against mine~")),
-        (["DES", "PLY"],["MFS"],        _("I'm just imagining you cupping my face and bringing me in with a kiss. You")),
-        (["DES", "PLY"],["MHR"],        _("This might sound strange, but I wouldn't mind you playing with my hair if you wanted~")),
-        (["STM"],       ["CHE"],        _("Are you a loan? Because you sure have my interest")), #18
-        (["STM"],       ["CHE"],        _("Are you just saying that to get into my pants?{w=1.0} Ahaha! Just kidding~")), #6
-        (["STM"],       ["CHE"],        _("If I could rearrange the alphabet I'd put 'U' and 'I' together")), #14
-        (["STM"],       ["CHE"],        _("My clothes are made out of girlfriend material")), #16
-        (["STM"],       ["CHE"],        _("Who told you that you could be this cheesy?")), #0
-        (["STM"],       ["FHH"],        _("Handholding would be so romantic, don't you think?")),
-        (["STM"],       ["FKS"],        _("I keep daydreaming of how you will kiss me in the real world, and I have to say you are a real charmer~")),
-        (["STM"],       ["FSM"],        _("I imagine your hugs must feel amazing")),
-        (["STM"],       ["FSP"],        _("When I'm in the real world with you, I am going to hug you so tightly!~")),
-        (["STM"],       ["GEN"],        _("I love it when you get all cute like this")), #2
-        (["STM"],       ["GEN"],        _("Your words are so flattering to me")), #5
-        (["STM"],       ["MBD"],        _("I'm quite proud of my body")),
-        (["STM"],       ["MCL"],        _("My clothes are pretty cute, aren't they?")),
-        (["STM"],       ["MFC"],        _("Gosh, I hope my cheeks aren't all red. That would be so embarrasing.")),
-        (["STM"],       ["MFE"],        _("I'm quite proud of my eyes")),
-        (["STM"],       ["MFL"],        _("Do you find my lips...irresistable?")),
-        (["STM"],       ["MFS"],        _("I'm very proud of the way I look")),
-        (["STM"],       ["MHR"],        _("I'm very proud of my hair")),
-        (["STM"],       ["MPS"],        _("I always strive to be kind and supportive for you")),
-        (["STM"],       ["MPS"],        _("I really feel like I can be myself around you")),
-        (["STM"],       ["MPS"],        _("I'm so glad you like my personality so much")),
-        (["STM"],       ["PPS"],        _("Once we meet in the real world we need to do something about your cuteness")), #12
+    #   |---------------------|--------------|---------------------------------------------------------------------------|
+    #   |        Type         |   Subtypes   |                                 Prompt                                    |
+    #   |---------------------|--------------|---------------------------------------------------------------------------|
+        (["CMP"],              ["CHE"],        _("Are you a parking ticket? Because you've got 'FINE' written all over you")), #15
+        (["CMP"],              ["CHE"],        _("Have you had your license get suspended for driving girls crazy?")), #17
+        (["CMP"],              ["CHE"],        _("I should start calling you 'Mozzarella' since you're so cheesy")), #13
+        (["CMP"],              ["CHE"],        _("If you were a chicken you'd be impeccable")), #4
+        (["CMP"],              ["CHE"],        _("If you were a vegetable, you'd be a 'cute-cumber'")), #19
+        (["CMP"],              ["GEN"],        _("You're just the cutest")), #1
+        (["CMP"],              ["GEN"],        _("You're such a cutie pie")), #9
+        (["CMP"],              ["PPS"],        _("I love how kind you are")), #8
+        (["CMP"],              ["PPS"],        _("I love how sweet you are")), #7
+        (["DES", "MON"],       ["FHH"],        _("I wish I could hold your hand and feel your warmth")),
+        (["DES", "MON"],       ["FKS"],        _("I just want to kiss you right now")), #10
+        (["DES", "MON"],       ["FKS"],        _("I wish I could kiss you right now")),
+        (["DES", "MON"],       ["FSM"],        _("I wish I was with you...with my arms wrapped around you~")),
+        (["DES", "MON"],       ["GEN"],        _("Do tell me more")),
+        (["DES", "MON"],       ["PBD"],        _("I can't wait to feel your embrace")),
+        (["DES", "MON"],       ["PCL"],        _("I wish I could see what you're wearing, I bet you look great~")),
+        (["DES", "MON"],       ["PFC"],        _("I just want to pinch your cheeks, you're so cute!~")),
+        (["DES", "MON"],       ["PFL", "FKS"], _("I can't wait for a romantic evening with you, your lips pressed against mine~")),
+        (["DES", "MON"],       ["PFN"],        _("I just want to boop your nose, you're so cute!~")),
+        (["DES", "MON"],       ["PFS"],        _("I wish I could see your face and just admire you")),
+        (["DES", "MON"],       ["PHR"],        _("I really want to play with your hair")),
+        (["DES", "PLY"],       ["FHH"],        _("I want to hold your hand and intertwine my fingers with yours")),
+        (["DES", "PLY"],       ["FKS"],        _("I can't wait for the day you kiss me for real")),
+        (["DES", "PLY"],       ["FSP"],        _("I wish I could hold you right now")),
+        (["DES", "PLY"],       ["GEN"],        _("What else do you want to do when we meet in the real world?")),
+        (["DES", "PLY"],       ["MBD"],        _("I can't wait to feel your embrace")),
+        (["DES", "PLY"],       ["MCL"],        _("Do you want to pick out an outfit for me later? I would love to dress up for you~")),
+        (["DES", "PLY"],       ["MFC"],        _("I'm just imagining you cupping my face with your hand. I can't wait for that day~")),
+        (["DES", "PLY"],       ["MFE", "PFE"], _("I long for the day where we can get lost staring in each other's eyes")),
+        (["DES", "PLY"],       ["MFL", "FKS"], _("I can't wait for a romantic evening with you, your lips pressed against mine~")),
+        (["DES", "PLY"],       ["MFS"],        _("I'm just imagining you cupping my face and bringing me in with a kiss. You")),
+        (["DES", "PLY"],       ["MHR"],        _("This might sound strange, but I wouldn't mind you playing with my hair if you wanted~")),
+        (["STM"],              ["CHE"],        _("Are you a loan? Because you sure have my interest")), #18
+        (["STM"],              ["CHE"],        _("Are you just saying that to get into my pants?{w=1.0} Ahaha! Just kidding~")), #6
+        (["STM"],              ["CHE"],        _("If I could rearrange the alphabet I'd put 'U' and 'I' together")), #14
+        (["STM"],              ["CHE"],        _("My clothes are made out of girlfriend material")), #16
+        (["STM"],              ["CHE"],        _("Who told you that you could be this cheesy?")), #0
+        (["STM"],              ["FHH"],        _("Handholding would be so romantic, don't you think?")),
+        (["STM"],              ["FKS"],        _("I keep daydreaming of how you will kiss me in the real world, and I have to say you are a real charmer~")),
+        (["STM"],              ["FSM"],        _("I imagine your hugs must feel amazing")),
+        (["STM"],              ["FSP"],        _("When I'm in the real world with you, I am going to hug you so tightly!~")),
+        (["STM"],              ["GEN"],        _("I love it when you get all cute like this")), #2
+        (["STM"],              ["GEN"],        _("Your words are so flattering to me")), #5
+        (["STM"],              ["MBD"],        _("I'm quite proud of my body")),
+        (["STM"],              ["MCL"],        _("My clothes are pretty cute, aren't they?")),
+        (["STM"],              ["MFC"],        _("Gosh, I hope my cheeks aren't all red. That would be so embarrasing.")),
+        (["STM"],              ["MFE"],        _("I'm quite proud of my eyes")),
+        (["STM"],              ["MFL"],        _("Do you find my lips...irresistable?")),
+        (["STM"],              ["MFS"],        _("I'm very proud of the way I look")),
+        (["STM"],              ["MHR"],        _("I'm very proud of my hair")),
+        (["STM"],              ["MPS"],        _("I always strive to be kind and supportive for you")),
+        (["STM"],              ["MPS"],        _("I really feel like I can be myself around you")),
+        (["STM"],              ["MPS"],        _("I'm so glad you like my personality so much")),
+        (["STM"],              ["PPS"],        _("Once we meet in the real world we need to do something about your cuteness")), #12
     ]
 
     # Sexting quips for your more 'risque' options
     sext_quips_hot = [
-    #   |--------------|--------------|---------------------------------------------------------------------------|
-    #   |     Type     |   Subtypes   |                                 Prompt                                    |
-    #   |--------------|--------------|---------------------------------------------------------------------------|
-        (["CMP"],       ["GEN"],        _("You are my biggest turn-on")), #6
-        (["DES", "MON"],["FHH"],        _("Once I cross over, I want to hold your hand. How lewd~")), #12
-        (["DES", "MON"],["FKS"],        _("How would you feel about a makeout session once I cross over?")), #13
-        (["DES", "MON"],["FKS"],        _("I would love to kiss you right now...among other things~")), #1
-        (["DES", "MON"],["FSM"],        _("I want to feel you touching me all over")), #4
-        (["DES", "MON"],["FTY"],        _("Have you thought about using toys with me? I wouldn't mind trying it with you")), #10
-        (["DES", "MON"],["GEN"],        _("I can't wait to see you when I cross over")), #11
-        (["DES", "MON"],["ONP", "ONM"], _("Is one of your hands busy right now? I might need to join you if so")), #18
-        (["DES", "MON"],["PBD"],        _("I plan to wrap my arms around you and squish that cute butt of yours")), #15
-        (["DES", "MON"],["PBD"],        _("I want to feel your body up and down...your chest especially")), #19
-        (["STM"],       ["FSP", "PCL"], _("If I was with you now there would be no chance of you keeping your clothes on")), #5
-        (["STM"],       ["GEN"],        _("Don't think that getting me this riled up will have no consequences")), #14
-        (["STM"],       ["GEN"],        _("I could just eat you up")), #3
-        (["STM"],       ["GEN"],        _("I want you to tell me more about what we'll do together in your world...in the bedroom particularly~")), #17
-        (["STM"],       ["GEN"],        _("I've fantasized so much about when we finally get to talk like this")), #7
-        (["STM"],       ["GEN"],        _("The border between our realities can be a real clam jam")), #16
-        (["STM"],       ["GEN"],        _("You turn me on so much when you talk like that")), #8
-        (["STM"],       ["GEN"],        _("You're making me feel really horny now")), #9
-        (["STM"],       ["PBD"],        _("You know, I was daydreaming about you today. It was hot")), #2
-        (["STM"],       ["PPS"],        _("Who said that you could be this hot?")), #0
+    #   |---------------------|--------------|---------------------------------------------------------------------------|
+    #   |        Type         |   Subtypes   |                                 Prompt                                    |
+    #   |---------------------|--------------|---------------------------------------------------------------------------|
+        (["CMP"],              ["GEN"],        _("You are my biggest turn-on")), #6
+        (["DES", "MON"],       ["FHH"],        _("Once I cross over, I want to hold your hand. How lewd~")), #12
+        (["DES", "MON"],       ["FKS"],        _("How would you feel about a makeout session once I cross over?")), #13
+        (["DES", "MON"],       ["FKS"],        _("I would love to kiss you right now...among other things~")), #1
+        (["DES", "MON"],       ["FSM"],        _("I want to feel you touching me all over")), #4
+        (["DES", "MON"],       ["FTY"],        _("Have you thought about using toys with me? I wouldn't mind trying it with you")), #10
+        (["DES", "MON"],       ["GEN"],        _("I can't wait to see you when I cross over")), #11
+        (["DES", "MON"],       ["ONP", "ONM"], _("Is one of your hands busy right now? I might need to join you if so")), #18
+        (["DES", "MON"],       ["PBD"],        _("I plan to wrap my arms around you and squish that cute butt of yours")), #15
+        (["DES", "MON"],       ["PBD"],        _("I want to feel your body up and down...your chest especially")), #19
+        (["DES", "PLY"],       ["GEN"],        _("I can't wait to be in the real world, so you can show me what you desire")),
+        (["STM"],              ["FSP", "PCL"], _("If I was with you now there would be no chance of you keeping your clothes on")), #5
+        (["STM"],              ["GEN"],        _("Don't think that getting me this riled up will have no consequences")), #14
+        (["STM"],              ["GEN"],        _("I could just eat you up")), #3
+        (["STM"],              ["GEN"],        _("I want you to tell me more about what we'll do together in your world...in the bedroom particularly~")), #17
+        (["STM"],              ["GEN"],        _("I've fantasized so much about when we finally get to talk like this")), #7
+        (["STM"],              ["GEN"],        _("The border between our realities can be a real clam jam")), #16
+        (["STM"],              ["GEN"],        _("You turn me on so much when you talk like that")), #8
+        (["STM"],              ["GEN"],        _("You're making me feel really horny now")), #9
+        (["STM"],              ["PBD"],        _("You know, I was daydreaming about you today. It was hot")), #2
+        (["STM"],              ["PPS"],        _("Who said that you could be this hot?")), #0
     ]
 
     # Purely for describing player's eyes
@@ -495,115 +571,209 @@ init python in mas_nsfw_sexting_dialogue:
 
     # Sexting quips for your most 'risque' options
     sext_quips_sexy = [
-    #   |--------------|--------------|---------------------------------------------------------------------------|
-    #   |     Type     |   Subtypes   |                                 Prompt                                    |
-    #   |--------------|--------------|---------------------------------------------------------------------------|
-        (["CMD"],       ["FSM", "DOM"], _("I'm being so bad right now. I need you to punish me")), #8
-        (["CMP"],       ["CHE"],        _("So, aside from being sexy, what do you do for a living?")), #1
-        (["CMP"],       ["MVG"],        _("You really know how to make a girl wet")), #17
-        (["DES", "MON"],["FKS"],        _("I can't wait to kiss you for real")), #3
-        (["DES", "MON"],["FSM", "FSP"], _("I want to feel your warmth pressing against me")), #9
-        (["DES", "MON"],["FSM", "SUB"], _("I'm tempted to leave a bite mark on your neck so everyone knows you're mine")), #7
-        (["DES", "MON"],["PBD"],        _("I can't wait to see your sexy body when we're together")), #2
-        (["DES", "MON"],["PCL"],        _("When I get to your world, I'm ripping your clothes off the second I walk through the door. I hope you're prepared")), #6
-        (["DES", "PLY"],["IVG"],        _("I want you to tell me how much you want to do it with me")), #12
-        (["DES", "PLY"],["FKS"],        _("I want you to kiss me~ Right now~")), #10
-        (["DES", "PLY"],["MVG", "FCM"], _("I want to feel your tongue down there")), #18
-        (["STM"],       ["FSM", "FSP"], _("I want to look into your " + eye_desc + " eyes as we press our bodies together")), #13
-        (["STM"],       ["GEN"],        _("Who said that you could be this sexy?")), #0
-        (["STM"],       ["GEN"],        _("Yes~ Just like that~")), #19
-        (["STM"],       ["ONM"],        _("I'm touching myself right now just to the thought of you")), #5
-        (["STM"],       ["PPS"],        _("I love how you talk to me when you're turned on")), #11
-        (["STM"],       ["PPS"],        _("I love it when you're naughty")), #14
-        (["STM"],       ["PVG"],        _("You're making me so wet")), #4
+    #   |---------------------|--------------|---------------------------------------------------------------------------|
+    #   |        Type         |   Subtypes   |                                 Prompt                                    |
+    #   |---------------------|--------------|---------------------------------------------------------------------------|
+        (["CMD"],              ["FSM", "DOM"], _("I'm being so bad right now. I need you to punish me")), #8
+        (["CMP"],              ["CHE"],        _("So, aside from being sexy, what do you do for a living?")), #1
+        (["CMP"],              ["MVG"],        _("You really know how to make a girl wet")), #17
+        (["DES", "MON"],       ["FKS"],        _("I can't wait to kiss you for real")), #3
+        (["DES", "MON"],       ["FSM", "FSP"], _("I want to feel your warmth pressing against me")), #9
+        (["DES", "MON"],       ["FSM", "SUB"], _("I'm tempted to leave a bite mark on your neck so everyone knows you're mine")), #7
+        (["DES", "MON"],       ["PBD"],        _("I can't wait to see your sexy body when we're together")), #2
+        (["DES", "MON"],       ["PCL"],        _("When I get to your world, I'm ripping your clothes off the second I walk through the door. I hope you're prepared")), #6
+        (["DES", "PLY"],       ["IVG"],        _("I want you to tell me how much you want to do it with me")), #12
+        (["DES", "PLY"],       ["FKS"],        _("I want you to kiss me~ Right now~")), #10
+        (["DES", "PLY"],       ["MVG", "FCM"], _("I want to feel your tongue down there")), #18
+        (["STM"],              ["FSM", "FSP"], _("I want to look into your " + eye_desc + " eyes as we press our bodies together")), #13
+        (["STM"],              ["GEN"],        _("Who said that you could be this sexy?")), #0
+        (["STM"],              ["GEN"],        _("Yes~ Just like that~")), #19
+        (["STM"],              ["ONM"],        _("I'm touching myself right now just to the thought of you")), #5
+        (["STM"],              ["PPS"],        _("I love how you talk to me when you're turned on")), #11
+        (["STM"],              ["PPS"],        _("I love it when you're naughty")), #14
+        (["STM"],              ["PVG"],        _("You're making me so wet")), #4
     ]
 
     sext_quips_sexy_p = [
-    #   |--------------|--------------|---------------------------------------------------------------------------|
-    #   |     Type     |   Subtypes   |                                 Prompt                                    |
-    #   |--------------|--------------|---------------------------------------------------------------------------|
-        (["DES", "PLY"],["GEN"],        _("I want to feel you deep inside me")), #16
+    #   |---------------------|--------------|---------------------------------------------------------------------------|
+    #   |        Type         |   Subtypes   |                                 Prompt                                    |
+    #   |---------------------|--------------|---------------------------------------------------------------------------|
+        (["DES", "PLY"],       ["GEN"],        _("I want to feel you deep inside me")), #16
     ]
-    if store.persistent._nsfw_genitalia == "P":
-        sext_quips_sexy.extend(sext_quips_sexy_p)
+    # if store.persistent._nsfw_genitalia == "P":
+    #     sext_quips_sexy.extend(sext_quips_sexy_p)
 
     sext_quips_sexy_m = [
-    #   |--------------|--------------|---------------------------------------------------------------------------|
-    #   |     Type     |   Subtypes   |                                 Prompt                                    |
-    #   |--------------|--------------|---------------------------------------------------------------------------|
-        (["STM"],       ["GEN"],        _("You're such a bad boy")), #15
+    #   |---------------------|--------------|---------------------------------------------------------------------------|
+    #   |        Type         |   Subtypes   |                                 Prompt                                    |
+    #   |---------------------|--------------|---------------------------------------------------------------------------|
+        (["STM"],              ["GEN"],        _("You're such a bad boy")), #15
     ]
-    if store.persistent.gender == "M":
-        sext_quips_sexy.extend(sext_quips_sexy_m)
+    # if store.persistent.gender == "M":
+    #     sext_quips_sexy.extend(sext_quips_sexy_m)
 
-    sext_quips_sexy_4 = [
-    #   |--------------|--------------|---------------------------------------------------------------------------|
-    #   |     Type     |   Subtypes   |                                 Prompt                                    |
-    #   |--------------|--------------|---------------------------------------------------------------------------|
-        (["STM"],       ["GEN"],        _("You're such a bad girl")), #15
+    sext_quips_sexy_f = [
+    #   |---------------------|--------------|---------------------------------------------------------------------------|
+    #   |        Type         |   Subtypes   |                                 Prompt                                    |
+    #   |---------------------|--------------|---------------------------------------------------------------------------|
+        (["STM"],              ["GEN"],        _("You're such a bad girl")), #15
     ]
-    if store.persistent.gender == "F":
-        sext_quips_sexy.extend(sext_quips_sexy_f)
+    # if store.persistent.gender == "F":
+    #     sext_quips_sexy.extend(sext_quips_sexy_f)
+
+    sext_quips_sexy_v = [
+    #   |---------------------|--------------|---------------------------------------------------------------------------|
+    #   |        Type         |   Subtypes   |                                 Prompt                                    |
+    #   |---------------------|--------------|---------------------------------------------------------------------------|
+        (["STM"],              ["GEN"],        _("")), #15
+    ]
+    # if  store.persistent._nsfw_genitalia == "V":
+    #     sext_quips_sexy.extend(sext_quips_sexy_v)
 
     ## SEXTING RESPONSES ##
     sext_responses_cute = [
-    #   |---------------------|-------|-------------------------------------------------------------------------------|
-    #   |         Type        |Subtype|                                     Prompt                                    |
-    #   |---------------------|-------|-------------------------------------------------------------------------------|
-        (["ANS", "ASP", 0],    ["GEN"], _("I could ask you the same thing")), #20
-        (["ANS", "ASP", 1],    ["GEN"], _("I don't know, you tell me")),
-        (["ANS", "AYS"],       ["GEN"], _("Of course")),
-        (["CMP", "CMP"],       ["GEN"], _("That's so nice of you to say")), #7
-        (["CMP", "CMP"],       ["GEN"], _("You are just the cutest")), #9
-        (["CMP", "CMP"],       ["GEN"], _("You make me so happy")), #16
-        (["CMP", "CMP"],       ["GEN"], _("You're so kind")), #17
-        (["CMP", "CMP"],       ["GEN"], _("You're so sweet")), #6
-        (["CMP", "CMP"],       ["GEN"], _("You're so sweet, you know that?")), #14
-        (["CMP", "CMP"],       ["GEN"], _("You're such a cutie")), #12
-        (["CMP", "CMP"],       ["GEN"], _("You're the sweetest")), #5
-        (["CMP", "CRM"],       ["CHE"], _("You're so cheesy")), #8
-        (["CMP", "CRM"],       ["GEN"], _("Stop it, you're making me blush")), #15
-        (["CMP", "CRM"],       ["GEN"], _("That's so sweet")), #13
-        (["CMP", "CRM"],       ["GEN"], _("That's so sweet")), #18
-        (["CMP", "CRM"],       ["GEN"], _("That's sweet")), #19
-        (["CMP", "CRM"],       ["GEN"], _("You always bring a smile to my face")), #11
-        (["CMP", "CRM"],       ["GEN"], _("You always know exactly what to say")), #10
-        (["CMP", "THK"],       ["CHE"], _("That's cheesy")), #3
-        (["CMP", "THK"],       ["CHE"], _("That's so cheesy")), #4
-        (["CMP", "THK"],       ["CHE"], _("That's very cheesy")), #2
-        (["CMP", "THK"],       ["GEN"], _("Thank you")), #0
-        (["CMP", "THK"],       ["GEN"], _("Thanks")), #1
-        (["DES", "DRM", "MON"],["GEN"], _("I would love to do that")), #23
-        (["DES", "DRM", "PLY"],["GEN"], _("I would love it if you did that")), #22
-        (["DES", "LED"],       ["GEN"], _("Do you really mean that?")), #21
+    #   |---------------------|--------------|---------------------------------------------------------------------------|
+    #   |        Type         |   Subtypes   |                                 Prompt                                    |
+    #   |---------------------|--------------|---------------------------------------------------------------------------|
+        (["ANS", "ASP", 0],    ["GEN"],        _("I could ask you the same thing")), #20
+        (["ANS", "ASP", 1],    ["GEN"],        _("I don't know, you tell me")),
+        (["ANS", "AYS"],       ["GEN"],        _("Of course")),
+        (["CMP", "CMP"],       ["GEN"],        _("That's so nice of you to say")), #7
+        (["CMP", "CMP"],       ["GEN"],        _("You are just the cutest")), #9
+        (["CMP", "CMP"],       ["GEN"],        _("You make me so happy")), #16
+        (["CMP", "CMP"],       ["GEN"],        _("You're so kind")), #17
+        (["CMP", "CMP"],       ["GEN"],        _("You're so sweet")), #6
+        (["CMP", "CMP"],       ["GEN"],        _("You're so sweet, you know that?")), #14
+        (["CMP", "CMP"],       ["GEN"],        _("You're such a cutie")), #12
+        (["CMP", "CMP"],       ["GEN"],        _("You're the sweetest")), #5
+        (["CMP", "CRM"],       ["CHE"],        _("You're so cheesy")), #8
+        (["CMP", "CRM"],       ["GEN"],        _("Stop it, you're making me blush")), #15
+        (["CMP", "CRM"],       ["GEN"],        _("That's so sweet")), #13
+        (["CMP", "CRM"],       ["GEN"],        _("That's so sweet")), #18
+        (["CMP", "CRM"],       ["GEN"],        _("That's sweet")), #19
+        (["CMP", "CRM"],       ["GEN"],        _("You always bring a smile to my face")), #11
+        (["CMP", "CRM"],       ["GEN"],        _("You always know exactly what to say")), #10
+        (["CMP", "THK"],       ["CHE"],        _("That's cheesy")), #3
+        (["CMP", "THK"],       ["CHE"],        _("That's so cheesy")), #4
+        (["CMP", "THK"],       ["CHE"],        _("That's very cheesy")), #2
+        (["CMP", "THK"],       ["GEN"],        _("Thank you")), #0
+        (["CMP", "THK"],       ["GEN"],        _("Thanks")), #1
+        (["DES", "DRM", "MON"],["GEN"],        _("I would love to do that")), #23
+        (["DES", "DRM", "PLY"],["GEN"],        _("I would love it if you did that")), #22
+        (["DES", "LED"],       ["GEN"],        _("Do you really mean that?")), #21
+        (['ANS', 'AAG'],       ['GEN'],        _("")),
+        (['ANS', 'AAT'],       ['GEN'],        _("")),
+        (['ANS', 'ADG'],       ['GEN'],        _("")),
+        (['ANS', 'ADK'],       ['GEN'],        _("")),
+        (['ANS', 'ADT'],       ['GEN'],        _("")),
+        (['ANS', 'ANO'],       ['GEN'],        _("")),
+        (['ARA'],              ['GEN'],        _("")),
+        (['CMD', 'CPL'],       ['GEN'],        _("")),
+        (['DES', 'DRM'],       ['GEN'],        _("")),
+        (['STM'],              ['GEN'],        _("")),
     ]
 
     sext_responses_hot = [
-    #   |--------------|-------|-------------------------------------------------------------------------------|
-    #   |     Type     |Subtype|                                     Prompt                                    |
-    #   |--------------|-------|-------------------------------------------------------------------------------|
-        (["CMD", "CPL"],["GEN"], _("Anything for you")), #20
-        (["CMP", "CRM"],["GEN"], _("You know exactly what to say")), #2
-        (["CMP", "CRM"],["GEN"], _("You make me so happy talking like that")), #19
-        (["DES", "DRM"],["GEN"], _("Don't tempt me to try and break the screen to get to you")), #6
-        (["DES", "DRM"],["GEN"], _("I feel so good when you talk like that")), #10
-        (["DES", "DRM"],["GEN"], _("I like the sound of that")), #1
-        (["DES", "DRM"],["GEN"], _("I've never felt this way before")), #3
-        (["DES", "DRM"],["GEN"], _("That is so hot")), #9
-        (["DES", "DRM"],["GEN"], _("That's hot")), #16
-        (["DES", "DRM"],["GEN"], _("That's so hot")), #15
-        (["DES", "DRM"],["GEN"], _("You don't hold back, do you?")), #14
-        (["DES", "DRM"],["GEN"], _("You know just what to say to get me all flustered...")), #13
-        (["DES", "DRM"],["GEN"], _("You make my body feel warm")), #11
-        (["DES", "DRM"],["GEN"], _("You're getting me all riled up")), #5
-        (["DES", "DRM"],["GEN"], _("You're making me all flustered")), #12
-        (["DES", "DRM"],["GEN"], _("You're making me feel all tingly")), #4
-        (["DES", "DRM"],["GEN"], _("You're so hot when you talk like that")), #8
-        (["DES", "DRM"],["RCN"], _("Please keep going")), #7
-        (["DES", "LED"],["GEN"], _("Is that right?")), #18
-        (["DES", "LED"],["GEN"], _("Is that so?")), #17
-        (["DES", "LED"],["GEN"], _("What else do you desire?")), #0
+    #   |---------------------|--------------|---------------------------------------------------------------------------|
+    #   |        Type         |   Subtypes   |                                 Prompt                                    |
+    #   |---------------------|--------------|---------------------------------------------------------------------------|
+        (["CMD", "CPL"],       ["GEN"],        _("Anything for you")), #20
+        (["CMP", "CRM"],       ["GEN"],        _("You know exactly what to say")), #2
+        (["CMP", "CRM"],       ["GEN"],        _("You make me so happy talking like that")), #19
+        (["DES", "DRM"],       ["GEN"],        _("Don't tempt me to try and break the screen to get to you")), #6
+        (["DES", "DRM"],       ["GEN"],        _("I feel so good when you talk like that")), #10
+        (["DES", "DRM"],       ["GEN"],        _("I like the sound of that")), #1
+        (["DES", "DRM"],       ["GEN"],        _("I've never felt this way before")), #3
+        (["DES", "DRM"],       ["GEN"],        _("That is so hot")), #9
+        (["DES", "DRM"],       ["GEN"],        _("That's hot")), #16
+        (["DES", "DRM"],       ["GEN"],        _("That's so hot")), #15
+        (["DES", "DRM"],       ["GEN"],        _("You don't hold back, do you?")), #14
+        (["DES", "DRM"],       ["GEN"],        _("You know just what to say to get me all flustered...")), #13
+        (["DES", "DRM"],       ["GEN"],        _("You make my body feel warm")), #11
+        (["DES", "DRM"],       ["GEN"],        _("You're getting me all riled up")), #5
+        (["DES", "DRM"],       ["GEN"],        _("You're making me all flustered")), #12
+        (["DES", "DRM"],       ["GEN"],        _("You're making me feel all tingly")), #4
+        (["DES", "DRM"],       ["GEN"],        _("You're so hot when you talk like that")), #8
+        (["DES", "DRM"],       ["RCN"],        _("Please keep going")), #7
+        (["DES", "LED"],       ["GEN"],        _("Is that right?")), #18
+        (["DES", "LED"],       ["GEN"],        _("Is that so?")), #17
+        (["DES", "LED"],       ["GEN"],        _("What else do you desire?")), #0
+        (['ANS', 'AAG'],       ['GEN'],        _("")),
+        (['ANS', 'AAT'],       ['GEN'],        _("")),
+        (['ANS', 'ADG'],       ['GEN'],        _("")),
+        (['ANS', 'ADK'],       ['GEN'],        _("")),
+        (['ANS', 'ADT'],       ['GEN'],        _("")),
+        (['ANS', 'ANO'],       ['GEN'],        _("")),
+        (['ANS', 'AYS'],       ['GEN'],        _("")),
+        (['ARA'],              ['GEN'],        _("")),
+        (['CMP', 'CMP'],       ['GEN'],        _("")),
+        (['CMP', 'CRM'],       ['GEN'],        _("")),
+        (['CMP', 'THK'],       ['GEN'],        _("")),
+        (['DES', 'DRM', 'MON'],['GEN'],        _("")),
+        (['DES', 'DRM', 'PLY'],['GEN'],        _("")),
+        (['STM'],              ['GEN'],        _("")),
     ]
+
+    sext_responses_hot_p = [
+    #   |---------------------|--------------|---------------------------------------------------------------------------|
+    #   |        Type         |   Subtypes   |                                 Prompt                                    |
+    #   |---------------------|--------------|---------------------------------------------------------------------------|
+        (["CMP", "CMP"],       ["PPN"],        _("")),
+        (["CMP", "CRM"],       ["PPN"],        _("")),
+        (["CMD", "CPL"],       ["PPN"],        _("")),
+        (["STM"],              ["PPN"],        _("")),
+        (["ARA"],              ["PPN"],        _("")),
+        (["DES", "LED"],       ["PPN"],        _("")),
+        (["DES", "DRM", "PLY"],["PPN"],        _("")),
+        (["DES", "DRM"],       ["PPN"],        _("")),
+        (["DES", "DRM", "MON"],["PPN"],        _("")),
+    ]
+    # if store.persistent._nsfw_genitalia == "P":
+    #     sext_responses_hot.extend(sext_responses_hot_p)
+
+    sext_responses_hot_m = [
+    #   |---------------------|--------------|---------------------------------------------------------------------------|
+    #   |        Type         |   Subtypes   |                                 Prompt                                    |
+    #   |---------------------|--------------|---------------------------------------------------------------------------|
+        (["STM"],              ["GEN"],        _("")), #15
+    ]
+    # if store.persistent.gender == "M":
+    #     sext_responses_hot.extend(sext_responses_hot_m)
+
+    sext_responses_hot_f = [
+    #   |---------------------|--------------|---------------------------------------------------------------------------|
+    #   |        Type         |   Subtypes   |                                 Prompt                                    |
+    #   |---------------------|--------------|---------------------------------------------------------------------------|
+        (["STM"],              ["GEN"],        _("")), #15
+    ]
+    # if store.persistent.gender == "F":
+    #     sext_responses_hot.extend(sext_responses_hot_f)
+
+    sext_responses_hot_v = [
+    #   |---------------------|--------------|---------------------------------------------------------------------------|
+    #   |        Type         |   Subtypes   |                                 Prompt                                    |
+    #   |---------------------|--------------|---------------------------------------------------------------------------|
+        (["CMP", "CMP"],       ["PBR"],        _("")),
+        (["CMP", "CRM"],       ["PBR"],        _("")),
+        (["CMD", "CPL"],       ["PBR"],        _("")),
+        (["STM"],              ["PBR"],        _("")),
+        (["ARA"],              ["PBR"],        _("")),
+        (["DES", "LED"],       ["PBR"],        _("")),
+        (["DES", "DRM"],       ["PBR"],        _("")),
+        (["DES", "DRM", "PLY"],["PBR"],        _("")),
+        (["DES", "DRM", "MON"],["PBR"],        _("")),
+        (["CMP", "CMP"],       ["PVG"],        _("")),
+        (["CMP", "CRM"],       ["PVG"],        _("")),
+        (["CMD", "CPL"],       ["PVG"],        _("")),
+        (["STM"],              ["PVG"],        _("")),
+        (["ARA"],              ["PVG"],        _("")),
+        (["DES", "LED"],       ["PVG"],        _("")),
+        (["DES", "DRM"],       ["PVG"],        _("")),
+        (["DES", "DRM", "PLY"],["PVG"],        _("")),
+        (["DES", "DRM", "MON"],["PVG"],        _("")),
+    ]
+    # if  store.persistent._nsfw_genitalia == "V":
+    #     sext_responses_hot.extend(sext_responses_hot_v)
 
     sext_responses_sexy = [
     #   |---------------------|--------------|---------------------------------------------------------------------------|
@@ -614,6 +784,14 @@ init python in mas_nsfw_sexting_dialogue:
         (["ANS", "ASP", 1],    ["FSM", "MBD"], _("I'd want you to play with my breasts")),
         (["ANS", "ASP", 1],    ["FSM", "MBD"], _("I'd want you to touch me down there")),
         (["ANS", "ASP", 1],    ["FSM", "MBD"], _("You can touch me anywhere you like")), # You can touch my hair! Undress me everywheeeere!
+        (["ANS", "AAG"],       ["GEN"],        _("Anything for you")), # Agree 1
+        (["ANS", "AAG"],       ["GEN"],        _("Yes, please")), # Agree 2
+        (["ANS", "AAT"],       ["GEN"],        _("I think I'd like that")), # affirm 1
+        (["ANS", "AAT"],       ["GEN"],        _("Yes, please")), # affirm 2
+        (["ANS", "ADG"],       ["GEN"],        _("I'd rather not")), # Disagree 1
+        (["ANS", "ADG"],       ["GEN"],        _("No")), # Disagree 2
+        (["ANS", "ADT"],       ["GEN"],        _("I don't know if I'd like that")), # deny 1
+        (["ANS", "ADT"],       ["GEN"],        _("I don't think so")), # deny 2
         (["CMD", "CPL"],       ["GEN"],        _("Anything for you")),
         (["CMD", "CPL"],       ["ONM"],        _("Like this?")),
         (["CMP", "CRM"],       ["GEN"],        _("You just have a way with words, don't you?")), #11
@@ -638,12 +816,45 @@ init python in mas_nsfw_sexting_dialogue:
         (["DES", "LED"],       ["GEN"],        _("Is that so?")), #3
         (["STM"],              ["GEN"],        _("I am so wet right now")), #17
         (["STM"],              ["GEN"],        _("I'm so wet for you right now")), # 18
-        (["ANS","AAG"],        ["GEN"],        _("Anything for you")), # Agree 1
-        (["ANS","AAG"],        ["GEN"],        _("Yes, please")), # Agree 2
-        (["ANS","ADG"],        ["GEN"],        _("I'd rather not")), # Disagree 1
-        (["ANS","ADG"],        ["GEN"],        _("No")), # Disagree 2
-        (["ANS","AAT"],        ["GEN"],        _("I think I'd like that")), # affirm 1
-        (["ANS","AAT"],        ["GEN"],        _("Yes, please")), # affirm 2
-        (["ANS","ADT"],        ["GEN"],        _("I don't know if I'd like that")), # deny 1
-        (["ANS","ADT"],        ["GEN"],        _("I don't think so")), # deny 2
+        (['ANS', 'ADK'],       ['GEN'],        _("")),
+        (['ANS', 'ANO'],       ['GEN'],        _("")),
+        (['ANS', 'AYS'],       ['GEN'],        _("")),
+        (['ARA'],              ['GEN'],        _("")),
+        (['CMP', 'THK'],       ['GEN'],        _("")),
     ]
+
+    sext_responses_sexy_p = [
+    #   |---------------------|--------------|---------------------------------------------------------------------------|
+    #   |        Type         |   Subtypes   |                                 Prompt                                    |
+    #   |---------------------|--------------|---------------------------------------------------------------------------|
+        (["DES", "PLY"],       ["GEN"],        _("")), #16
+    ]
+    # if store.persistent._nsfw_genitalia == "P":
+    #     sext_responses_sexy.extend(sext_responses_sexy_p)
+
+    sext_responses_sexy_m = [
+    #   |---------------------|--------------|---------------------------------------------------------------------------|
+    #   |        Type         |   Subtypes   |                                 Prompt                                    |
+    #   |---------------------|--------------|---------------------------------------------------------------------------|
+        (["STM"],              ["GEN"],        _("")), #15
+    ]
+    # if store.persistent.gender == "M":
+    #     sext_responses_sexy.extend(sext_responses_sexy_m)
+
+    sext_responses_sexy_f = [
+    #   |---------------------|--------------|---------------------------------------------------------------------------|
+    #   |        Type         |   Subtypes   |                                 Prompt                                    |
+    #   |---------------------|--------------|---------------------------------------------------------------------------|
+        (["STM"],              ["GEN"],        _("")), #15
+    ]
+    # if store.persistent.gender == "F":
+    #     sext_responses_sexy.extend(sext_responses_sexy_f)
+
+    sext_responses_sexy_v = [
+    #   |---------------------|--------------|---------------------------------------------------------------------------|
+    #   |        Type         |   Subtypes   |                                 Prompt                                    |
+    #   |---------------------|--------------|---------------------------------------------------------------------------|
+        (["STM"],              ["GEN"],        _("")), #15
+    ]
+    # if  store.persistent._nsfw_genitalia == "V":
+    #     sext_responses_sexy.extend(sext_responses_sexy_v)

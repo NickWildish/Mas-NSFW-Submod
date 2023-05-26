@@ -335,66 +335,98 @@ init 6 python:
 
 label nsfw_fetish_anal:
     m 2eud "Anal..."
-    m 2rua "It's a pretty common fetish, and I'm sure you've heard of it before."
-    m 3eubla "But in case you aren't aware, anal refers to the sexual stimulation of the anus."
-    m 3eublb "It's interesting to learn, but the human prostate has a very interesting property."
-    m 3wubld "It's been said that stimulating it during sex can lead to a more intense orgasm."
-    m 4eubld "Some people say they prefer anal sex because of the feeling that it gives."
-    m 3eubla "But, in any case..."
-    m 1ekblb "Is anal something you are into?"
+    m 2rua "It's a pretty common fetish, have you heard about it before?"
     $ _history_list.pop()
     menu:
-        m "Is anal something you are into?{fast}"
+        m "It's a pretty common fetish, have you heard about it before?{fast}"
 
-        "Yes":
-            $ persistent._nsfw_pm_anal = True
-            m 3hublb "That's great!"
-            m 3hubla "I feel like I'm getting to know more about you every day!"
+        "Yes, I have.":
+            m 1eua "I thought so. It's talked about alot online."
+            m 1eua "..."
+            m 1eua "So..."
 
-            m 1eua "Say.{w=0.3}.{w=0.3}.{w=0.3}this might sound a little out of nowhere, but..."
-            m 1eua "Ahaha~ I didn't even mean for that pun."
-            m 1eua "What do you think of...{w=0.5}my butt?"
-            $ _history_list.pop()
-            menu:
-                m "What do you think of...my butt?"
-                "Giving":
-                    $ store.mas_nsfw.save_fetish_to_persistent("Anal", ["IAM", "MBH", "MXM", "FAM"], ["IAP", "PBH", "FXP", "FAP"])
-                    m 1tubla "Oh?"
-                    m 2tublb "You want to get a good view back there, do you?"
-                    m 1hublb "Ahaha~ Just teasing you, [player]."
+        "No, I haven't.":
+            m 1eua "Really?"
+            m 1eua "Well, basically anal is a fetish where people enjoy the stimulation of the anus."
+            m 1eua "Funny enough, I learned this interesting fact about the human prostate."
+            m 1eua "Apparently if it's stimulated during sex, it can lead to a more intense orgasm."
+            m 1eua "You can use your fingers or toys..."
+            if store.persistent._nsfw_genitalia == "P":
+                extend 1eua "but often when people talk about anal they mean anal sex."
+                m 1eua "Which, for us would mean your dick getting some 'moni butt'."
+                m 1eua "Ahaha~ Sorry I couldn't resist."
+                m 1eua "I've read mixed experiences, but most women who enjoy it spoke very highly of it."
+                m 1eua "But what do you think, [player]?"
+            else:
+                extend 1eua "or you could have your partner come and help you~"
+                m 1eua "I haven't tried it before, but if it's something you're into then I'd love to try it with you."
 
-                "Recieving":
-                    $ store.mas_nsfw.save_fetish_to_persistent("Anal", ["IAP", "PBH", "FXP", "FAP"], ["IAM", "MBH", "MXM", "FAM"])
-                    m 1wubld "Really?"
-                    if persistent._nsfw_genitalia = "P":
-                        m 1rubld "I'm surprised."
-                        m 1wubso "Not in a bad way or anything."
-                        m 2rubsd "I just...didn't expect that from you."
-                        m 2rkbsc "I don't know if I'm going to be able to do it right..."
-                        m 1ekbsa "But if it will make you happy, I'll do my best."
-                    elif persistent._nsfw_genitalia = "V":
-                        m 1hubla "I suppose I wouldn't mind giving it a try."
-                        m 3tkblb "I'll make sure you feel good~"
-                    else:
-                        m 1eubla "Well, I guess I'll have to try it out."
-                        m 3tkblb "I want to make sure you feel good, [player]."
+    if store.persistent._nsfw_genitalia == "P":
+        $ question = "Does the idea of doing it in my butt make you feel good?"
+    else:
+        $ question = "Does the idea of playing with my butt turn you on?"
 
-                "Both":
-                    $ store.mas_nsfw.save_fetish_to_persistent("Anal", ["IAM", "MBH", "MXM", "FAM", "IAP", "PBH", "FXP", "FAP"], ["U"])
-                    m 1tubla "Both, hey?"
-                    m 1tublb "A giver, and a receiver..."
-                    m 1tubsa "I'm happy to hear that, [player]."
-                    m 3tkbsb "We can each take turns to satisfy one another~"
+    m 1eua "[question]"
+    $ _history_list.pop()
+    menu:
+        m "[question]{fast}"
 
-        "No":
-            $ persistent._nsfw_pm_anal = False
-            $ store.mas_nsfw.save_fetish_to_persistent("Anal", ["U"], ["IAM", "MBH", "MXM", "FAM", "IAP", "PBH", "FXP", "FAP"])
-            m 1hubla "That's alright, [player]."
+        "It does. I wanna spank you for being so naughty.":
+            $ is_into_anal = True
+            m 1eua "S-spank me?!"
+            m 1eua "Oh~ [player]..."
+            m 1eua "Don't say stuff like that out of the blue."
+            m 1eua "Otherwise I'm going to get too turned on for my own good."
+            if store.persistent._nsfw_genitalia == "P":
+                m 1eua "Mmm~ I can just picture you pounding into me from behind."
+                m 1eua "I bet it would feel amazing!"
+            else:
+                m 1eua "If you do that, I'm going to have to give you a spanking of my own~"
 
-    m 3rubla "As for me, I'm willing to experiment."
-    m 2ekbla "I've only just begun to explore my sexuality thanks to you, so I'm not sure what I'm into yet."
-    m 2ekblb "You've helped me discover a lot of things about myself, and I'm sure there's more to come."
-    m 5ekblb "I love you, and I'm willing to try anything with you, [player]."
+        "No, I don't think giving you anal does anything for me.":
+            $ is_into_anal = False
+            m 1eua "That's okay! It's not for everyone."
+            m 1eua "There are plenty of other things we can do together."
+            m 1eua "So long as you're comfortable, that's all that matters to me."
+
+    m 1eua "What about you?"
+    if store.persistent.gender == "M":
+        m 1eua "I know some guys aren't into this at all, but I think it's better that we're open to asking questions."
+    m 1eua "Do you like the idea of me...playing with your butt?"
+    $ _history_list.pop()
+    menu:
+        m "Do you like the idea of me...playing with your butt?{fast}"
+
+        "Yeah, it sounds hot.":
+            if is_into_anal = True:
+                $ store.mas_nsfw.save_fetish_to_persistent("Anal", ["IAM", "MBH", "MXM", "FAM", "IAP", "PBH", "FXP", "FAP"], ["U"])
+            else:
+                $ store.mas_nsfw.save_fetish_to_persistent("Anal", ["IAP", "PBH", "FXP", "FAP"], ["IAM", "MBH", "MXM", "FAM"])
+
+            if store.persistent.gender == "M":
+                m 1eua "Really?"
+                m 1eua "I mean, I'm glad you're open about this with me."
+                m 1eua "I'm just surprised that you're into it."
+                m 1eua "I'm not sure if I'll be any good at it, but if it means I can make you feel good then I'll try my best."
+            else:
+                m 1eua "Mmm~ I bet it does."
+                m 1eua "I'll be sure to remember that for later."
+                m 1eua "I'll make you feel so good, [player]."
+
+        "No, I'm not into that.":
+            if is_into_anal = True:
+                $ store.mas_nsfw.save_fetish_to_persistent("Anal", ["IAM", "MBH", "MXM", "FAM"], ["IAP", "PBH", "FXP", "FAP"])
+            else:
+                $ store.mas_nsfw.save_fetish_to_persistent("Anal", ["U"], ["IAM", "MBH", "MXM", "FAM", "IAP", "PBH", "FXP", "FAP"])
+
+            m 1eua "That's fair enough, [player]."
+            m 1eua "I'm not sure if I'd be any good at it anyway."
+            m 1eua "I'm just glad you're open about this with me."
+
+    m 1eua "Thankyou for talking about this with me."
+    m 1eua "I know talking about this sort of thing isn't comfortable for everyone."
+    m 1eua "But I want to experience and learn as much about sex as I can with you."
+    m 1eua "You mean the world to me, [player]. I love you, and I would never judge you."
 
     return "love"
 

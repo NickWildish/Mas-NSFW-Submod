@@ -297,10 +297,12 @@ init 6 python:
     )
 
 label nsfw_fetish_cheesiness:
-    m 1eua "Yeah? What about it?" #TODO: Complete posing
+    m 1eua "Ahaha~ You noticed, huh?" # TODO: Add a section where we check if the player sexted before and have separate dialogue
+    m 1eua "It's just my attempts at keeping things a little lighthearted."
+    m 1eua "What do you think of it?" #TODO: Complete posing
     $ _history_list.pop()
     menu:
-        m "Yeah? what about it?{fast}"
+        m "What do you think of it?{fast}"
 
         "I'm not a big fan...":
             $ persistent._nsfw_pm_cheesiness = False

@@ -126,7 +126,7 @@ init 6 python:
         code="NFH"
     )
 
-label nsfw_fetish_bondage:
+label nsfw_fetish_bondage: # TODO: Finish posing
     m 1eua "You want to talk about bondage?"
     m 1eua "Sure! I'd love to get to know your opinion on it."
     m 1eua "Have you heard of it before?"
@@ -298,7 +298,7 @@ init 6 python:
 
 label nsfw_fetish_cheesiness:
     m 1eua "Ahaha~ You noticed, huh?" # TODO: Add a section where we check if the player sexted before and have separate dialogue
-    m 1eua "It's just my attempts at keeping things a little lighthearted."
+    m 1eua "It's just my attempt at keeping things a little lighthearted."
     m 1eua "What do you think of it?" #TODO: Complete posing
     $ _history_list.pop()
     menu:

@@ -333,7 +333,7 @@ init 6 python:
         code="NFH"
     )
 
-label nsfw_fetish_anal:
+label nsfw_fetish_anal: # TODO: Finish posing
     m 2eud "Anal..."
     m 2rua "It's a pretty common fetish, have you heard about it before?"
     $ _history_list.pop()

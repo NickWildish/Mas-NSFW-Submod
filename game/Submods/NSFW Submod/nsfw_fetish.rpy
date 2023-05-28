@@ -503,41 +503,58 @@ init 6 python:
     )
 
 label nsfw_fetish_feet: #TODO: Finish feet topic
-    m 1eua "You want to talk about feet?"
-    m 1eua "Okay, [player]!"
-    m 1eua "Is feet something you are into?"
-
+    m 1eua "Oh, you want to talk about feet?" # TODO: Add posing
+    m 1eua "This can be one of the more 'notorious' fetishes where people will either hate it or love it."
+    m 1eua "I'm sure you can already get an idea of what a foot fetish is..."
+    m 1eua "But if not I can explain it to you if you'd like."
     $ _history_list.pop()
 
     menu:
-        m "Is feet something you are into?{fast}"
+        m "But if not I can explain it to you if you'd like.{fast}"
 
-        "Yes":
-            $ persistent._nsfw_pm_feet = True
-            m 1eua "Okay, [player]!"
-            m 1eua "Some people have a preference on feet."
-            m 1eua "Like, they don't like their own feet but they like other people's feet."
-            m 1eua "Do you have a preference, [player]?"
+        "Yes, please.":
+            m 1eua "Okay, so obviously a foot fetish is when someone gets turned on by feet."
+            m 1eua "This can mean they enjoy touching feet, kissing feet, or even licking them!"
+            m 1eua "Ahaha~ It can sound a bit strange...especially if the feet in question aren't clean."
+            m 1eua "But some people prefer socks or stockings over bare feet, or shoes even."
+            m 1eua "Personally I think it's a pretty harmless fetish."
+            m 1eua "I mean, it's really just about liking a particular body part, right?"
+            m 1eua "Not something I'm into personally, but I wouldn't hold it against anyone if they were."
+            m 1eua "Speaking of, [player]..."
 
-            $ _history_list.pop()
+        "No, thanks.":
+            m 1eua "Okay, that's fine."
 
-            menu:
-                m "Do you have a preference, [player?]{fast}"
+    m 1eua "Given that you brought it up, are you...into feet?"
+    $ _history_list.pop()
+    menu:
 
-                "I prefer other's feet":
-                    $ store.mas_nsfw.save_fetish_to_persistent("Feet", ["MFT"], ["PFT"])
-                    m 1eua "Okay, [player]!"
+    "Yes, I am.": # TODO: Find out if people are interested in a "player's feet only" option
+        $ persistent._nsfw_pm_feet = True
+        $ store.mas_nsfw.save_fetish_to_persistent("Feet", ["MFT", "PFT"], ["U"])
+        m 1eua "Really?"
+        m 1eua "That's really interesting, [player]!"
+        m 1eua "Not to be weird about it, but like, what do you like about them?"
+        m 1eua "Do you like them bare, or do you like socks or stockings?"
+        m 1eua "Are you into licking them, or just touching them?"
+        m 1eua "Oh my goodness, I have so many questions."
+        m 1eua "I'm sorry, I'm just really curious."
+        m 1eua "I'll be sure to pester you about it later, ahaha~"
+        m 1eua "It might be a little weird for me at first, but if it means it will please you then..."
+        m 1eua "I don't mind if you want to play with my feet."
+        if store.persistent.gender == "M":
+            m 1eua "Maybe if you're lucky, I'll even rub you up and down with it. You know where~"
+            m 1eua "Or maybe I'll just let you lick them~"
+        else:
+            m 1eua "Maybe if you're lucky, I'll even let you lick them~"
+        m 1eua "Ahaha~ That one I'll definitely need time to get used to."
 
-                "I prefer my own feet":
-                    $ store.mas_nsfw.save_fetish_to_persistent("Feet", ["PFT"], ["MFT"])
-                    m 1eua "Okay, [player]!"
+    "No, I'm not.":
+        $ persistent._nsfw_pm_feet = False
+        m 1eua "That's okay, [player]!"
+        m 1eua "I'm not into it either, so we don't have to worry about it."
+        m 1eua "I'm sure there are plenty of other things for us to enjoy together."
 
-                "I like both":
-                    $ store.mas_nsfw.save_fetish_to_persistent("Feet", ["MFT", "PFT"], ["U"])
-                    m 1eua "Okay, [player]!"
+    m 1eua "But no matter what you're into, I'll always love you, [player]."
 
-        "No":
-            $ persistent._nsfw_pm_feet = False
-            m 1eua "Okay, [player]!"
-
-    return
+    return "love"

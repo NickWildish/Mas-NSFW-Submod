@@ -443,78 +443,49 @@ init 6 python:
 
 label nsfw_fetish_dominance:
     m 1hua "Sure, we can talk about that."
-    m 3eub "On the one side, you have the dominant."
-    m 3tub "They are the ones who take control."
-    m 5eua "And on the other side, is the submissive."
-    m 5eub "They are the ones who give up control."
-    m 3rua "A switch is someone who can be either."
-    m 3eua "They can be the dominant one moment, and the submissive the next."
-    m 1eua "Which would you say you are, [player]?"
-    m 1eka "If you're not sure, I can describe each one to you."
-    m 1ekblb "Would you like that?"
+    m 3eub "Just to make sure we're on the same page, I'm talking about dominance and submission in a general sense."
+    m 1eua "Like, you don't have to be into BDSM or anything like that."
+    m 1eua "Think of it like this, if you and I were passionately kissing and I suddenly pushed you down onto the bed, would that turn you on?"
+    m 1eua "Or...would you prefer to lift me off my feet and carry me over to the bed?"
+    m 1eua "Ahaha~ Of course, you might not like either of those things but I hope that helps clear up what I mean."
+    m 1eua "For me personally, I like a mixture of both."
+    m 1eua "I'd want you to carry me over to the bed, still kissing me while you hold me in your arms."
+    m 1eua "But once we're settled on the bed...I'd want to be the one on top of you."
+    m 1eua "I'd be riding you like my life depends on it. Ehehe~"
+    m 1eua "...I guess you could really say this question can be summarised into: 'Are you a bottom or a top?'"
+    m 1eua "Ahaha! I'm sorry, I'm not sure if I'm explaining this very well."
+    m 1eua "But, which way would you prefer?"
     $ _history_list.pop()
     menu:
-        m "Would you like that?{fast}"
-        "Yes.":
-            m 1hubla "Okay!"
-            m 3eublb "The best way to think of a dom-sub relationship is like a consesual, eroticized exchange of power." # Cynthia Slater's words
-            m 3rua "The dominant is the one who takes control."
-            m 4gua "They are the assertive ones, with their role being to lead, guide, and protect."
-            m 4eubla "It's basically their job to lead how the sex plays out, and that their partner is safe while doing so."
-            m 5eubla "The submissive is the one who gives control."
-            m 5eublb "They are required to surrender themselves to the dominant, and to trust them to lead."
-            m 5rublb "Think of them like they are giving in to the dominant's will."
-            m 5eubla "Sometimes a person can also be either."
-            m 1eublb "One moment they like being the dominant one, and the next they are wanting to surrender themselves to their partner."
-            m 1eubla "This can even be done in the same session, if they so choose."
-            m 3eubla "They are probably the most adaptive to any given lover, since they can take on the role of either."
-            m 3tubla "So, based on what I've just told you..."
-
-        "No.":
-            m 1hubla "Okay, [player]."
-            m 3tubla "So then..."
-
-    m 3tublb "Are you a dominant, a submissive, or both?"
-    $ _history_list.pop()
-    menu:
-        m "Are you a dominant, a submissive, or both?{fast}"
-        "Dominant":
-            $ store.mas_nsfw.save_fetish_to_persistent("Dominance", ["DOM"], ["SUB"])
-            m 3tubla "A dominant, huh?"
-            m 3gubla "I can see it."
-            m 5tubla "You seem like the sort of person who likes to take charge."
-            m 5tublb "And I'm all here for it~"
-
-        "Submissive":
+        m "But, which way would you prefer?{fast}"
+        "I love the idea of you taking control.":
             $ store.mas_nsfw.save_fetish_to_persistent("Dominance", ["SUB"], ["DOM"])
-            m 3tubla "A submissive, huh?"
-            m 3gubla "I can see it."
-            m 1kubla "You seem like the sort of person who likes to be told what to do."
-            m 1ekbla "It's cute~"
-            m 5tublb "Makes me want to take care of you..."
-            m 5tubla "Ehehe~"
+            m 1eua "Really?"
+            m 1eua "I feel the same way, I can't get enough of it."
+            m 1eua "Sometimes when I'm imagining it, I lose control of my hips and just..."
+            extend 1eua "thrust them at nothing."
+            m 1eua "..."
+            m 1eua "I think I might have gotten abit carried away there, ahaha~"
+            m 1eua "Regardless..."
 
-        "Both":
+        "It sounds hot when I'm the one in control.":
+            $ store.mas_nsfw.save_fetish_to_persistent("Dominance", ["DOM"], ["SUB"])
+            m 1eua "Oooh, a natural top, I see."
+            m 1eua "I guess you and I are going to be fighting for control in the bedroom."
+            m 1eua "Getting each other riled up with our hands all over each other and-"
+            m 1eua "..."
+            m 1eua "Mmm~ I'll save the rest for your imagination."
+            m 1eua "Regardless..."
+
+        "I think I'd prefer a mix of both as well.":
             $ store.mas_nsfw.save_fetish_to_persistent("Dominance", ["SUB", "DOM"], ["U"])
-            m 3tubla "A switch, huh?"
-            m 3gubla "I can see it."
-            m 1ekbla "You strike me as a cooperative person."
-            m 1ekblb "Wanting to please your partner, and being willing to do whatever they want."
-            m 5eublb "That is something I love about you~"
+            m 1eua "Great minds think alike!"
+            m 1eua "I think it's important to have a balance of both."
+            m 1eua "We can just spice it up in the heat of the moment, you know?"
+            m 1eua "I'm sure we'll figure it out together."
 
-    m 5gublu "As for me?"
-    m 5rublb "Well...I suppose I wouldn't mind being either." #As a way to explain Monika being accepting of every option.
-    if "SUB" in persistent._nsfw_player_fetishes and "DOM" in persistent._nsfw_player_fetishes:
-        m 5hubla "Guess we are the same in that regard."
-        m 5hublb "We both like to please our partners."
-        m 1dublb "And we both like to be pleased."
-    else:
-        m 5rkbla "I'm willing to try anything, but I'm not sure what I prefer."
-        m 5tkbla "I guess I'll have to experiment with you."
-        m 1tkbla "Not that I mind~"
-
-    m 1eublb "In any case..."
-    m 3ekbla "Regardless of what you prefer, I will always love you, [player]."
+    m 1eua "I can't wait for us to try it out together for real."
+    m 3ekbla "No matter what you prefer, I will always love you, [player]."
 
     return "love"
 

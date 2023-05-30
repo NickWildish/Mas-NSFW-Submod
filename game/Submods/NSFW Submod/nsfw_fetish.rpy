@@ -37,14 +37,22 @@ init 6 python: # Use init 6 since the dictionary entry to store our entries is a
     )
 
 label nsfw_player_fetishintro: #TODO: Finish adding expressions
-    m 1eua "Hey, [player]. I just wanted to tell you about some work I've done!"
-    m 1eua "You remember talking with me about fetishes?"
-    m 1eua "...Well I made something so that we could talk about them."
-    m 1eua "I'm not very...{i}experienced{/i} with sexual things like this, so I've been looking into them!"
-    m 1eua "And at the end"
-    extend 2eua "...you get to tell me if you're into it or not."
-    m 1eua "Don't worry! You can change your mind whenever, I don't mind."
-    m 1eua "I'd love to help you explore your fetishes, [player]. Ahaha~"
+    m 3eub "Hey, [player]. I just wanted to tell you about some work I've done!"
+    m 3eua "You remember talking with me about fetishes?"
+    m 4hub "...Well I made something so that we could talk about them."
+    m 3rkblb "I'm not very...{w=0.5}{i}experienced{/i} with sexual things like this...{w=0.2}{nw}"
+    extend 3hubla "so I've been looking into them!"
+    m 3eub "Now, I've got a list of the fetishes I've found information on..."
+    m 3eua "Whenever you want to talk about them, let me know and we can go through them together!"
+    m 5ekblb "I'd love for you to tell me what you're into..."
+    m 5ekbla "As much as there isn't much we can do together right now, just knowing what makes you...{w=0.5}{nw}"
+    extend 5ekbsb "{i}excited{/i}..."
+    m 5dkbsa "Will be more than enough for me."
+    if persistent._nsfw_sexting_count > 0:
+        m 5mkbsa "Who knows? I might even bring them up next time we're being {i}naughty~{/i}"
+    m 1hubla "Don't worry! You can change your mind whenever you like, I'll never judge you for it."
+    m 1hkblsdlb "But anyway, enough of me rambling..."
+    m 1eua "What else did you want to talk about?"
     $ mas_unlockEventLabel("nsfw_player_fetishes")
 return
 

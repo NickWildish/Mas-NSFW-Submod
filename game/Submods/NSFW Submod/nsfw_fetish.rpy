@@ -528,32 +528,34 @@ label nsfw_fetish_feet: #TODO: Finish feet topic
     m 1eua "Given that you brought it up, are you...into feet?"
     $ _history_list.pop()
     menu:
+        m "Given that you brought it up, are you...into feet?{fast}" # TODO: Find out if people are interested in a "player's feet only" option
 
-    "Yes, I am.": # TODO: Find out if people are interested in a "player's feet only" option
-        $ persistent._nsfw_pm_feet = True
-        $ store.mas_nsfw.save_fetish_to_persistent("Feet", ["MFT", "PFT"], ["U"])
-        m 1eua "Really?"
-        m 1eua "That's really interesting, [player]!"
-        m 1eua "Not to be weird about it, but like, what do you like about them?"
-        m 1eua "Do you like them bare, or do you like socks or stockings?"
-        m 1eua "Are you into licking them, or just touching them?"
-        m 1eua "Oh my goodness, I have so many questions."
-        m 1eua "I'm sorry, I'm just really curious."
-        m 1eua "I'll be sure to pester you about it later, ahaha~"
-        m 1eua "It might be a little weird for me at first, but if it means it will please you then..."
-        m 1eua "I don't mind if you want to play with my feet."
-        if store.persistent.gender == "M":
-            m 1eua "Maybe if you're lucky, I'll even rub you up and down with it. You know where~"
-            m 1eua "Or maybe I'll just let you lick them~"
-        else:
-            m 1eua "Maybe if you're lucky, I'll even let you lick them~"
-        m 1eua "Ahaha~ That one I'll definitely need time to get used to."
+        "Yes, I am.":
+            $ persistent._nsfw_pm_feet = True
+            $ store.mas_nsfw.save_fetish_to_persistent("Feet", ["MFT", "PFT"], ["U"])
+            m 1eua "Really?"
+            m 1eua "That's really interesting, [player]!"
+            m 1eua "Not to be weird about it, but like, what do you like about them?"
+            m 1eua "Do you like them bare, or do you like socks or stockings?"
+            m 1eua "Are you into licking them, or just touching them?"
+            m 1eua "Oh my goodness, I have so many questions."
+            m 1eua "I'm sorry, I'm just really curious!"
+            m 1eua "I'll be sure to pester you about it later, ahaha~"
+            m 1eua "It might be a little weird for me at first, but if it means it will please you then..."
+            m 1eua "I don't mind if you want to play with my feet."
+            if store.persistent.gender == "M":
+                m 1eua "Maybe if you're lucky, I'll even rub you up and down with them. You know where~"
+                m 1eua "Or maybe I'll just let you lick them~"
+            else:
+                m 1eua "Maybe if you're lucky, I'll even let you lick them~"
+            m 1eua "Ahaha! I'll definitely need time to get used to that, I think."
 
-    "No, I'm not.":
-        $ persistent._nsfw_pm_feet = False
-        m 1eua "That's okay, [player]!"
-        m 1eua "I'm not into it either, so we don't have to worry about it."
-        m 1eua "I'm sure there are plenty of other things for us to enjoy together."
+        "No, I'm not.":
+            $ persistent._nsfw_pm_feet = False
+            $ store.mas_nsfw.save_fetish_to_persistent("Feet", ["U"], ["MFT", "PFT"])
+            m 1eua "That's okay, [player]!"
+            m 1eua "I'm not into it either, so we don't have to worry about it."
+            m 1eua "I'm sure there are plenty of other things for us to enjoy together."
 
     m 1eua "But no matter what you're into, I'll always love you, [player]."
 

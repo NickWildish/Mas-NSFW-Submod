@@ -304,7 +304,7 @@ init 6 python:
             eventlabel="nsfw_fetish_cheesiness",
             prompt="About your cheesiness...",
             conditional="renpy.seen_label('nsfw_sexting_finale')",
-            action=EV_ACT_UNLOCK,
+            action=EV_ACT_UNLOCK
         ),
         code="NFH"
     )

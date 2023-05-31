@@ -347,16 +347,16 @@ init 6 python:
     )
 
 label nsfw_fetish_anal: # TODO: Finish posing
-    m 2eud "Anal..."
-    m 2rua "It's a pretty common fetish, have you heard about it before?"
+    m 1eud "Anal..."
+    m 3euc "It's a pretty common fetish, have you heard about it before?"
     $ _history_list.pop()
     menu:
         m "It's a pretty common fetish, have you heard about it before?{fast}"
 
         "Yes, I have.":
-            m 1eua "I thought so. It's talked about alot online."
-            m 1eua "..."
-            m 1eua "So..."
+            m 3eua "I thought so. It's talked about alot online."
+            m 2gkbla "..."
+            m 2gkblb "So..."
 
         "No, I haven't.":
             m 1eua "Really?"
@@ -369,43 +369,47 @@ label nsfw_fetish_anal: # TODO: Finish posing
                 m 1eua "Which, for us would mean your dick getting some 'moni butt'."
                 m 1eua "Ahaha~ Sorry I couldn't resist."
                 m 1eua "I've read mixed experiences, but most women who enjoy it spoke very highly of it."
-                m 1eua "But what do you think, [player]?"
+                m 2gkblb "But what do you think, [player]?"
             else:
                 extend 1eua "or you could have your partner come and help you~"
-                m 1eua "I haven't tried it before, but if it's something you're into then I'd love to try it with you."
+                m 2gkblb "I haven't tried it before, but if it's something you're into then I'd love to try it with you."
 
     if store.persistent._nsfw_genitalia == "P":
         $ question = "Does the idea of doing it in my butt make you feel good?"
     else:
         $ question = "Does the idea of playing with my butt turn you on?"
 
-    m 1eua "[question]"
+    m 2tkbla "[question]"
     $ _history_list.pop()
     menu:
         m "[question]{fast}"
 
         "It does. I wanna spank you for being so naughty.":
             $ is_into_anal = True
-            m 1eua "S-spank me?!"
-            m 1eua "Oh~ [player]..."
-            m 1eua "Don't say stuff like that out of the blue."
-            m 1eua "Otherwise I'm going to get too turned on for my own good."
+            m 2wubso "S-spank me?!"
+            m 2tkbso "Oh~ [player]..."
+            m 3hkbsb "Don't say stuff like that out of the blue."
+            m 3gkbsa "Otherwise I'm going to get too turned on for my own good."
             if store.persistent._nsfw_genitalia == "P":
-                m 1eua "Mmm~ I can just picture you pounding into me from behind."
-                m 1eua "I bet it would feel amazing!"
+                m 5gkbsa "Mmm~ I can just picture you pounding into me from behind."
+                m 5gkbsb "I bet it would feel amazing!"
             else:
-                m 1eua "If you do that, I'm going to have to give you a spanking of my own~"
+                m 5tubsb "If you do that, I'm going to have to give you a spanking of my own~"
 
-        "No, I don't think giving you anal does anything for me.":
+        "No, I don't think anal does anything for me.":
             $ is_into_anal = False
-            m 1eua "That's okay! It's not for everyone."
-            m 1eua "There are plenty of other things we can do together."
-            m 1eua "So long as you're comfortable, that's all that matters to me."
+            m 1ekblb "That's okay! It's not for everyone."
+            m 3ekblb "There are plenty of other things we can do together."
+            m 3ekbla "So long as you're comfortable, that's all that matters to me."
 
-    m 1eua "What about you?"
+    if is_into_anal:
+        m 1tkbsb "What about...you?"
+    else:
+        m 1rkbla "What about...you?"
+
     if store.persistent.gender == "M":
-        m 1eua "I know some guys aren't into this at all, but I think it's better that we're open to asking questions."
-    m 1eua "Do you like the idea of me...playing with your butt?"
+        m 3rkbsb "I know some guys aren't into this at all, but I think it's better that we're open to asking questions."
+    m 3ekbsa "Do you like the idea of me...playing with {i}your{/i} butt?"
     $ _history_list.pop()
     menu:
         m "Do you like the idea of me...playing with your butt?{fast}"
@@ -417,10 +421,10 @@ label nsfw_fetish_anal: # TODO: Finish posing
                 $ store.mas_nsfw.save_fetish_to_persistent("Anal", ["IAP", "PBH", "FXP", "FAP"], ["IAM", "MBH", "MXM", "FAM"])
 
             if store.persistent.gender == "M":
-                m 1eua "Really?"
-                m 1eua "I mean, I'm glad you're open about this with me."
-                m 1eua "I'm just surprised that you're into it."
-                m 1eua "I'm not sure if I'll be any good at it, but if it means I can make you feel good then I'll try my best."
+                m 1wubsd "Really?"
+                m 1rubsc "I mean, I'm glad you're open about this with me."
+                m 3rkbsb "I'm just surprised that you're into it."
+                m 3ekbsb "I'm not sure if I'll be any good at it, but if it means I can make you feel good then I'll try my best."
             else:
                 m 1eua "Mmm~ I bet it does."
                 m 1eua "I'll be sure to remember that for later."
@@ -434,10 +438,10 @@ label nsfw_fetish_anal: # TODO: Finish posing
 
             m 1eua "That's fair enough, [player]."
             m 1eua "I'm not sure if I'd be any good at it anyway."
-            m 1eua "I'm just glad you're open about this with me."
+            m 1eua "But anyway..."
 
     m 1eua "Thankyou for talking about this with me."
-    m 1eua "I know talking about this sort of thing isn't comfortable for everyone."
+    m 1eua "I know this sort of thing isn't comfortable for everyone."
     m 1eua "But I want to experience and learn as much about sex as I can with you."
     m 1eua "You mean the world to me, [player]. I love you, and I would never judge you."
 

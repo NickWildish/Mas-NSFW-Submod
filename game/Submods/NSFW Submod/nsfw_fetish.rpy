@@ -303,13 +303,14 @@ init 6 python:
             persistent._nsfw_fetish_database,
             eventlabel="nsfw_fetish_cheesiness",
             prompt="About your cheesiness...",
-            unlocked=True
+            conditional="renpy.seen_label('nsfw_sexting_finale')",
+            action=EV_ACT_UNLOCK,
         ),
         code="NFH"
     )
 
 label nsfw_fetish_cheesiness:
-    m 1eua "Ahaha~ You noticed, huh?" # TODO: Add a section where we check if the player sexted before and have separate dialogue
+    m 1eua "Ahaha~ You noticed, huh?"
     m 1eua "It's just my attempt at keeping things a little lighthearted."
     m 1eua "What do you think of it?" #TODO: Complete posing
     $ _history_list.pop()

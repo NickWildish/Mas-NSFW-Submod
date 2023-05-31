@@ -271,7 +271,7 @@ label nsfw_fetish_hand_holding:
             m 2eubld "That's a pretty big jump in our relationship..."
             m 2rublc "But I suppose I'm okay with it as long as it's with you."
 
-        "No":
+        "No.":
             $ persistent._nsfw_pm_hand_holding = False
             $ store.mas_nsfw.save_fetish_to_persistent("Hand Holding", ["U"], ["FHH"])
             m 2ekblb "I completely agree, [player]. {nw}"

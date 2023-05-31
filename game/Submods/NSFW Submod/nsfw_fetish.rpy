@@ -310,9 +310,9 @@ init 6 python:
     )
 
 label nsfw_fetish_cheesiness:
-    m 1eua "Ahaha~ You noticed, huh?"
-    m 1eua "It's just my attempt at keeping things a little lighthearted."
-    m 1eua "What do you think of it?" #TODO: Complete posing
+    m 1hksdlb "Ahaha~ You noticed, huh?"
+    m 1hua "It's just my attempt at keeping things a little lighthearted."
+    m 3eka "What do you think of it?"
     $ _history_list.pop()
     menu:
         m "What do you think of it?{fast}"
@@ -320,16 +320,16 @@ label nsfw_fetish_cheesiness:
         "I'm not a big fan...":
             $ persistent._nsfw_pm_cheesiness = False
             $ store.mas_nsfw.save_fetish_to_persistent("Cheesiness", ["U"], ["CHE"])
-            m 1eua "Oh, I'm sorry."
-            m 1eua "I might have gotten a bit carried away. Ahaha~"
-            m 1eua "I'll try to tone it down a bit."
+            m 1ekc "Oh, I'm sorry."
+            m 1hkb "I might have gotten a bit carried away. Ahaha~"
+            m 1eka "I'll try to tone it down a bit."
 
         "I love it!":
             $ persistent._nsfw_pm_cheesiness = True
             $ store.mas_nsfw.save_fetish_to_persistent("Cheesiness", ["CHE"], ["U"])
-            m 1eua "Ahaha~"
-            m 1eua "I'm glad you enjoy keeping things lighthearted, [player]."
-            m 1eua "I'll try to keep it up then."
+            m 1hub "Ahaha~"
+            m 1eub "I'm glad you enjoy keeping things lighthearted, [player]."
+            m 3hua "I'll try to keep it up then."
 
     return
 

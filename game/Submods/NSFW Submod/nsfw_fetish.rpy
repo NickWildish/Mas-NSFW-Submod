@@ -36,7 +36,7 @@ init 6 python: # Use init 6 since the dictionary entry to store our entries is a
         )
     )
 
-label nsfw_player_fetishintro: #TODO: Finish adding expressions
+label nsfw_player_fetishintro:
     m 3eub "Hey, [player]. I just wanted to tell you about some work I've done!"
     m 3eua "You remember talking with me about fetishes?"
     m 4hub "...Well I made something so that we could talk about them."

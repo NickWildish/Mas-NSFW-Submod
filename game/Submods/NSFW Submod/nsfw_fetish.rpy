@@ -346,7 +346,7 @@ init 6 python:
         code="NFH"
     )
 
-label nsfw_fetish_anal: # TODO: Finish posing
+label nsfw_fetish_anal:
     m 1eud "Anal..."
     m 3euc "It's a pretty common fetish, have you heard about it before?"
     $ _history_list.pop()
@@ -359,16 +359,16 @@ label nsfw_fetish_anal: # TODO: Finish posing
             m 2gkblb "So..."
 
         "No, I haven't.":
-            m 1eua "Really?"
-            m 1eua "Well, basically anal is a fetish where people enjoy the stimulation of the anus."
-            m 1eua "Funny enough, I learned this interesting fact about the human prostate."
-            m 1eua "Apparently if it's stimulated during sex, it can lead to a more intense orgasm."
-            m 1eua "You can use your fingers or toys..."
+            m 3wud "Really?"
+            m 4rua "Well, basically anal is a fetish where people enjoy the stimulation of the anus."
+            m 4hublb "Funny enough, I learned this interesting fact about the human prostate."
+            m 3eublb "Apparently if it's stimulated during sex, it can lead to a more intense orgasm."
+            m 3rubla "You can use your fingers, or toys...{w=0.5}{nw}"
             if store.persistent._nsfw_genitalia == "P":
-                extend 1eua "but often when people talk about anal they mean anal sex."
-                m 1eua "Which, for us would mean your dick getting some 'moni butt'."
-                m 1eua "Ahaha~ Sorry I couldn't resist."
-                m 1eua "I've read mixed experiences, but most women who enjoy it spoke very highly of it."
+                extend 1ekbla "but often when people talk about anal they mean anal sex."
+                m 1tubsa "Which, for us would mean your dick getting some 'moni butt'."
+                m 2hkbssdlb "Ahaha~ Sorry I couldn't resist."
+                m 2dkblsdla "I've read mixed experiences, but most women who enjoy it spoke very highly of it."
                 m 2gkblb "But what do you think, [player]?"
             else:
                 extend 1eua "or you could have your partner come and help you~"
@@ -426,9 +426,9 @@ label nsfw_fetish_anal: # TODO: Finish posing
                 m 3rkbsb "I'm just surprised that you're into it."
                 m 3ekbsb "I'm not sure if I'll be any good at it, but if it means I can make you feel good then I'll try my best."
             else:
-                m 1eua "Mmm~ I bet it does."
-                m 1eua "I'll be sure to remember that for later."
-                m 1eua "I'll make you feel so good, [player]."
+                m 3tubsa "Mmm~ I bet it does."
+                m 3gubsb "I'll be sure to remember that for later."
+                m 3tubsa "I'll make you feel so good, [player]."
 
         "No, I'm not into that.":
             if is_into_anal = True:
@@ -436,14 +436,15 @@ label nsfw_fetish_anal: # TODO: Finish posing
             else:
                 $ store.mas_nsfw.save_fetish_to_persistent("Anal", ["U"], ["IAM", "MBH", "MXM", "FAM", "IAP", "PBH", "FXP", "FAP"])
 
-            m 1eua "That's fair enough, [player]."
-            m 1eua "I'm not sure if I'd be any good at it anyway."
-            m 1eua "But anyway..."
+            m 1ekbsa "That's fair enough, [player]."
+            m 2hkbsb "I'm not sure if I'd be any good at it anyway."
+            m 2lkbsa "But, regardless..."
 
-    m 1eua "Thankyou for talking about this with me."
-    m 1eua "I know this sort of thing isn't comfortable for everyone."
-    m 1eua "But I want to experience and learn as much about sex as I can with you."
-    m 1eua "You mean the world to me, [player]. I love you, and I would never judge you."
+    m 1ekbla "Thankyou for talking about this with me."
+    m 3ekblb "I know this sort of thing isn't comfortable for everyone."
+    m 3hubla "But I want to experience and learn as much about sex as I can with you."
+    m 1ekbla "You mean the world to me, [player]."
+    m 1ekblb "I love you, and I would never judge you."
 
     return "love"
 

@@ -461,48 +461,48 @@ init 6 python:
 
 label nsfw_fetish_dominance:
     m 1hua "Sure, we can talk about that."
-    m 3eub "Just to make sure we're on the same page, I'm talking about dominance and submission in a general sense."
-    m 1eua "Like, you don't have to be into BDSM or anything like that."
-    m 1eua "Think of it like this, if you and I were passionately kissing and I suddenly pushed you down onto the bed, would that turn you on?"
-    m 1eua "Or...would you prefer to lift me off my feet and carry me over to the bed?"
-    m 1eua "Ahaha~ Of course, you might not like either of those things but I hope that helps clear up what I mean."
-    m 1eua "For me personally, I like a mixture of both."
-    m 1eua "I'd want you to carry me over to the bed, still kissing me while you hold me in your arms."
-    m 1eua "But once we're settled on the bed...I'd want to be the one on top of you."
-    m 1eua "I'd be riding you like my life depends on it. Ehehe~"
-    m 1eua "...I guess you could really say this question can be summarised into: 'Are you a bottom or a top?'"
-    m 1eua "Ahaha! I'm sorry, I'm not sure if I'm explaining this very well."
-    m 1eua "But, which way would you prefer?"
+    m 3ekb "Just to make sure we're on the same page, I'm talking about dominance and submission in a general sense."
+    m 4hkb "Like, you don't have to be into BDSM or anything like that."
+    m 4tua "Think of it like this...{w=0.5}if you and I were passionately kissing and I suddenly pushed you down onto the bed, would that turn you on?"
+    m 5tua "Or...would you prefer to lift me off my feet and carry me over to the bed?"
+    m 5hkb "Ahaha~ Of course, you might not like either of those things but I hope that helps clear up what I mean."
+    m 5gka "For me personally, I like a mixture of both."
+    m 3gkbla "I'd want you to carry me over to the bed, still kissing me while you hold me in your arms."
+    m 3gublb "But once we're settled on the bed...I'd want to be the one on top of you."
+    m 1tubsb "I'd be riding you like my life depends on it. Ehehe~"
+    m 1rtbsc "...I guess you could really say this question can be summarised into: 'Are you a bottom or a top?'"
+    m 2hkbssdlb "Ahaha! I'm sorry, I'm not sure if I'm explaining this very well."
+    m 2ekbla "But, which way would you prefer?"
     $ _history_list.pop()
     menu:
         m "But, which way would you prefer?{fast}"
         "I love the idea of you taking control.":
             $ store.mas_nsfw.save_fetish_to_persistent("Dominance", ["SUB"], ["DOM"])
-            m 1eua "Really?"
-            m 1eua "I feel the same way, I can't get enough of it."
-            m 1eua "Sometimes when I'm imagining it, I lose control of my hips and just..."
-            extend 1eua "thrust them at nothing."
-            m 1eua "..."
-            m 1eua "I think I might have gotten abit carried away there, ahaha~"
-            m 1eua "Regardless..."
+            m 2sublb "Really?"
+            m 1hublb "I feel the same way, I can't get enough of it."
+            m 3rkblb "Sometimes when I'm imagining it, I lose control of my hips and just..."
+            extend 3tkbsb "thrust them at nothing."
+            m 1wubsd "..."
+            m 2hkbssdlb "I think I might have gotten abit carried away there, ahaha~"
+            m 2dkbla "Regardless..."
 
         "It sounds hot when I'm the one in control.":
             $ store.mas_nsfw.save_fetish_to_persistent("Dominance", ["DOM"], ["SUB"])
-            m 1eua "Oooh, a natural top, I see."
-            m 1eua "I guess you and I are going to be fighting for control in the bedroom."
-            m 1eua "Getting each other riled up with our hands all over each other and-"
-            m 1eua "..."
-            m 1eua "Mmm~ I'll save the rest for your imagination."
-            m 1eua "Regardless..."
+            m 2tublb "Oooh, a natural top, I see."
+            m 1tubla "I guess you and I are going to be fighting for control in the bedroom."
+            m 3tkbsb "Getting each other riled up with our hands all over each other and-"
+            m 1mkbsa "..."
+            m 1tubsa "Mmm~ I'll save the rest for your imagination."
+            m 2ekbla "Regardless..."
 
         "I think I'd prefer a mix of both as well.":
             $ store.mas_nsfw.save_fetish_to_persistent("Dominance", ["SUB", "DOM"], ["U"])
-            m 1eua "Great minds think alike!"
-            m 1eua "I think it's important to have a balance of both."
-            m 1eua "We can just spice it up in the heat of the moment, you know?"
-            m 1eua "I'm sure we'll figure it out together."
+            m 3hublb "Great minds think alike!"
+            m 3rubla "I think it's important to have a balance of both."
+            m 2sublb "We can just spice it up in the heat of the moment, you know?"
+            m 2eubla "I'm sure we'll figure it out together."
 
-    m 1eua "I can't wait for us to try it out together for real."
+    m 2ekblb "I can't wait for us to try it out together for real."
     m 3ekbla "No matter what you prefer, I will always love you, [player]."
 
     return "love"

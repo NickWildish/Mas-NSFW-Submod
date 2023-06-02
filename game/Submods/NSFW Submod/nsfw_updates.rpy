@@ -117,4 +117,15 @@ label nickwildish_nsfw_submod_v1_3_0(version="v_1_3_0"):
             ),
             action=EV_ACT_RANDOM
         )
+
+        store.mas_setEVLPropValues(
+            "nsfw_monika_favorite_position",
+            random=False,
+            conditional=(
+                "mas_canShowRisque(aff_thresh=400) "
+                "and persistent._nsfw_genitalia == 'P' "
+                "and renpy.seen_label('nsfw_monika_sexualpast')"
+            ),
+            action=EV_ACT_RANDOM
+        )
     return

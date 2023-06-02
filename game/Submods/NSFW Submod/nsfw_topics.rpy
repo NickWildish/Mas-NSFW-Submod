@@ -291,7 +291,8 @@ init 5 python:
             prompt="[player]'s favorite position",
             conditional=(
                 "mas_canShowRisque(aff_thresh=400) "
-                "and persistent._nsfw_genitalia == 'P'" # Need to add a version for women
+                "and persistent._nsfw_genitalia == 'P' " # Need to add a version for women
+                "and renpy.seen_label('nsfw_monika_sexualpast')"
                 ),
             action=EV_ACT_RANDOM,
             aff_range=(mas_aff.ENAMORED, None)
@@ -303,9 +304,8 @@ label nsfw_monika_favorite_position:
     m 3rublb "I've been meaning to ask you about this for some time..."
     m 3rubssdla "..."
     m 2hkbssdlb "Oh gosh..."
-    if mas_getEVL_shown_count("nsfw_monika_safesex") >= 1 or mas_getEVL_shown_count("nsfw_monika_sexualpast") >= 1:
-        m 2rkbssdlb "I know we already talked about sex before, but..."
-        m 3ekbssdla "It's still extremely embarrassing to talk about this kind of stuff..."
+    m 2rkbssdlb "I know we already talked about sex before, but..."
+    m 3ekbssdla "It's still extremely embarrassing to talk about this kind of stuff..."
     m 1dubsa "Ahem..."
     m 3eubfb "So...What's your favorite sex position?{nw}"
 

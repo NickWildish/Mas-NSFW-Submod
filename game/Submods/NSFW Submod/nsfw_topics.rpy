@@ -1066,8 +1066,8 @@ init 5 python:
             prompt="[player]'s sexual past",
             conditional=(
                 "mas_canShowRisque(aff_thresh=400) "
-                "and renpy.seen_label('nsfw_monika_safesex')",
-            )
+                "and renpy.seen_label('nsfw_monika_safesex')"
+            ),
             action=EV_ACT_RANDOM,
             aff_range=(mas_aff.ENAMORED, None)
         )

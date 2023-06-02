@@ -1257,8 +1257,8 @@ init 5 python:
             category=["literature"],
             prompt="Ananga Ranga",
             conditional=(
-                "mas_canShowRisque(aff_thresh=400)",
-                "renpy.seen_label('monika_nsfw_kama_sutra')"
+                "mas_canShowRisque(aff_thresh=400) ",
+                "and renpy.seen_label('monika_nsfw_kama_sutra')"
             ),
             action=EV_ACT_RANDOM,
             aff_range=(mas_aff.ENAMORED, None)

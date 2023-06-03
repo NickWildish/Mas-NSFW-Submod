@@ -520,30 +520,37 @@ init 6 python:
         code="NFH"
     )
 
-label nsfw_fetish_feet: #TODO: Finish feet topic
-    m 1eua "Oh, you want to talk about feet?" # TODO: Add posing
-    m 1eua "This can be one of the more 'notorious' fetishes where people will either hate it or love it."
-    m 1eua "I'm sure you can already get an idea of what a foot fetish is..."
-    m 1eua "But if not I can explain it to you if you'd like."
+label nsfw_fetish_feet:
+    m 1eta "Oh, you want to talk about feet?"
+    m 3hka "This is one of the more 'notorious' fetishes where people will either hate it or love it, I feel like."
+    m 4rkb "I'm sure you can already get an idea of what a foot fetish is...{w=0.5}{nw}"
+    extend 4eka "But if not I can explain it to you if you'd like."
     $ _history_list.pop()
 
     menu:
         m "But if not I can explain it to you if you'd like.{fast}"
 
         "Yes, please.":
-            m 1eua "Okay, so obviously a foot fetish is when someone gets turned on by feet."
-            m 1eua "This can mean they enjoy touching feet, kissing feet, or even licking them!"
-            m 1eua "Ahaha~ It can sound a bit strange...especially if the feet in question aren't clean."
-            m 1eua "But some people prefer socks or stockings over bare feet, or shoes even."
-            m 1eua "Personally I think it's a pretty harmless fetish."
-            m 1eua "I mean, it's really just about liking a particular body part, right?"
-            m 1eua "Not something I'm into personally, but I wouldn't hold it against anyone if they were."
-            m 1eua "Speaking of, [player]..."
+            m 3eub "Okay, so at first I thought a foot fetish is when someone just gets turned on by feet...{w=0.5}"
+            extend 3rksdlb "obviously..."
+            m 3eua "But when I looked into it further, there's actually alot more nuance to it than you'd initially expect."
+            m 3rubld "For example, someone with this fetish can enjoy touching feet, kissing feet, or even licking them!"
+            m 2hkblsdlb "Ahaha~ It can sound a bit strange...feet aren't known to be the cleanest parts of the body."
+            m 2eublb "Some would prefer socks or stockings over bare feet, or shoes even."
+            m 2etblb "Weirdly enough, there's some that like feet but don't want to touch them at all."
+            m 3rtbla "But they'd rather be...{w=0.5}touched {i}by{/i} feet."
+            m 1hkblb "It's very strange...{w=0.5}{nw}"
+            extend 3hubla "but I guess that's what makes it so interesting!"
+            m 3eublc "Personally I think it's a pretty harmless fetish."
+            m 3etbld "I mean, it's really just about liking a particular part of the body, right?"
+            m 4rubld "It's the equivalent of being attracted to hands or thighs."
+            m 4rkbla "Not something I'm into personally, but I wouldn't hold it against anyone if they were."
+            m 3ekbla "Speaking of, [player]..."
 
         "No, thanks.":
-            m 1eua "Okay, that's fine."
+            m 3eua "Okay, that's fine."
 
-    m 1eua "Given that you brought it up, are you...into feet?"
+    m 3ekblb "Given that you brought it up, are you...{w=0.5}into feet?"
     $ _history_list.pop()
     menu:
         m "Given that you brought it up, are you...into feet?{fast}" # TODO: Find out if people are interested in a "player's feet only" option
@@ -551,30 +558,30 @@ label nsfw_fetish_feet: #TODO: Finish feet topic
         "Yes, I am.":
             $ persistent._nsfw_pm_feet = True
             $ store.mas_nsfw.save_fetish_to_persistent("Feet", ["MFT", "PFT"], ["U"])
-            m 1eua "Really?"
-            m 1eua "That's really interesting, [player]!"
-            m 1eua "Not to be weird about it, but like, what do you like about them?"
-            m 1eua "Do you like them bare, or do you like socks or stockings?"
-            m 1eua "Are you into licking them, or just touching them?"
-            m 1eua "Oh my goodness, I have so many questions."
-            m 1eua "I'm sorry, I'm just really curious!"
-            m 1eua "I'll be sure to pester you about it later, ahaha~"
-            m 1eua "It might be a little weird for me at first, but if it means it will please you then..."
-            m 1eua "I don't mind if you want to play with my feet."
+            m 3wubld "Really?"
+            m 1sublb "That's really interesting, [player]!"
+            m 1rkblb "Not to be weird about it, but like, what do you like about them?"
+            m 3wubla "Do you like them bare, or do you like socks or stockings?"
+            m 3rkbla "Are you into licking them, or just touching them?"
+            m 2hkblsdlb "Oh my goodness, I have so many questions."
+            m 2hkblsdla "I'm sorry, I'm just really curious!"
+            m 2tkbla "I'll be sure to pester you about it later, ahaha~"
+            m 3rkbla "It might be a little weird for me at first, but if it means it will please you then..."
+            m 3rkblb "I don't mind if you want to play with my feet."
             if store.persistent.gender == "M":
-                m 1eua "Maybe if you're lucky, I'll even rub you up and down with them. You know where~"
-                m 1eua "Or maybe I'll just let you lick them~"
+                m 3gkblb "Maybe if you're lucky, I'll even rub you up and down with them...You know where~"
+                m 3gkbsa "Or maybe I'll just let you lick them~"
             else:
-                m 1eua "Maybe if you're lucky, I'll even let you lick them~"
-            m 1eua "Ahaha! I'll definitely need time to get used to that, I think."
+                m 3gkbsa "Maybe if you're lucky, I'll even let you lick them~"
+            m 1hkbsb "Ahaha! I'll definitely need time to get used to that, I think."
 
         "No, I'm not.":
             $ persistent._nsfw_pm_feet = False
             $ store.mas_nsfw.save_fetish_to_persistent("Feet", ["U"], ["MFT", "PFT"])
-            m 1eua "That's okay, [player]!"
-            m 1eua "I'm not into it either, so we don't have to worry about it."
-            m 1eua "I'm sure there are plenty of other things for us to enjoy together."
+            m 1hubla "That's okay, [player]!"
+            m 3hkblb "I'm not into it either, so we don't have to worry about it."
+            m 3hubla "I'm sure there are plenty of other things for us to enjoy together."
 
-    m 1eua "But no matter what you're into, I'll always love you, [player]."
+    m 1ekbla "But no matter what you're into, I'll always love you, [player]."
 
     return "love"

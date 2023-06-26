@@ -378,14 +378,14 @@ init python in mas_nsfw:
         # sext_prompts_funny = store.mas_nsfw_sexting_dialogue.sext_prompts_funny
 
         # Sexting prompts for the haha funnies specific to players with penises
-        sext_prompts_funny_p = store.mas_nsfw_sexting_dialogue.sext_prompts_funny_p
-        if store.persistent._nsfw_genitalia == "P":
-            sext_prompts_funny.extend(sext_prompts_funny_p)
+        #sext_prompts_funny_p = store.mas_nsfw_sexting_dialogue.sext_prompts_funny_p
+        #if store.persistent._nsfw_genitalia == "P":
+        #    sext_prompts_funny.extend(sext_prompts_funny_p)
 
         # Sexting prompts for the haha funnies specific to male players
-        sext_prompts_funny_m = store.mas_nsfw_sexting_dialogue.sext_prompts_funny_m
-        if store.persistent.gender == "M":
-            sext_prompts_funny.extend(sext_prompts_funny_m)
+        #sext_prompts_funny_m = store.mas_nsfw_sexting_dialogue.sext_prompts_funny_m
+        #if store.persistent.gender == "M":
+        #    sext_prompts_funny.extend(sext_prompts_funny_m)
 
         # needs matching response
 

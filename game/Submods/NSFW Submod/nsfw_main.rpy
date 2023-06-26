@@ -547,7 +547,7 @@ init python in mas_nsfw:
                     else:
                         dp_to_append = 3 if dp_to_append > 3 else None
                     break
-                elif types[0][0] not in unique_tags:
+                elif types[0] not in unique_tags:
                     dp_to_append = 2 if dp_to_append > 2 else None
                     break
 

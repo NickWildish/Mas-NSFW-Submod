@@ -559,8 +559,13 @@ init python in mas_nsfw:
                 elif dp_to_append == 1:
                     dp1.append(dialogue)
 
-        if len(dp1) == 0:
+        if len(dp1) == 0: # DEBUG
+            renpy.say("System", "No dialogue found for the given types. Using a less specific dialogue pool.")
             dp1 = dp2 if len(dp2) > 0 else dp3
+            if len(dp2) > 0:
+                renpy.say("System", "Dialogue pool 2 used.")
+            else:
+                renpy.say("System", "Dialogue pool 3 used.")
 
         return dp1
 

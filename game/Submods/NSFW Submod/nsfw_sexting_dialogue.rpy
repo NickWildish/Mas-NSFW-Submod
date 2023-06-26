@@ -176,7 +176,7 @@ init python in mas_nsfw_sexting_dialogue:
     #   |---------------------|--------------|---------------------------------------------------------------------------|
     #   |        Type         |   Subtypes   |                                 Prompt                                    |
     #   |---------------------|--------------|---------------------------------------------------------------------------|
-        (["STM"],              ["GEN"],        _("")), #15
+
     ]
     # if store.persistent._nsfw_genitalia == "P":
     #     sext_prompts_cute.extend(sext_prompts_cute_p)
@@ -185,7 +185,7 @@ init python in mas_nsfw_sexting_dialogue:
     #   |---------------------|--------------|---------------------------------------------------------------------------|
     #   |        Type         |   Subtypes   |                                 Prompt                                    |
     #   |---------------------|--------------|---------------------------------------------------------------------------|
-        (["STM"],              ["GEN"],        _("")), #15
+
     ]
     # if store.persistent.gender == "M":
     #     sext_prompts_cute.extend(sext_prompts_cute_m)
@@ -194,7 +194,7 @@ init python in mas_nsfw_sexting_dialogue:
     #   |---------------------|--------------|---------------------------------------------------------------------------|
     #   |        Type         |   Subtypes   |                                 Prompt                                    |
     #   |---------------------|--------------|---------------------------------------------------------------------------|
-        (["STM"],              ["GEN"],        _("")), #15
+
     ]
     # if store.persistent.gender == "F":
     #     sext_prompts_cute.extend(sext_prompts_cute_f)
@@ -203,7 +203,7 @@ init python in mas_nsfw_sexting_dialogue:
     #   |---------------------|--------------|---------------------------------------------------------------------------|
     #   |        Type         |   Subtypes   |                                 Prompt                                    |
     #   |---------------------|--------------|---------------------------------------------------------------------------|
-        (["STM"],              ["GEN"],        _("")), #15
+
     ]
     # if  store.persistent._nsfw_genitalia == "V":
     #     sext_prompts_cute.extend(sext_prompts_cute_v)
@@ -240,7 +240,7 @@ init python in mas_nsfw_sexting_dialogue:
     #   |---------------------|--------------|---------------------------------------------------------------------------|
     #   |        Type         |   Subtypes   |                                 Prompt                                    |
     #   |---------------------|--------------|---------------------------------------------------------------------------|
-        (["STM"],              ["GEN"],        _("")), #15
+
     ]
     # if store.persistent._nsfw_genitalia == "P":
     #     sext_prompts_hot.extend(sext_prompts_hot_p)
@@ -249,7 +249,7 @@ init python in mas_nsfw_sexting_dialogue:
     #   |---------------------|--------------|---------------------------------------------------------------------------|
     #   |        Type         |   Subtypes   |                                 Prompt                                    |
     #   |---------------------|--------------|---------------------------------------------------------------------------|
-        (["STM"],              ["GEN"],        _("")), #15
+
     ]
     # if store.persistent.gender == "M":
     #     sext_prompts_hot.extend(sext_prompts_hot_m)
@@ -258,7 +258,7 @@ init python in mas_nsfw_sexting_dialogue:
     #   |---------------------|--------------|---------------------------------------------------------------------------|
     #   |        Type         |   Subtypes   |                                 Prompt                                    |
     #   |---------------------|--------------|---------------------------------------------------------------------------|
-        (["STM"],              ["GEN"],        _("")), #15
+
     ]
     # if store.persistent.gender == "F":
     #     sext_prompts_hot.extend(sext_prompts_hot_f)
@@ -267,7 +267,7 @@ init python in mas_nsfw_sexting_dialogue:
     #   |---------------------|--------------|---------------------------------------------------------------------------|
     #   |        Type         |   Subtypes   |                                 Prompt                                    |
     #   |---------------------|--------------|---------------------------------------------------------------------------|
-        (["STM"],              ["GEN"],        _("")), #15
+
     ]
     # if  store.persistent._nsfw_genitalia == "V":
     #     sext_prompts_hot.extend(sext_prompts_hot_v)
@@ -661,16 +661,6 @@ init python in mas_nsfw_sexting_dialogue:
         (["DES", "DRM", "MON"],["GEN"],        _("I would love to do that")), #23
         (["DES", "DRM", "PLY"],["GEN"],        _("I would love it if you did that")), #22
         (["DES", "LED"],       ["GEN"],        _("Do you really mean that?")), #21
-        (['ANS', 'AAG'],       ['GEN'],        _("")),
-        (['ANS', 'AAT'],       ['GEN'],        _("")),
-        (['ANS', 'ADG'],       ['GEN'],        _("")),
-        (['ANS', 'ADK'],       ['GEN'],        _("")),
-        (['ANS', 'ADT'],       ['GEN'],        _("")),
-        (['ANS', 'ANO'],       ['GEN'],        _("")),
-        (['ARA'],              ['GEN'],        _("")),
-        (['CMD', 'CPL'],       ['GEN'],        _("")),
-        (['DES', 'DRM'],       ['GEN'],        _("")),
-        (['STM'],              ['GEN'],        _("")),
     ]
 
     sext_responses_hot = [
@@ -698,35 +688,19 @@ init python in mas_nsfw_sexting_dialogue:
         (["DES", "LED"],       ["GEN"],        _("Is that right?")), #18
         (["DES", "LED"],       ["GEN"],        _("Is that so?")), #17
         (["DES", "LED"],       ["GEN"],        _("What else do you desire?")), #0
-        (['ANS', 'AAG'],       ['GEN'],        _("")),
-        (['ANS', 'AAT'],       ['GEN'],        _("")),
-        (['ANS', 'ADG'],       ['GEN'],        _("")),
-        (['ANS', 'ADK'],       ['GEN'],        _("")),
-        (['ANS', 'ADT'],       ['GEN'],        _("")),
-        (['ANS', 'ANO'],       ['GEN'],        _("")),
-        (['ANS', 'AYS'],       ['GEN'],        _("")),
-        (['ARA'],              ['GEN'],        _("")),
-        (['CMP', 'CMP'],       ['GEN'],        _("")),
-        (['CMP', 'CRM'],       ['GEN'],        _("")),
-        (['CMP', 'THK'],       ['GEN'],        _("")),
-        (['DES', 'DRM', 'MON'],['GEN'],        _("")),
-        (['DES', 'DRM', 'PLY'],['GEN'],        _("")),
-        (['STM'],              ['GEN'],        _("")),
+        (['ANS', 'AAG'],       ['GEN'],        _("I agree")),
+        (['ANS', 'ADG'],       ['GEN'],        _("I disagree")),
+        (['ANS', 'ADK'],       ['GEN'],        _("I don't know")),
+        (['ANS', 'ANO'],       ['GEN'],        _("No way")),
+        (['ANS', 'AYS'],       ['GEN'],        _("Yes")),
+        (['ARA'],              ['GEN'],        _("Ara ara~")),
     ]
 
     sext_responses_hot_p = [
     #   |---------------------|--------------|---------------------------------------------------------------------------|
     #   |        Type         |   Subtypes   |                                 Prompt                                    |
     #   |---------------------|--------------|---------------------------------------------------------------------------|
-        (["CMP", "CMP"],       ["PPN"],        _("")),
-        (["CMP", "CRM"],       ["PPN"],        _("")),
-        (["CMD", "CPL"],       ["PPN"],        _("")),
-        (["STM"],              ["PPN"],        _("")),
-        (["ARA"],              ["PPN"],        _("")),
-        (["DES", "LED"],       ["PPN"],        _("")),
-        (["DES", "DRM", "PLY"],["PPN"],        _("")),
-        (["DES", "DRM"],       ["PPN"],        _("")),
-        (["DES", "DRM", "MON"],["PPN"],        _("")),
+
     ]
     # if store.persistent._nsfw_genitalia == "P":
     #     sext_responses_hot.extend(sext_responses_hot_p)
@@ -735,7 +709,7 @@ init python in mas_nsfw_sexting_dialogue:
     #   |---------------------|--------------|---------------------------------------------------------------------------|
     #   |        Type         |   Subtypes   |                                 Prompt                                    |
     #   |---------------------|--------------|---------------------------------------------------------------------------|
-        (["STM"],              ["GEN"],        _("")), #15
+
     ]
     # if store.persistent.gender == "M":
     #     sext_responses_hot.extend(sext_responses_hot_m)
@@ -744,7 +718,7 @@ init python in mas_nsfw_sexting_dialogue:
     #   |---------------------|--------------|---------------------------------------------------------------------------|
     #   |        Type         |   Subtypes   |                                 Prompt                                    |
     #   |---------------------|--------------|---------------------------------------------------------------------------|
-        (["STM"],              ["GEN"],        _("")), #15
+
     ]
     # if store.persistent.gender == "F":
     #     sext_responses_hot.extend(sext_responses_hot_f)
@@ -753,24 +727,7 @@ init python in mas_nsfw_sexting_dialogue:
     #   |---------------------|--------------|---------------------------------------------------------------------------|
     #   |        Type         |   Subtypes   |                                 Prompt                                    |
     #   |---------------------|--------------|---------------------------------------------------------------------------|
-        (["CMP", "CMP"],       ["PBR"],        _("")),
-        (["CMP", "CRM"],       ["PBR"],        _("")),
-        (["CMD", "CPL"],       ["PBR"],        _("")),
-        (["STM"],              ["PBR"],        _("")),
-        (["ARA"],              ["PBR"],        _("")),
-        (["DES", "LED"],       ["PBR"],        _("")),
-        (["DES", "DRM"],       ["PBR"],        _("")),
-        (["DES", "DRM", "PLY"],["PBR"],        _("")),
-        (["DES", "DRM", "MON"],["PBR"],        _("")),
-        (["CMP", "CMP"],       ["PVG"],        _("")),
-        (["CMP", "CRM"],       ["PVG"],        _("")),
-        (["CMD", "CPL"],       ["PVG"],        _("")),
-        (["STM"],              ["PVG"],        _("")),
-        (["ARA"],              ["PVG"],        _("")),
-        (["DES", "LED"],       ["PVG"],        _("")),
-        (["DES", "DRM"],       ["PVG"],        _("")),
-        (["DES", "DRM", "PLY"],["PVG"],        _("")),
-        (["DES", "DRM", "MON"],["PVG"],        _("")),
+
     ]
     # if  store.persistent._nsfw_genitalia == "V":
     #     sext_responses_hot.extend(sext_responses_hot_v)
@@ -816,18 +773,13 @@ init python in mas_nsfw_sexting_dialogue:
         (["DES", "LED"],       ["GEN"],        _("Is that so?")), #3
         (["STM"],              ["GEN"],        _("I am so wet right now")), #17
         (["STM"],              ["GEN"],        _("I'm so wet for you right now")), # 18
-        (['ANS', 'ADK'],       ['GEN'],        _("")),
-        (['ANS', 'ANO'],       ['GEN'],        _("")),
-        (['ANS', 'AYS'],       ['GEN'],        _("")),
-        (['ARA'],              ['GEN'],        _("")),
-        (['CMP', 'THK'],       ['GEN'],        _("")),
     ]
 
     sext_responses_sexy_p = [
     #   |---------------------|--------------|---------------------------------------------------------------------------|
     #   |        Type         |   Subtypes   |                                 Prompt                                    |
     #   |---------------------|--------------|---------------------------------------------------------------------------|
-        (["DES", "PLY"],       ["GEN"],        _("")), #16
+
     ]
     # if store.persistent._nsfw_genitalia == "P":
     #     sext_responses_sexy.extend(sext_responses_sexy_p)
@@ -836,7 +788,7 @@ init python in mas_nsfw_sexting_dialogue:
     #   |---------------------|--------------|---------------------------------------------------------------------------|
     #   |        Type         |   Subtypes   |                                 Prompt                                    |
     #   |---------------------|--------------|---------------------------------------------------------------------------|
-        (["STM"],              ["GEN"],        _("")), #15
+
     ]
     # if store.persistent.gender == "M":
     #     sext_responses_sexy.extend(sext_responses_sexy_m)
@@ -845,7 +797,7 @@ init python in mas_nsfw_sexting_dialogue:
     #   |---------------------|--------------|---------------------------------------------------------------------------|
     #   |        Type         |   Subtypes   |                                 Prompt                                    |
     #   |---------------------|--------------|---------------------------------------------------------------------------|
-        (["STM"],              ["GEN"],        _("")), #15
+
     ]
     # if store.persistent.gender == "F":
     #     sext_responses_sexy.extend(sext_responses_sexy_f)
@@ -854,7 +806,7 @@ init python in mas_nsfw_sexting_dialogue:
     #   |---------------------|--------------|---------------------------------------------------------------------------|
     #   |        Type         |   Subtypes   |                                 Prompt                                    |
     #   |---------------------|--------------|---------------------------------------------------------------------------|
-        (["STM"],              ["GEN"],        _("")), #15
+
     ]
     # if  store.persistent._nsfw_genitalia == "V":
     #     sext_responses_sexy.extend(sext_responses_sexy_v)

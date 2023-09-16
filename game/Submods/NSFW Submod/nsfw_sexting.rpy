@@ -107,8 +107,6 @@ label nsfw_sexting_main:
                 #recent_prompts.append(player_prompts[x][2]) # already done elsewhere?
 
             # Menus work well with 'All Gen Scrollable Menus' installed, so making a config for if the user has it or not
-            # $ end_of_prompt = ""
-
             if not store.mas_submod_utils.isSubmodInstalled("All Gen Scrollable Menus"):
                 $ sext_menu = []
 
@@ -161,18 +159,21 @@ label nsfw_sexting_main:
                     show monika at t11
 
             else:
+                $ end_of_prompt_1 = store.mas_nsfw.return_dialogue_end(player_prompts[0][0])
+                $ end_of_prompt_2 = store.mas_nsfw.return_dialogue_end(player_prompts[1][0])
+                $ end_of_prompt_3 = store.mas_nsfw.return_dialogue_end(player_prompts[2][0])
                 menu:
                     m "[monika_quip[0]][quip_ending]{fast}"
 
-                    "[player_prompts[0][0]][end_of_prompt]":
+                    "[player_prompts[0][0]][end_of_prompt_1]":
                         $ prompt_choice = 0
                         $ more_prompts = False
 
-                    "[player_prompts[1][0]][end_of_prompt]":
+                    "[player_prompts[1][0]][end_of_prompt_2]":
                         $ prompt_choice = 1
                         $ more_prompts = False
 
-                    "[player_prompts[2][0]][end_of_prompt]":
+                    "[player_prompts[2][0]][end_of_prompt_3]":
                         $ prompt_choice = 2
                         $ more_prompts = False
 

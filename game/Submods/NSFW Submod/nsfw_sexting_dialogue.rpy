@@ -668,8 +668,11 @@ init python in mas_nsfw_sexting_dialogue:
     #   |        Type         |   Subtypes   |                                 Prompt                                    |
     #   |---------------------|--------------|---------------------------------------------------------------------------|
         (["CMD", "CPL"],       ["GEN"],        _("Anything for you")), #20
+        (["CMP", "CMP"],       ["PBD"]         _("You're pretty good looking yourself"))
         (["CMP", "CRM"],       ["GEN"],        _("You know exactly what to say")), #2
         (["CMP", "CRM"],       ["GEN"],        _("You make me so happy talking like that")), #19
+        (["CMP", "CRM"],       ["GEN"],        _("You make me all warm and fuzzy when you talk like that"))
+        (["CMP", "THK"],       ["GEN"],        _("Why thankyou")),
         (["DES", "DRM"],       ["GEN"],        _("Don't tempt me to try and break the screen to get to you")), #6
         (["DES", "DRM"],       ["GEN"],        _("I feel so good when you talk like that")), #10
         (["DES", "DRM"],       ["GEN"],        _("I like the sound of that")), #1
@@ -688,6 +691,8 @@ init python in mas_nsfw_sexting_dialogue:
         (["DES", "LED"],       ["GEN"],        _("Is that right?")), #18
         (["DES", "LED"],       ["GEN"],        _("Is that so?")), #17
         (["DES", "LED"],       ["GEN"],        _("What else do you desire?")), #0
+        (["DES", "LED"],       ["GEN"],        _("Tell me more")),
+        (["DES", "LED"],       ["GEN"],        _("Oh, really?")),
         (['ANS', 'AAG'],       ['GEN'],        _("I agree")),
         (['ANS', 'ADG'],       ['GEN'],        _("I disagree")),
         (['ANS', 'ADK'],       ['GEN'],        _("I don't know")),

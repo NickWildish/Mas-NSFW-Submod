@@ -553,13 +553,13 @@ init python in mas_nsfw:
 
             if not dialogue_already_in_pool(dialogue, dp1, dp2, dp3):
                 if dp_to_append == 3:
-                    renpy.say("System", "Type match not found: " + ", ".join(str(x) for x in types) + " does not work with " + ", ".join(str(x) for x in dialogue[0]) + ".") # DEBUG
+                    # renpy.say("System", "Type match not found: " + ", ".join(str(x) for x in types) + " does not work with " + ", ".join(str(x) for x in dialogue[0]) + ".") # DEBUG
                     dp3.append(dialogue)
                 elif dp_to_append == 2:
-                    renpy.say("System", "Type match semi-found: " + ", ".join(str(x) for x in types) + " somewhat works with " + ", ".join(str(x) for x in dialogue[0]) + ".") # DEBUG
+                    # renpy.say("System", "Type match semi-found: " + ", ".join(str(x) for x in types) + " somewhat works with " + ", ".join(str(x) for x in dialogue[0]) + ".") # DEBUG
                     dp2.append(dialogue)
                 elif dp_to_append == 1:
-                    renpy.say("System", "Type match found: " + ", ".join(str(x) for x in types) + " works with " + ", ".join(str(x) for x in dialogue[0]) + ".") # DEBUG
+                    # renpy.say("System", "Type match found: " + ", ".join(str(x) for x in types) + " works with " + ", ".join(str(x) for x in dialogue[0]) + ".") # DEBUG
                     dp1.append(dialogue)
 
         if len(dp1) == 0: # DEBUG

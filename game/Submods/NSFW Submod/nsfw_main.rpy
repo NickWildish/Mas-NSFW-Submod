@@ -536,7 +536,7 @@ init python in mas_nsfw:
             if dialogue[2] in recent:
                 continue
 
-            dp_to_append = 4
+            dp_to_append = 3 # Default to 3, which means "no match" or "generic"
             for pair in response_pairings:
                 if types == pair[0] and dialogue[0] == pair[1]:
                     dp_to_append = 1
@@ -552,7 +552,7 @@ init python in mas_nsfw:
                     break
 
             if not dialogue_already_in_pool(dialogue, dp1, dp2, dp3):
-                if dp_to_append == 4 or dp_to_append == 3:
+                if dp_to_append == 3:
                     dp3.append(dialogue)
                 elif dp_to_append == 2:
                     dp2.append(dialogue)

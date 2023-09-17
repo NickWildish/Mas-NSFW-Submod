@@ -709,9 +709,8 @@ init python in mas_nsfw:
             Four outputs:
             [0] An individual string randomly picked from the list,
             [1] the category (sexy, hot, cute) the string is from,
-            [2] the type (compliment, statement, command, desire_p, desire m) of the string.
-            [3] the subtype (three-letter code) of the string.
-            The last two only apply to third stage (sexy) prompts and responses; they are otherwise None.
+            [2] the type (CMP, STM, etc.) of the string.
+            [3] the subtype (MBD, PCL, etc.) of the string.
 
         """
         # initialize this to None, it isn't used unless it's a prompt or quip at stage 3

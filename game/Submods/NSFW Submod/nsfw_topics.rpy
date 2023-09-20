@@ -1223,10 +1223,10 @@ label monika_nsfw_kama_sutra: ## The book everyone thinks is just about sex
     m 3gublb "Of course...People do like to talk about the sexual part of it at great length."
     $ favpos = "None"
     $ favpos = persistent._nsfw_player_favourite_position
-    if renpy.seen_label("nsfw_monika_favorite_position") and favpos != "None":
+    if renpy.seen_label("nsfw_monika_favorite_position") and favpos != None:
         # you have a favourite position
         m 3kublb "We {i}have{/i} already discussed favourite positions, haven't we? And now I know that you prefer [favpos], ahaha~"
-    elif renpy.seen_label("nsfw_monika_favorite_position") and favpos == "None":
+    elif renpy.seen_label("nsfw_monika_favorite_position") and favpos == None:
         # you saw the favourite position topic but she didn't record your position (for some reason or another)
         m 3dkblsdlb "Hmm... We already talked about your favourite position, but I think I forgot what you said. I'm sorry, [player]!"
         m 3kkblsdlb "If you want to bring up that topic that again, you could remind me. I promise to remember this time!"

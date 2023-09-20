@@ -72,7 +72,7 @@ init -1 python in nsfw_stories:
             store.seen_event(first_story)
             and (
                 ignore_cooldown
-                or mas_timePastSince(new_story_ls, datetime.timedelta(hours=TIME_BETWEEN_NSFW_UNLOCKS))
+                or store.mas_timePastSince(new_story_ls, datetime.timedelta(hours=TIME_BETWEEN_NSFW_UNLOCKS))
             )
             and len(get_new_stories_for_type(story_type)) > 0
         )

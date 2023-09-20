@@ -9,7 +9,7 @@ init -1 python:
         "birthdaysuit",
         MASPoseMap(
             default=True,
-            use_reg_for_1=True,
+            use_reg_for_l=True,
         ),
         stay_on_start=False,
         ex_props={
@@ -38,7 +38,7 @@ init -1 python:
         "plain_underwear_white",
         MASPoseMap(
             default=True,
-            use_reg_for_1=True,
+            use_reg_for_l=True,
         ),
         stay_on_start=False,
         ex_props={
@@ -67,7 +67,7 @@ init -1 python:
         "plain_underwear_black",
         MASPoseMap(
             default=True,
-            use_reg_for_1=True,
+            use_reg_for_l=True,
         ),
         stay_on_start=False,
         ex_props={
@@ -96,7 +96,7 @@ init -1 python:
         "plain_underwear_pink",
         MASPoseMap(
             default=True,
-            use_reg_for_1=True,
+            use_reg_for_l=True,
         ),
         stay_on_start=False,
         ex_props={

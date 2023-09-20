@@ -506,7 +506,7 @@ init python in mas_nsfw:
 
         dp1, dp2, dp3 = [], [], [] # may use other 2 dialogue pools at a later date
 
-        unique_tags = ["CMP", "CMD", "DES", "QUE", "ANS"] # Theses are the non-generic tags
+        unique_tags = ["CMP", "CMD", "DES", "ANS"] # Theses are the non-generic tags that are used in responses
 
         response_pairings = [
         #   |--------------|---------------------|

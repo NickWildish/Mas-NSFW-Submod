@@ -136,7 +136,7 @@ init 6 python:
     )
 
 label nsfw_monika_stories:
-    if not mas_getEVL_shown_count("nsfw_erotic_story_thepen") >= 1:
+    if not renpy.seen_label("nsfw_erotic_story_thepen"):
         $ pushEvent("nsfw_erotic_story_thepen", skipeval=True)
     else:
         call nsfw_monika_stories_premenu(None)
@@ -266,7 +266,7 @@ label nsfw_erotic_story_thepen:
         else:
             inspired_monika = False
 
-    if not mas_getEVL_shown_count("nsfw_erotic_story_thepen") >= 1:
+    if not renpy.seen_label("nsfw_erotic_story_thepen"):
         m 1etb "An erotic story?"
         m 1duu "Let me think.{w=0.3}.{w=0.3}."
         m 3guu "Alright, I have one in mind."

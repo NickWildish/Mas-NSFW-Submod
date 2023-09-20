@@ -12,15 +12,18 @@ init 3 python in nsfw_compliments:
 init 22 python in nsfw_compliments:
     import store
 
+    player_name = store.persistent.playername
+    player_nickname = store.mas_get_player_nickname()
+
     # Need to set some nsfw thanking quips here.
     nsfw_thanking_quips = [
-        _("You're so sweet, [player]."),
-        _("Thanks for saying that again, [player]!"),
-        _("Thanks for telling me that again, [mas_get_player_nickname()]!"),
-        _("You always make me feel special, [mas_get_player_nickname()]."),
-        _("Aww, [player]~"),
-        _("Thanks, [mas_get_player_nickname()]!"),
-        _("You always flatter me, [player].")
+        _("You're so sweet, " + player_name + "."),
+        _("Thanks for saying that again, " + player_name + "!"),
+        _("Thanks for telling me that again, " + player_nickname + "!"),
+        _("You always make me feel special, " + player_nickname + "."),
+        _("Aww, " + player_name + "~"),
+        _("Thanks, " + player_nickname + "!"),
+        _("You always flatter me, " + player_name + ".")
     ]
 
     # set this here in case of a crash mid-compliment
@@ -51,6 +54,8 @@ init 6 python: # Use init 6 since the dictionary entry to store our entries is a
     )
 
 label nsfw_monika_compliments:
+    # TODO: Add a bit here that checks if she tried to sext earlier but you said you're busy, so she tries sexting again
+
     python:
         # Unlock any compliments that need to be unlocked
         Event.checkEvents(nsfw_compliments.nsfw_compliment_database)
@@ -122,14 +127,14 @@ label nsfw_compliment_thighs_2:
     m 1ekbsa "But...thank you, [player]~"
     menu:
         "I'd love to bury my face between them.":
-            $ mas_gainAffection(5,bypass=True)
+            $ store.mas_gainAffection(5,bypass=True)
             m 2tkbsb "H-Hey~"
             m 3tkbsu "[player]...you're getting a little {i}too{/i} naughty there. Ahaha~"
             m 3gkbsu "Not that I mind..."
             m 5tkbsu "I'm sure I would enjoy it if you did that~"
 
         "You always had the best thighs in the Literature Club.":
-            $ mas_gainAffection(2,bypass=True)
+            $ store.mas_gainAffection(2,bypass=True)
             m 1hubsb "Ahaha~"
             m 3tubsb "That means you were looking at Yuri, Sayori, and Natsuki's thighs too, huh?"
             m 1gubsb "Well..."
@@ -140,7 +145,7 @@ label nsfw_compliment_thighs_2:
             m 2tubsa "Don't worry. It's okay to look, as long as you think mine are the best~"
 
         "They kind of remind me of Yuri's.":
-            $ mas_loseAffection() # Rule 1 of dating a woman: Don't compare them to another woman, you nuff nuff.
+            $ store.mas_loseAffection() # Rule 1 of dating a woman: Don't compare them to another woman, you nuff nuff.
             m 1etbsd "Uh..."
             m 1rfbld "Are they, now?"
             m 1gfblc "..."
@@ -165,7 +170,7 @@ label nsfw_compliment_thighs_3:
 # Thanks for the compliment addition, KittyTheCocksucker
 
 # "I remember wanting to have one character wear higher stockings – I thought
-# Yuri might be a good fit, but we decided that she isn’t the type to draw 
+# Yuri might be a good fit, but we decided that she isn’t the type to draw
 # attention to herself. Monika, being the confident one who cares about her
 # impression, was the obvious choice after that."
 #                                                   - DDLC Concept Art Booklet
@@ -202,7 +207,7 @@ label nsfw_compliment_thighhighs_2:
             naughty_bits = " I'd love if you gave me a thighjob while wearing them."
         else:
             naughty_bits = ""
-    
+
     m 1tubla "Oh geez..."
     m 1tublb "Going for my thighs again, [player]?"
     m 3tublb "Well...I'm glad you like how my thighhighs look!"
@@ -212,7 +217,7 @@ label nsfw_compliment_thighhighs_2:
 
     menu:
         "Even in uniform, you dress more nicely than any of the other girls in the club.":
-            $ mas_gainAffection(3,bypass=True)
+            $ store.mas_gainAffection(3,bypass=True)
             m 1eubsb "I'm so glad you think that, [player]~"
             m 1rubsa "But I mean...ahaha...I kind of expected for my socks to get noticed by you, {nw}"
             extend 1gubsb "a [guyGirl] who seems to love my thighs. Ahaha~"
@@ -223,7 +228,7 @@ label nsfw_compliment_thighhighs_2:
             m 5mubsa "Then I'm fine with it~"
 
         "I bet they not only look good, but feel really smooth and silky too![naughty_bits]":
-            $ mas_gainAffection(2,bypass=True)
+            $ store.mas_gainAffection(2,bypass=True)
             if persistent._nsfw_genitalia == "P":
                 m 2subld "Ooo~"
                 m 2subsu "A thighjob, eh?"
@@ -246,7 +251,7 @@ label nsfw_compliment_thighhighs_2:
                 m 1gubfa "I hope we can try that soon. Ehehe~"
 
         "I love how they wrap around your thick thighs.":
-            $ mas_gainAffection(1,bypass=True)
+            $ store.mas_gainAffection(1,bypass=True)
             m 1hkbsa "Gosh..."
             m 1hkbssdlb "You keep making me blush with all this talk about my thighs..."
             m 1ekbsa "The other parts of my body are nice to look at too, you know."
@@ -260,7 +265,7 @@ label nsfw_compliment_thighhighs_2:
 label nsfw_compliment_thighhighs_3:
     python:
         thighhighs_quips = [
-            _("They're really comfy too!"), #Thank you, [player]! 
+            _("They're really comfy too!"), #Thank you, [player]!
             _("I can't wait for you to make a mess over them. Ehehe~"),
             _("I wear them mainly to stand out, but they can also come in handy when it's cold outside!"),
         ]
@@ -315,7 +320,7 @@ label nsfw_compliment_tits_2:
 
     menu:
         "I'd love to suck on your breasts.":
-            $ mas_gainAffection(5,bypass=True)
+            $ store.mas_gainAffection(5,bypass=True)
             m 1hkbsa "Ahem..."
             m 1tfbsb "[player]!"
             m 3tfbsu "Why did you get so naughty out of nowhere like that?"
@@ -326,7 +331,7 @@ label nsfw_compliment_tits_2:
             m 1hubsa "Ehehe~"
 
         "Can you make them bigger?":
-            $ mas_loseAffection(5) # face <- palm
+            $ store.mas_loseAffection(5) # face <- palm
             m 3wubsd "..."
             m 3eubssdld "I-I mean..."
             m 3rubssdlc "I do have full control over the console, so..."
@@ -361,9 +366,9 @@ label nsfw_compliment_tits_2:
 label nsfw_compliment_tits_3:
     python:
         tits_quips = [
-            _("You can look at them all you want~"), # Ahaha~ I'm glad you do, [player]! 
+            _("You can look at them all you want~"), # Ahaha~ I'm glad you do, [player]!
             _("I can't wait for you to fondle them~"), # Mhm~
-            _("Want to rest your head on them? Ahaha~"), 
+            _("Want to rest your head on them? Ahaha~"),
             # _("I hope my outfit isn't too revealing. Ahaha~"),
             # this last one is good but needs a bit of code so it only triggers when her clothing has a lingerie exprop
         ]
@@ -401,7 +406,7 @@ label nsfw_compliment_naughty_flirting_2:
             naughty_bits = "I'd love to hear you talk naughty while you're eating out my pussy~"
         else:
             naughty_bits = "I'd love to hear you talk naughty while I'm eating out your pussy~"
-    
+
     m 1hublb "Ahaha~"
     m 1hublsdla "Well..."
     m 1rkbssdlb "Gosh... I can't believe I'm getting so red just from you saying that...Ahaha~"
@@ -439,7 +444,7 @@ label nsfw_compliment_naughty_flirting_2:
             m 1tsbfd "It would probably be easier to practice talking naughty if{nw}"
             if persistent._nsfw_genitalia == "P":
                 extend 1tsbfd " I had your nice and big dick to suck on and play with~"
-            elif persistent.nsfw_genitalia == "V":
+            elif persistent._nsfw_genitalia == "V":
                 extend 1tsbfd " I had your pussy in my face for me to lick and play with~"
             else:
                 extend 1tsbfd " your face was buried deep in my pussy, licking it clean~"
@@ -467,6 +472,183 @@ label nsfw_compliment_naughty_flirting_3:
             _("I wish I could lay in bed with you and whisper naughty things in your ears~"),
         ]
         naughty_flirting_quip = random.choice(naughty_flirting_quips)
+    m 1tubla "Ehehe~"
+    m 1tublb "[nsfw_compliments.thanks_quip]"
+    show monika 3tubsb at t11 zorder MAS_MONIKA_Z with dissolve_monika
+    m 3tubsb "[naughty_flirting_quip]"
+    return
+
+init 6 python:
+    addEvent(
+        Event(
+            persistent._nsfw_compliments_database,
+            eventlabel="nsfw_compliment_moaning",
+            prompt="I love making you moan!",
+            conditional="store.persistent._nsfw_sexting_success_last is not None",
+            action=EV_ACT_UNLOCK
+        ),
+        code="NCP"
+    )
+
+label nsfw_compliment_moaning:
+    if not renpy.seen_label("nsfw_compliment_moaning_2"):
+        call nsfw_compliment_moaning_2
+    else:
+        call nsfw_compliment_moaning_3
+    return
+
+label nsfw_compliment_moaning_2:
+    m 1wubld "Oh..."
+    m 1hublb "Ahaha, I'm glad you like it~"
+    m 3rkbla "It's not something I can control, per se..."
+    m 3tsbla "But if you enjoy it so much, maybe I should practice moaning for you~"
+    m 4tsbla "Would you prefer if I moaned like this?{w=0.5}{nw}"
+    extend 4hkblo " {i}Ahhhh~{/i}"
+    m 4kkblo "Or like this?{w=0.5}{nw}"
+    extend 4hkbld " {i}Oh, [player]~{/i}"
+    m 7gkblu "..."
+    m 7tkblb "Or maybe like this?{w=0.5}{nw}"
+    m 7hkblw " {i}Oh~ I want you, [player]!~{/i}"
+    m 7tkblu "Ehehe~"
+    m 1tubla "I'm just teasing you."
+    $ _history_list.pop()
+    menu:
+        m "I'm just teasing you.{fast}"
+
+        "You feeling good is what I want the most.":
+            $ store.mas_gainAffection(amount=5, bypass=True)
+            m 1ekbla "Aww~"
+            m 3ekbla "You're so sweet, [player]."
+            m 3tublb "Well in that case, I'll be moaning for you alot more~"
+            m 3tubla "You better be ready for it."
+
+        "I want to hear you moan my name.":
+            $ store.mas_gainAffection(amount=2, bypass=True)
+            m 1tkbla "Oh?"
+            m 3tsbla "You mean like this?{w=0.5}{nw}"
+            extend 3hkblo " {i}Oh, [player]~{/i}{w=0.5}{nw}"
+            extend 3kkbld " {i}I want you~{/i}{w=0.5}{nw}}"
+            extend 3tkblo " {i}I want you so bad~{/i}"
+            m 1hubla "Ehehe~"
+            m 1tubla "I'll moan your name all you want."
+            m 1ekbla "But I want you to moan mine too~"
+            m 1ekblb "A fair trade, don't you think?"
+
+        "You can moan abit too much sometimes...": # BLASPHEMY!
+            $ store.mas_loseAffection(2)
+            m 1ekblc "Oh..."
+            m 1ekbld "I'm sorry, [player]."
+            m 3rkbld "I did say it's not something I can control..."
+            m 3dkblc "But I'll try to keep it down..."
+    return
+
+label nsfw_compliment_moaning_3:
+    $ player_name = store.persistent.playername
+    $ moan_check = mas_nsfw.return_random_number(1, 3) == 3 # 1/3 chance of Monika being a bit more naughty
+    python:
+        if moan_check:
+            moaning_thanks_quips = [
+                _("Like this, you mean?~"),
+                _("I can moan louder if you like~"),
+                _("Let me show you how much I've practiced~"),
+            ]
+            naughty_flirting_quips = [
+                _("Oh yeah!~ More of that~"),
+                _("Oh, I'm getting so wet~"),
+                _("Faster, " + player_name + "!~ I want you~"),
+            ]
+        else:
+            moaning_thanks_quips = nsfw_compliments.nsfw_thanking_quips
+            naughty_flirting_quips = [
+                _("I'm more than happy to moan louder for you~"),
+                _("You just make me feel so good, I can't help it~"),
+                _("I hope you moan for me just as much as I do for you~"),
+            ]
+
+        moaning_thanks_quip = random.choice(moaning_thanks_quips)
+        naughty_flirting_quip = random.choice(naughty_flirting_quips)
+
+    if moan_check:
+        m 3tublb "[moaning_thanks_quip]"
+        show monika 3tubsb at t11 zorder MAS_MONIKA_Z with dissolve_monika
+        m 3hkbso "[naughty_flirting_quip]"
+        m 3hubsa "Ehehe~"
+    else:
+        m 1tubla "Ehehe~"
+        m 1tublb "[moaning_thanks_quip]"
+        show monika 3tubsb at t11 zorder MAS_MONIKA_Z with dissolve_monika
+        m 3tubsb "[naughty_flirting_quip]"
+    return
+
+init 6 python:
+    addEvent(
+        Event(
+            persistent._nsfw_compliments_database,
+            eventlabel="nsfw_compliment_wet",
+            prompt="I love making you wet!",
+            unlocked=True
+        ),
+        code="NCP"
+    )
+
+label nsfw_compliment_wet:
+    if not renpy.seen_label("nsfw_compliment_wet_2"):
+        call nsfw_compliment_wet_2
+    else:
+        call nsfw_compliment_wet_3
+    return
+
+label nsfw_compliment_wet_2:
+    python:
+        if persistent._nsfw_genitalia == "P":
+            naughty_bits = "I can make you even wetter with my cock deep inside you."
+        elif persistent._nsfw_genitalia == "V":
+            naughty_bits = "It's only fair, given how wet you make me."
+        else:
+            naughty_bits = "I'd make you even wetter if I was eating you out."
+
+    m 1tubla "Oh my~"
+    m 3tubla "I can't tell you how much I love you {i}making{/i} me wet~"
+    m 3gublb "You just make me feel so hot and tingly..."
+    m 3gubla "I can't help but get wet for you~"
+
+    $ _history_list.pop()
+    menu:
+        m "I can't help but get wet for you~{fast}"
+
+        "I'm glad that I make you feel good.":
+            $ store.mas_gainAffection(5)
+            m 1ekbla "Aww, [player]~"
+            m 3ekblb "You always make me feel good."
+            m "Both in my heart..."
+            extend 7tkbla "and down here~"
+            m 7hubla "Ehehe~"
+
+        "[naughty_bits]":
+            $ store.mas_gainAffection(2)
+            m 1tfbsa "H-hey~"
+            m 1tfbsb "Only I am allowed to be flirty here."
+            m 1hubsa "Ehehe~"
+            m 3mubsa "Let's have a little fun later and see how wet you can make me."
+            m 5tubla "I'm sure you'll enjoy it just as much as me."
+
+        "You'd better make me feel good too. You owe me.":
+            $ store.mas_loseAffection(5)
+            m 3wubld "Uhh..."
+            m 1rtbld "I...guess?"
+            m 1tsblc "You don't have to be so rude about it though..."
+
+    return
+
+label nsfw_compliment_wet_3:
+    python:
+        naughty_flirting_quips = [
+            _("You know I can't help it when you talk like that~"),
+            _("What can I say? You just make me feel so good~"),
+            _("I hope you're going to take responsibility for making me wet~"),
+        ]
+        naughty_flirting_quip = random.choice(naughty_flirting_quips)
+
     m 1tubla "Ehehe~"
     m 1tublb "[nsfw_compliments.thanks_quip]"
     show monika 3tubsb at t11 zorder MAS_MONIKA_Z with dissolve_monika

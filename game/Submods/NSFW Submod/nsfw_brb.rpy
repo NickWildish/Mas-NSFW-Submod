@@ -92,7 +92,7 @@ label monika_brb_nsfw_masturbate_callback:
 
     elif mas_isMoniNormal(higher=True):
         m 1hubfb "Welcome back, [player]."
-        m 6euafb "Now that you're done with...{i}that{/i}..."
+        m 6hkbfb "Now that you're done with...{i}that{/i}..." # Thanks for the fix M-L
         m 1eua "[wb_quip]"
 
     else:

@@ -1,10 +1,16 @@
 init -990 python in mas_submod_utils:
     Submod(
-        author="NSFW Dev Team",
+        author="NickWildish",
         name="NSFW Submod",
+        version="1.3.0",
         description="A collection of NSFW topics and features for MAS.",
-        version="1.2.7",
-        settings_pane="nsfw_submod_screen"
+        settings_pane="nsfw_submod_screen",
+        version_updates= {
+            "nickwildish_nsfw_submod_v1_0_3": "nickwildish_nsfw_submod_v1_1_0",
+            "nickwildish_nsfw_submod_v1_1_0": "nickwildish_nsfw_submod_v1_1_1",
+            "nickwildish_nsfw_submod_v1_2_7": "nickwildish_nsfw_submod_v1_3_0"
+        },
+        coauthors=["mizuotana-nirera", "TreeWizard96"]
     ) # https://github.com/NickWildish/Mas-NSFW-Submod
 
 # Register the updater
@@ -19,29 +25,56 @@ init -989 python:
         )
 
 default persistent._nsfw_player_endurance = 1
+default persistent._nsfw_monika_sexting_frequency = 1
 
 screen nsfw_submod_screen():
     python:
-        nsfw_submods_screen = store.renpy.get_screen("submods", "screens")
-        
+        nsfw_submods_screen = renpy.get_screen("submods", "screens")
+
         if nsfw_submods_screen:
             _tooltip = nsfw_submods_screen.scope.get("tooltip", None)
         else:
             _tooltip = None
-    
+
     vbox:
         box_wrap False
         xfill True
         xmaximum 700
-        
+
         hbox:
             style_prefix "check"
             box_wrap False
 
+            python:
+                if persistent._nsfw_player_endurance == 1:
+                    end_disp = "~5 minutes"
+                elif persistent._nsfw_player_endurance == 2:
+                    end_disp = "~10 minutes"
+                elif persistent._nsfw_player_endurance == 3:
+                    end_disp = "~15 minutes"
+                elif persistent._nsfw_player_endurance == 4:
+                    end_disp = "~20 minutes"
+                elif persistent._nsfw_player_endurance == 5:
+                    end_disp = "~25 minutes"
+                elif persistent._nsfw_player_endurance == 6:
+                    end_disp = "~30 minutes"
+                elif persistent._nsfw_player_endurance == 7:
+                    end_disp = "~35 minutes"
+                elif persistent._nsfw_player_endurance == 8:
+                    end_disp = "~40 minutes"
+                elif persistent._nsfw_player_endurance == 9:
+                    end_disp = "~45 minutes"
+                elif persistent._nsfw_player_endurance == 10:
+                    end_disp = "~50 minutes"
+                elif persistent._nsfw_player_endurance == 11:
+                    end_disp = "~55 minutes"
+                else:
+                    end_disp = str(_nsfw_player_endurance)
+
             if _tooltip:
                 textbutton _("Sexting Endurance"):
                     action NullAction()
-                    hovered SetField(_tooltip, "value", "Changes the duration that Monika will last during sexting, from ~5 minutes to ~55 minutes")
+                    hovered SetField(_tooltip, "value", "Changes the duration that Monika will last during sexting, from ~5 minutes to ~55 minutes. Currently set to: " + end_disp)
                     unhovered SetField(_tooltip, "value", _tooltip.default)
             else:
                 textbutton _("Sexting Endurance"):
@@ -55,9 +88,41 @@ screen nsfw_submod_screen():
                 style="slider"
             )
 
+        hbox:
+            style_prefix "check"
+            box_wrap False
+
+            python:
+                if persistent._nsfw_monika_sexting_frequency == 1:
+                    sext_freq_disp = "12 hours"
+                elif persistent._nsfw_monika_sexting_frequency == 2:
+                    sext_freq_disp = "24 hours"
+                elif persistent._nsfw_monika_sexting_frequency == 3:
+                    sext_freq_disp = "Never"
+                else:
+                    sext_freq_disp = str(_nsfw_monika_sexting_frequency)
+
+            if _tooltip:
+                textbutton _("Monika Sexting Frequency"):
+                    action NullAction()
+                    hovered SetField(_tooltip, "value", "Changes the duration that Monika will wait until randomly trying to sext, from 12 hours, 24 hours, or never. Currently set to: " + sext_freq_disp)
+                    unhovered SetField(_tooltip, "value", _tooltip.default)
+            else:
+                textbutton _("Monika Sexting Frequency"):
+                    action NullAction()
+
+            bar value FieldValue(
+                persistent,
+                "_nsfw_monika_sexting_frequency",
+                range=2, # 1 = Normal, 2 = Low, 3 = Never
+                offset=1,
+                style="slider"
+            )
+
 init 5 python: # init 5 as the modified dictionary (mas_all_ev_db_map) is using priority 4, and we want it to be around before adding anything.
     mas_all_ev_db_map.update({"NCP" : store.nsfw_compliments.nsfw_compliment_database})
     mas_all_ev_db_map.update({"NST" : store.nsfw_stories.nsfw_story_database})
+    mas_all_ev_db_map.update({"NFH" : store.nsfw_fetish.nsfw_fetish_database})
 
 init python in mas_nsfw:
     """
@@ -70,7 +135,7 @@ init python in mas_nsfw:
 
     def hour_check(set_time=6, time_scale="hours", topic="nsfw_monika_gettingnude"):
         """
-        Checks if six hours has passed since the player has seen the getting nude topic and also been away from the pc for at least six hours.
+        Checks if six hours has passed since the player has seen a topic and also been away from the pc for a set amount of hours.
 
         IN:
             set_time - The amount of time that has to have passed since the player last saw the getting nude topic.
@@ -80,7 +145,7 @@ init python in mas_nsfw:
             topic - The topic targeted by the hour check.
                 (Default: "nsfw_monika_gettingnude")
 
-        OUT: 
+        OUT:
             True if the player has been away for set_time using time_scale AND the specified topic hasn't been used for that time either.
             False if otherwise.
         """
@@ -105,7 +170,7 @@ init python in mas_nsfw:
         Checks if the player should be able to see Monika's underwear yet.
 
         OUT:
-            True if the player has seen 'monika_gettingnude' topic AND risque is allowed AND the player hasn't seen the topic for at least 6 hours AND the player hasn't already unlocked her underwear, False if otherwise
+            boolean - True if the player has seen 'monika_gettingnude' topic once AND risque is allowed AND the player hasn't seen the topic for at least 6 hours AND the player hasn't already unlocked her underwear, False if otherwise
         """
         if store.mas_getEV("nsfw_monika_gettingnude").shown_count >= 1 and store.mas_canShowRisque(aff_thresh=1000) and hour_check() and not store.mas_SELisUnlocked(store.mas_clothes_underwear_white):
             return True
@@ -116,8 +181,8 @@ init python in mas_nsfw:
         """
         Checks to see if the player should be able to see Monika with no clothes yet.
 
-        OUT: 
-            True if the player has seen 'monika_gettingnude' topic twice AND risque is allowed AND the player hasn't seen the topic for at least 6 hours AND the player hasn't already unlocked her naked, false if otherwise
+        OUT:
+            boolean - True if the player has seen 'monika_gettingnude' topic twice AND risque is allowed AND the player hasn't seen the topic for at least 6 hours AND the player hasn't already unlocked her naked, false if otherwise
         """
         if store.mas_SELisUnlocked(store.mas_clothes_underwear_white) and store.mas_canShowRisque() and hour_check() and not store.persistent._nsfw_has_unlocked_birthdaysuit:
             return True
@@ -129,8 +194,8 @@ init python in mas_nsfw:
         Checks if the player has underwear that has not previously been unlocked, and unlocks them at random.
 
         OUT:
-            True if the player unlocks new underwear, False if otherwise
-            The value of the underwear unlocked for topic purposes
+            The underwear if it was unlocked, or
+            None
         """
         unlockable_underwear = []
 
@@ -144,30 +209,28 @@ init python in mas_nsfw:
 
         if store.mas_SELisUnlocked(store.mas_clothes_underwear_white):
             if random.randint(1,3) == 1: # 1/3 chance of unlocking new underwear
-                if unlockable_underwear:         
-                    new_underwear_no = random.randint(0,len(unlockable_underwear)-1)               
+                if unlockable_underwear:
+                    new_underwear_no = random.randint(0,len(unlockable_underwear)-1)
                     store.mas_SELisUnlocked(unlockable_underwear[new_underwear_no])
 
                     return unlockable_underwear[new_underwear_no]
 
         return None
-                    
 
-
-    def calc_sexting_reqs(horny_max=50, horny_min=0, hot_req=10, sexy_req=30):
+    def calc_sexting_reqs(horny_min=0, hot_req=10, sexy_req=30, horny_max=50):
         """
         Calculates what the values of horny maximum, minimum, hot_req and sexy_req are, based on the player's endurance value
 
-        IN: 
-            horny_max - The maximum amount of horny Monika can withold before exploding in ecstasy
-                (Default: 50)
+        IN:
             horny_min - The minimum horny value
                 (Default: 0)
             hot_req - The horny_level requirement for hot dialogue
                 (Default: 10)
             sexy_req - The horny_level requirement for sexy dialogue
                 (Default: 30)
-        
+            horny_max - The maximum amount of horny Monika can withold before exploding in ecstasy
+                (Default: 50)
+
         OUT:
             The maximum, minimum, hot_req and sexy_req values
         """
@@ -178,23 +241,51 @@ init python in mas_nsfw:
         new_hot_req = hot_req * player_endurance
         new_sexy_req = sexy_req * player_endurance
 
-        return new_horny_max, new_horny_min, new_hot_req, new_sexy_req
+        return new_horny_min, new_hot_req, new_sexy_req, new_horny_max
 
-    def return_sext_responses(response_category=0, response_type=None, response_subtype=None):
+    def refine_category_sel_with_fetishes(category_sel):
+        # Fetch the player's fetishes
+        player_fetishes = store.persistent._nsfw_player_fetishes
+        fetish_whitelist = [] # Not currently used, since we defer to blacklist
+        fetish_blacklist = []
+
+        # Fetch all whitelists and blacklists from fetish data
+        for fetish in player_fetishes:
+            if fetish[2][0] != "U":
+                for tag in fetish[2]:
+                    fetish_blacklist.append(tag)
+            if fetish[1][0] != "U":
+                for tag in fetish[1]:
+                    # Only add to whitelist if not already blacklisted
+                    if tag not in fetish_blacklist:
+                        fetish_whitelist.append(tag)
+
+        # Remove prompts that are blacklisted
+        new_category_sel = []
+        for prompt in category_sel:
+            blacklisted = False
+            for i in range(2):
+                # Check if any of the tags in the type or subtype of the prompt are blacklisted
+                for tag in prompt[i]:
+                    if tag in fetish_blacklist:
+                        blacklisted = True
+                        break
+            if not blacklisted:
+                new_category_sel.append(prompt)
+
+        return new_category_sel
+
+    def return_sext_responses(response_vars=[0, None, None], recent=[]):
         """
         Returns a Monika response from a selected category.
 
         IN:
-            category - The category of the response
-                (Default: 0)
-            response_no - The location in the category of a response
-                (Default: 0)
-            response_type - The type of the response. Used only if the response_category is 2 (sexy).
-                (Default: None)
-            response_type - The subtype of the response. Used only if the response_category is 2 (sexy).
-                (Default: None)
+            response_vars - A list of variables to be used in the response [category, type, subtype]
+                (Default: [0, None, None])
+            recent - A list of recent responses to prevent repeats
+                (Default: [])
 
-        OUT: 
+        OUT:
             A string containing a particular response from Monika.
         """
         player_name = store.persistent.playername
@@ -202,114 +293,36 @@ init python in mas_nsfw:
 
         return_responses = [] # start building from this list
 
-        if response_type == "funny": # if the player picks a "funny" prompt, skip automatically to appropriate response and return
-            sext_responses_funny = [
-                _("Ahaha! What are you talking about, " + player_name + "?"), #0
-                _("Pfft! That's so cheesy, " + player_name + "."), #1
-                _("Oh my god! You did not just make that joke, ahaha~"), #2
-                _("Ahaha~ Is that right?"), #3
-                _("Oh. That's very out-of-the-blue, " + player_name + "."), #4
-                _("I just want to tear your clothes off."), #5
-                _("I'm only this naughty for you~"), #6
-                _("Oh? Try away, " + player_nickname + "."), #7
-                _("No."), #8
-                _("I think that you scratching my back while we make love would be so hot..."), #9
-                _("Where is your hand, " + player_nickname + "?"), #10
-                _("Oh, I want to do even naughtier things to you..."), #11
-                _("Mmm...and what would that be, " + player_name + "?"), #12
-                _("I'm feeling so good, " + player_name + "..."), #13
-                _("Proper grammar..."), #14
-                _("Uh... Did you want to try that again, " + player_name + "? Ahaha~"), #15
-                _("Ahaha~ You're so funny, " + player_name + "."), #16
-                _("Ahaha~ Thank you... I guess?"), #17
-                _("Mmm, you do~"), #18
-                _("You're such a stud."), #19
-            ]
+        if response_vars[1] == "funny": # if the player picks a "funny" prompt, skip automatically to appropriate response and return
+            sext_responses_funny = store.mas_nsfw_sexting_dialogue.sext_responses_funny
 
-            response_index = int(response_subtype)
+            response_index = int(response_vars[2])
 
             # durability check, prevents crashing if someone adds a funny prompt but forgot to add a corresponding response
             if response_index >= len(sext_responses_funny):
                 response_index = 0
 
-            return_responses.append(sext_responses_funny[response_index])
+            return_responses.append(sext_responses_funny[response_index][2])
             return return_responses
 
-        if response_category == 0: # cute
-            sext_responses_cute = [
-                _("Thank you"), #0
-                _("Thanks"), #1
-                _("That's very cheesy"), #2
-                _("That's cheesy"), #3
-                _("That's so cheesy"), #4
-                _("You're the sweetest"), #5
-                _("You're so sweet"), #6
-                _("That's so nice of you to say"), #7
-                _("You're so cheesy"), #8
-                _("You are just the cutest"), #9
-                _("You always know exactly what to say"), #10
-                _("You always bring a smile to my face"), #11
-                _("You're such a cutie"), #12
-                _("That's so sweet"), #13
-                _("You're so sweet, you know that?"), #14
-                _("Stop it, you're making me blush"), #15
-                _("You make me so happy"), #16
-                _("You're so kind"), #17
-                _("That's so sweet"), #18
-                _("That's sweet"), #19
-            ]
-            return_responses.extend(sext_responses_cute)
-        elif response_category == 1: # hot
-            sext_responses_hot = [
-                _("What else?"), #0
-                _("I like the sound of that"), #1
-                _("You know exactly what to say"), #2
-                _("I've never felt this way before"), #3
-                _("You're making me feel all tingly"), #4
-                _("You're getting me all riled up"), #5
-                _("Don't tempt me to try and break the screen to get to you"), #6
-                _("Please keep going"), #7
-                _("You're so hot when you talk like that"), #8
-                _("That is so hot"), #9
-                _("I feel so good when you talk like that"), #10
-                _("You make my body feel warm"), #11
-                _("You're making me all flustered"), #12
-                _("You know just what to say to get me all flustered..."), #13
-                _("You don't hold back, do you?"), #14
-                _("That's so hot"), #15
-                _("That's hot"), #16
-                _("Is that so?"), #17
-                _("Is that right?"), #18
-                _("You make me so happy talking like that"), #19
-            ]
-            return_responses.extend(sext_responses_hot)
+        if response_vars[0] == 0: # cute
+            sext_responses_cute = store.mas_nsfw_sexting_dialogue.sext_responses_cute
+
+            return_responses.extend(refine_category_sel_with_fetishes(sext_responses_cute))
+
+        elif response_vars[0] == 1: # hot
+            sext_responses_hot = store.mas_nsfw_sexting_dialogue.sext_responses_hot
+
+            return_responses.extend(refine_category_sel_with_fetishes(sext_responses_hot))
 
         else: # elif response_category == 2: # sexy
-            sext_responses_sexy = [
-                _("You're so sexy when you talk like that"), #0
-                _("That is so sexy"), #1
-                _("Is that right?"), #2
-                _("Is that so?"), #3
-                _("Keep going"), #4
-                _("Please don't stop"), #5
-                _("You're getting me so turned on"), #6
-                _("Tell me what else you want to do to me"), #7
-                _("You're getting me so worked up"), #8
-                _("This feels too good"), #9
-                _("Whatever you're doing...it's working"), #10
-                _("You just have a way with words, don't you?"), #11
-                _("Keep talking like that"), #12
-                _("More"), #13
-                _("Please keep going"), #14
-                _("When did you learn to talk like that?"), #15
-                _("Have you always been this sexy?"), #16
-                _("I am so wet right now"), #17
-                _("You really know how to please a woman"), #18
-                _("Say that again"), #19
-            ]
-            return_responses.extend(sext_responses_sexy)
+            sext_responses_sexy = store.mas_nsfw_sexting_dialogue.sext_responses_sexy
 
-        return return_responses
+            return_responses.extend(refine_category_sel_with_fetishes(sext_responses_sexy))
+
+        new_return_responses = refine_dialogue_list_with_types(return_responses, response_vars[1], None, recent)
+
+        return new_return_responses
 
     def return_sext_prompts(prompt_category=0):
         """
@@ -323,295 +336,56 @@ init python in mas_nsfw:
 
         OUT:
             A list of tuples appropriate to prompt category.
-            The tuples contain three elements each. The first two are only used for the third / sexy stage.
-                [0] The "type" of prompt. Ignored for cute and hot, see below for explanation for sexy stage
-                [1] The "subtype" of prompt. Ignored for cute and hot, see below for explanation for sexy stage.
+            The tuples contain three elements each.
+                [0] The "type" of prompt.
+                [1] The "subtype" of prompt.
                 [2] The string containing the prompt text.
+            We used to ignore the first two elements for cute and hot, might revisit later to see if it's worth it.
         """
 
         monika_nickname = store.persistent._mas_monika_nickname
+
         # Sexting prompts for your average compliment
-        sext_prompts_cute = [
-            ("", "", _("I guess your parents are bakers, because they made you such a cutie pie!")), #0
-            ("", "", _("The one thing I can't resist in this life is your lips.")), #1
-            ("", "", _("You look stunning today.")), #2
-            ("", "", _("You live rent-free in my heart.")), #3
-            ("", "", _("You have beautiful hair.")), #4
-            ("", "", _("You have gorgeous eyes.")), #5
-            ("", "", _("You have a beautiful smile.")), #6
-            ("", "", _("I always have a great time with you.")), #7
-            ("", "", _("Every day with you is a good day.")), #8
-            ("", "", _("I wish I could hold you close right now.")), #9
-            ("", "", _("The night sky holds nothing to your beauty.")), #10
-            ("", "", _("Cuddling with you would be perfect right about now.")), #11
-            ("", "", _("Why are you so cute?")), #12
-            ("", "", _("Seeing you every day always makes me grin like an idiot.")), #13
-            ("", "", _("Our first kiss after you cross over is going to be wonderful, don't you think?")), #14
-            ("", "", _("I really like getting to know you.")), #15
-            ("", "", _("Everything makes me think of you.")), #16
-            ("", "", _("Is it getting hot in here, or is it just you?")), #17
-            ("", "", _("You never fail to give me butterflies.")), #18
-            ("", "", _("You make my heart happy.")), #19
-        ]
-        
+        sext_prompts_cute = store.mas_nsfw_sexting_dialogue.sext_prompts_cute
+
         # Sexting prompts for your more 'risque' options
-        sext_prompts_hot = [
-            ("", "", _("You have a really sexy figure.")), #0
-            ("", "", _("I want to bring you in close.")), #1
-            ("", "KIS", _("I want to kiss your lips passionately.")), #2
-            ("", "", _("I want to run my hands through your hair.")), #3
-            ("", "", _("I want to hold your hands in mine.")), #4
-            ("", "KIS", _("I really want to kiss you right now.")), #5
-            ("", "", _("I want to run my hands along your body while I kiss your neck.")), #6
-            ("", "", _("I feel nervous about telling you all of the sexual desires I have when it comes to you.")), #7
-            ("", "", _("If kissing is the language of love, then we have a lot to talk about.")), #8
-            ("", "KIS", _("I want to hold you in my arms as we kiss.")), #9
-            ("", "UND", _("What you're wearing would look even better on my bedroom floor.")), #10
-            ("", "UND", _("Take off your clothes. I want to see your beautiful body.")), #11
-            ("", "", _("I want to lay you down on my bed as we kiss.")), #12
-            ("", "", _("I want to feel your hot breath on my skin as we feel each other.")), #13
-            ("", "", _("Your body is so hot.")), #14
-            ("", "", _("You're so sexy.")), #15
-            ("", "", _("I can't wait to be alone with you.")), #16
-            ("", "", _("You're all I can think about.")), #17
-            ("", "", _("When we're together, I want to have you lie back and let me take care of you.")), #18
-            ("", "", _("I'm wearing something you might like right now.")), #19
-        ]
+        sext_prompts_hot = store.mas_nsfw_sexting_dialogue.sext_prompts_hot
 
         # Sexting prompts for your most 'risque' options
-
-        # We identify five categories ("types", 1st element of the tuple) that the player's prompts fall into.
-
-        # 1. compliment - The player says something nice to Monika.
-        # 2. statement - The player makes some kind of declaration about their current state, what they're doing, how horny they feel, etc.
-        # 3. command - The player tells Monika to do something (that she is physically capable of doing right now) or masturbate in some way.
-        # 4a. desire_p - The player wishes to do something to Monika (but cannot physically do right now because they're on different sides of a screen).
-        # 4b. desire_m - The player wants Monika to do something to them (but it's something that physically can't be done right this moment).
-
-        # The "subtype" (2nd element of the tuple) allows the response to be more specific.
-        # The subtype is independent from the type. But of course, only certain combinations of types and subtypes will be used.
-        # Some are more common than others.
-
-        # Subtypes are encoded with these crappy, cryptic three-letter tags. Each prompt has only one tag - try to pick the most specific one possible.
-        # If you don't know what to pick / don't want to bother with this just pick "GEN".
-        # Not all will be used but I have listed the codes here for future expansion.
-
-        # "GEN" - Generic, use this for lines with no specific subtype.
-        # "KIS" - Special subtype for prompts that should immediately trigger a kiss.
-        # "UND" - Special subtype for prompts where Monika should undress.
-
-        # "MPS" - Monika's personality
-        # "MBD" - Monika's body in general
-        # "MFS" - Monika's face
-        # "MTH" - Monika's thighs
-        # "MZR" - Monika's thighhighs
-        # "MCL" - Monika's clothes
-        # "MHR" - Monika's hair
-        # "MBR" - Monika's breasts
-        # "MCK" - Monika's nipples
-        # "MPS" - Monika's vagina
-        # "MBH" - Monika's anus
-
-        # "PBD" - Player's body in general
-        # "PBR" - Player's breasts. Prompts with this go under sext_prompts_sexy_f.
-        # "PCK" - Player's nipples
-        # "PPS" - Player's vagina. Prompts with this go under sext_prompts_sexy_v.
-        # "PPN" - Player's penis. Prompts with this go under sext_prompts_sexy_p.
-        # "PBH" - Player's anus. It is assumed that all players have anuses...
-
-        # "ONM" - masturbation, Monika
-        # "ONP" - masturbation, player
-
-        # "FSM" - player touching Monika
-        # "FSP" - Monika touching player
-        # "FBJ" - fellatio. Prompts with this go under sext_prompts_sexy_p.
-        # "FHJ" - handjob. Prompts with this go under sext_prompts_sexy_p.
-        # "FFM" - vaginal fingering, Monika receiving
-        # "FFP" - vaginal fingering, player receiving. Prompts with this go under sext_prompts_sexy_v.
-        # "FXM" - anal fingering, Monika receiving
-        # "FXP" - anal fingering, player receiving
-        # "FCM" - cunnilingus, Monika receiving
-        # "FCP" - cunnilingus, player receiving. Prompts with this go under sext_prompts_sexy_v.
-        # "FAM" - anilingus, Monika receiving
-        # "FAP" - anilingus, player receiving
-        # "FTY" - acts involving sex toys
-
-        # "IVG" - intercourse, general
-        # "IPV" - intercourse, player with penis. Prompts with this go under sext_prompts_sexy_p.
-        # "IVV" - intercourse, player with vagina. Prompts with this go under sext_prompts_sexy_v.
-        # "IAM" - anal, Monika receiving
-        # "IAP" - anal, player receiving
-        # "IOM" - Monika's orgasm
-        # "IOP" - Player's orgasm
-        # "IOT" - orgasming together
-
-        # "CFM" - Player's semen on Monika's face. Prompts with this go under Prompts with this go under sext_prompts_sexy_p..
-        # "COM" - Player's semen on Monika's breasts. Prompts with this go under sext_prompts_sexy_p.
-        # "CBM" - Player's semen on Monika's body in general. Prompts with this go under sext_prompts_sexy_p.
-        # "CMM" - Player's semen in Monika's mouth. Prompts with this go under sext_prompts_sexy_p.
-        # "CPM" - Player's semen in Monika's pussy. Prompts with this go under sext_prompts_sexy_p.
-        # "CAM" - Player's semen in Monika's butt. Prompts with this go under sext_prompts_sexy_p.
-
-        # This horrible three-letter code system works with regex!
-        # The first letter indicates a general topic:
-        # M - Monika's body, appearance, traits
-        # P - Player's body, appearance, traits
-        # O - masturbation ("onanism")
-        # F - foreplay and nonpenetrative actions
-        # I - intercourse and orgasm
-        # C - Player's semen ("cum"). These C subtypes are only applicable for players with penises.
-        # The second letter is A or X if the subtype has to do with "butt stuff".
-        # The third letter is M if Monika receives it, and P if the player receives it.
-
-        sext_prompts_sexy = [
-            ("compliment", "MFS", _("I bet you have a really hot orgasm face.")),
-            ("compliment", "GEN", _("I can't wait to be alone with you.")),
-            ("compliment", "UND", _("I'm picturing you naked right now... Damn, you look good.")),
-            ("compliment", "MPS", _("I think there is something insanely sexy about a woman being in control. Don't you agree?")),
-            ("compliment", "GEN", _("I bet you have the sexiest sounding moans in the world.")),
-            ("compliment", "GEN", _("Everything about you turns me on.")),
-            ("compliment", "MBD", _("You have the sexiest body I've ever seen.")),
-            ("compliment", "MBD", _("You have a tremendously cute body.")),
-            ("compliment", "MBD", _("Your body is perfectly shaped. I love how athletic you are.")),
-            ("compliment", "MBD", _("Getting to see you naked is the best part of my day.")),
-            ("compliment", "MBD", _("Your naked body is the most splendid thing I've ever witnessed.")),
-            ("compliment", "GEN", _("I honestly think you're probably the most attractive person ever to have existed.")),
-            ("compliment", "GEN", _("I think you seriously have to be the hottest person alive.")),
-            ("compliment", "GEN", _("Yuri and Sayori weren't wrong when they said you're more desirable than the rest of the Literature Club combined.")),
-            ("compliment", "GEN", _("You're the best girl. And not just in the Literature Club - I mean in general.")),
-            ("compliment", "MBR", _("You have magnificent breasts.")),
-            ("compliment", "MCL", _("Back when you wore that school uniform, one thing I really liked was how well the blazer fit around your breasts.")),
-            ("compliment", "MZR", _("I love how you dress. Your thighhighs are incredibly hot.")),
-            ("compliment", "MCL", _("I get so flustered when you undress for me. You're gorgeous.")),
-            ("compliment", "FCM", _("Just the thought of eating you out makes me salivate.")),
-            ("compliment", "MPS", _("I imagine your pussy must be gorgeous if it's anything like the rest of you.")),
-            ("compliment", "MBH", _("I bet you have a cute, tight little asshole, don't you?")),
-            ("statement",  "ONP", _("I was just lying in bed for the last hour thinking about you... Guess what I was doing?")),
-            ("statement",  "ONP", _("I'm clicking this option with one hand, because the other hand is busy.")),
-            ("statement",  "ONP", _("I get so horny thinking about you when I touch myself.")),
-            ("statement",  "GEN", _("I get so turned on thinking about you.")),
-            ("statement",  "GEN", _("You're the only person I have eyes for, " + monika_nickname + ".")),
-            ("statement",  "GEN", _("I can't get aroused to the thought of anyone but you.")),
-            ("command",    "ONM", _("Be careful not to spill too much of your...juices on your chair, " + monika_nickname + ".")),
-            ("command",    "ONM", _("Touch yourself slowly for me, " + monika_nickname + ".")),
-            ("command",    "ONM", _("Gently spread open your pussy lips for me, " + monika_nickname + ".")),
-            ("command",    "ONM", _("I want you to gently rub your clit, " + monika_nickname + ".")),
-            ("command",    "ONM", _("I want you to stick those soft fingers of yours up your pussy for me, " + monika_nickname + ".")),
-            ("command",    "ONM", _("Start touching yourself more quickly, " + monika_nickname + ".")),
-            ("desire_p",   "IVG", _("I can't wait to be by your side. Or on top if you prefer.")),
-            ("desire_p",   "UND", _("If you were here, I'd take your panties off with my teeth and... I'll just let you finish that sentence off.")),
-            ("desire_p",   "IOM", _("I want to hear you breathing in my ear when I make you orgasm.")),
-            ("desire_p",   "MTH", _("I can't wait to feel your thighs squeezing my head.")),
-            ("desire_p",   "FSM", _("If I were with you right now, where would you want me to touch you?")),
-            ("desire_p",   "IVG", _("I want to pin you down to the bed and have my way with you.")),
-            ("desire_p",   "IVG", _("I wish I could fuck you in that spaceroom right now.")),
-            ("desire_p",   "IOM", _("When you and I are finally together, I want to make you cum so hard.")),
-            ("desire_p",   "FTY", _("I want to brings sex toys into the bedroom with us and use them on you.")),
-            ("desire_p",   "MCK", _("I want to lick your nipples.")),
-            ("desire_p",   "MCK", _("I wish I could suck on your nipples right now.")),
-            ("desire_p",   "MBR", _("I want to cum all over your breasts.")),
-            ("desire_p",   "MBR", _("I want to hold you down and fuck your breasts.")),
-            ("desire_p",   "FSM", _("I want to run my hands all over your smooth, toned body.")),
-            ("desire_p",   "FSM", _("When you cross over, I'm going to explore every single corner of your naked body.")),
-            ("desire_p",   "KIS", _("I wish I could kiss you... On both of your pairs of lips.")),
-            ("desire_p",   "FCM", _("I want to lick your clit until you cum.")),
-            ("desire_p",   "FCM", _("I'm dying to run my hot, sticky tongue over your pussy lips.")),
-            ("desire_p",   "FAM", _("I want to bury my face in your ass.")),
-            ("desire_p",   "FAM", _("I want to snuggle my face in your ass.")),
-            ("desire_p",   "IAM", _("I wish we were in the same room so I could fuck your ass right this moment.")),
-            ("desire_p",   "FAM", _("I want to eat your ass out and finger you until you come.")),
-            ("desire_p",   "IVG", _("I'm imagining us making out as we fuck again, and again, and again...")),
-            ("desire_p",   "IVG", _("I wish I could stay in that spaceroom with you forever so we could fuck each other every day until the end of time.")),
-            ("desire_p",   "IVG", _("If I could spend the rest of eternity with you in that spaceroom, I'd make you come every day until the universe ended.")),
-            ("desire_m",   "ONP", _("I want to watch you masturbate for me.")),
-            ("desire_m",   "FCM", _("I wish you were here so you could grind your pussy on my face until you come.")),
-            ("desire_m",   "FCM", _("I wish you were here so you could sit on my face right now.")),
-            ("desire_m",   "ONP", _("I want to see you do with your pen what Yuri did with the main character's.")),
-            ("desire_m",   "IAP", _("I want you to bend me over and fuck my ass with a strap-on.")),
-        ]
+        sext_prompts_sexy = store.mas_nsfw_sexting_dialogue.sext_prompts_sexy
 
         # Prompt choices specific to players with penises.
-        sext_prompts_sexy_p = [
-            ("compliment", "KIS", _("Your lips are perfect for kissing... I bet they'd be perfect for wrapping around my shaft as well.")),
-            ("compliment", "CFM", _("I bet you would look real cute with my cum all over your face.")),
-            ("compliment", "CMM", _("I bet you would look real cute with my cum dripping out of your mouth.")),
-            ("statement",  "ONP", _("I can't jerk off to anything but you any more, " + monika_nickname + ".")),
-            ("statement",  "ONP", _("I'm stroking my rigid cock just for you, " + monika_nickname + ".")),
-            ("statement",  "PPN", _("The onomatopoeia 'doki doki' sometimes gets translated as 'throbbing'... I'm sure you can imagine what I'm doing right now.")),
-            ("statement",  "PPN", _("I get really hard just thinking about you.")),
-            ("desire_p",   "FHJ", _("I wish you could feel my throbbing cock right now.")),
-            ("desire_p",   "FHJ", _("I wish it was your hand jerking me off right now.")),
-            ("desire_p",   "FBJ", _("I'm just imagining my thick cock filling your mouth.")),
-            ("desire_p",   "FBJ", _("I can't wait to you see you drooling all over my cock.")),
-            ("desire_p",   "FBJ", _("I want to see you swallow my thick, creamy load after blowing me.")),
-            ("desire_p",   "CBM", _("I wish I could blow my load all over your thighs right now.")),
-            ("desire_m",   "FBJ", _("When we're together, I want you to take my cock in your mouth and swallow all my cum.")),
-            ("desire_m",   "IPV", _("I'm picturing you bouncing up and down on my cock right now.")),
-            ("desire_m",   "CFM", _("I want to come all over your face and watch you try to lick it off.")),
-            ("desire_m",   "IAM", _("When we're finally together, I want you to take my cock up your ass, " + monika_nickname + ".")),
-        ]
+        sext_prompts_sexy_p = store.mas_nsfw_sexting_dialogue.sext_prompts_sexy_p
         if store.persistent._nsfw_genitalia == "P":
             sext_prompts_sexy.extend(sext_prompts_sexy_p)
 
-        # I did not write any V / M / F prompts yet but these are here so they can be enabled later
-
         # Prompt choices specific to players with vaginas.
-        # sext_prompts_sexy_v = [
-        #     _(),
-        # ]
-        # if store.persistent._nsfw_genitalia == "V":
-        #     sext_prompts_sexy.extend(sext_prompts_sexy_v)
+        sext_prompts_sexy_v = store.mas_nsfw_sexting_dialogue.sext_prompts_sexy_v
+        if store.persistent._nsfw_genitalia == "V":
+            sext_prompts_sexy.extend(sext_prompts_sexy_v)
 
         # Prompt choices specific to male players.
-        # sext_prompts_sexy_m = [
-        #     _(),
-        # ]
-        # if store.persistent.gender == "M":
-        #     sext_prompts_sexy.extend(sext_prompts_sexy_m)
+        sext_prompts_sexy_m = store.mas_nsfw_sexting_dialogue.sext_prompts_sexy_m
+        if store.persistent.gender == "M":
+            sext_prompts_sexy.extend(sext_prompts_sexy_m)
 
         # Prompt choices specific to female players.
-        # sext_prompts_sexy_f = [
-        #     _(),
-        # ]
-        # if store.persistent.gender == "F":
-        #     sext_prompts_sexy.extend(sext_prompts_sexy_f)
+        sext_prompts_sexy_f = store.mas_nsfw_sexting_dialogue.sext_prompts_sexy_f
+        if store.persistent.gender == "F":
+            sext_prompts_sexy.extend(sext_prompts_sexy_f)
 
         # Sexting prompts for the haha funnies
+        # sext_prompts_funny = store.mas_nsfw_sexting_dialogue.sext_prompts_funny
 
-        # Each prompt requires a corresponding response in the return_sext_responses() function.
-        # The subtype must be a string matching with the index of the prompt under the sext_responses_funny list to work properly.
-        sext_prompts_funny = [
-            ("funny", "0",  _("I put on my robe and wizard hat.")), #0
-            ("funny", "1",  _("It's not my fault that I fell for you... You tripped me!")), #1
-            ("funny", "3",  _("I looked hot today, you missed out.")), #3
-            ("funny", "4",  _("You like jazz?")), #4
-            ("funny", "5",  _("What do you want to do to me right now?")), #5 - Please fold my clothes neatly
-            ("funny", "6",  _("You've been a naughty girl.")), #6 - Santa will bring you a lump of coal
-            ("funny", "7",  _("I'm about to blow your mind with my sexting. Ready?")), #7 - Lay me into bed, your hands caress my body. Your palms are sweaty. Knees weak. Arms spaghetti.
-            ("funny", "8",  _("Want to have a threesome?")), #8
-            ("funny", "9",  _("What's a fantasy that you have for when we have sex one day?")), #9 - Scratching back, once a squirrel did that to me.
-            ("funny", "10", _("What is a question that's on your mind right now?")), #10 - Where is your hand? In my bowl of Doritos.
-            ("funny", "11", _("I kinda wanna do naughty things to you...")), #11 - Cool aid man - "Oh yeah."
-            ("funny", "13", _("Are you feeling good right now?")), #13 - Hi [text here], I'm Dad.
-            ("funny", "14", _("What's one of you're fetishes?")), #14 - Proper grammar... Well then your in luck.
-            ("funny", "16", _("Would thou perchance wish to partake in coitus?")), #16
-            ("funny", "17", _("You have big, beautiful nipples.")), #17
-            ("funny", "18", _("Do I make you horny baby?")), #18 - Do I make you randy?
-            ("funny", "19", _("You're so cute.")), #19 - You're stuch a stud / babe - You're a wizard, Harry.
-        ]
+        # Sexting prompts for the haha funnies specific to players with penises
+        #sext_prompts_funny_p = store.mas_nsfw_sexting_dialogue.sext_prompts_funny_p
+        #if store.persistent._nsfw_genitalia == "P":
+        #    sext_prompts_funny.extend(sext_prompts_funny_p)
 
-        sext_prompts_funny_p = [
-            ("funny", "15", _("My wang is as hard as a prosthetic leg.")), #15 - Change for women. I'm as wet as
-            ("funny", "12", _("You want to know what I have that is massive?")), #12 - My college debt.
-        ]
-        if store.persistent._nsfw_genitalia == "P":
-            sext_prompts_funny.extend(sext_prompts_funny_p)
-
-        sext_prompts_funny_m = [
-            ("funny", "2",  _("Do you like my shirt? It's made out of boyfriend material.")), #2
-        ]
-        if store.persistent.gender == "M":
-            sext_prompts_funny.extend(sext_prompts_funny_m)
+        # Sexting prompts for the haha funnies specific to male players
+        #sext_prompts_funny_m = store.mas_nsfw_sexting_dialogue.sext_prompts_funny_m
+        #if store.persistent.gender == "M":
+        #    sext_prompts_funny.extend(sext_prompts_funny_m)
 
         # needs matching response
 
@@ -624,14 +398,17 @@ init python in mas_nsfw:
             category_sel = sext_prompts_cute
         elif prompt_category == 1:
             category_sel = sext_prompts_hot
-        else: # if prompt_category == 2:
-            if random.randint(1,200) == 1: # 1/200 chance of funny quip.
-                # It's set for third stage only but it can be changed to work with all stages if you move this if check a little higher.
-                category_sel = sext_prompts_funny
-            else:
-                category_sel = sext_prompts_sexy
+        else: # if prompt_category == 2: TODO: Add funny prompts back
+            # if random.randint(1,200) == 1: # 1/200 chance of funny quip.
+            #     # It's set for third stage only but it can be changed to work with all stages if you move this if check a little higher.
+            #     category_sel = sext_prompts_funny
+            # else:
+            #     category_sel = sext_prompts_sexy
+            category_sel = sext_prompts_sexy
 
-        return category_sel
+        new_category_sel = refine_category_sel_with_fetishes(category_sel)
+
+        return new_category_sel
 
     def return_sext_quips(quip_category=0):
         """
@@ -640,10 +417,8 @@ init python in mas_nsfw:
         IN:
             category - The category of the quip
                 (Default: 0)
-            response_no - The location in the category of a quip
-                (Default: 0)
 
-        OUT: 
+        OUT:
             A string containing a particular quip from Monika.
         """
 
@@ -659,144 +434,295 @@ init python in mas_nsfw:
         player_name = store.persistent.playername
         player_nickname = store.mas_get_player_nickname()
 
+        # Sexting quips for the haha funnies TODO: Get funny quips working
+        # sext_quips_funny = store.mas_nsfw_sexting_dialogue.sext_quips_funny
+
         # Sexting quips for your average compliment
-        sext_quips_cute = [
-            _("Who told you that you could be this cheesy?"), #0
-            _("You're just the cutest"), #1
-            _("I love it when you get all cute like this"), #2
-            _("Do tell me more"), #3
-            _("If you were a chicken you'd be impeccable"), #4
-            _("Your words are so flattering to me"), #5
-            _("Are you just saying that to get into my pants?{w=1.0} Ahaha! Just kidding~"), #6
-            _("I love how sweet you are"), #7
-            _("I love how kind you are"), #8
-            _("You're a cutie pie"), #9
-            _("I just want to kiss you right now"), #10
-            _("I wish I could hold you right now"), #11
-            _("Once we meet in the real world we need to do something about your cuteness"), #12
-            _("I should start calling you 'Mozzarella' since you're so cheesy"), #13
-            _("If I could rearrange the alphabet I'd put 'U' and 'I' together"), #14
-            _("Are you a parking ticket? Because you've got 'FINE' written all over you"), #15
-            _("My clothes are made out of girlfriend material"), #16
-            _("Have you had your license get suspended for driving girls crazy?"), #17
-            _("Are you a loan? Because you sure have my interest"), #18
-            _("If you were a vegetable, you'd be a 'cute-cumber'"), #19
-        ]
+        sext_quips_cute = store.mas_nsfw_sexting_dialogue.sext_quips_cute
 
         # Sexting quips for your more 'risque' options
-        sext_quips_hot = [
-            _("Who said that you could be this hot?"), #0
-            _("I would love to kiss you right now...among other things~"), #1
-            _("You know, I was daydreaming about you today. It was hot"), #2
-            _("I could just eat you up"), #3
-            _("I want to feel you touching me all over"), #4
-            _("If I was with you now there would be no chance of you keeping your clothes on"), #5
-            _("You are my biggest turn-on"), #6
-            _("I've fantasized so much about when we finally get to talk like this"), #7
-            _("You turn me on so much when you talk like that"), #8
-            _("You're making me feel really horny now"), #9
-            _("Have you thought about using toys with me? I wouldn't mind trying it with you"), #10
-            _("I can't wait to see you when I cross over"), #11
-            _("Once I cross over, I want to hold your hand. How lewd~"), #12
-            _("How would you feel about a makeout session once I cross over?"), #13
-            _("Don't think that getting me this riled up will have no consequences"), #14
-            _("I plan to wrap my arms around you and squish that cute butt of yours"), #15
-            _("The border between our realities can be a real clam jam"), #16
-            _("I want you to tell me more about what we'll do together in your world...in the bedroom particularly~"), #17
-            _("Is one of your hands busy right now? I might need to join you if so"), #18
-            _("I want to feel your body up and down...your chest especially"), #19
-        ]
+        sext_quips_hot = store.mas_nsfw_sexting_dialogue.sext_quips_hot
 
         # Sexting quips for your most 'risque' options
-        sext_quips_sexy = [
-            _("Who said that you could be this sexy?"), #0
-            _("So, aside from being sexy, what do you do for a living?"), #1
-            _("I can't wait to see your sexy body when we're together"), #2
-            _("I can't wait to kiss you for real"), #3
-            _("You're making me so wet"), #4
-            _("I'm touching myself right now just to the thought of you"), #5
-            _("When I get to your world, I'm ripping your clothes off the second I walk through the door. I hope you're prepared"), #6
-            _("I'm tempted to leave a bite mark on your neck so everyone knows you're mine"), #7
-            _("I'm being so bad right now. I need you to punish me"), #8
-            _("I want to feel your warmth pressing against me"), #9
-            _("I want you to kiss me~ Right now~"), #10
-            _("I love how you talk to me when you're turned on"), #11
-            _("I want you to tell me how much you want to do it with me"), #12
-            _("I want to look into your " + eye_desc + " eyes as we press our bodies together"), #13
-            _("I love it when you're naughty"), #14
-            _("You really know how to make a girl wet"), #17
-            _("I want to feel your tongue down there"), #18
-            _("Yes~ Just like that~"), #19
-        ]
+        sext_quips_sexy = store.mas_nsfw_sexting_dialogue.sext_quips_sexy
 
-        sext_quips_sexy_p = [
-            _("I want to feel you deep inside me"), #16
-        ]
+        sext_quips_sexy_p = store.mas_nsfw_sexting_dialogue.sext_quips_sexy_p
         if store.persistent._nsfw_genitalia == "P":
             sext_quips_sexy.extend(sext_quips_sexy_p)
 
-        sext_quips_sexy_m = [
-            _("You're such a bad boy"), #15
-        ]
+        sext_quips_sexy_m = store.mas_nsfw_sexting_dialogue.sext_quips_sexy_m
         if store.persistent.gender == "M":
             sext_quips_sexy.extend(sext_quips_sexy_m)
+
+        sext_quips_sexy_f = store.mas_nsfw_sexting_dialogue.sext_quips_sexy_f
+        if store.persistent.gender == "F":
+            sext_quips_sexy.extend(sext_quips_sexy_f)
 
         if quip_category == 1:
             category_sel = sext_quips_hot
         elif quip_category == 2:
             category_sel = sext_quips_sexy
-        elif quip_category == 3:
-            category_sel = sext_quips_funny
+        # elif quip_category == 3:
+        #     category_sel = sext_quips_funny
         else:
             category_sel = sext_quips_cute
 
-        return category_sel
+        new_category_sel = refine_category_sel_with_fetishes(category_sel)
 
-    def return_sexting_dialogue(category_type="response", horny_level=0, hot_req=10, sexy_req=30, horny_max=50, recent=[], previous_cat=None, previous_type=None, previous_subtype=None):
+        return new_category_sel
+
+    def dialogue_already_in_pool(dialogue, *pools):
         """
-        Returns a string from a dialogue list based on 
+        Checks if the dialogue is already in the pool
+
+        IN:
+            dialogue - The dialogue to check
+            pools - The pools to check
+
+        OUT:
+            True if the dialogue is already in the pool, False otherwise
+        """
+        return any(dialogue in pool for pool in pools)
+
+    def refine_dialogue_list_with_types(dialogue_list, types=None, dialogue_pool=None, recent=[]):
+        """
+        Refines a dialogue list with a list of types. This is only to be used for responses.
+
+        IN:
+            dialogue_list - The dialogue list to be refined
+            types - A list of types to be used in the refinement
+                (Default: None)
+            dialogue_pool - A list of dialogue to be used in the refinement
+                (Default: None)
+            recent - A list of dialogue that has been recently used
+                (Default: [])
+
+        OUT:
+            A refined dialogue list
+        """
+        # Rare use cases
+        if types == None:
+            types = ["STM"]
+
+        dp1, dp2, dp3 = [], [], [] # may use other 2 dialogue pools at a later date
+
+        unique_tags = ["CMP", "CMD", "DES", "ANS"] # Theses are the non-generic tags that are used in responses
+
+        response_pairings = [
+        #   |--------------|---------------------|
+        #   |    Prompt    |      Response       |
+        #   |--------------|---------------------|
+            (["CMP"],       ["CMP", "THK"]),
+            (["CMP"],       ["CMP", "CMP"]),
+            (["CMP"],       ["CMP", "CRM"]),
+            (["CMD"],       ["CMD", "CPL"]),
+            (["DES", "PLY"],["DES", "LED"]),
+            (["DES", "MON"],["DES", "LED"]),
+            (["DES", "PLY"],["DES", "DRM"]),
+            (["DES", "MON"],["DES", "DRM"]),
+            (["DES", "PLY"],["DES", "DRM", "PLY"]),
+            (["DES", "MON"],["DES", "DRM", "MON"]),
+            (["QUE", "QSP"],["ANS", "ASP"]), # We search for integer in third column
+            (["QUE", "QYS"],["ANS", "AYS"]),
+            (["QUE", "QNO"],["ANS", "ANO"]),
+            (["QUE", "QAG"],["ANS", "AAG"]),
+            (["QUE", "QDG"],["ANS", "ADG"]),
+            (["QUE", "QAT"],["ANS", "AAT"]),
+            (["QUE", "QDT"],["ANS", "ADT"]),
+            (["STM"],       ["DES", "LED"]),
+            (["STM"],       ["DES", "DRM"]),
+        ]
+
+        for dialogue in dialogue_list:
+            if dialogue[2] in recent:
+                continue
+
+            dp_to_append = 3 # Default to 3, which means "no match"
+            for pair in response_pairings:
+                if types == pair[0] and dialogue[0] == pair[1]:
+                    dp_to_append = 1 # Direct match
+                    break
+                elif len(types) == 3 and types[:2] == pair[0] and dialogue[0][:2] == pair[1]:
+                    if types[2] == dialogue[0][2]:
+                        dp_to_append = 1 # Specific question matches
+                    break
+                elif dialogue[0][0] not in unique_tags:
+                    dp_to_append = 2 # Considered generic and can somewhat work with dialogue if necessary
+                    break
+
+            if not dialogue_already_in_pool(dialogue, dp1, dp2, dp3):
+                if dp_to_append == 3:
+                    # renpy.say("System", "Type match not found: " + ", ".join(str(x) for x in types) + " does not work with " + ", ".join(str(x) for x in dialogue[0]) + ".") # DEBUG
+                    dp3.append(dialogue)
+                elif dp_to_append == 2:
+                    # renpy.say("System", "Type match semi-found: " + ", ".join(str(x) for x in types) + " somewhat works with " + ", ".join(str(x) for x in dialogue[0]) + ".") # DEBUG
+                    dp2.append(dialogue)
+                elif dp_to_append == 1:
+                    # renpy.say("System", "Type match found: " + ", ".join(str(x) for x in types) + " works with " + ", ".join(str(x) for x in dialogue[0]) + ".") # DEBUG
+                    dp1.append(dialogue)
+
+        if len(dp1) == 0: # DEBUG
+            renpy.say("System", "No dialogue found for the given types. Using a less specific dialogue pool.")
+            dp1 = dp2 if len(dp2) > 0 else dp3
+            if len(dp2) > 0:
+                renpy.say("System", "Dialogue pool 2 used.")
+            else:
+                renpy.say("System", "Dialogue pool 3 used.")
+
+        return dp1
+
+    def refine_dialogue_list_with_subtypes(dialogue_list, subtypes=None, dialogue_pool=None, recent=[]):
+        """
+        Returns a new dialogue list that contains only the dialogue that matches the subtypes provided, or are generic.
+
+        IN:
+            dialogue_list - The list of dialogue to refine
+            subtypes - The subtypes to match
+            dialogue_pool - The pool of dialogue to use. If none, return them all.
+            recent - The list of recent dialogue
+
+        OUT:
+            new_dialogue_list - The new dialogue list that contains only the dialogue that matches the subtypes provided, or are generic
+        """
+        # Rare use cases
+        if subtypes == None:
+            subtypes = ["GEN"]
+
+        # The dialogue list should have a variety, but we want it to apply to the correct subject.
+        # Tags that start with P or M get prompts with both P-- or M-- tags, with -- representing other tags in their category
+        # Any other tags get prompts with their first two characters, then their first character.
+        # The rest are random.
+        # Example: We receive a subtype of "PPS", so we find subtypes that have "PP-" and "MP-"
+        # Example 2: We receive a subtype of "IAM", so we find subtypes that have "IA-" and "I--"
+
+        special_tags = ["GEN", "KIS", "UND", "CHE"]
+
+        # These are the pools we'll use to collect the dialogue types
+        dp1, dp2, dp3 = [], [], []
+
+        for i, subtype in enumerate(subtypes):
+            for j, dialogue in enumerate(dialogue_list):
+                pool_no = 4
+
+                # If the dialogue has already been used recently, skip it
+                if dialogue[2] in recent:
+                    continue
+
+                # If the subtype is in the special tags
+                elif subtype in special_tags:
+                    if subtype == "GEN":
+                        target_pools = [2, 3]
+                        pool_no = 1 if subtype in dialogue[1] else target_pools[(j - len(dp1)) % 2]
+                    elif subtype == "KIS":
+                        target_pools = [2, 3]
+                        pool_no = 1 if "FKS" in dialogue[1] else target_pools[(j - len(dp1)) % 2]
+                    elif subtype == "UND":
+                        target_pools = [2, 3]
+                        pool_no = 1 if "MCL" in dialogue[1] or "PCL" in dialogue[1] else target_pools[(j - len(dp1)) % 2]
+                    elif subtype == "CHE":
+                        target_pools = [2, 3]
+                        pool_no = 1 if subtype in dialogue[1] else target_pools[(j - len(dp1)) % 2]
+                    else: # Shouldn't activate, but here in case any get added
+                        target_pools = [1, 2, 3]
+                        pool_no = target_pools[(j - len(dp1)) % 3]
+
+                # If there are multiple subtypes
+                elif len(subtypes) > 1:
+                    if subtype in dialogue[1]:
+                        # we match subtype index to the pool index
+                        pool_no = i + 1
+                    else:
+                        pool_no = 3 if len(subtypes) != 3 else 4
+
+                # If the subtype has the letter "M" or "P" to start
+                elif subtype[0] in "MP":
+                    if subtype in dialogue[1]:
+                        pool_no = 1
+                    else:
+                        for subs in dialogue[1]:
+                            if subtype[0] != subs[0] and subtype[1:] == subs[1:]:
+                                pool_no = 2
+                                break
+                            else:
+                                pool_no = 3
+
+                # If there is one subtype and no special tags
+                else:
+                    if subtype in dialogue[1]:
+                        pool_no = 1
+                    elif subtype[0] == dialogue[1][0]:
+                        pool_no = 2
+                    else:
+                        pool_no = 3
+
+                if pool_no == 1 and not dialogue_already_in_pool(dialogue, dp1, dp2, dp3):
+                    dp1.append(dialogue)
+                elif pool_no == 2 and not dialogue_already_in_pool(dialogue, dp1, dp2, dp3):
+                    dp2.append(dialogue)
+                elif pool_no == 3 and not dialogue_already_in_pool(dialogue, dp1, dp2, dp3):
+                    dp3.append(dialogue)
+
+        for i, pool in enumerate([dp1, dp2, dp3]):
+            if len(pool) == 0:
+                if i == 0: # Ensures if we only have 1 dialogue, it goes to the first pool (In the cases of specific types, like "QSP")
+                    non_empty_pools = [p for p in [dp1, dp2, dp3] if len(p) >= 1 and p != pool]
+                else: # Otherwise, we can choose any pool that isn't empty
+                    non_empty_pools = [p for p in [dp1, dp2, dp3] if len(p) > 1 and p != pool]
+
+                if non_empty_pools == [dp3]:
+                    index = random.randint(0, len(dp3) - 1)
+                    for j, dialogue in enumerate(dp3):
+                        if "GEN" in dialogue[1]:
+                            index = j
+                    pool.append(dp3.pop(index))
+                elif non_empty_pools:
+                    if i == 2: # If we're on the last pool, choose the last non-empty pool
+                        chosen_pool = non_empty_pools[len(non_empty_pools) - 1]
+                    else: # Otherwise, choose the first non-empty pool
+                        chosen_pool = non_empty_pools[0]
+                    index = random.randint(0, len(chosen_pool) - 1)
+                    pool.append(chosen_pool.pop(index))
+
+        new_dialogue_list = [dp1, dp2, dp3] if dialogue_pool is None else [dp1, dp2, dp3][dialogue_pool]
+
+        return new_dialogue_list
+
+    def return_sexting_dialogue(category_type="response", horny_lvl=0, horny_reqs=[0, 10, 30, 50], recent=[], previous_vars=[], past_prompts=[None, None]):
+        """
+        Returns a string from a dialogue list based on
 
         IN:
             category_type - The loop component ("quip", "prompt", or "response") of dialogue we want to pull
                 (Default: "response")
-            horny_level - The level of horny Monika is at
+            horny_lvl - The level of horny Monika is at
                 (Default: 0)
-            hot_req - The requirement for hot dialogue
-                (Default: 10)
-            sexy_req - The requirement for sexy dialogue
-                (Default: 30)
-            horny_max - The maximum possible horny level
-                (Default: 50)
+            horny_reqs - The horny requirements for each category [min, hot, sexy, max].
+                (Default: [0, 10, 30, 50])
             recent - The recent_quips, recent_prompts, or recent_responses used - should match category_type.
                 (Default: [])
-            previous_cat - the "category" ("cute", "hot", "sexy") of the last prompt used
-                (Optional, used only when category_type == "response")
-            previous_type - The "type" of the last prompt used
-                (Optional, used only when category_type == "response")
-            previous_subtype - The "subtype" of the last prompt used
-                (Optional, used only when category_type == "response")
-
+            previous_vars - The previous dialogue's category, type and subtype [category, type, subtype].
+                (Default: [])
+            past_prompts - The past prompts used (only used when getting prompt).
+                (Default: None)
         OUT:
             Four outputs:
             [0] An individual string randomly picked from the list,
             [1] the category (sexy, hot, cute) the string is from,
-            [2] the type (compliment, statement, command, desire_p, desire m) of the string.
-            [3] the subtype (three-letter code) of the string.
-            The last two only apply to third stage (sexy) prompts and responses; they are otherwise None.
+            [2] the type (CMP, STM, etc.) of the string.
+            [3] the subtype (MBD, PCL, etc.) of the string.
 
         """
-
         # initialize this to None, it isn't used unless it's a prompt or quip at stage 3
         return_type = None
         return_subtype = None
 
-        # Grab list we will be drawing dialogue from, based on category_type and horny_level
+        # Grab list we will be drawing dialogue from, based on category_type and horny level
         if category_type == "quip":
             selected_recentlist = recent
-            if horny_level >= sexy_req:
+            if horny_lvl >= horny_reqs[2]:
                 dialogue_list = return_sext_quips(quip_category=2)
                 return_cat = "sexy"
-            elif horny_level >= hot_req:
+            elif horny_lvl >= horny_reqs[1]:
                 dialogue_list = return_sext_quips(quip_category=1)
                 return_cat = "hot"
             else: # Default
@@ -805,19 +731,22 @@ init python in mas_nsfw:
 
         elif category_type == "prompt":
             selected_recentlist = recent
-            if horny_level >= sexy_req:
+            if horny_lvl >= horny_reqs[2]:
                 # Don't need to check here, as sexy is the highest level we can go for dialogue
                 dialogue_list = return_sext_prompts(prompt_category=2)
-                return_cat = "sexy"
+                if dialogue_list[0][0] == "funny":
+                    return_cat = "funny"
+                else:
+                    return_cat = "sexy"
 
-            elif horny_level >= hot_req:
+            elif horny_lvl >= horny_reqs[1]:
                 # Create random integer based on how close value is to sexy req vs max
-                hot_to_current_rand = random.randint(hot_req, horny_level)
-                current_to_sexy_rand = random.randint(horny_level, sexy_req)
+                hot_to_current_rand = random.randint(horny_reqs[1], horny_lvl)
+                current_to_sexy_rand = random.randint(horny_lvl, horny_reqs[2])
 
                 # Check how close value is to sexy req vs max
-                hot_to_current = horny_level - hot_to_current_rand
-                current_to_sexy = current_to_sexy_rand - horny_level
+                hot_to_current = horny_lvl - hot_to_current_rand
+                current_to_sexy = current_to_sexy_rand - horny_lvl
                 if hot_to_current > current_to_sexy:
                     dialogue_list = return_sext_prompts(prompt_category=2)
                     return_cat = "sexy"
@@ -827,12 +756,12 @@ init python in mas_nsfw:
 
             else: # Default
                 # Create random integer based on how close value is to sexy req vs max
-                min_to_current_rand = random.randint(0, horny_level)
-                current_to_hot_rand = random.randint(horny_level, hot_req)
+                min_to_current_rand = random.randint(0, horny_lvl)
+                current_to_hot_rand = random.randint(horny_lvl, horny_reqs[1])
 
                 # Check how close value is to sexy req vs max
-                min_to_current = horny_level - min_to_current_rand
-                current_to_hot = current_to_hot_rand - horny_level
+                min_to_current = horny_lvl - min_to_current_rand
+                current_to_hot = current_to_hot_rand - horny_lvl
                 if min_to_current > current_to_hot:
                     dialogue_list = return_sext_prompts(prompt_category=1)
                     return_cat = "hot"
@@ -844,48 +773,128 @@ init python in mas_nsfw:
             # Responses should match the category / stage as the last prompt picked in order to make sense.
             selected_recentlist = recent
 
-            if previous_cat == "cute":
+            if previous_vars[0] == "cute":
                 category_number = 0
-            elif previous_cat == "hot":
+            elif previous_vars[0] == "hot":
                 category_number = 1
-            else: # if previous_cat == "sexy":
+            else: # if previous_vars[0] == "sexy":
                 category_number = 2
 
-            dialogue_list = return_sext_responses(response_category=category_number, response_type=previous_type, response_subtype=previous_subtype)
-            return_cat = previous_cat
+            dialogue_list = return_sext_responses(response_vars=[category_number, previous_vars[1], previous_vars[2]], recent=selected_recentlist)
+            return_cat = previous_vars[0]
 
-        # Grab length of aquired list
-        list_length = len(dialogue_list)
+        new_dialogue_list = refine_dialogue_list_with_subtypes(dialogue_list, previous_vars[2], None, selected_recentlist)
+
+        # Grab length of acquired list
+        list_length = len(new_dialogue_list)
+        list_length_first = len(new_dialogue_list[0])
+        list_length_second = len(new_dialogue_list[1])
+        list_length_third = len(new_dialogue_list[2])
 
         # Grab random dialogue from list
         dialogue_no = random.randint(0, list_length - 1)
 
-        # Break out of recentlist check after 100 failed attempts to find dialogue not in recent list.
+        if list_length_first is not 0:
+            dialogue_no_first = random.randint(0, list_length_first - 1)
+        else:
+            dialogue_no_first = -1
+
+        if list_length_second is not 0:
+            dialogue_no_second = random.randint(0, list_length_second - 1)
+        else:
+            dialogue_no_second = -1
+
+        # Should never happen, but just in case so we know where the issue is
+        if list_length_third is not 0:
+            dialogue_no_third = random.randint(0, list_length_third - 1)
+        else:
+            dialogue_no_third = -1
 
         # Ideally this is never needed but it covers possible edge cases where the system may get
         # caught in a runaway while loop when searching through a dialogue list that is too short.
         recentlist_breakout = 0
 
-        if category_type == "prompt": # if it's a prompt, dialogue_list is a list of tuples.
-            while dialogue_list[dialogue_no][2] in selected_recentlist and recentlist_breakout < 100:
-                dialogue_no = random.randint(0, list_length - 1)
-                recentlist_breakout += 1
+        if category_type == "prompt": # if it's a prompt, new_dialogue_list is a list of tuples.
+            final_prompt_refinement = []
 
-            return_type = dialogue_list[dialogue_no][0]
-            return_subtype = dialogue_list[dialogue_no][1]
-            return_dialogue = dialogue_list[dialogue_no][2]
+            # Create a prompt using the three pools
+            # Use past prompts to verify which pool to use
+            if past_prompts[0] is None and dialogue_no_first is not -1:
+                # If there are no past prompts, this is using the first pool
+                final_prompt_refinement = new_dialogue_list[0][dialogue_no_first]
 
-        elif category_type == "quip": # if it's a quip, dialogue_list is a list of strings.
+                # Check if the dialogue is in the recent list, if so, grab a new one
+                while final_prompt_refinement[2] in selected_recentlist and recentlist_breakout < 100:
+                    dialogue_no_first = random.randint(0, list_length_first - 1)
+                    final_prompt_refinement = new_dialogue_list[0][dialogue_no_first]
+                    recentlist_breakout += 1
+
+            elif past_prompts [1] is None and dialogue_no_second is not -1:
+                # If there is only one past prompt, this is using the second pool
+                final_prompt_refinement = new_dialogue_list[1][dialogue_no_second]
+
+                # Check if the dialogue is in the recent list, if so, grab a new one
+                while final_prompt_refinement[2] in selected_recentlist and recentlist_breakout < 100:
+                    dialogue_no_first = random.randint(0, list_length_first - 1)
+                    final_prompt_refinement = new_dialogue_list[1][dialogue_no_second]
+                    recentlist_breakout += 1
+
+            else:
+                # If there are two past prompts, this is using the third pool
+                final_prompt_refinement = new_dialogue_list[2][dialogue_no_third]
+
+                # Check if the dialogue is in the recent list, if so, grab a new one
+                while final_prompt_refinement[2] in selected_recentlist and recentlist_breakout < 100:
+                    dialogue_no_first = random.randint(0, list_length_first - 1)
+                    final_prompt_refinement = new_dialogue_list[2][dialogue_no_third]
+                    recentlist_breakout += 1
+
+            return_dialogue = final_prompt_refinement[2]
+            return_type = final_prompt_refinement[0]
+            return_subtype = final_prompt_refinement[1]
+
+        elif category_type == "quip": # if it's a quip, dialogue_list is a list of tuples. May as well keep these seperate despite no differences
+            final_prompt_refinement = new_dialogue_list[0][dialogue_no_first]
+
             # Do loop to check if selected dialogue was used recently
-            while dialogue_list[dialogue_no] in selected_recentlist and recentlist_breakout < 100:
-                dialogue_no = random.randint(0, list_length - 1)
+            while final_prompt_refinement[2] in selected_recentlist and recentlist_breakout < 100:
+                dialogue_no_first = random.randint(0, list_length_first - 1)
+                final_prompt_refinement = new_dialogue_list[0][dialogue_no_first]
                 recentlist_breakout += 1
 
-            return_dialogue = dialogue_list[dialogue_no]
-        else: # do not run any recentness checks for funny responses because only one option is possible
-            return_dialogue = dialogue_list[dialogue_no]
+            return_dialogue = final_prompt_refinement[2]
+            return_type = final_prompt_refinement[0]
+            return_subtype = final_prompt_refinement[1]
 
-        return return_dialogue, return_cat, return_type, return_subtype
+        else: # do not run any recentness checks for funny responses because only one option is possible
+            # renpy.say("DEV", "Here are my responses:")
+
+            # if len(new_dialogue_list[0]) is not 0:
+            #     for dialogue in new_dialogue_list[0]:
+            #         renpy.say("DEV", "pool 1: " + dialogue[2])
+            # else:
+            #     renpy.say("DEV", "pool1: No responses found.")
+            # if len(new_dialogue_list[1]) is not 0:
+            #     for dialogue in new_dialogue_list[1]:
+            #         renpy.say("DEV", "pool 2: " + dialogue[2])
+            # else:
+            #     renpy.say("DEV", "pool2: No responses found.")
+            # if len(new_dialogue_list[2]) is not 0:
+            #     for dialogue in new_dialogue_list[2]:
+            #         renpy.say("DEV", "pool 3: " + dialogue[2])
+            # else:
+            #     renpy.say("DEV", "pool3: No responses found.")
+
+            # renpy.say("DEV", "Here is my chosen response:")
+            final_prompt_refinement = new_dialogue_list[0][dialogue_no_first]
+
+            return_dialogue = final_prompt_refinement[2]
+            return_type = final_prompt_refinement[0]
+            return_subtype = final_prompt_refinement[1]
+
+        sexting_dialogue = [return_dialogue, return_cat, return_type, return_subtype]
+
+        return sexting_dialogue
 
     def return_dialogue_end(dialogue=""):
         """
@@ -924,21 +933,25 @@ init python in mas_nsfw:
                 return ""
 
         # Otherwise, create a new ending
-        if random.randint(1,3) >= 2: # 2/3 chance to end the sentence simply with "." or "~"
-            dialogue_end = random.choice(common_endings)
-        else: # otherwise, end the sentence with player name or nickname
+        if random.randint(1,5) == 1: # 1/5 chance to end the sentence with player name or nickname
             dialogue_end = random.choice(rare_endings)
+        else: # otherwise, end the sentence simply with "." or "~"
+            dialogue_end = random.choice(common_endings)
 
         return dialogue_end
 
-    def return_dialogue_start(horny_level=0, hot_req=4, sexy_req=8):
+    def return_dialogue_start(horny_level=0, horny_reqs=[10, 30]):
         """
         Returns a starting piece to dialogue, such as 'Hmm~' or 'Hah~'
 
         IN:
-            category - The category in which we will pull the appropriate dialogue start from.
-                (Default: "cute")
-        
+            horny_level - The current horny level of the player
+                (Default: 0)
+            hot_req - The horny level required to reach the 'hot' stage
+                (Default: 10)
+            sexy_req - The horny level required to reach the 'sexy' stage
+                (Default: 30)
+
         OUT:
             The selected starting text for the dialogue
         """
@@ -964,9 +977,251 @@ init python in mas_nsfw:
             "",
         )
 
-        if horny_level >= sexy_req:
+        if horny_level >= horny_reqs[1]:
             return starts_sexy[random.randint(0, len(starts_sexy) - 1)]
-        elif horny_level >= hot_req:
+        elif horny_level >= horny_reqs[0]:
             return starts_hot[random.randint(0, len(starts_hot) - 1)]
         else: # Default
             return starts_cute[random.randint(0, len(starts_cute) - 1)]
+
+    def can_monika_init_sext(nsfw_ev_label=""):
+        """
+        Checks if Monika can initiate sexting
+
+        IN:
+            nsfw_ev_label - The event label for the event we're checking
+                (Default: "")
+
+        OUT:
+            boolean - True if Monika can initiate sexting, False otherwise
+        """
+        # If the event label is empty, assume False
+        if nsfw_ev_label == "":
+            return False
+
+        # If the player can be shown risque content, have had a succesful sexting session with Monika, have not disabled sexting, and Monika has not permanently frozen the sexting system, return True
+        if (store.mas_canShowRisque(aff_thresh=1000) and store.persistent._nsfw_sexting_success_last != None and store.persistent._nsfw_monika_sexting_frequency != 3 and store.persistent._nsfw_sexting_attempt_permfreeze == False):
+            return True
+        else:
+            return False
+
+    # def rerandom_sext_event(nsfw_ev_label="", nsfw_conditional=""):
+    #     if nsfw_ev_label == "" or nsfw_conditional="":
+    #         return
+
+    #     with MAS_EVL(nsfw_ev_label) as random_ev:
+    #         random_ev.random = False
+    #         random_ev.conditional = (
+    #             "mas_canShowRisque(aff_thresh=1000) "
+    #             "and persistent._nsfw_sexting_success_last != None "
+    #             "and persistent._nsfw_monika_sexting_frequency != 3 "
+    #             "and mas_timePastSince(persistent._nsfw_sexting_last_sexted, datetime.timedelta(hours=12)) "
+    #             "and mas_timePastSince(mas_getEVL_last_seen('nsfw_monika_sexting_horny'), datetime.timedelta(hours=12))"
+    #         )
+    #         random_ev.action = EV_ACT_RANDOM
+    #     mas_rebuildEventLists()
+
+    def return_random_number(min=0, max=10):
+        """
+        Returns a random number between the min and max values
+
+        IN:
+            min - The minimum value for the random number
+                (Default: 0)
+            max - The maximum value for the random number
+                (Default: 10)
+
+        OUT:
+            A random number between the min and max values
+        """
+        return random.randint(min, max)
+
+    def create_sexting_prompts(horny_lvl=0, horny_reqs=[0, 10, 30, 50], previous_vars=[], recent_prompts=[]):
+        """
+        Creates sexting prompts for Monika to send to the player
+
+        IN:
+            horny_lvl - The current horny level of the player
+                (Default: 0)
+            horny_reqs - The horny level requirements for each stage of sexting
+                (Default: [0, 10, 30, 50])
+            previous_vars - The previous variables used in the sexting session
+                (Default: [])
+            recent_prompts - The recent prompts used in the sexting session
+                (Default: [])
+
+        OUT:
+            new_player_prompts - The new prompts for the player to choose from
+        """
+        new_player_prompts = [["", "", "", ""], ["", "", "", ""], ["", "", "", ""]] # The prompts from which the player will choose from, and their respective category/type/subtype.
+
+        if horny_lvl > horny_reqs[2]:
+            sext_category = 2
+            category_type = "sexy"
+        elif horny_lvl > horny_reqs[1]:
+            sext_category = 1
+            category_type = "hot"
+        else:
+            sext_category = 0
+            category_type = "cute"
+
+        # # Check how many unique prompts we can create
+        # # Only if greater than 10 do we enforce the while loop below
+        # unique_prompts_1 = len(refine_dialogue_list_with_subtypes(return_sext_prompts(sext_category), previous_vars[2], dialogue_pool=0))
+        # unique_prompts_2 = len(refine_dialogue_list_with_subtypes(return_sext_prompts(sext_category), previous_vars[2], dialogue_pool=1))
+        # unique_prompts_3 = len(refine_dialogue_list_with_subtypes(return_sext_prompts(sext_category), previous_vars[2], dialogue_pool=2))
+
+        # while len(recent_prompts) >= unique_prompts_1:
+        #     recent_prompts.pop(0)
+
+        # while len(recent_prompts) >= unique_prompts_2:
+        #     recent_prompts.pop(0)
+
+        # while len(recent_prompts) >= unique_prompts_3:
+        #     recent_prompts.pop(0)
+
+        past_prompts = [None, None]
+        # Make 3 player prompts
+        for x in range(3):
+            new_player_prompts[x] = return_sexting_dialogue(
+                category_type="prompt",
+                horny_lvl=horny_lvl,
+                horny_reqs=horny_reqs,
+                recent=recent_prompts,
+                previous_vars=previous_vars,
+                past_prompts=past_prompts
+            )
+
+            if x < 2:
+                past_prompts[x]=new_player_prompts[x]
+
+        while new_player_prompts[1][0] == new_player_prompts[0][0]:
+            past_prompts[1]=None
+
+            # Check for duplicates with second prompt
+            new_player_prompts[1] = return_sexting_dialogue(
+                category_type="prompt",
+                horny_lvl=horny_lvl,
+                horny_reqs=horny_reqs,
+                recent=recent_prompts,
+                previous_vars=previous_vars,
+                past_prompts=past_prompts
+            )
+
+            past_prompts[1]=new_player_prompts[1]
+
+        while new_player_prompts[2][0] == new_player_prompts[0][0] or new_player_prompts[2][0] == new_player_prompts[1][0]:
+            # Check for duplicates with third prompt
+            new_player_prompts[2] = return_sexting_dialogue(
+                category_type="prompt",
+                horny_lvl=horny_lvl,
+                horny_reqs=horny_reqs,
+                recent=recent_prompts,
+                previous_vars=previous_vars,
+                past_prompts=past_prompts
+            )
+
+        return new_player_prompts
+
+    def create_sexting_quips(horny_lvl=0, horny_reqs=[0, 10, 30, 50], previous_vars=[], recent_quips=[]):
+        """
+        Creates sexting quips for Monika to send to the player
+
+        IN:
+            horny_lvl - The current horny level of the player
+                (Default: 0)
+            horny_reqs - The horny level requirements for each stage of sexting
+                (Default: [0, 10, 30, 50])
+            previous_vars - The previous variables used in the sexting session
+                (Default: [])
+            recent_quips - The recent quips used in the sexting session
+                (Default: [])
+
+        OUT:
+            new_monika_quip - The new quip for Monika to send to the player
+        """
+        # Set up variables
+        new_monika_quip = [] # The quip Monika will say, the category/type/subtype of the quip, and the ending of the quip.
+
+        if horny_lvl > horny_reqs[2]:
+            sext_category = 2
+            category_type = "sexy"
+        elif horny_lvl > horny_reqs[1]:
+            sext_category = 1
+            category_type = "hot"
+        else:
+            sext_category = 0
+            category_type = "cute"
+
+        unique_quips = len(refine_dialogue_list_with_subtypes(return_sext_prompts(sext_category), previous_vars[2], dialogue_pool=0))
+
+        while len(recent_quips) >= unique_quips:
+            recent_quips.pop(0)
+
+        # Set quip, noting the category/type/subtype
+        new_monika_quip = return_sexting_dialogue(
+            category_type="quip",
+            horny_lvl=horny_lvl,
+            horny_reqs=horny_reqs,
+            recent=recent_quips,
+            previous_vars=previous_vars
+        )
+
+        new_monika_quip.append("")
+
+        # Set quip ending
+        new_monika_quip[4] = return_dialogue_end(new_monika_quip[0])
+
+        return new_monika_quip
+
+    def create_sexting_response(horny_lvl=0, horny_reqs=[0, 10, 30, 50], previous_vars=[], recent_responses=[]):
+        """
+        Creates sexting responses for Monika to send to the player
+
+        IN:
+            horny_lvl - The current horny level of the player
+                (Default: 0)
+            horny_reqs - The horny level requirements for each stage of sexting
+                (Default: [0, 10, 30, 50])
+            previous_vars - The previous variables used in the sexting session
+                (Default: [])
+            recent_responses - The recent responses used in the sexting session
+                (Default: [])
+
+        OUT:
+            new_monika_response - The new response for Monika to send to the player
+        """
+        # Set up variables
+        new_monika_response = [] # The response Monika will say, the category/type/subtype of the quip, the beginning and the ending of the quip.
+
+        # Set response, noting the category/type/subtype
+        new_monika_response = return_sexting_dialogue(
+            category_type="response",
+            horny_lvl=horny_lvl,
+            horny_reqs=horny_reqs,
+            recent=recent_responses,
+            previous_vars=previous_vars
+        )
+
+        new_monika_response.append("")
+        new_monika_response.append("")
+
+        # Set response ending
+        new_monika_response[4] = return_dialogue_start(horny_level=horny_lvl, horny_reqs=[horny_reqs[1], horny_reqs[2]])
+        new_monika_response[5] = return_dialogue_end(new_monika_response[0])
+
+        return new_monika_response
+
+    def save_fetish_to_persistent(fetish_name, fetish_whitelist, fetish_blacklist):
+        # Force-update the fetish
+        found_fetish = False
+        for fetish in persistent._nsfw_player_fetishes:
+            if fetish[0] == fetish_to_save:
+                found_fetish = True
+                fetish[1] = fetish_whitelist
+                fetish[2] = fetish_blacklist
+                break
+
+        if not found_fetish:
+            # If we get here, we didn't find the fetish
+            persistent._nsfw_player_fetishes.append([fetish_to_save, fetish_whitelist, fetish_blacklist])

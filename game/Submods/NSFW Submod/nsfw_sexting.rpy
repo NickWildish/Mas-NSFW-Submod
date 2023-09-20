@@ -338,11 +338,11 @@ label nsfw_sexting_main:
 label nsfw_sexting_init:
     if "lingerie" not in store.monika_chr.clothes.ex_props:
         $ persistent._nsfw_lingerie_on_start = True
-    
+
     if not renpy.seen_label("nsfw_sexting_main"):
         m 1rka "I'm kind of nervous, if I'm honest."
         m 3rkb "I don't know what to expect from this..."
-            
+
         $ _history_list.pop()
         menu:
             m "I don't know what to expect from this...{fast}"
@@ -485,7 +485,7 @@ label nsfw_sexting_init:
         m 3eub "I remember the last time we did this; it was so much fun!"
         m 3tublb "So [player]...let's get started, shall we?"
         call nsfw_sexting_main
-        
+
     if store.persistent._nsfw_horny_level < 0:
         $ store.persistent._nsfw_horny_level = 0 # Negative horny is not allowed *bonk*
 

@@ -2,7 +2,7 @@ init -990 python in mas_submod_utils:
     Submod(
         author="NickWildish",
         name="NSFW Submod",
-        version="1.3.0",
+        version="1.3.1",
         description="A collection of NSFW topics and features for MAS.",
         settings_pane="nsfw_submod_screen",
         version_updates= {
@@ -1215,7 +1215,7 @@ init python in mas_nsfw:
     def save_fetish_to_persistent(fetish_name, fetish_whitelist, fetish_blacklist):
         # Force-update the fetish
         found_fetish = False
-        for fetish in persistent._nsfw_player_fetishes:
+        for fetish in store.persistent._nsfw_player_fetishes:
             if fetish[0] == fetish_to_save:
                 found_fetish = True
                 fetish[1] = fetish_whitelist
@@ -1224,4 +1224,4 @@ init python in mas_nsfw:
 
         if not found_fetish:
             # If we get here, we didn't find the fetish
-            persistent._nsfw_player_fetishes.append([fetish_to_save, fetish_whitelist, fetish_blacklist])
+            store.persistent._nsfw_player_fetishes.append([fetish_to_save, fetish_whitelist, fetish_blacklist])

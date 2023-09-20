@@ -162,6 +162,7 @@ label nsfw_sexting_main:
                 $ end_of_prompt_1 = store.mas_nsfw.return_dialogue_end(player_prompts[0][0])
                 $ end_of_prompt_2 = store.mas_nsfw.return_dialogue_end(player_prompts[1][0])
                 $ end_of_prompt_3 = store.mas_nsfw.return_dialogue_end(player_prompts[2][0])
+                $ end_of_prompt_4 = store.mas_nsfw.return_dialogue_end("Actually, can we stop just for now?")
                 menu:
                     m "[monika_quip[0]][quip_ending]{fast}"
 
@@ -181,7 +182,7 @@ label nsfw_sexting_main:
                         # Regenerate prompts
                         $ more_prompts = True
 
-                    "Actually, can we stop just for now?[end_of_prompt]":
+                    "Actually, can we stop just for now?[end_of_prompt_4]":
                         $ persistent._nsfw_last_sexted = datetime.datetime.now() # We already have a success check, so this can be a check for any previous sexting attempt
 
                         if horny_lvl >= horny_reqs[2]:

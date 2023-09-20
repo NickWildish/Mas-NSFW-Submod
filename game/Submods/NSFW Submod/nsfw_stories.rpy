@@ -69,7 +69,7 @@ init -1 python in nsfw_stories:
             return False
 
         can_show_new_story = (
-            seen_event(first_story)
+            renpy.seen_event(first_story)
             and (
                 ignore_cooldown
                 or mas_timePastSince(new_story_ls, datetime.timedelta(hours=TIME_BETWEEN_NSFW_UNLOCKS))

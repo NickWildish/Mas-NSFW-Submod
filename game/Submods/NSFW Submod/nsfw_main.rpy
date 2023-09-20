@@ -1216,7 +1216,7 @@ init python in mas_nsfw:
         # Force-update the fetish
         found_fetish = False
         for fetish in store.persistent._nsfw_player_fetishes:
-            if fetish[0] == fetish_to_save:
+            if fetish[0] == fetish_name:
                 found_fetish = True
                 fetish[1] = fetish_whitelist
                 fetish[2] = fetish_blacklist
@@ -1224,4 +1224,4 @@ init python in mas_nsfw:
 
         if not found_fetish:
             # If we get here, we didn't find the fetish
-            store.persistent._nsfw_player_fetishes.append([fetish_to_save, fetish_whitelist, fetish_blacklist])
+            store.persistent._nsfw_player_fetishes.append([fetish_name, fetish_whitelist, fetish_blacklist])

@@ -798,19 +798,25 @@ init python in mas_nsfw:
         # Grab random dialogue from list
         dialogue_no = random.randint(0, list_length - 1)
 
-        if list_length_first is not 0:
+        if list_length_first >= 2:
             dialogue_no_first = random.randint(0, list_length_first - 1)
+        elif list_length_first is 1:
+            dialogue_no_first = 0
         else:
             dialogue_no_first = -1
 
-        if list_length_second is not 0:
+        if list_length_second >= 2:
             dialogue_no_second = random.randint(0, list_length_second - 1)
+        elif list_length_second is 1:
+            dialogue_no_second = 0
         else:
             dialogue_no_second = -1
 
         # Should never happen, but just in case so we know where the issue is
-        if list_length_third is not 0:
+        if list_length_third >= 2:
             dialogue_no_third = random.randint(0, list_length_third - 1)
+        elif list_length_third is 1:
+            dialogue_no_third = 0
         else:
             dialogue_no_third = -1
 

@@ -536,19 +536,17 @@ init python in mas_nsfw:
             if dialogue[2] in recent:
                 continue
 
-            dp_to_append = 3 # Default to 3, which means "no match" or "generic"
+            dp_to_append = 3 # Default to 3, which means "no match"
             for pair in response_pairings:
                 if types == pair[0] and dialogue[0] == pair[1]:
-                    dp_to_append = 1
+                    dp_to_append = 1 # Direct match
                     break
                 elif len(types) == 3 and types[:2] == pair[0] and dialogue[0][:2] == pair[1]:
                     if types[2] == dialogue[0][2]:
-                        dp_to_append = 1
-                    else:
-                        dp_to_append = 3 if dp_to_append > 3 else None
+                        dp_to_append = 1 # Specific question matches
                     break
                 elif dialogue[0][0] not in unique_tags:
-                    dp_to_append = 2 if dp_to_append > 2 else None
+                    dp_to_append = 2 # Considered generic and can somewhat work with dialogue if necessary
                     break
 
             if not dialogue_already_in_pool(dialogue, dp1, dp2, dp3):

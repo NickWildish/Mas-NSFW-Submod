@@ -757,7 +757,10 @@ init python in mas_nsfw:
 
             else: # Default
                 # Create random integer based on how close value is to sexy req vs max
-                min_to_current_rand = random.randint(0, horny_lvl)
+                if horny_lvl == 0:
+                    min_to_current_rand = 0
+                else:
+                    min_to_current_rand = random.randint(0, horny_lvl)
                 current_to_hot_rand = random.randint(horny_lvl, horny_reqs[1])
 
                 # Check how close value is to sexy req vs max

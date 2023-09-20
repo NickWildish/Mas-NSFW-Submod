@@ -431,7 +431,7 @@ label nsfw_fetish_anal:
                 m 3tubsa "I'll make you feel so good, [player]."
 
         "No, I'm not into that.":
-            if is_into_anal = True:
+            if is_into_anal == True:
                 $ store.mas_nsfw.save_fetish_to_persistent("Anal", ["IAM", "MBH", "MXM", "FAM"], ["IAP", "PBH", "FXP", "FAP"])
             else:
                 $ store.mas_nsfw.save_fetish_to_persistent("Anal", ["U"], ["IAM", "MBH", "MXM", "FAM", "IAP", "PBH", "FXP", "FAP"])

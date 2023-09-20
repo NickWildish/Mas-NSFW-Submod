@@ -561,13 +561,13 @@ init python in mas_nsfw:
                     # renpy.say("System", "Type match found: " + ", ".join(str(x) for x in types) + " works with " + ", ".join(str(x) for x in dialogue[0]) + ".") # DEBUG
                     dp1.append(dialogue)
 
-        if len(dp1) == 0: # DEBUG
-            renpy.say("System", "No dialogue found for the given types. Using a less specific dialogue pool.")
-            dp1 = dp2 if len(dp2) > 0 else dp3
-            if len(dp2) > 0:
-                renpy.say("System", "Dialogue pool 2 used.")
-            else:
-                renpy.say("System", "Dialogue pool 3 used.")
+        # if len(dp1) == 0: # DEBUG
+        #     renpy.say("System", "No dialogue found for the given types. Using a less specific dialogue pool.")
+        #     dp1 = dp2 if len(dp2) > 0 else dp3
+        #     if len(dp2) > 0:
+        #         renpy.say("System", "Dialogue pool 2 used.")
+        #     else:
+        #         renpy.say("System", "Dialogue pool 3 used.")
 
         return dp1
 

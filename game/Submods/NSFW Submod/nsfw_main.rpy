@@ -530,6 +530,7 @@ init python in mas_nsfw:
             (["QUE", "QAT"],["ANS", "AAT"]),
             (["QUE", "QDT"],["ANS", "ADT"]),
             (["STM"],       ["DES", "LED"]),
+            (["STM"],       ["DES", "DRM"]),
         ]
 
         for dialogue in dialogue_list:

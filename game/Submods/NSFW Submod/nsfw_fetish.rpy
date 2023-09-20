@@ -415,7 +415,7 @@ label nsfw_fetish_anal:
         m "Do you like the idea of me...playing with your butt?{fast}"
 
         "Yeah, it sounds hot.":
-            if is_into_anal = True:
+            if is_into_anal == True:
                 $ store.mas_nsfw.save_fetish_to_persistent("Anal", ["IAM", "MBH", "MXM", "FAM", "IAP", "PBH", "FXP", "FAP"], ["U"])
             else:
                 $ store.mas_nsfw.save_fetish_to_persistent("Anal", ["IAP", "PBH", "FXP", "FAP"], ["IAM", "MBH", "MXM", "FAM"])

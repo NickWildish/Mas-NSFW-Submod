@@ -668,10 +668,10 @@ init python in mas_nsfw_sexting_dialogue:
     #   |        Type         |   Subtypes   |                                 Prompt                                    |
     #   |---------------------|--------------|---------------------------------------------------------------------------|
         (["CMD", "CPL"],       ["GEN"],        _("Anything for you")), #20
-        (["CMP", "CMP"],       ["PBD"]         _("You're pretty good looking yourself"))
+        (["CMP", "CMP"],       ["PBD"],        _("You're pretty good looking yourself")),
         (["CMP", "CRM"],       ["GEN"],        _("You know exactly what to say")), #2
         (["CMP", "CRM"],       ["GEN"],        _("You make me so happy talking like that")), #19
-        (["CMP", "CRM"],       ["GEN"],        _("You make me all warm and fuzzy when you talk like that"))
+        (["CMP", "CRM"],       ["GEN"],        _("You make me all warm and fuzzy when you talk like that")),
         (["CMP", "THK"],       ["GEN"],        _("Why thankyou")),
         (["DES", "DRM"],       ["GEN"],        _("Don't tempt me to try and break the screen to get to you")), #6
         (["DES", "DRM"],       ["GEN"],        _("I feel so good when you talk like that")), #10

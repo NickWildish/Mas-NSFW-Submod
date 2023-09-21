@@ -11,6 +11,7 @@ init 5 python:
             category=['sex'],
             prompt="Can you initiate sexting again?",
             unlocked=False,
+            rules={"no_unlock": None},
             conditional="persistent._nsfw_sexting_attempt_permfreeze == True",
             action=EV_ACT_UNLOCK,
             pool=True,

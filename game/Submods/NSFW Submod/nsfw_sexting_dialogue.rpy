@@ -757,6 +757,12 @@ init python in mas_nsfw_sexting_dialogue:
         (["CMD", "CPL"],       ["GEN"],        _("Anything for you")),
         (["CMD", "CPL"],       ["ONM"],        _("Like this?")),
         (["CMP", "CRM"],       ["GEN"],        _("You just have a way with words, don't you?")), #11
+        (["CMP", "CRM"],       ["GEN"],        _("You certainly know how to make a woman feel desired")),
+        (["CMP", "CRM"],       ["GEN"],        _("You always know how to make me feel so good")),
+        (["CMP", "CRM"],       ["GEN"],        _("I love it when you appreciate every inch of me")),
+        (["CMP", "CRM"],       ["GEN"],        _("You words are like fuel to my fantasies. I can't get enough")),
+        (["CMP", "CRM"],       ["GEN"],        _("You know just how to push all the right buttons")),
+        (["CMP", "THK"],       ["GEN"],        _("Why thankyou")),
         (["DES", "DRM", "MON"],["GEN"],        _("You really know how to please a woman")), #18
         (["DES", "DRM", "MON"],["RCN", "DOM"], _("Tell me what else you want to do to me")), #7
         (["DES", "DRM", "PLY"],["RCN", "SUB"], _("Tell me what else you want me to do to you")), #20
@@ -778,6 +784,7 @@ init python in mas_nsfw_sexting_dialogue:
         (["DES", "LED"],       ["GEN"],        _("Is that so?")), #3
         (["STM"],              ["GEN"],        _("I am so wet right now")), #17
         (["STM"],              ["GEN"],        _("I'm so wet for you right now")), # 18
+        (["STM"],              ["GEN"],        _("I want you so bad")),
     ]
 
     sext_responses_sexy_p = [

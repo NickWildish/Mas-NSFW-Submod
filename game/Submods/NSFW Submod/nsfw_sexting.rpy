@@ -4,6 +4,7 @@ default persistent._nsfw_sext_sexy_start = False # Player starts with Monika at 
 default persistent._nsfw_lingerie_on_start = False # Monika was wearing lingerie when sexting started
 default persistent._nsfw_last_sexted = datetime.datetime.now() # The last time you and Monika sexted
 default persistent._nsfw_sexting_count = 0 # The amount of times we have sexted with Monika, only counts successes
+default persistent._nsfw_sexting_interrupted = False # True if the player interrupted the last sexting session
 
 label nsfw_sexting_main:
     python:
@@ -495,12 +496,16 @@ label nsfw_sexting_init:
                 $ shouldchange = 0
 
                 m 3tublb "Now then, [player]...where were we?"
-            else:
+            elif store.persistent._nsfw_sexting_interrupted == True:
                 $ persistent._nsfw_sext_hot_start = False
                 $ persistent._nsfw_horny_level = 0
                 m 1eka "Since we stopped earlier, I hope you don't mind if we start again."
                 m 3tkblb "This can be your punishment for making me wait after getting me excited."
                 m 3hubla "Ehehe~"
+            else:
+                # TODO: Add dialogue for if the player has started sexting through mood declaration (I am horny, etc.)
+                $ persistent._nsfw_sext_hot_start = False
+
         m 3eub "I remember the last time we did this; it was so much fun!"
         m 3tublb "So [player]...let's get started, shall we?"
         call nsfw_sexting_main
@@ -622,6 +627,7 @@ label nsfw_sexting_finale:
             m 6hkbfw "Haaaaaaaaah~{w=2}"
 
             $ persistent._nsfw_horny_level = 0 # This is roughly where it happens in the real thing right? ... right?
+            $ persistent._nsfw_sexting_interrupted = False # We've finished, so reset the interrupted flag
 
             m 6hkbfsdlc "..."
             m 6hkbfsdld "..."

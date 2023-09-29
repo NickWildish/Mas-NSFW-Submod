@@ -179,22 +179,20 @@ label nsfw_sexting_main:
                         $ more_prompts = False
 
                     "...":
-                        if store.persistent._nsfw_debug_mode:
+                        if persistent._nsfw_debug_mode:
                             menu:
+                                m "[monika_quip[0]][quip_ending]{fast}"
+
                                 "SET TO CUTE STAGE":
                                     $ horny_lvl = 0
-                                    $ more_prompts = False
 
                                 "SET TO HOT STAGE":
                                     $ horny_lvl = horny_reqs[1]
-                                    $ more_prompts = False
 
                                 "SET TO SEXY STAGE":
                                     $ horny_lvl = horny_reqs[2]
-                                    $ more_prompts = False
 
-                                "MORE PROMPTS":
-                                    $ more_prompts = True
+                            $ more_prompts = True
 
                         else:
                             # Regenerate prompts

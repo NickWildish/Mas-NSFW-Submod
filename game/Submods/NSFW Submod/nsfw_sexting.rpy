@@ -179,8 +179,26 @@ label nsfw_sexting_main:
                         $ more_prompts = False
 
                     "...":
-                        # Regenerate prompts
-                        $ more_prompts = True
+                        if store.persistent._nsfw_debug_mode:
+                            menu:
+                                "SET TO CUTE STAGE":
+                                    $ horny_lvl = 0
+                                    $ more_prompts = False
+
+                                "SET TO HOT STAGE":
+                                    $ horny_lvl = horny_reqs[1]
+                                    $ more_prompts = False
+
+                                "SET TO SEXY STAGE":
+                                    $ horny_lvl = horny_reqs[2]
+                                    $ more_prompts = False
+
+                                "MORE PROMPTS":
+                                    $ more_prompts = True
+
+                        else:
+                            # Regenerate prompts
+                            $ more_prompts = True
 
                     "Actually, can we stop just for now?[end_of_prompt_4]":
                         $ persistent._nsfw_last_sexted = datetime.datetime.now() # We already have a success check, so this can be a check for any previous sexting attempt

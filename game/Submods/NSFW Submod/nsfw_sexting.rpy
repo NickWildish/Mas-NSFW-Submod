@@ -19,7 +19,6 @@ label nsfw_sexting_main:
         recent_quips = [] # The recent quips used
         shouldkiss = False # Used in handling of kissing logic
         shouldkiss_cooldown = 0 # Used in handling of kissing logic
-        shouldchange = False # Used in handling of clothes change logic
         hot_transfer = False # True if Monika has reached the requirement for hot dialogue or more
         sexy_transfer = False # True if Monika has reached the requirement for sexy dialogue only
         did_finish = True # False if the player did not finish
@@ -354,6 +353,8 @@ label nsfw_sexting_main:
                 return
 
 label nsfw_sexting_init:
+    $ shouldchange = 0 # Used in handling of clothes change logic
+
     if "lingerie" not in store.monika_chr.clothes.ex_props:
         $ persistent._nsfw_lingerie_on_start = True
 

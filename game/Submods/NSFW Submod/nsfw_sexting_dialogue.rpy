@@ -782,9 +782,9 @@ init python in mas_nsfw_sexting_dialogue:
         (["DES", "DRM"],       ["RCN"],        _("Whatever you're doing...it's working")), #10
         (["DES", "LED"],       ["GEN"],        _("Is that right?")), #2
         (["DES", "LED"],       ["GEN"],        _("Is that so?")), #3
-        (["STM"],              ["GEN"],        _("I am so wet right now")), #17
-        (["STM"],              ["GEN"],        _("I'm so wet for you right now")), # 18
-        (["STM"],              ["GEN"],        _("I want you so bad")),
+        (["DES", "DRM"],       ["GEN"],        _("I am so wet right now")), #17
+        (["DES", "DRM"],       ["GEN"],        _("I'm so wet for you right now")), # 18
+        (["DES", "DRM"],       ["GEN"],        _("I want you so bad")),
     ]
 
     sext_responses_sexy_p = [

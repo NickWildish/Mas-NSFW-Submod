@@ -383,13 +383,13 @@ init python in mas_nsfw_sexting_dialogue:
     #   |---------------------|--------------|---------------------------------------------------------------------------|
         (["STM"],              ["PVG"],        _("I'm so wet for you.")),
         (["STM"],              ["PVG"],        _("I'm dripping wet for you right now.")),
-        (["DES"],              ["FCP", "IVV"], _("I want to sit on your face.")),
-        (["DES","MON"],        ["MTH", "IOP"], _("I want to grind my pussy against your thigh until I cum.")),
-        (["DES"],              ["FSP", "FSM"], _("I want us to finger each other to the edge and then...stop.")),
-        (["DES"],              ["PVG", "FSP"], _("{size=-7}I want you to play with my clit while I'm still wearing my clothes.")),
-        (["DES"],              ["PVG", "FCP"], _("I want you to eat me out.")),
-        (["DES"],              ["FTY", "FSM"], _("{size=-7}I want to use a vibrator on your clit and drive you over the edge. Would you let me?")),
-        (["QUE", "QAT"],       ["PCK", "FSP"], _("{size=-7}Would you make out with me while your hands are playing with my nipples?")),
+        (["DES","PLY"],        ["FCP", "IVV"], _("I want to sit on your face.")),
+        (["DES","PLY"],        ["MTH", "IOP"], _("I want to grind my pussy against your thigh until I cum.")),
+        (["DES","MON"],        ["FSP", "FSM"], _("I want us to finger each other to the edge and then...stop.")),
+        (["DES","MON"],        ["PVG", "FSP"], _("{size=-7}I want you to play with my clit while I'm still wearing my clothes.")),
+        (["DES","MON"],        ["PVG", "FCP"], _("I want you to eat me out.")),
+        (["DES","PLY"],        ["FTY", "FSM"], _("{size=-7}I want to use a vibrator on your clit and drive you over the edge.")),
+        (["QUE","QAT"],        ["PCK", "FSP"], _("{size=-7}Would you make out with me while your hands are playing with my nipples?")),
     ]
     # if store.persistent._nsfw_genitalia == "V":
     #     sext_prompts_sexy.extend(sext_prompts_sexy_v)

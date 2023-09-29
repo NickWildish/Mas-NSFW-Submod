@@ -416,9 +416,9 @@ label nsfw_fetish_anal:
 
         "Yeah, it sounds hot.":
             if is_into_anal == True:
-                $ store.mas_nsfw.save_fetish_to_persistent("Anal", ["IAM", "MBH", "MXM", "FAM", "IAP", "PBH", "FXP", "FAP"], ["U"])
+                $ store.mas_nsfw.save_fetish_to_persistent("Anal", ["IAM", "MBH", "FXM", "FAM", "IAP", "PBH", "FXP", "FAP"], ["U"])
             else:
-                $ store.mas_nsfw.save_fetish_to_persistent("Anal", ["IAP", "PBH", "FXP", "FAP"], ["IAM", "MBH", "MXM", "FAM"])
+                $ store.mas_nsfw.save_fetish_to_persistent("Anal", ["IAP", "PBH", "FXP", "FAP"], ["IAM", "MBH", "FXM", "FAM"])
 
             if store.persistent.gender == "M":
                 m 1wubsd "Really?"
@@ -432,9 +432,9 @@ label nsfw_fetish_anal:
 
         "No, I'm not into that.":
             if is_into_anal == True:
-                $ store.mas_nsfw.save_fetish_to_persistent("Anal", ["IAM", "MBH", "MXM", "FAM"], ["IAP", "PBH", "FXP", "FAP"])
+                $ store.mas_nsfw.save_fetish_to_persistent("Anal", ["IAM", "MBH", "FXM", "FAM"], ["IAP", "PBH", "FXP", "FAP"])
             else:
-                $ store.mas_nsfw.save_fetish_to_persistent("Anal", ["U"], ["IAM", "MBH", "MXM", "FAM", "IAP", "PBH", "FXP", "FAP"])
+                $ store.mas_nsfw.save_fetish_to_persistent("Anal", ["U"], ["IAM", "MBH", "FXM", "FAM", "IAP", "PBH", "FXP", "FAP"])
 
             m 1ekbsa "That's fair enough, [player]."
             m 2hkbsb "I'm not sure if I'd be any good at it anyway."

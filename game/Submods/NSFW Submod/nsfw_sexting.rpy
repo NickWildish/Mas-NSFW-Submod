@@ -329,15 +329,15 @@ label nsfw_sexting_main:
         python:
             # Add the prompts, responses and quips used by the player to a 'recently used' list, remove oldest ones from list when going above 10 items
             for x in range(3): # Prompts
-                if len(recent_prompts) >= 10:
+                while len(recent_prompts) >= 10:
                     recent_prompts.pop()
                 recent_prompts.insert(0, player_prompts[x][0])
 
-            if len(recent_responses) >= 10: # Responses
+            while len(recent_responses) >= 10: # Responses
                 recent_responses.pop()
             recent_responses.insert(0, monika_response[0])
 
-            if len(recent_quips) >= 10: # Quips
+            while len(recent_quips) >= 10: # Quips
                 recent_quips.pop()
             recent_quips.insert(0, monika_quip[0])
 

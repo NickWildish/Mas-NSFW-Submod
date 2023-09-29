@@ -553,6 +553,9 @@ init python in mas_nsfw:
             (["STM"],       ["DES", "DRM"]),
         ]
 
+        if store.persistent._nsfw_debug_mode:
+            renpy.say("System", "--TYPE REFINEMENT--{nw}") # DEBUG
+
         for dialogue in dialogue_list:
             if dialogue[2] in recent:
                 continue
@@ -572,22 +575,25 @@ init python in mas_nsfw:
 
             if not dialogue_already_in_pool(dialogue, dp1, dp2, dp3):
                 if dp_to_append == 3:
-                    # renpy.say("System", "Type match not found: " + ", ".join(str(x) for x in types) + " does not work with " + ", ".join(str(x) for x in dialogue[0]) + ".") # DEBUG
+                    if store.persistent._nsfw_debug_mode:
+                        renpy.say("System", "Type match not found: " + ", ".join(str(x) for x in types) + " does not work with " + ", ".join(str(x) for x in dialogue[0]) + ".{nw}") # DEBUG
                     dp3.append(dialogue)
                 elif dp_to_append == 2:
-                    # renpy.say("System", "Type match semi-found: " + ", ".join(str(x) for x in types) + " somewhat works with " + ", ".join(str(x) for x in dialogue[0]) + ".") # DEBUG
+                    if store.persistent._nsfw_debug_mode:
+                        renpy.say("System", "Type match semi-found: " + ", ".join(str(x) for x in types) + " somewhat works with " + ", ".join(str(x) for x in dialogue[0]) + ".{nw}") # DEBUG
                     dp2.append(dialogue)
                 elif dp_to_append == 1:
-                    # renpy.say("System", "Type match found: " + ", ".join(str(x) for x in types) + " works with " + ", ".join(str(x) for x in dialogue[0]) + ".") # DEBUG
+                    if store.persistent._nsfw_debug_mode:
+                        renpy.say("System", "Type match found: " + ", ".join(str(x) for x in types) + " works with " + ", ".join(str(x) for x in dialogue[0]) + ".{nw}") # DEBUG
                     dp1.append(dialogue)
 
-        # if len(dp1) == 0: # DEBUG
-        #     renpy.say("System", "No dialogue found for the given types. Using a less specific dialogue pool.")
-        #     dp1 = dp2 if len(dp2) > 0 else dp3
-        #     if len(dp2) > 0:
-        #         renpy.say("System", "Dialogue pool 2 used.")
-        #     else:
-        #         renpy.say("System", "Dialogue pool 3 used.")
+        if len(dp1) == 0 and store.persistent._nsfw_debug_mode: # DEBUG
+            renpy.say("System", "No dialogue found for the given types. Using a less specific dialogue pool.{nw}")
+            dp1 = dp2 if len(dp2) > 0 else dp3
+            if len(dp2) > 0:
+                renpy.say("System", "Dialogue pool 2 used.{nw}")
+            else:
+                renpy.say("System", "Dialogue pool 3 used.{nw}")
 
         return dp1
 

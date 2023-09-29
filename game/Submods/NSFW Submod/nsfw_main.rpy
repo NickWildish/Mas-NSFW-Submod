@@ -144,6 +144,15 @@ init python in mas_nsfw:
     import random
     import os
 
+    def toggle_debug():
+        """
+        Toggles debug mode on and off.
+        """
+        if store.persistent._nsfw_debug_mode:
+            store.persistent._nsfw_debug_mode = False
+        else:
+            store.persistent._nsfw_debug_mode = True
+
     def hour_check(set_time=6, time_scale="hours", topic="nsfw_monika_gettingnude"):
         """
         Checks if six hours has passed since the player has seen a topic and also been away from the pc for a set amount of hours.

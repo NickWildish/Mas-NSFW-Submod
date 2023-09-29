@@ -26,13 +26,7 @@ label nsfw_sexting_main:
 
     while True:
         # Create new Monika quip
-        if horny_lvl == 0:
-            $ monika_quip = ["I'll let you go first", "cute", ["STM"], ["GEN"], ""]
-            $ monika_quip[4] = mas_nsfw.return_dialogue_end(monika_quip[0])
-            $ quip_ending = monika_quip[4]
-            # Set new previous category/type/subtype to the new quip's
-            $ previous_vars = ["cute", ["STM"], ["GEN"]]
-        elif store.persistent._nsfw_sext_hot_start:
+        if store.persistent._nsfw_sext_hot_start:
             $ monika_quip = store.mas_nsfw.create_sexting_quips(
                 horny_lvl=horny_lvl,
                 horny_reqs=horny_reqs,
@@ -54,6 +48,12 @@ label nsfw_sexting_main:
             $ quip_ending = monika_quip[4]
             # Set new previous category/type/subtype to the new quip's
             $ previous_vars = [monika_quip[1], monika_quip[2], monika_quip[3]]
+        elif horny_lvl == 0:
+            $ monika_quip = ["I'll let you go first", "cute", ["STM"], ["GEN"], ""]
+            $ monika_quip[4] = mas_nsfw.return_dialogue_end(monika_quip[0])
+            $ quip_ending = monika_quip[4]
+            # Set new previous category/type/subtype to the new quip's
+            $ previous_vars = ["cute", ["STM"], ["GEN"]]
         else:
             $ monika_quip = store.mas_nsfw.create_sexting_quips(
                 horny_lvl=horny_lvl,

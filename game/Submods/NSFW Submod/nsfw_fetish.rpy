@@ -208,7 +208,7 @@ label nsfw_fetish_bondage:
         "No thanks.":
             m 3eka "Okay, that's fine."
             m 3ekb "I'll save it for another time then."
-            m 1eka "Regardless...thankyou for telling me about your preferences, [player]."
+            m 1eka "Regardless...thank you for telling me about your preferences, [player]."
             m 1rkbla "It can be difficult to talk about your fetishes with someone, so I appreciate you opening up to me."
             m 1ekbla "If you ever want to talk about this again, or if you change your mind, I'll be here."
             m 5ekbla "I love you, and I'll never judge you."
@@ -440,7 +440,7 @@ label nsfw_fetish_anal:
             m 2hkbsb "I'm not sure if I'd be any good at it anyway."
             m 2lkbsa "But, regardless..."
 
-    m 1ekbla "Thankyou for talking about this with me."
+    m 1ekbla "Thank you for talking about this with me."
     m 3ekblb "I know this sort of thing isn't comfortable for everyone."
     m 3hubla "But I want to experience and learn as much about sex as I can with you."
     m 1ekbla "You mean the world to me, [player]."

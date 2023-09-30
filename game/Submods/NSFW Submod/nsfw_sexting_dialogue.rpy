@@ -5,7 +5,7 @@ init python in mas_nsfw_sexting_dialogue:
 
     ## CATEGORIES ("types", 1st element of the tuple) ##
     # "CMP" -          | Prompts, Quips, and Responses | Compliment
-    # |-"THK" -        | Responses                     | Thankyou
+    # |-"THK" -        | Responses                     | Thank you
     # |-"CMP" -        | Responses                     | Return compliment
     # |-"CRM" -        | Responses                     | Compliment remark
     # "CMD" -          | Prompts, Quips, and Responses | Command
@@ -672,7 +672,7 @@ init python in mas_nsfw_sexting_dialogue:
         (["CMP", "CRM"],       ["GEN"],        _("You know exactly what to say")), #2
         (["CMP", "CRM"],       ["GEN"],        _("You make me so happy talking like that")), #19
         (["CMP", "CRM"],       ["GEN"],        _("You make me all warm and fuzzy when you talk like that")),
-        (["CMP", "THK"],       ["GEN"],        _("Why thankyou")),
+        (["CMP", "THK"],       ["GEN"],        _("Why thank you")),
         (["DES", "DRM"],       ["GEN"],        _("Don't tempt me to try and break the screen to get to you")), #6
         (["DES", "DRM"],       ["GEN"],        _("I feel so good when you talk like that")), #10
         (["DES", "DRM"],       ["GEN"],        _("I like the sound of that")), #1
@@ -762,7 +762,7 @@ init python in mas_nsfw_sexting_dialogue:
         (["CMP", "CRM"],       ["GEN"],        _("I love it when you appreciate every inch of me")),
         (["CMP", "CRM"],       ["GEN"],        _("You words are like fuel to my fantasies. I can't get enough")),
         (["CMP", "CRM"],       ["GEN"],        _("You know just how to push all the right buttons")),
-        (["CMP", "THK"],       ["GEN"],        _("Why thankyou")),
+        (["CMP", "THK"],       ["GEN"],        _("Why thank you")),
         (["DES", "DRM", "MON"],["GEN"],        _("You really know how to please a woman")), #18
         (["DES", "DRM", "MON"],["RCN", "DOM"], _("Tell me what else you want to do to me")), #7
         (["DES", "DRM", "PLY"],["RCN", "SUB"], _("Tell me what else you want me to do to you")), #20

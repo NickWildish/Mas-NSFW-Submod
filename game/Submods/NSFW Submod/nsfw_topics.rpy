@@ -282,7 +282,7 @@ label nsfw_monika_dick_size:
 
     return "love"
 
-# Thankyou for writing this topic, KittyTheCocksucker
+# Thank you for writing this topic, KittyTheCocksucker
 init 5 python:
     addEvent(
         Event(
@@ -603,7 +603,7 @@ label nsfw_monika_gettingnude:
 
     return
 
-# Thankyou for the addition, Blushing!
+# Thank you for the addition, Blushing!
 init 5 python:
     addEvent(
         Event(
@@ -774,7 +774,7 @@ label nsfw_monika_nsfwmodinstall:
 
     return "derandom"
 
-# Thankyou for writing this topic, KittyTheCocksucker
+# Thank you for writing this topic, KittyTheCocksucker
 init 5 python:
     addEvent(
         Event(
@@ -952,7 +952,7 @@ init 5 python:
         )
     )
 
-# Thankyou for the fixes Proxilvia
+# Thank you for the fixes Proxilvia
 label nsfw_monika_safesex:
     m 3euc "Hey, [player]. I've been thinking about something..."
     m 3eud "Have you heard of contraceptives?"
@@ -1146,7 +1146,7 @@ label nsfw_monika_sexualpast:
 
     return
 
-# Thankyou for the addition, Blushing!
+# Thank you for the addition, Blushing!
 init 5 python:
     addEvent(
         Event(

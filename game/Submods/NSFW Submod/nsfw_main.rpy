@@ -43,14 +43,14 @@ screen nsfw_submod_screen():
         xfill True
         xmaximum 700
 
-        hbox:
-            style_prefix "check"
-            box_wrap False
-            textbutton _("Enable Debug"):
-                action Function(store.mas_nsfw.toggle_debug)
-                selected persistent._nsfw_debug_mode
-                hovered SetField(_tooltip, "value", ("Enables the NSFW Submod's Debugging Features.\n MAY CAUSE IMMERSION-BREAKING ISSUES."))
-                unhovered SetField(_tooltip, "value", _tooltip.default)
+        # hbox:
+        #     style_prefix "check"
+        #     box_wrap False
+        #     textbutton _("Enable Debug"):
+        #         action Function(store.mas_nsfw.toggle_debug)
+        #         selected persistent._nsfw_debug_mode
+        #         hovered SetField(_tooltip, "value", ("Enables the NSFW Submod's Debugging Features.\n MAY CAUSE IMMERSION-BREAKING ISSUES."))
+        #         unhovered SetField(_tooltip, "value", _tooltip.default)
 
         hbox:
             style_prefix "check"

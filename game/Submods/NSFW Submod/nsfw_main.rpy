@@ -28,6 +28,7 @@ init -989 python:
 
 default persistent._nsfw_player_endurance = 1
 default persistent._nsfw_monika_sexting_frequency = 1
+default persistent._nsfw_debug_mode = False
 
 screen nsfw_submod_screen():
     python:

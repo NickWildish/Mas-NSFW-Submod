@@ -228,7 +228,7 @@ label nsfw_fetish_bondage:
     m 4eub "Western bondage usually ties people up so that things can be {i}done{/i} to them."
     m 4rub "It finds roots in the classic 'damnsel in distress' archetype in old Hollywood films, which inspired John Wille in the 1940's to create erotic artwork and photography that would inspire many."
     m 4rub "Guess you'll never look at damsels in distress the same way again, ahaha~"
-    m 1eua "But anways, the style is generally designed to deal with restraint and handling a struggle, since the bonds are merely a means to an end. It commonly involves armbinders, gags, or furniture."
+    m 1eua "But anyways, the style is generally designed to deal with restraint and handling a struggle, since the bonds are merely a means to an end. It commonly involves armbinders, gags, or furniture."
     m 3eua "In comparison, Eastern bondage usually focuses on the act of being being tied up {i}is{/i} what's happening to them."
     m 3eub "It finds roots in the work of Seiu Ito, an artist who incorporated rope bondage into his erotic work in the 20th century, and many attribute it to the importance of rope in important traditions, including the restraint of suspected criminals with rope."
     m 4eub "It's usually concerned with beauty, symbolism, and or the pleasure of the experience. The arms being folded behind the back is common, as is partial or full suspension."

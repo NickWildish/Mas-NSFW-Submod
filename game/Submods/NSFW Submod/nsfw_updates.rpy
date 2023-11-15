@@ -137,8 +137,8 @@ label nickwildish_nsfw_submod_v1_3_2(version="v_1_3_2"):
     python:
         store.mas_setEVLPropValues(
             "nsfw_player_monika_initiate_sext",
-            pool=True,
             unlocked=False,
+            rules={"no_unlock": None},
             conditional=(
             "persistent._nsfw_sexting_attempt_permfreeze == True"
             ),
@@ -153,7 +153,6 @@ label nickwildish_nsfw_submod_v1_3_4(version="v_1_3_4"):
     python:
         store.mas_setEVLPropValues(
             "nsfw_player_monika_initiate_sext",
-            pool=True,
             unlocked=False,
             conditional="persistent._nsfw_sexting_attempt_permfreeze == True",
             action=EV_ACT_UNLOCK,

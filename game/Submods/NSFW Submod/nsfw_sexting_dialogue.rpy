@@ -5,7 +5,7 @@ init python in mas_nsfw_sexting_dialogue:
 
     ## CATEGORIES ("types", 1st element of the tuple) ##
     # "CMP" -          | Prompts, Quips, and Responses | Compliment
-    # |-"THK" -        | Responses                     | Thankyou
+    # |-"THK" -        | Responses                     | Thank you
     # |-"CMP" -        | Responses                     | Return compliment
     # |-"CRM" -        | Responses                     | Compliment remark
     # "CMD" -          | Prompts, Quips, and Responses | Command
@@ -136,7 +136,11 @@ init python in mas_nsfw_sexting_dialogue:
     # The second letter is A or X if the subtype has to do with "butt stuff".
     # The third letter is M if Monika receives it, and P if the player receives it.
 
-    monika_nickname = store.persistent._mas_monika_nickname
+    # If Monika's nickname in the persistent does not exist, use "Monika" instead.
+    if store.persistent._mas_monika_nickname == "" or store.persistent._mas_monika_nickname == None:
+        monika_nickname = _("Monika")
+    else:
+        monika_nickname = store.persistent._mas_monika_nickname
 
     # Sexting prompts for your average compliment
     sext_prompts_cute = [
@@ -383,13 +387,13 @@ init python in mas_nsfw_sexting_dialogue:
     #   |---------------------|--------------|---------------------------------------------------------------------------|
         (["STM"],              ["PVG"],        _("I'm so wet for you.")),
         (["STM"],              ["PVG"],        _("I'm dripping wet for you right now.")),
-        (["DES"],              ["FCP", "IVV"], _("I want to sit on your face.")),
-        (["DES","MON"],        ["MTH", "IOP"], _("I want to grind my pussy against your thigh until I cum.")),
-        (["DES"],              ["FSP", "FSM"], _("I want us to finger each other to the edge and then...stop.")),
-        (["DES"],              ["PVG", "FSP"], _("{size=-7}I want you to play with my clit while I'm still wearing my clothes.")),
-        (["DES"],              ["PVG", "FCP"], _("I want you to eat me out.")),
-        (["DES"],              ["FTY", "FSM"], _("{size=-7}I want to use a vibrator on your clit and drive you over the edge. Would you let me?")),
-        (["QUE", "QAT"],       ["PCK", "FSP"], _("{size=-7}Would you make out with me while your hands are playing with my nipples?")),
+        (["DES","PLY"],        ["FCP", "IVV"], _("I want to sit on your face.")),
+        (["DES","PLY"],        ["MTH", "IOP"], _("I want to grind my pussy against your thigh until I cum.")),
+        (["DES","MON"],        ["FSP", "FSM"], _("I want us to finger each other to the edge and then...stop.")),
+        (["DES","MON"],        ["PVG", "FSP"], _("{size=-7}I want you to play with my clit while I'm still wearing my clothes.")),
+        (["DES","MON"],        ["PVG", "FCP"], _("I want you to eat me out.")),
+        (["DES","PLY"],        ["FTY", "FSM"], _("{size=-7}I want to use a vibrator on your clit and drive you over the edge.")),
+        (["QUE","QAT"],        ["PCK", "FSP"], _("{size=-7}Would you make out with me while your hands are playing with my nipples?")),
     ]
     # if store.persistent._nsfw_genitalia == "V":
     #     sext_prompts_sexy.extend(sext_prompts_sexy_v)
@@ -672,7 +676,7 @@ init python in mas_nsfw_sexting_dialogue:
         (["CMP", "CRM"],       ["GEN"],        _("You know exactly what to say")), #2
         (["CMP", "CRM"],       ["GEN"],        _("You make me so happy talking like that")), #19
         (["CMP", "CRM"],       ["GEN"],        _("You make me all warm and fuzzy when you talk like that")),
-        (["CMP", "THK"],       ["GEN"],        _("Why thankyou")),
+        (["CMP", "THK"],       ["GEN"],        _("Why thank you")),
         (["DES", "DRM"],       ["GEN"],        _("Don't tempt me to try and break the screen to get to you")), #6
         (["DES", "DRM"],       ["GEN"],        _("I feel so good when you talk like that")), #10
         (["DES", "DRM"],       ["GEN"],        _("I like the sound of that")), #1
@@ -762,7 +766,7 @@ init python in mas_nsfw_sexting_dialogue:
         (["CMP", "CRM"],       ["GEN"],        _("I love it when you appreciate every inch of me")),
         (["CMP", "CRM"],       ["GEN"],        _("You words are like fuel to my fantasies. I can't get enough")),
         (["CMP", "CRM"],       ["GEN"],        _("You know just how to push all the right buttons")),
-        (["CMP", "THK"],       ["GEN"],        _("Why thankyou")),
+        (["CMP", "THK"],       ["GEN"],        _("Why thank you")),
         (["DES", "DRM", "MON"],["GEN"],        _("You really know how to please a woman")), #18
         (["DES", "DRM", "MON"],["RCN", "DOM"], _("Tell me what else you want to do to me")), #7
         (["DES", "DRM", "PLY"],["RCN", "SUB"], _("Tell me what else you want me to do to you")), #20
@@ -782,9 +786,9 @@ init python in mas_nsfw_sexting_dialogue:
         (["DES", "DRM"],       ["RCN"],        _("Whatever you're doing...it's working")), #10
         (["DES", "LED"],       ["GEN"],        _("Is that right?")), #2
         (["DES", "LED"],       ["GEN"],        _("Is that so?")), #3
-        (["STM"],              ["GEN"],        _("I am so wet right now")), #17
-        (["STM"],              ["GEN"],        _("I'm so wet for you right now")), # 18
-        (["STM"],              ["GEN"],        _("I want you so bad")),
+        (["DES", "DRM"],       ["GEN"],        _("I am so wet right now")), #17
+        (["DES", "DRM"],       ["GEN"],        _("I'm so wet for you right now")), # 18
+        (["DES", "DRM"],       ["GEN"],        _("I want you so bad")),
     ]
 
     sext_responses_sexy_p = [

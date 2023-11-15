@@ -136,7 +136,11 @@ init python in mas_nsfw_sexting_dialogue:
     # The second letter is A or X if the subtype has to do with "butt stuff".
     # The third letter is M if Monika receives it, and P if the player receives it.
 
-    monika_nickname = store.persistent._mas_monika_nickname
+    # If Monika's nickname in the persistent does not exist, use "Monika" instead.
+    if store.persistent._mas_monika_nickname == "" or store.persistent._mas_monika_nickname == None:
+        monika_nickname = _("Monika")
+    else:
+        monika_nickname = store.persistent._mas_monika_nickname
 
     # Sexting prompts for your average compliment
     sext_prompts_cute = [

@@ -2,7 +2,7 @@ init -990 python in mas_submod_utils:
     Submod(
         author="NickWildish",
         name="NSFW Submod",
-        version="1.3.3",
+        version="1.3.4",
         description="A collection of NSFW topics and features for MAS.",
         settings_pane="nsfw_submod_screen",
         version_updates= {
@@ -10,6 +10,7 @@ init -990 python in mas_submod_utils:
             "nickwildish_nsfw_submod_v1_1_0": "nickwildish_nsfw_submod_v1_1_1",
             "nickwildish_nsfw_submod_v1_2_7": "nickwildish_nsfw_submod_v1_3_0",
             "nickwildish_nsfw_submod_v1_3_0": "nickwildish_nsfw_submod_v1_3_2",
+            "nickwildish_nsfw_submod_v1_3_2": "nickwildish_nsfw_submod_v1_3_4"
         },
         coauthors=["mizuotana-nirera", "TreeWizard96"]
     ) # https://github.com/NickWildish/Mas-NSFW-Submod
@@ -27,6 +28,7 @@ init -989 python:
 
 default persistent._nsfw_player_endurance = 1
 default persistent._nsfw_monika_sexting_frequency = 1
+default persistent._nsfw_debug_mode = False
 
 screen nsfw_submod_screen():
     python:
@@ -41,6 +43,15 @@ screen nsfw_submod_screen():
         box_wrap False
         xfill True
         xmaximum 700
+
+        # hbox:
+        #     style_prefix "check"
+        #     box_wrap False
+        #     textbutton _("Enable Debug"):
+        #         action Function(store.mas_nsfw.toggle_debug)
+        #         selected persistent._nsfw_debug_mode
+        #         hovered SetField(_tooltip, "value", ("Enables the NSFW Submod's Debugging Features.\n MAY CAUSE IMMERSION-BREAKING ISSUES."))
+        #         unhovered SetField(_tooltip, "value", _tooltip.default)
 
         hbox:
             style_prefix "check"
@@ -133,6 +144,15 @@ init python in mas_nsfw:
     import datetime
     import random
     import os
+
+    def toggle_debug():
+        """
+        Toggles debug mode on and off.
+        """
+        if store.persistent._nsfw_debug_mode:
+            store.persistent._nsfw_debug_mode = False
+        else:
+            store.persistent._nsfw_debug_mode = True
 
     def hour_check(set_time=6, time_scale="hours", topic="nsfw_monika_gettingnude"):
         """
@@ -534,6 +554,9 @@ init python in mas_nsfw:
             (["STM"],       ["DES", "DRM"]),
         ]
 
+        if store.persistent._nsfw_debug_mode:
+            renpy.say("System", "--TYPE REFINEMENT--{nw}") # DEBUG
+
         for dialogue in dialogue_list:
             if dialogue[2] in recent:
                 continue
@@ -553,22 +576,25 @@ init python in mas_nsfw:
 
             if not dialogue_already_in_pool(dialogue, dp1, dp2, dp3):
                 if dp_to_append == 3:
-                    # renpy.say("System", "Type match not found: " + ", ".join(str(x) for x in types) + " does not work with " + ", ".join(str(x) for x in dialogue[0]) + ".") # DEBUG
+                    if store.persistent._nsfw_debug_mode:
+                        renpy.say("System", "Type match not found: " + ", ".join(str(x) for x in types) + " does not work with " + ", ".join(str(x) for x in dialogue[0]) + ".{nw}") # DEBUG
                     dp3.append(dialogue)
                 elif dp_to_append == 2:
-                    # renpy.say("System", "Type match semi-found: " + ", ".join(str(x) for x in types) + " somewhat works with " + ", ".join(str(x) for x in dialogue[0]) + ".") # DEBUG
+                    if store.persistent._nsfw_debug_mode:
+                        renpy.say("System", "Type match semi-found: " + ", ".join(str(x) for x in types) + " somewhat works with " + ", ".join(str(x) for x in dialogue[0]) + ".{nw}") # DEBUG
                     dp2.append(dialogue)
                 elif dp_to_append == 1:
-                    # renpy.say("System", "Type match found: " + ", ".join(str(x) for x in types) + " works with " + ", ".join(str(x) for x in dialogue[0]) + ".") # DEBUG
+                    if store.persistent._nsfw_debug_mode:
+                        renpy.say("System", "Type match found: " + ", ".join(str(x) for x in types) + " works with " + ", ".join(str(x) for x in dialogue[0]) + ".{nw}") # DEBUG
                     dp1.append(dialogue)
 
-        # if len(dp1) == 0: # DEBUG
-        #     renpy.say("System", "No dialogue found for the given types. Using a less specific dialogue pool.")
-        #     dp1 = dp2 if len(dp2) > 0 else dp3
-        #     if len(dp2) > 0:
-        #         renpy.say("System", "Dialogue pool 2 used.")
-        #     else:
-        #         renpy.say("System", "Dialogue pool 3 used.")
+        if len(dp1) == 0 and store.persistent._nsfw_debug_mode: # DEBUG
+            renpy.say("System", "No dialogue found for the given types. Using a less specific dialogue pool.{nw}")
+            dp1 = dp2 if len(dp2) > 0 else dp3
+            if len(dp2) > 0:
+                renpy.say("System", "Dialogue pool 2 used.{nw}")
+            else:
+                renpy.say("System", "Dialogue pool 3 used.{nw}")
 
         return dp1
 
@@ -601,37 +627,38 @@ init python in mas_nsfw:
         # These are the pools we'll use to collect the dialogue types
         dp1, dp2, dp3 = [], [], []
 
-        for i, subtype in enumerate(subtypes):
-            for j, dialogue in enumerate(dialogue_list):
-                pool_no = 4
+        if store.persistent._nsfw_debug_mode:
+            renpy.say("System", "--SUBTYPE REFINEMENT--{nw}") # DEBUG
 
-                # If the dialogue has already been used recently, skip it
-                if dialogue[2] in recent:
-                    continue
+        for i, dialogue in enumerate(dialogue_list):
+            pool_no = 4 # Default to 4, which means "no match"
 
+            # If the dialogue has already been used recently, skip it
+            if dialogue[2] in recent:
+                continue
+
+            for j, subtype in enumerate(subtypes):
                 # If the subtype is in the special tags
-                elif subtype in special_tags:
+                # TODO: Simplify logic using table similar to 'types' above
+                if subtype in special_tags:
+                    target_pools = [2, 3]
                     if subtype == "GEN":
-                        target_pools = [2, 3]
-                        pool_no = 1 if subtype in dialogue[1] else target_pools[(j - len(dp1)) % 2]
+                        pool_no = 1 if subtype in dialogue[1] else target_pools[(i - len(dp1)) % len(target_pools)]
                     elif subtype == "KIS":
-                        target_pools = [2, 3]
-                        pool_no = 1 if "FKS" in dialogue[1] else target_pools[(j - len(dp1)) % 2]
+                        pool_no = 1 if "FKS" in dialogue[1] else target_pools[(i - len(dp1)) % len(target_pools)]
                     elif subtype == "UND":
-                        target_pools = [2, 3]
-                        pool_no = 1 if "MCL" in dialogue[1] or "PCL" in dialogue[1] else target_pools[(j - len(dp1)) % 2]
+                        pool_no = 1 if "MCL" in dialogue[1] or "PCL" in dialogue[1] else target_pools[(i - len(dp1)) % len(target_pools)]
                     elif subtype == "CHE":
-                        target_pools = [2, 3]
-                        pool_no = 1 if subtype in dialogue[1] else target_pools[(j - len(dp1)) % 2]
+                        pool_no = 1 if subtype in dialogue[1] else target_pools[(i - len(dp1)) % len(target_pools)]
                     else: # Shouldn't activate, but here in case any get added
                         target_pools = [1, 2, 3]
-                        pool_no = target_pools[(j - len(dp1)) % 3]
+                        pool_no = target_pools[(i - len(dp1)) % len(target_pools)]
 
                 # If there are multiple subtypes
                 elif len(subtypes) > 1:
                     if subtype in dialogue[1]:
                         # we match subtype index to the pool index
-                        pool_no = i + 1
+                        pool_no = j + 1
                     else:
                         pool_no = 3 if len(subtypes) != 3 else 4
 
@@ -657,10 +684,16 @@ init python in mas_nsfw:
                         pool_no = 3
 
                 if pool_no == 1 and not dialogue_already_in_pool(dialogue, dp1, dp2, dp3):
+                    if store.persistent._nsfw_debug_mode:
+                        renpy.say("System", "Subtype match for Pool 1: " + subtypes[j] + " and " + ", ".join(str(x) for x in dialogue[1]) + ".{nw}") # DEBUG
                     dp1.append(dialogue)
                 elif pool_no == 2 and not dialogue_already_in_pool(dialogue, dp1, dp2, dp3):
+                    if store.persistent._nsfw_debug_mode:
+                        renpy.say("System", "Subtype match for Pool 2: " + subtypes[j] + " and " + ", ".join(str(x) for x in dialogue[1]) + ".{nw}") # DEBUG
                     dp2.append(dialogue)
                 elif pool_no == 3 and not dialogue_already_in_pool(dialogue, dp1, dp2, dp3):
+                    if store.persistent._nsfw_debug_mode:
+                        renpy.say("System", "Subtype match for Pool 3: " + subtypes[j] + " and " + ", ".join(str(x) for x in dialogue[1]) + ".{nw}") # DEBUG
                     dp3.append(dialogue)
 
         for i, pool in enumerate([dp1, dp2, dp3]):
@@ -671,6 +704,8 @@ init python in mas_nsfw:
                     non_empty_pools = [p for p in [dp1, dp2, dp3] if len(p) > 1 and p != pool]
 
                 if non_empty_pools == [dp3]:
+                    if store.persistent._nsfw_debug_mode:
+                        renpy.say("System", "Dialogue Pool " + str(i + 1) + " empty. Using Dialogue Pool 3, a non-empty pool.{nw}")
                     index = random.randint(0, len(dp3) - 1)
                     for j, dialogue in enumerate(dp3):
                         if "GEN" in dialogue[1]:
@@ -678,11 +713,20 @@ init python in mas_nsfw:
                     pool.append(dp3.pop(index))
                 elif non_empty_pools:
                     if i == 2: # If we're on the last pool, choose the last non-empty pool
+                        if store.persistent._nsfw_debug_mode:
+                            renpy.say("System", "Dialogue Pool " + str(i + 1) + " empty. Using Dialogue Pool " + str(len(non_empty_pools)) + ", a non-empty pool.{nw}")
                         chosen_pool = non_empty_pools[len(non_empty_pools) - 1]
                     else: # Otherwise, choose the first non-empty pool
+                        if store.persistent._nsfw_debug_mode:
+                            renpy.say("System", "Dialogue Pool " + str(i + 1) + " empty. Using Dialogue Pool 1, a non-empty pool.{nw}")
                         chosen_pool = non_empty_pools[0]
                     index = random.randint(0, len(chosen_pool) - 1)
                     pool.append(chosen_pool.pop(index))
+                elif store.persistent._nsfw_debug_mode:
+                    renpy.say("System", "All dialogue pools empty. Error will occur.")
+            else:
+                if store.persistent._nsfw_debug_mode:
+                    renpy.say("System", "Dialogue Pool " + str(i + 1) + " has " + str(len(pool)) + " lines of dialogue.{nw}")
 
         new_dialogue_list = [dp1, dp2, dp3] if dialogue_pool is None else [dp1, dp2, dp3][dialogue_pool]
 

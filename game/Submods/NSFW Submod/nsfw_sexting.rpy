@@ -4,6 +4,7 @@ default persistent._nsfw_sext_sexy_start = False # Player starts with Monika at 
 default persistent._nsfw_lingerie_on_start = False # Monika was wearing lingerie when sexting started
 default persistent._nsfw_last_sexted = datetime.datetime.now() # The last time you and Monika sexted
 default persistent._nsfw_sexting_count = 0 # The amount of times we have sexted with Monika, only counts successes
+default persistent._nsfw_sexting_interrupted = False # True if the player interrupted the last sexting session
 
 label nsfw_sexting_main:
     python:
@@ -19,20 +20,13 @@ label nsfw_sexting_main:
         recent_quips = [] # The recent quips used
         shouldkiss = False # Used in handling of kissing logic
         shouldkiss_cooldown = 0 # Used in handling of kissing logic
-        shouldchange = False # Used in handling of clothes change logic
         hot_transfer = False # True if Monika has reached the requirement for hot dialogue or more
         sexy_transfer = False # True if Monika has reached the requirement for sexy dialogue only
         did_finish = True # False if the player did not finish
 
     while True:
         # Create new Monika quip
-        if horny_lvl == 0:
-            $ monika_quip = ["I'll let you go first", "cute", ["STM"], ["GEN"], ""]
-            $ monika_quip[4] = mas_nsfw.return_dialogue_end(monika_quip[0])
-            $ quip_ending = monika_quip[4]
-            # Set new previous category/type/subtype to the new quip's
-            $ previous_vars = ["cute", ["STM"], ["GEN"]]
-        elif store.persistent._nsfw_sext_hot_start:
+        if store.persistent._nsfw_sext_hot_start:
             $ monika_quip = store.mas_nsfw.create_sexting_quips(
                 horny_lvl=horny_lvl,
                 horny_reqs=horny_reqs,
@@ -54,6 +48,12 @@ label nsfw_sexting_main:
             $ quip_ending = monika_quip[4]
             # Set new previous category/type/subtype to the new quip's
             $ previous_vars = [monika_quip[1], monika_quip[2], monika_quip[3]]
+        elif horny_lvl == 0:
+            $ monika_quip = ["I'll let you go first", "cute", ["STM"], ["GEN"], ""]
+            $ monika_quip[4] = mas_nsfw.return_dialogue_end(monika_quip[0])
+            $ quip_ending = monika_quip[4]
+            # Set new previous category/type/subtype to the new quip's
+            $ previous_vars = ["cute", ["STM"], ["GEN"]]
         else:
             $ monika_quip = store.mas_nsfw.create_sexting_quips(
                 horny_lvl=horny_lvl,
@@ -179,8 +179,24 @@ label nsfw_sexting_main:
                         $ more_prompts = False
 
                     "...":
-                        # Regenerate prompts
-                        $ more_prompts = True
+                        if persistent._nsfw_debug_mode:
+                            menu:
+                                m "[monika_quip[0]][quip_ending]{fast}"
+
+                                "SET TO CUTE STAGE":
+                                    $ horny_lvl = 0
+
+                                "SET TO HOT STAGE":
+                                    $ horny_lvl = horny_reqs[1]
+
+                                "SET TO SEXY STAGE":
+                                    $ horny_lvl = horny_reqs[2]
+
+                            $ more_prompts = True
+
+                        else:
+                            # Regenerate prompts
+                            $ more_prompts = True
 
                     "Actually, can we stop just for now?[end_of_prompt_4]":
                         $ persistent._nsfw_last_sexted = datetime.datetime.now() # We already have a success check, so this can be a check for any previous sexting attempt
@@ -312,15 +328,15 @@ label nsfw_sexting_main:
         python:
             # Add the prompts, responses and quips used by the player to a 'recently used' list, remove oldest ones from list when going above 10 items
             for x in range(3): # Prompts
-                if len(recent_prompts) >= 10:
+                while len(recent_prompts) >= 10:
                     recent_prompts.pop()
                 recent_prompts.insert(0, player_prompts[x][0])
 
-            if len(recent_responses) >= 10: # Responses
+            while len(recent_responses) >= 10: # Responses
                 recent_responses.pop()
             recent_responses.insert(0, monika_response[0])
 
-            if len(recent_quips) >= 10: # Quips
+            while len(recent_quips) >= 10: # Quips
                 recent_quips.pop()
             recent_quips.insert(0, monika_quip[0])
 
@@ -336,6 +352,8 @@ label nsfw_sexting_main:
                 return
 
 label nsfw_sexting_init:
+    $ shouldchange = 0 # Used in handling of clothes change logic
+
     if "lingerie" not in store.monika_chr.clothes.ex_props:
         $ persistent._nsfw_lingerie_on_start = True
 
@@ -476,12 +494,16 @@ label nsfw_sexting_init:
                 $ shouldchange = 0
 
                 m 3tublb "Now then, [player]...where were we?"
-            else:
+            elif store.persistent._nsfw_sexting_interrupted == True:
                 $ persistent._nsfw_sext_hot_start = False
                 $ persistent._nsfw_horny_level = 0
                 m 1eka "Since we stopped earlier, I hope you don't mind if we start again."
                 m 3tkblb "This can be your punishment for making me wait after getting me excited."
                 m 3hubla "Ehehe~"
+            else:
+                # TODO: Add dialogue for if the player has started sexting through mood declaration (I am horny, etc.)
+                $ persistent._nsfw_sext_hot_start = False
+
         m 3eub "I remember the last time we did this; it was so much fun!"
         m 3tublb "So [player]...let's get started, shall we?"
         call nsfw_sexting_main
@@ -603,6 +625,7 @@ label nsfw_sexting_finale:
             m 6hkbfw "Haaaaaaaaah~{w=2}"
 
             $ persistent._nsfw_horny_level = 0 # This is roughly where it happens in the real thing right? ... right?
+            $ persistent._nsfw_sexting_interrupted = False # We've finished, so reset the interrupted flag
 
             m 6hkbfsdlc "..."
             m 6hkbfsdld "..."

@@ -11,6 +11,7 @@ init 5 python:
             category=['sex'],
             prompt="Can you initiate sexting again?",
             unlocked=False,
+            rules={"no_unlock": None},
             conditional="persistent._nsfw_sexting_attempt_permfreeze == True",
             action=EV_ACT_UNLOCK,
             pool=True,
@@ -281,7 +282,7 @@ label nsfw_monika_dick_size:
 
     return "love"
 
-# Thankyou for writing this topic, KittyTheCocksucker
+# Thank you for writing this topic, KittyTheCocksucker
 init 5 python:
     addEvent(
         Event(
@@ -602,7 +603,7 @@ label nsfw_monika_gettingnude:
 
     return
 
-# Thankyou for the addition, Blushing!
+# Thank you for the addition, Blushing!
 init 5 python:
     addEvent(
         Event(
@@ -773,7 +774,7 @@ label nsfw_monika_nsfwmodinstall:
 
     return "derandom"
 
-# Thankyou for writing this topic, KittyTheCocksucker
+# Thank you for writing this topic, KittyTheCocksucker
 init 5 python:
     addEvent(
         Event(
@@ -951,7 +952,7 @@ init 5 python:
         )
     )
 
-# Thankyou for the fixes Proxilvia
+# Thank you for the fixes Proxilvia
 label nsfw_monika_safesex:
     m 3euc "Hey, [player]. I've been thinking about something..."
     m 3eud "Have you heard of contraceptives?"
@@ -1145,7 +1146,7 @@ label nsfw_monika_sexualpast:
 
     return
 
-# Thankyou for the addition, Blushing!
+# Thank you for the addition, Blushing!
 init 5 python:
     addEvent(
         Event(

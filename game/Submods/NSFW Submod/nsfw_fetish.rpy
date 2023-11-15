@@ -208,7 +208,7 @@ label nsfw_fetish_bondage:
         "No thanks.":
             m 3eka "Okay, that's fine."
             m 3ekb "I'll save it for another time then."
-            m 1eka "Regardless...thankyou for telling me about your preferences, [player]."
+            m 1eka "Regardless...thank you for telling me about your preferences, [player]."
             m 1rkbla "It can be difficult to talk about your fetishes with someone, so I appreciate you opening up to me."
             m 1ekbla "If you ever want to talk about this again, or if you change your mind, I'll be here."
             m 5ekbla "I love you, and I'll never judge you."
@@ -226,9 +226,9 @@ label nsfw_fetish_bondage:
     m 7eub "There isn't any particular line of seperation here - especially since each style has gradually been hybridized as they're exposed to greater and greater degrees."
     m 7eua "But there are a few points that can be broadly contributed to one side or the other."
     m 4eub "Western bondage usually ties people up so that things can be {i}done{/i} to them."
-    m 4rub "It finds roots in the classic 'dansel in distress' archetype in old Hollywood films, which inspired John Wille in the 1940's to create erotic artwork and photography that would inspire many."
-    m 4rub "Guess you'll never look at dansels in distress the same way again, ahaha~"
-    m 1eua "But anways, the style is generally designed to deal with restraint and handling a struggle, since the bonds are merely a means to an end. It commonly involves armbinders, gags, or furniture."
+    m 4rub "It finds roots in the classic 'damnsel in distress' archetype in old Hollywood films, which inspired John Wille in the 1940's to create erotic artwork and photography that would inspire many."
+    m 4rub "Guess you'll never look at damsels in distress the same way again, ahaha~"
+    m 1eua "But anyways, the style is generally designed to deal with restraint and handling a struggle, since the bonds are merely a means to an end. It commonly involves armbinders, gags, or furniture."
     m 3eua "In comparison, Eastern bondage usually focuses on the act of being being tied up {i}is{/i} what's happening to them."
     m 3eub "It finds roots in the work of Seiu Ito, an artist who incorporated rope bondage into his erotic work in the 20th century, and many attribute it to the importance of rope in important traditions, including the restraint of suspected criminals with rope."
     m 4eub "It's usually concerned with beauty, symbolism, and or the pleasure of the experience. The arms being folded behind the back is common, as is partial or full suspension."
@@ -416,9 +416,9 @@ label nsfw_fetish_anal:
 
         "Yeah, it sounds hot.":
             if is_into_anal == True:
-                $ store.mas_nsfw.save_fetish_to_persistent("Anal", ["IAM", "MBH", "MXM", "FAM", "IAP", "PBH", "FXP", "FAP"], ["U"])
+                $ store.mas_nsfw.save_fetish_to_persistent("Anal", ["IAM", "MBH", "FXM", "FAM", "IAP", "PBH", "FXP", "FAP"], ["U"])
             else:
-                $ store.mas_nsfw.save_fetish_to_persistent("Anal", ["IAP", "PBH", "FXP", "FAP"], ["IAM", "MBH", "MXM", "FAM"])
+                $ store.mas_nsfw.save_fetish_to_persistent("Anal", ["IAP", "PBH", "FXP", "FAP"], ["IAM", "MBH", "FXM", "FAM"])
 
             if store.persistent.gender == "M":
                 m 1wubsd "Really?"
@@ -432,15 +432,15 @@ label nsfw_fetish_anal:
 
         "No, I'm not into that.":
             if is_into_anal == True:
-                $ store.mas_nsfw.save_fetish_to_persistent("Anal", ["IAM", "MBH", "MXM", "FAM"], ["IAP", "PBH", "FXP", "FAP"])
+                $ store.mas_nsfw.save_fetish_to_persistent("Anal", ["IAM", "MBH", "FXM", "FAM"], ["IAP", "PBH", "FXP", "FAP"])
             else:
-                $ store.mas_nsfw.save_fetish_to_persistent("Anal", ["U"], ["IAM", "MBH", "MXM", "FAM", "IAP", "PBH", "FXP", "FAP"])
+                $ store.mas_nsfw.save_fetish_to_persistent("Anal", ["U"], ["IAM", "MBH", "FXM", "FAM", "IAP", "PBH", "FXP", "FAP"])
 
             m 1ekbsa "That's fair enough, [player]."
             m 2hkbsb "I'm not sure if I'd be any good at it anyway."
             m 2lkbsa "But, regardless..."
 
-    m 1ekbla "Thankyou for talking about this with me."
+    m 1ekbla "Thank you for talking about this with me."
     m 3ekblb "I know this sort of thing isn't comfortable for everyone."
     m 3hubla "But I want to experience and learn as much about sex as I can with you."
     m 1ekbla "You mean the world to me, [player]."

@@ -45,7 +45,7 @@ label nsfw_wrs_r34:
                 else:
                     exp_to_force = "2tssdlc"
 
-        mas_moni_idle_disp.force_by_code(exp_to_force, duration=10)
+        store.mas_moni_idle_disp.force_by_code(exp_to_force, duration=10)
     return
 
 init 5 python:
@@ -87,7 +87,7 @@ label mas_nsfw_wrs_spnati:
             )
             exp_to_force = "1etblsdlc"
             # force her sprite to do a specific expression
-        mas_moni_idle_disp.force_by_code(exp_to_force, duration=10)
+        store.mas_moni_idle_disp.force_by_code(exp_to_force, duration=10)
     return
 
 init 5 python:
@@ -121,6 +121,6 @@ label mas_nsfw_wrs_pornhub:
 
         exp_to_force = "1gfbfsdlc"
         # force her sprite to do a specific expression
-        mas_moni_idle_disp.force_by_code(exp_to_force, duration=10)
+        store.mas_moni_idle_disp.force_by_code(exp_to_force, duration=10)
 
     return

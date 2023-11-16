@@ -921,25 +921,6 @@ init python in mas_nsfw:
             return_subtype = final_prompt_refinement[1]
 
         else: # do not run any recentness checks for funny responses because only one option is possible
-            # renpy.say("DEV", "Here are my responses:")
-
-            # if len(new_dialogue_list[0]) is not 0:
-            #     for dialogue in new_dialogue_list[0]:
-            #         renpy.say("DEV", "pool 1: " + dialogue[2])
-            # else:
-            #     renpy.say("DEV", "pool1: No responses found.")
-            # if len(new_dialogue_list[1]) is not 0:
-            #     for dialogue in new_dialogue_list[1]:
-            #         renpy.say("DEV", "pool 2: " + dialogue[2])
-            # else:
-            #     renpy.say("DEV", "pool2: No responses found.")
-            # if len(new_dialogue_list[2]) is not 0:
-            #     for dialogue in new_dialogue_list[2]:
-            #         renpy.say("DEV", "pool 3: " + dialogue[2])
-            # else:
-            #     renpy.say("DEV", "pool3: No responses found.")
-
-            # renpy.say("DEV", "Here is my chosen response:")
             final_prompt_refinement = new_dialogue_list[0][dialogue_no_first]
 
             return_dialogue = final_prompt_refinement[2]

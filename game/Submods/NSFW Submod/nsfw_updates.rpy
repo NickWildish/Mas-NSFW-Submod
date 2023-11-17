@@ -163,3 +163,15 @@ label nickwildish_nsfw_submod_v1_3_4(version="v_1_3_4"):
 label nickwildish_nsfw_submod_v1_3_5(version="v_1_3_5"):
     return
 
+label nickwildish_nsfw_submod_v1_3_6(version="v_1_3_6"):
+    python:
+        store.mas_setEVLPropValues(
+            "nsfw_monika_sextingsession",
+            random=False,
+            conditional=(
+                "mas_nsfw.can_monika_init_sext('nsfw_monika_sextingsession') "
+                "and mas_timePastSince(persistent._nsfw_sexting_last_sexted, datetime.timedelta(hours=12))"
+            ),
+            action=EV_ACT_RANDOM
+        )
+        mas_rebuildEventLists()

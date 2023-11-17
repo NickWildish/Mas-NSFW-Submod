@@ -158,6 +158,7 @@ label nickwildish_nsfw_submod_v1_3_4(version="v_1_3_4"):
             action=EV_ACT_UNLOCK,
             rules={"no_unlock": None}
         )
+    return
 
 label nickwildish_nsfw_submod_v1_3_5(version="v_1_3_5"):
     return

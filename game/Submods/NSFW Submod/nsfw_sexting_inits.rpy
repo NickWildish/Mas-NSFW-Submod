@@ -52,8 +52,7 @@ init 5 python:
             eventlabel="nsfw_monika_sextingsession",
             conditional=(
                 "mas_nsfw.can_monika_init_sext('nsfw_monika_sextingsession') "
-                "and mas_timePastSince(persistent._nsfw_sexting_last_sexted, datetime.timedelta(hours=persistent._nsfw_monika_sexting_frequency * 12)) "
-                "and mas_timePastSince(mas_getEVL_last_seen('nsfw_monika_sextingsession'), datetime.timedelta(hours=persistent._nsfw_monika_sexting_frequency * 12))"
+                "and mas_timePastSince(persistent._nsfw_sexting_last_sexted, datetime.timedelta(hours=12))"
                 ),
             action=EV_ACT_RANDOM,
             aff_range=(mas_aff.LOVE, None)
@@ -318,8 +317,7 @@ label nsfw_monika_sextingsession_end:
             sextingsession_ev.random = False
             sextingsession_ev.conditional = (
                 "mas_nsfw.can_monika_init_sext('nsfw_monika_sextingsession') "
-                "and mas_timePastSince(persistent._nsfw_sexting_last_sexted, datetime.timedelta(hours=persistent._nsfw_monika_sexting_frequency * 12)) "
-                "and mas_timePastSince(mas_getEVL_last_seen('nsfw_monika_sextingsession'), datetime.timedelta(hours=persistent._nsfw_monika_sexting_frequency * 12))"
+                "and mas_timePastSince(persistent._nsfw_sexting_last_sexted, datetime.timedelta(hours=12))"
             )
             sextingsession_ev.action = EV_ACT_RANDOM
         mas_rebuildEventLists()

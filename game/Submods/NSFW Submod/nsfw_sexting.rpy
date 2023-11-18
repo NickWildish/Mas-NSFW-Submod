@@ -135,6 +135,8 @@ label nsfw_sexting_main:
                     $ persistent._nsfw_last_sexted = datetime.datetime.now() # We already have a success check, so this can be a check for any previous sexting attempt
                     $ more_prompts = False
 
+                    $ persistent._nsfw_sexting_interrupted = True #SML
+                    $ persistent._nsfw_sexting_attempt_continue = 0 # reset factor for reattempt cooldown increase
                     if horny_lvl >= horny_reqs[2]:
                         $ persistent._nsfw_horny_level = horny_lvl - 10
                         $ persistent._nsfw_sext_sexy_start = True
@@ -201,6 +203,8 @@ label nsfw_sexting_main:
 
                     "Actually, can we stop just for now?[end_of_prompt_4]":
                         $ persistent._nsfw_last_sexted = datetime.datetime.now() # We already have a success check, so this can be a check for any previous sexting attempt
+                        $ persistent._nsfw_sexting_interrupted = True #SML
+                        $ persistent._nsfw_sexting_attempt_continue = 0 # reset factor for reattempt cooldown increase
 
                         if horny_lvl >= horny_reqs[2]:
                             $ persistent._nsfw_horny_level = horny_lvl - 10
@@ -482,9 +486,9 @@ label nsfw_sexting_init:
                                 shouldchange = 1
                         elif store.mas_SELisUnlocked(store.mas_clothes_underwear_white): # player doesn't have AHC but does have submod underwear
                             shouldchange = 1
-                
-                if shouldchange == 1: #SML
-                    call nsfw_pick_underwear    
+
+                if shouldchange == 1:
+                    call nsfw_pick_underwear #SML
                 elif shouldchange == 2:
                     window hide
                     call mas_transition_to_emptydesk
@@ -650,6 +654,7 @@ label nsfw_sexting_finale:
 
             $ persistent._nsfw_horny_level = 0 # This is roughly where it happens in the real thing right? ... right?
             $ persistent._nsfw_sexting_interrupted = False # We've finished, so reset the interrupted flag
+            $ persistent._nsfw_sexting_attempt_continue = 0 # reset counter for reattempts after interruption
 
             m 6hkbfsdlc "..."
             m 6hkbfsdld "..."

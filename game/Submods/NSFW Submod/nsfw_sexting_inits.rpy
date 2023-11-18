@@ -104,6 +104,8 @@ init 5 python:
 
 label nsfw_monika_sextingsession:
     # Count this attempt
+    if persistent._nsfw_sexting_attempts == 0: # necessary if the teaser was skipped due to the lowest cooldown setting
+        $ persistent._nsfw_sexting_attempts = 1
 
     python:
         #has_waited = ( # Checks if Monika has waited the correct amount of time to attempt to sext with the player -- obsolete --

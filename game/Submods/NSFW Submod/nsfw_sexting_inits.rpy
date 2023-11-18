@@ -93,7 +93,7 @@ init 5 python:
                 "and mas_timePastSince(mas_getEVL_last_seen('nsfw_monika_sextingsession'), datetime.timedelta(hours=persistent._nsfw_monika_sexting_frequency)) "  # first possible repeat: 1/2/3/4 hours after last attempt
                 "and (mas_timePastSince(mas_getEVL_last_seen('nsfw_monika_sextingteaser'), datetime.timedelta(hours=2)) or persistent._nsfw_monika_sexting_frequency == 1)) " # teaser required if cooldown is not 3 hours
                 "or (persistent._nsfw_sexting_interrupted " # faster if last sexting session was interrupted:
-                "and persistent._nsfw_sexting_attempt_continue < 5 " # four attempts to restart an interrupted session
+                "and persistent._nsfw_sexting_attempt_continue < 5 " # five attempts to continue a session
                 "and mas_timePastSince(persistent._nsfw_last_sexted, datetime.timedelta(minutes=(15 * persistent._nsfw_monika_sexting_frequency))) " # 15, 30, 45 or 60 minutes after (enables sexy or hot start)
                 "and mas_timePastSince(mas_getEVL_last_seen('nsfw_monika_sextingsession'), datetime.timedelta(minutes=(15 * persistent._nsfw_monika_sexting_frequency + 5 * persistent._nsfw_monika_sexting_frequency * persistent._nsfw_sexting_attempt_continue))))" # repeat cooldown increases by 5, 10, 15 or 20 minutes, representing Monika’s patience
                 ),

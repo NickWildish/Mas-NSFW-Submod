@@ -1023,7 +1023,7 @@ init python in mas_nsfw:
         else: # Default
             return starts_cute[random.randint(0, len(starts_cute) - 1)]
 
-    def can_monika_init_sext(nsfw_ev_label=""):
+    def can_monika_init_sext(nsfw_ev_label=""): # is the nsfw_ev_label parameter really necessary? 
         """
         Checks if Monika can initiate sexting
 
@@ -1059,6 +1059,37 @@ init python in mas_nsfw:
     #         )
     #         random_ev.action = EV_ACT_RANDOM
     #     mas_rebuildEventLists()
+
+    def has_monika_waited(): # cooldown function for sexting attemps #SML
+        """
+        Checks if Monika has waited long enough after the last successful sexting session and the teaser
+
+        IN:
+            nsfw_ev_label - The event label for the event we're checking
+                (Default: "")
+
+        OUT:
+            boolean - True if Monika has waited long enough
+        """
+
+        if store.persistent._nsfw_sexting_interrupted: # if prior sexting session was interrupted, faster cooldowns
+            if (
+                store.mas_timePastSince(store.persistent._nsfw_last_sexted, datetime.timedelta(minutes=(15 * store.persistent._nsfw_monika_sexting_frequency))) # 15, 30, 45 or 60 minutes after (enables sexy or hot start)
+                and store.mas_timePastSince(store.mas_getEVL_last_seen('nsfw_monika_sextingsession'), datetime.timedelta(minutes=(15 * store.persistent._nsfw_monika_sexting_frequency + 5 * store.persistent._nsfw_monika_sexting_frequency * store.persistent._nsfw_sexting_attempt_continue))) # repeat cooldown increases by 5, 10, 15 or 20 minutes, representing Monika’s patience
+                ):
+                return True
+            else:
+                return False
+        
+        else: # standard conditions 
+            if (
+                store.mas_timePastSince(store.persistent._nsfw_sexting_success_last, datetime.timedelta(hours=(3 * 2 ** (store.persistent._nsfw_monika_sexting_frequency - 1))))  # can be triggered if 3/6/12/24 hours have past since the last successful sexting session #SML
+                and store.mas_timePastSince(store.mas_getEVL_last_seen('nsfw_monika_sextingsession'), datetime.timedelta(hours=store.persistent._nsfw_monika_sexting_frequency))  # first possible repeat: 1/2/3/4 hours after last attempt
+                and ((store.mas_timePastSince(store.mas_getEVL_last_seen('nsfw_monika_sextingteaser'), datetime.timedelta(hours=2)) and store.mas_getEVL_last_seen('nsfw_monika_sextingteaser') != None) or store.persistent._nsfw_monika_sexting_frequency == 1) # teaser required if cooldown is not 3 hours
+                ): 
+                return True
+            else:
+                return False
 
     def return_random_number(min=0, max=10):
         """

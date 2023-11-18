@@ -105,19 +105,23 @@ screen nsfw_submod_screen():
             box_wrap False
 
             python:
-                if persistent._nsfw_monika_sexting_frequency == 1:
-                    sext_freq_disp = "12 hours"
+                if persistent._nsfw_monika_sexting_frequency == 1: # new cooldown options added #SML
+                    sext_freq_disp = "3 hours"
                 elif persistent._nsfw_monika_sexting_frequency == 2:
-                    sext_freq_disp = "24 hours"
+                    sext_freq_disp = "6 hours"
                 elif persistent._nsfw_monika_sexting_frequency == 3:
-                    sext_freq_disp = "Never"
+                    sext_freq_disp = "12 hours"
+                elif persistent._nsfw_monika_sexting_frequency == 4:
+                    sext_freq_disp = "24 hours"
+                elif persistent._nsfw_monika_sexting_frequency == 5:
+                    sext_freq_disp = "Never"    
                 else:
                     sext_freq_disp = str(_nsfw_monika_sexting_frequency)
 
             if _tooltip:
                 textbutton _("Monika Sexting Frequency"):
                     action NullAction()
-                    hovered SetField(_tooltip, "value", "Changes the duration that Monika will wait until randomly trying to sext, from 12 hours, 24 hours, or never. Currently set to: " + sext_freq_disp)
+                    hovered SetField(_tooltip, "value", "Changes the duration that Monika will wait until randomly trying to sext, from 3 hours to 24 hours or never. Currently set to: " + sext_freq_disp)
                     unhovered SetField(_tooltip, "value", _tooltip.default)
             else:
                 textbutton _("Monika Sexting Frequency"):
@@ -126,7 +130,7 @@ screen nsfw_submod_screen():
             bar value FieldValue(
                 persistent,
                 "_nsfw_monika_sexting_frequency",
-                range=2, # 1 = Normal, 2 = Low, 3 = Never
+                range=4, # 1 = really horny, 2 = high, 3 = Normal, 4 = Low, 5 = Never
                 offset=1,
                 style="slider"
             )
@@ -1035,7 +1039,7 @@ init python in mas_nsfw:
             return False
 
         # If the player can be shown risque content, have had a succesful sexting session with Monika, have not disabled sexting, and Monika has not permanently frozen the sexting system, return True
-        if (store.mas_canShowRisque(aff_thresh=1000) and store.persistent._nsfw_sexting_success_last != None and store.persistent._nsfw_monika_sexting_frequency != 3 and store.persistent._nsfw_sexting_attempt_permfreeze == False):
+        if (store.mas_canShowRisque(aff_thresh=1000) and store.persistent._nsfw_sexting_success_last != None and store.persistent._nsfw_monika_sexting_frequency != 5 and store.persistent._nsfw_sexting_attempt_permfreeze == False):
             return True
         else:
             return False

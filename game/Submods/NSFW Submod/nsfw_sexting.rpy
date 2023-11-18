@@ -314,7 +314,7 @@ label nsfw_sexting_main:
             $ hot_transfer = True
 
         elif store.mas_SELisUnlocked(store.mas_clothes_birthday_suit) and "UND" in previous_vars[2] and not sexy_transfer:
-            call store.mas_clothes_change(outfit=mas_clothes_birthday_suit, outfit_mode=False, exp="6hubfb", restore_zoom=False)
+            call mas_clothes_change(outfit=mas_clothes_birthday_suit, outfit_mode=False, exp="6hubfb", restore_zoom=False)
             m 6hubfb "Hah~ That feels better."
             $ is_nude = True #SML
             $ sexy_transfer = True

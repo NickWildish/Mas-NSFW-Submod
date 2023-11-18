@@ -103,8 +103,8 @@ init 5 python:
     )
 
 label nsfw_monika_sextingsession:
-    # Count this attempt
-    if persistent._nsfw_sexting_attempts == 0: # necessary if the teaser was skipped due to the lowest cooldown setting
+    
+    if persistent._nsfw_sexting_attempts == 0: # necessary if the teaser was skipped due to the lowest cooldown setting or interrupted sexting session
         $ persistent._nsfw_sexting_attempts = 1
 
     python:
@@ -127,7 +127,8 @@ label nsfw_monika_sextingsession:
         hot_start = persistent._nsfw_sext_hot_start # Checks if the player has interrupted Monika's last sexting session during the 'hot' stage
         sexy_start = persistent._nsfw_sext_sexy_start # Checks if the player has interrupted Monika's last sexting session during the 'sexy' stage
 
-    $ persistent._nsfw_sexting_attempts += 1 # moved here because of the teaser
+    # Count this attempt -- moved here because of the teaser
+    $ persistent._nsfw_sexting_attempts += 1
     if persistent._nsfw_sexting_attempt_continue < 5 and persistent._nsfw_sexting_interrupted:
         $ persistent._nsfw_sexting_attempt_continue += 1 # raise the cooldown each time after an interrupted session
 

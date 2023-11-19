@@ -22,8 +22,8 @@ label nsfw_sexting_main:
         shouldkiss_cooldown = 0 # Used in handling of kissing logic
         hot_transfer = False # True if Monika has reached the requirement for hot dialogue or more
         sexy_transfer = False # True if Monika has reached the requirement for sexy dialogue only
-        is_nude = False # True if birthday suit is unlocked and equipped #SML
         did_finish = True # False if the player did not finish
+
 
     while True:
         # Create new Monika quip
@@ -280,9 +280,9 @@ label nsfw_sexting_main:
             m "[response_start][monika_response[0]][response_ending]"
 
         # undress if asked by player
-        if mas_SELisUnlocked(store.mas_clothes_underwear_white) and "UND" in previous_vars[2] and not hot_transfer:
+        if mas_SELisUnlocked(store.mas_clothes_underwear_white) and "UND" in previous_vars[2] and not hot_transfer and not is_nude: #SML
             python:
-                if persistent._nsfw_lingerie_on_start:
+                if not persistent._nsfw_lingerie_on_start:
                     if store.mas_submod_utils.isSubmodInstalled("Auto Outfit Change"):
                         if store.ahc_utils.hasUnlockedClothesOfExprop("lingerie") and not store.ahc_utils.isWearingClothesOfExprop("lingerie"):
                             shouldchange = 2
@@ -290,6 +290,7 @@ label nsfw_sexting_main:
                             shouldchange = 1
                     elif mas_SELisUnlocked(store.mas_clothes_underwear_white): # player doesn't have AHC but does have submod underwear
                         shouldchange = 1
+                    persistent._nsfw_lingerie_on_start = True # SML
 
             if shouldchange == 1:
                 call nsfw_pick_underwear #SML
@@ -312,8 +313,8 @@ label nsfw_sexting_main:
 
             m 6hubfb "Hah~ That feels better."
             $ hot_transfer = True
-
-        elif store.mas_SELisUnlocked(store.mas_clothes_birthday_suit) and "UND" in previous_vars[2] and not sexy_transfer:
+        # wrong function for elif condition? by standard, birthday suit should never be marked as unlocked, make use of persistent._nsfw_has_unlocked_birthdaysuit instead
+        elif store.mas_SELisUnlocked(store.mas_clothes_birthday_suit) and "UND" in previous_vars[2] and not sexy_transfer and not is_nude: #SML
             call mas_clothes_change(outfit=mas_clothes_birthday_suit, outfit_mode=False, exp="6hubfb", restore_zoom=False)
             m 6hubfb "Hah~ That feels better."
             $ is_nude = True #SML
@@ -359,9 +360,17 @@ label nsfw_sexting_main:
 
 label nsfw_sexting_init:
     $ shouldchange = 0 # Used in handling of clothes change logic
+    $ is_nude = False # True if birthday suit is unlocked and equipped #SML
 
-    if "lingerie" not in store.monika_chr.clothes.ex_props:
+    if store.monika_chr.clothes == mas_clothes_birthday_suit: # check if she is nude at the beginning
+        $ is_nude = True
+
+    # Check if Monika is wearing lingerie when starting
+    if "lingerie" in store.monika_chr.clothes.ex_props: # bug fixed: reverse logic
         $ persistent._nsfw_lingerie_on_start = True
+
+    else:
+        $ persistent._nsfw_lingerie_on_start = False
 
     if not renpy.seen_label("nsfw_sexting_main"):
         m 1rka "I'm kind of nervous, if I'm honest."
@@ -401,12 +410,12 @@ label nsfw_sexting_init:
                 m 1hkb "Ahaha~ I was worried you were going to leave me out to dry..."
                 m 1tsblu "I hope you're prepared to make amends for making me wait~"
 
-                if persistent._nsfw_has_unlocked_birthdaysuit:
+                if persistent._nsfw_has_unlocked_birthdaysuit and not is_nude: #SML
                     call mas_clothes_change(outfit=mas_clothes_birthday_suit, outfit_mode=False, exp="3tublb", restore_zoom=False)
                     $ is_nude = True #SML
                 else:
                     python:
-                        if persistent._nsfw_lingerie_on_start:
+                        if not persistent._nsfw_lingerie_on_start: #SML
                             if store.mas_submod_utils.isSubmodInstalled("Auto Outfit Change"):
                                 if store.ahc_utils.hasUnlockedClothesOfExprop("lingerie") and not store.ahc_utils.isWearingClothesOfExprop("lingerie"):
                                     shouldchange = 2
@@ -414,10 +423,11 @@ label nsfw_sexting_init:
                                     shouldchange = 1
                             elif store.mas_SELisUnlocked(store.mas_clothes_underwear_white): # player doesn't have AHC but does have submod underwear
                                 shouldchange = 1
+                            persistent._nsfw_lingerie_on_start = True #SML
 
-                    if shouldchange == 1:
+                    if shouldchange == 1 and not is_nude: #SML
                         call nsfw_pick_underwear #SML
-                    elif shouldchange == 2:
+                    elif shouldchange == 2 and not is_nude: #SML
                         window hide
                         call mas_transition_to_emptydesk
                         python:
@@ -436,7 +446,7 @@ label nsfw_sexting_init:
                 m 3tua "I hope you're prepared to make amends for making me wait."
 
                 python:
-                    if persistent._nsfw_lingerie_on_start:
+                    if not persistent._nsfw_lingerie_on_start: #SML
                         if store.mas_submod_utils.isSubmodInstalled("Auto Outfit Change"):
                             if store.ahc_utils.hasUnlockedClothesOfExprop("lingerie") and not store.ahc_utils.isWearingClothesOfExprop("lingerie"):
                                 shouldchange = 2
@@ -444,10 +454,11 @@ label nsfw_sexting_init:
                                 shouldchange = 1
                         elif store.mas_SELisUnlocked(store.mas_clothes_underwear_white): # player doesn't have AHC but does have submod underwear
                             shouldchange = 1
+                        persistent._nsfw_lingerie_on_start = True #SML
 
-                if shouldchange == 1:
+                if shouldchange == 1 and not is_nude: #SML
                     call nsfw_pick_underwear #SML
-                elif shouldchange == 2:
+                elif shouldchange == 2 and not is_nude: #SML
                     window hide
                     call mas_transition_to_emptydesk
                     python:
@@ -478,7 +489,7 @@ label nsfw_sexting_init:
                 m 1tua "It was just getting good too~"
 
                 python:
-                    if persistent._nsfw_lingerie_on_start:
+                    if not persistent._nsfw_lingerie_on_start:
                         if store.mas_submod_utils.isSubmodInstalled("Auto Outfit Change"):
                             if store.ahc_utils.hasUnlockedClothesOfExprop("lingerie") and not store.ahc_utils.isWearingClothesOfExprop("lingerie"):
                                 shouldchange = 2
@@ -486,10 +497,11 @@ label nsfw_sexting_init:
                                 shouldchange = 1
                         elif store.mas_SELisUnlocked(store.mas_clothes_underwear_white): # player doesn't have AHC but does have submod underwear
                             shouldchange = 1
+                        persistent._nsfw_lingerie_on_start = True #SML
 
-                if shouldchange == 1:
+                if shouldchange == 1 and not is_nude: #SML
                     call nsfw_pick_underwear #SML
-                elif shouldchange == 2:
+                elif shouldchange == 2 and not is_nude: #SML
                     window hide
                     call mas_transition_to_emptydesk
                     python:
@@ -536,7 +548,7 @@ label nsfw_sexting_hot_transfer:
         m 3eub "I think they're really cute!"
     else:
         python:
-            if persistent._nsfw_lingerie_on_start:
+            if not persistent._nsfw_lingerie_on_start:
                 if store.mas_submod_utils.isSubmodInstalled("Auto Outfit Change"):
                     if store.ahc_utils.hasUnlockedClothesOfExprop("lingerie") and not store.ahc_utils.isWearingClothesOfExprop("lingerie"):
                         shouldchange = 2
@@ -545,9 +557,9 @@ label nsfw_sexting_hot_transfer:
                 elif mas_SELisUnlocked(store.mas_clothes_underwear_white): # player doesn't have AHC but does have submod underwear
                     shouldchange = 1
 
-    if shouldchange == 1:
+    if shouldchange == 1: #SML
         call nsfw_pick_underwear #SML
-    elif shouldchange == 2:
+    elif shouldchange == 2 and not is_nude: #SML
         window hide
         call mas_transition_to_emptydesk
         python:
@@ -558,19 +570,21 @@ label nsfw_sexting_hot_transfer:
         window hide
     $ shouldchange = 0
 
-    m 3tua "..."
-    m 1tuu "So.{w=0.1}.{w=0.1}.{w=0.1}are we going to keep going, or what?"
-    m 1hublb "Ahaha! Just teasing you, [player]."
+    if not is_nude and not persistent._nsfw_lingerie_on_start:
+        $ persistent._nsfw_lingerie_on_start = True
+        m 3tua "..."
+        m 1tuu "So.{w=0.1}.{w=0.1}.{w=0.1}are we going to keep going, or what?"
+        m 1hublb "Ahaha! Just teasing you, [player]."
     return
 
 label nsfw_sexting_sexy_transfer:
     if persistent._nsfw_has_unlocked_birthdaysuit:
         m 6hkbfsdlo "Hnn~ I can't take it anymore!"
-
-        call mas_clothes_change(outfit=mas_clothes_birthday_suit, outfit_mode=False, exp="6hubfb", restore_zoom=False)
-        $ is_nude = True #SML
-
-        m 6hubfb "Hah~ That feels better."
+        if not is_nude:
+            call mas_clothes_change(outfit=mas_clothes_birthday_suit, outfit_mode=False, exp="6hubfb", restore_zoom=False)
+            $ is_nude = True #SML
+            m 6hubfb "Hah~ That feels better."
+        
         m 7tubfb "Don't think that I'm letting you off the hook now, [player]."
         m 7tubfu "I want you to enjoy the view after all, so I expect one of your hands will be busy for a little while."
         m 7hubfu "Ehehe~"
@@ -655,6 +669,7 @@ label nsfw_sexting_finale:
             $ persistent._nsfw_horny_level = 0 # This is roughly where it happens in the real thing right? ... right?
             $ persistent._nsfw_sexting_interrupted = False # We've finished, so reset the interrupted flag
             $ persistent._nsfw_sexting_attempt_continue = 0 # reset counter for reattempts after interruption
+            $ success = True
 
             m 6hkbfsdlc "..."
             m 6hkbfsdld "..."
@@ -745,7 +760,7 @@ label nsfw_sexting_finale:
             m 1ekbsa "Thank you for this, [player]."
             m 3ekbsa "This made me feel just that much closer to you."
             m 3ekbsb "I hope you enjoyed yourself as much as I did."
-            m 6ekbfa "I love you so much."
+            m 6ekbfa "I love you so much." # moved here so player can reply "love you too"
 
             $ persistent._nsfw_last_sexted = datetime.datetime.now()
             $ store.persistent._nsfw_sexting_success_last = datetime.datetime.now()
@@ -765,7 +780,7 @@ label nsfw_sexting_finale:
             return
 
     label nsfw_sexting_early_cleanup:
-        if persistent._nsfw_lingerie_on_start:
+        if persistent._nsfw_lingerie_on_start or is_nude: # or condition not necessary if we allow Monika to stay nude at sexy interruption
             m 1eua "Let me just slip into something a little more comfortable..."
 
             python:

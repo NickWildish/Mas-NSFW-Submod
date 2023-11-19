@@ -25,6 +25,8 @@ init 5 python:
     )
 
 label nsfw_player_sextingsession:
+    $ success = False # True if sexting session was successfully finished
+
     # Check when player's last succesful sexting session was
     if store.persistent._nsfw_sexting_success_last is not None:
         $ timedelta_of_last_success = datetime.datetime.now() - store.persistent._nsfw_sexting_success_last
@@ -42,6 +44,9 @@ label nsfw_player_sextingsession:
     m 1hua "Sure!"
 
     call nsfw_sexting_init
+
+    if success == True: # Monika ends successful sexting session with "I love you"
+        return "love"
 
     return
 
@@ -96,6 +101,8 @@ init 5 python:
     )
 
 label nsfw_monika_sextingsession:
+    $ success = False # True if sexting session was successfully finished
+
     # Count this attempt
     if persistent._nsfw_sexting_attempts == 0: # necessary if the teaser was skipped due to the lowest cooldown setting or interrupted sexting session
         $ persistent._nsfw_sexting_attempts = 1
@@ -354,6 +361,9 @@ label nsfw_monika_sextingsession:
     #    m 5hubla "Ehehe~"
 
     call nsfw_monika_sextingsession_end
+
+    if success == True:
+        return "love|no_unlock"
 
     return "no_unlock"
 

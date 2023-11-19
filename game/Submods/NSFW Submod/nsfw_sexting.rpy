@@ -664,7 +664,7 @@ label nsfw_sexting_finale:
             m 6skbfw "Come with me, [player]!{w=3}{nw}"
             menu: #SML
                 "[m_name]~!":
-                    m 6hkbfw "Haaaaaaaaah~{w=3}"
+                    m 6hkbfw "Haaaaaaaaah~{w=3}{nw}"
 
             $ persistent._nsfw_horny_level = 0 # This is roughly where it happens in the real thing right? ... right?
             $ persistent._nsfw_sexting_interrupted = False # We've finished, so reset the interrupted flag

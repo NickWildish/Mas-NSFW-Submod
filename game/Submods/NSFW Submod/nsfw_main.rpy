@@ -1085,7 +1085,7 @@ init python in mas_nsfw:
             if (
                 store.mas_timePastSince(store.persistent._nsfw_sexting_success_last, datetime.timedelta(hours=(3 * 2 ** (store.persistent._nsfw_monika_sexting_frequency - 1))))  # can be triggered if 3/6/12/24 hours have past since the last successful sexting session #SML
                 and store.mas_timePastSince(store.mas_getEVL_last_seen('nsfw_monika_sextingsession'), datetime.timedelta(hours=store.persistent._nsfw_monika_sexting_frequency))  # first possible repeat: 1/2/3/4 hours after last attempt
-                and ((store.mas_timePastSince(store.mas_getEVL_last_seen('nsfw_monika_sextingteaser'), datetime.timedelta(hours=2)) and store.mas_getEVL_last_seen('nsfw_monika_sextingteaser') != None) or store.persistent._nsfw_monika_sexting_frequency == 1) # teaser required if cooldown is not 3 hours
+                and ((store.mas_timePastSince(store.mas_getEVL_last_seen('nsfw_monika_sextingteaser'), datetime.timedelta(hours=2)) and store.mas_getEVL_last_seen('nsfw_monika_sextingteaser') != None and store._nsfw_sexting_attempts > 0) or store.persistent._nsfw_monika_sexting_frequency == 1) # teaser required if cooldown is not 3 hours
                 ): 
                 return True
             else:

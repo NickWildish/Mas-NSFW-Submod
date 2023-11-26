@@ -118,7 +118,7 @@ label nsfw_monika_sextingsession:
             persistent._nsfw_sexting_count = 1
 
         first_time = persistent._nsfw_sexting_count == 1 # Checks if the player has not sexting with Monika a second time
-        past_first_time = persistent._nsfw_sexting_count > 1 # Checks if the player has sexted with Monika more than once
+        past_first_time = persistent._nsfw_sexting_count > 1 and persistent._nsfw_sexting_count <= 5 # Checks if the player has sexted with Monika more than once
         veteran = persistent._nsfw_sexting_count > 5 # Checks if the player has sexted with Monika more than five times
 
         first_attempt = persistent._nsfw_sexting_attempts == 1 # Checks if it is Monika's first attempt to sext with the player

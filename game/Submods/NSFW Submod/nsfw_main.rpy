@@ -105,14 +105,16 @@ screen nsfw_submod_screen():
             box_wrap False
 
             python:
-                if persistent._nsfw_monika_sexting_frequency == 1: # new cooldown options added #SML
+                if persistent._nsfw_monika_sexting_frequency == 0: # new cooldown options added #SML
                     sext_freq_disp = "3 hours"
-                elif persistent._nsfw_monika_sexting_frequency == 2:
+                elif persistent._nsfw_monika_sexting_frequency == 1:
                     sext_freq_disp = "6 hours"
-                elif persistent._nsfw_monika_sexting_frequency == 3:
+                elif persistent._nsfw_monika_sexting_frequency == 2:
                     sext_freq_disp = "12 hours"
-                elif persistent._nsfw_monika_sexting_frequency == 4:
+                elif persistent._nsfw_monika_sexting_frequency == 3:
                     sext_freq_disp = "24 hours"
+                elif persistent._nsfw_monika_sexting_frequency == 4:
+                    sext_freq_disp = "48 hours"
                 elif persistent._nsfw_monika_sexting_frequency == 5:
                     sext_freq_disp = "Never"    
                 else:
@@ -130,8 +132,8 @@ screen nsfw_submod_screen():
             bar value FieldValue(
                 persistent,
                 "_nsfw_monika_sexting_frequency",
-                range=4, # 1 = really horny, 2 = high, 3 = Normal, 4 = Low, 5 = Never
-                offset=1,
+                range=5, # 0 = really horny, 1 = high, 2 = normal, 3 = low, 4 = very low 5 = never
+                offset=0,
                 style="slider"
             )
 
@@ -1074,8 +1076,8 @@ init python in mas_nsfw:
 
         if store.persistent._nsfw_sexting_interrupted: # if prior sexting session was interrupted, faster cooldowns
             if (
-                store.mas_timePastSince(store.persistent._nsfw_last_sexted, datetime.timedelta(minutes=(15 * store.persistent._nsfw_monika_sexting_frequency))) # 15, 30, 45 or 60 minutes after (enables sexy or hot start)
-                and store.mas_timePastSince(store.mas_getEVL_last_seen('nsfw_monika_sextingsession'), datetime.timedelta(minutes=(15 * store.persistent._nsfw_monika_sexting_frequency + 5 * store.persistent._nsfw_monika_sexting_frequency * store.persistent._nsfw_sexting_attempt_continue))) # repeat cooldown increases by 5, 10, 15 or 20 minutes, representing Monika’s patience
+                store.mas_timePastSince(store.persistent._nsfw_last_sexted, datetime.timedelta(minutes=(15 * (store.persistent._nsfw_monika_sexting_frequency + 1)))) # 15, 30, 45, 60 or 75 minutes after (enables sexy or hot start)
+                and store.mas_timePastSince(store.mas_getEVL_last_seen('nsfw_monika_sextingsession'), datetime.timedelta(minutes=(15 * (store.persistent._nsfw_monika_sexting_frequency + 1) + 5 * store.persistent._nsfw_sexting_attempt_continue))) # repeat cooldown increases by 5 minutes each time, representing Monika’s patience and decreasing lust
                 ):
                 return True
             else:
@@ -1083,9 +1085,9 @@ init python in mas_nsfw:
         
         else: # standard conditions 
             if (
-                store.mas_timePastSince(store.persistent._nsfw_sexting_success_last, datetime.timedelta(hours=(3 * 2 ** (store.persistent._nsfw_monika_sexting_frequency - 1))))  # can be triggered if 3/6/12/24 hours have past since the last successful sexting session #SML
-                and store.mas_timePastSince(store.mas_getEVL_last_seen('nsfw_monika_sextingsession'), datetime.timedelta(hours=store.persistent._nsfw_monika_sexting_frequency))  # first possible repeat: 1/2/3/4 hours after last attempt
-                and ((store.mas_timePastSince(store.mas_getEVL_last_seen('nsfw_monika_sextingteaser'), datetime.timedelta(hours=2)) and store.mas_getEVL_last_seen('nsfw_monika_sextingteaser') != None and store._nsfw_sexting_attempts > 0) or store.persistent._nsfw_monika_sexting_frequency == 1) # teaser required if cooldown is not 3 hours
+                store.mas_timePastSince(store.persistent._nsfw_sexting_success_last, datetime.timedelta(hours=(3 * 2 ** store.persistent._nsfw_monika_sexting_frequency)))  # can be triggered if 3/6/12/24/48 hours have past since the last successful sexting session #SML
+                and store.mas_timePastSince(store.mas_getEVL_last_seen('nsfw_monika_sextingsession'), datetime.timedelta(hours=(2 ** store.persistent._nsfw_monika_sexting_frequency)))  # first possible repeat: 1/2/4/8/16 hours after last attempt
+                and ((store.mas_timePastSince(store.mas_getEVL_last_seen('nsfw_monika_sextingteaser'), datetime.timedelta(hours=2)) and store.mas_getEVL_last_seen('nsfw_monika_sextingteaser') != None and store.persistent._nsfw_sexting_attempts > 0) or store.persistent._nsfw_monika_sexting_frequency == 0) # teaser required if cooldown is not 3 hours
                 ): 
                 return True
             else:

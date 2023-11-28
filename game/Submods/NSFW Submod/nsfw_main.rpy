@@ -123,7 +123,7 @@ screen nsfw_submod_screen():
             if _tooltip:
                 textbutton _("Monika Sexting Frequency"):
                     action NullAction()
-                    hovered SetField(_tooltip, "value", "Changes the duration that Monika will wait until randomly trying to sext, from 3 hours to 24 hours or never. Currently set to: " + sext_freq_disp)
+                    hovered SetField(_tooltip, "value", "Changes the duration that Monika will wait until randomly trying to sext, from 3 hours to 48 hours or never. Currently set to: " + sext_freq_disp)
                     unhovered SetField(_tooltip, "value", _tooltip.default)
             else:
                 textbutton _("Monika Sexting Frequency"):

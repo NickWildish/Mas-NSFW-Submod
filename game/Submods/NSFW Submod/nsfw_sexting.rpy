@@ -280,7 +280,7 @@ label nsfw_sexting_main:
             m "[response_start][monika_response[0]][response_ending]"
 
         # undress if asked by player
-        if mas_SELisUnlocked(store.mas_clothes_underwear_white) and "UND" in previous_vars[2] and not hot_transfer and not is_nude: #SML
+        if mas_SELisUnlocked(store.mas_clothes_underwear_white) and "UND" in previous_vars[2] and not hot_transfer and not is_nude and not persistent._nsfw_lingerie_on_start: #SML
             python:
                 if not persistent._nsfw_lingerie_on_start:
                     if store.mas_submod_utils.isSubmodInstalled("Auto Outfit Change"):
@@ -316,8 +316,12 @@ label nsfw_sexting_main:
         # wrong function for elif condition? by standard, birthday suit should never be marked as unlocked, make use of persistent._nsfw_has_unlocked_birthdaysuit instead
         elif store.mas_SELisUnlocked(store.mas_clothes_birthday_suit) and "UND" in previous_vars[2] and not sexy_transfer and not is_nude: #SML
             call mas_clothes_change(outfit=mas_clothes_birthday_suit, outfit_mode=False, exp="6hubfb", restore_zoom=False)
+            if renpy.random.randint(1,7) != 7:
+                call nsfw_remove_acs
             m 6hubfb "Hah~ That feels better."
             $ is_nude = True #SML
+            if not hot_transfer:
+                $ hot_transfer = True
             $ sexy_transfer = True
 
         python:
@@ -366,7 +370,7 @@ label nsfw_sexting_init:
         $ is_nude = True
 
     # Check if Monika is wearing lingerie when starting
-    if "lingerie" in store.monika_chr.clothes.ex_props: # bug fixed: reverse logic
+    if "lingerie" in store.monika_chr.clothes.ex_props or store.monika_chr.clothes == mas_clothes_bath_towel_white: # bug fixed: reverse logic
         $ persistent._nsfw_lingerie_on_start = True
 
     else:
@@ -412,6 +416,8 @@ label nsfw_sexting_init:
 
                 if persistent._nsfw_has_unlocked_birthdaysuit and not is_nude: #SML
                     call mas_clothes_change(outfit=mas_clothes_birthday_suit, outfit_mode=False, exp="3tublb", restore_zoom=False)
+                    if renpy.random.randint(1,7) != 7:
+                        call nsfw_remove_acs
                     $ is_nude = True #SML
                 else:
                     python:
@@ -582,6 +588,8 @@ label nsfw_sexting_sexy_transfer:
         m 6hkbfsdlo "Hnn~ I can't take it anymore!"
         if not is_nude:
             call mas_clothes_change(outfit=mas_clothes_birthday_suit, outfit_mode=False, exp="6hubfb", restore_zoom=False)
+            if renpy.random.randint(1,7) != 7:
+                call nsfw_remove_acs
             $ is_nude = True #SML
             m 6hubfb "Hah~ That feels better."
         
@@ -607,6 +615,53 @@ label nsfw_pick_underwear: #SML
     else:    
         call mas_clothes_change(outfit=mas_clothes_underwear_white, outfit_mode=False, exp="6hubfb", restore_zoom=False)
     return
+
+label nsfw_remove_acs: # make sure that Monika really gets completely nude -- probably there is an easier way to implement this?
+    python:
+        ribbon_acs = store.monika_chr.get_acs_of_type("ribbon")
+        if ribbon_acs is not None:
+            store.monika_chr.remove_acs(ribbon_acs)
+        ribbon_acs = store.monika_chr.get_acs_of_type("s-type-ribbon")
+        if ribbon_acs is not None:
+            store.monika_chr.remove_acs(ribbon_acs)
+        ribbon_acs = store.monika_chr.get_acs_of_type("mini-ribbon")
+        if ribbon_acs is not None:
+            store.monika_chr.remove_acs(ribbon_acs)
+        ribbon_acs = store.monika_chr.get_acs_of_type("front-bow")
+        if ribbon_acs is not None:
+            store.monika_chr.remove_acs(ribbon_acs)
+        ribbon_acs = store.monika_chr.get_acs_of_type("twin-ribbons")
+        if ribbon_acs is not None:
+            store.monika_chr.remove_acs(ribbon_acs)
+        hairclip = store.monika_chr.get_acs_of_type("left-hair-clip")
+        if hairclip is not None:
+            store.monika_chr.remove_acs(hairclip)
+        hairclip = store.monika_chr.get_acs_of_type("headband")
+        if hairclip is not None:
+            store.monika_chr.remove_acs(hairclip)
+        choker = store.monika_chr.get_acs_of_type("choker")
+        if choker is not None:
+            store.monika_chr.remove_acs(choker)
+        necklace = store.monika_chr.get_acs_of_type("necklace")
+        if necklace is not None:
+            store.monika_chr.remove_acs(necklace)
+        earrings = store.monika_chr.get_acs_of_type("earrings")
+        if earrings is not None:
+            store.monika_chr.remove_acs(earrings)
+        hat = store.monika_chr.get_acs_of_type("hat")
+        if hat is not None:
+            store.monika_chr.remove_acs(hat)
+        flower = store.monika_chr.get_acs_of_type("left-hair-flower")
+        if flower is not None:
+            store.monika_chr.remove_acs(flower)
+        flower = store.monika_chr.get_acs_of_type("left-hair-flower-ear")
+        if flower is not None:
+            store.monika_chr.remove_acs(flower)
+        flower = store.monika_chr.get_acs_of_type("front-hair-flower-crown")
+        if flower is not None:
+            store.monika_chr.remove_acs(flower)
+    return
+
 
 label nsfw_sexting_finale:
     m 6tkbfo "Hah~ [player]?"
@@ -645,6 +700,7 @@ label nsfw_sexting_finale:
             m 6hkbfd "Eight.{w=3}{nw}"
             m 6ekbfu "How are you holding up there, [player]? Ehehe~{w=3}{nw}"
             m 4ekbfb "Don't cum until I do too~{w=3}{nw}"
+            # $ store.monika_chr.wear_acs(store.mas_acs_water_drops) #SML getting wet
             m 6hkbfd "Hah~{w=2}{nw}"
             m 6tkbfd "Seven.{w=3}{nw}"
             m 6hkbfc "Nhh~{w=2}{nw}"
@@ -747,6 +803,7 @@ label nsfw_sexting_finale:
                     call mas_clothes_change(outfit=mas_clothes_def, outfit_mode=False, exp="1hub", restore_zoom=False)
 
                 $ shouldchange = 0
+                # $ store.monika_chr.remove_acs(store.mas_acs_water_drops) #SML
 
                 m 1hub "Hah~ Much better!"
 

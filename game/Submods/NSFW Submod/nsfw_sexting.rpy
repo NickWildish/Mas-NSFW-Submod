@@ -747,7 +747,7 @@ label nsfw_sexting_finale:
                 "Yeah.":
                     m 6hkbfa "I'm glad..."
                     m 6lkbfb "I got to share an amazing experience like this with you."
-                    m 6ekbfb "That makes me more happy than you could know, [player]."
+                    m 6ekbfb "That makes me happier than you could know, [player]."
 
                 "No...":
                     $ did_finish = False

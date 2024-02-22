@@ -105,19 +105,25 @@ screen nsfw_submod_screen():
             box_wrap False
 
             python:
-                if persistent._nsfw_monika_sexting_frequency == 1:
-                    sext_freq_disp = "12 hours"
+                if persistent._nsfw_monika_sexting_frequency == 0: # new cooldown options added #SML
+                    sext_freq_disp = "3 hours"
+                elif persistent._nsfw_monika_sexting_frequency == 1:
+                    sext_freq_disp = "6 hours"
                 elif persistent._nsfw_monika_sexting_frequency == 2:
-                    sext_freq_disp = "24 hours"
+                    sext_freq_disp = "12 hours"
                 elif persistent._nsfw_monika_sexting_frequency == 3:
-                    sext_freq_disp = "Never"
+                    sext_freq_disp = "24 hours"
+                elif persistent._nsfw_monika_sexting_frequency == 4:
+                    sext_freq_disp = "48 hours"
+                elif persistent._nsfw_monika_sexting_frequency == 5:
+                    sext_freq_disp = "Never"    
                 else:
                     sext_freq_disp = str(_nsfw_monika_sexting_frequency)
 
             if _tooltip:
                 textbutton _("Monika Sexting Frequency"):
                     action NullAction()
-                    hovered SetField(_tooltip, "value", "Changes the duration that Monika will wait until randomly trying to sext, from 12 hours, 24 hours, or never. Currently set to: " + sext_freq_disp)
+                    hovered SetField(_tooltip, "value", "Changes the duration that Monika will wait until randomly trying to sext, from 3 hours to 48 hours or never. Currently set to: " + sext_freq_disp)
                     unhovered SetField(_tooltip, "value", _tooltip.default)
             else:
                 textbutton _("Monika Sexting Frequency"):
@@ -126,8 +132,8 @@ screen nsfw_submod_screen():
             bar value FieldValue(
                 persistent,
                 "_nsfw_monika_sexting_frequency",
-                range=2, # 1 = Normal, 2 = Low, 3 = Never
-                offset=1,
+                range=5, # 0 = really horny, 1 = high, 2 = normal, 3 = low, 4 = very low 5 = never
+                offset=0,
                 style="slider"
             )
 
@@ -1019,7 +1025,7 @@ init python in mas_nsfw:
         else: # Default
             return starts_cute[random.randint(0, len(starts_cute) - 1)]
 
-    def can_monika_init_sext(nsfw_ev_label=""):
+    def can_monika_init_sext(nsfw_ev_label=""): # is the nsfw_ev_label parameter really necessary? 
         """
         Checks if Monika can initiate sexting
 
@@ -1035,7 +1041,7 @@ init python in mas_nsfw:
             return False
 
         # If the player can be shown risque content, have had a succesful sexting session with Monika, have not disabled sexting, and Monika has not permanently frozen the sexting system, return True
-        if (store.mas_canShowRisque(aff_thresh=1000) and store.persistent._nsfw_sexting_success_last != None and store.persistent._nsfw_monika_sexting_frequency != 3 and store.persistent._nsfw_sexting_attempt_permfreeze == False):
+        if (store.mas_canShowRisque(aff_thresh=1000) and store.persistent._nsfw_sexting_success_last != None and store.persistent._nsfw_monika_sexting_frequency != 5 and store.persistent._nsfw_sexting_attempt_permfreeze == False):
             return True
         else:
             return False
@@ -1055,6 +1061,37 @@ init python in mas_nsfw:
     #         )
     #         random_ev.action = EV_ACT_RANDOM
     #     mas_rebuildEventLists()
+
+    def has_monika_waited(): # cooldown function for sexting attemps #SML
+        """
+        Checks if Monika has waited long enough after the last successful sexting session and the teaser
+
+        IN:
+            nsfw_ev_label - The event label for the event we're checking
+                (Default: "")
+
+        OUT:
+            boolean - True if Monika has waited long enough
+        """
+
+        if store.persistent._nsfw_sexting_interrupted: # if prior sexting session was interrupted, faster cooldowns
+            if (
+                store.mas_timePastSince(store.persistent._nsfw_last_sexted, datetime.timedelta(minutes=(15 * (store.persistent._nsfw_monika_sexting_frequency + 1)))) # 15, 30, 45, 60 or 75 minutes after (enables sexy or hot start)
+                and store.mas_timePastSince(store.mas_getEVL_last_seen('nsfw_monika_sextingsession'), datetime.timedelta(minutes=(15 * (store.persistent._nsfw_monika_sexting_frequency + 1) + 5 * store.persistent._nsfw_sexting_attempt_continue))) # repeat cooldown increases by 5 minutes each time, representing Monika’s patience and decreasing lust
+                ):
+                return True
+            else:
+                return False
+        
+        else: # standard conditions 
+            if (
+                store.mas_timePastSince(store.persistent._nsfw_sexting_success_last, datetime.timedelta(hours=(3 * 2 ** store.persistent._nsfw_monika_sexting_frequency)))  # can be triggered if 3/6/12/24/48 hours have past since the last successful sexting session #SML
+                and store.mas_timePastSince(store.mas_getEVL_last_seen('nsfw_monika_sextingsession'), datetime.timedelta(hours=(2 ** store.persistent._nsfw_monika_sexting_frequency)))  # first possible repeat: 1/2/4/8/16 hours after last attempt
+                and ((store.mas_timePastSince(store.mas_getEVL_last_seen('nsfw_monika_sextingteaser'), datetime.timedelta(hours=2)) and store.mas_getEVL_last_seen('nsfw_monika_sextingteaser') != None and store.persistent._nsfw_sexting_attempts > 0) or store.persistent._nsfw_monika_sexting_frequency == 0) # teaser required if cooldown is not 3 hours
+                ): 
+                return True
+            else:
+                return False
 
     def return_random_number(min=0, max=10):
         """

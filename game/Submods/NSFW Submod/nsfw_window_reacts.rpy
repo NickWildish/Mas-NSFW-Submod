@@ -45,7 +45,7 @@ label nsfw_wrs_r34:
                 else:
                     exp_to_force = "2tssdlc"
 
-        store.mas_moni_idle_disp.force_by_code(exp_to_force, duration=10)
+            store.mas_moni_idle_disp.force_by_code(exp_to_force, duration=10)
     return
 
 init 5 python:
